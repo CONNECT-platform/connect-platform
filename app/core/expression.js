@@ -1,5 +1,5 @@
-const safeEval = require('safe-eval');
 const base = require('./base');
+const util = require('./util');
 
 
 const _Result = 'result';
@@ -19,7 +19,7 @@ class Expression extends base.Node {
   }
 
   run(inputs, respond) {
-    respond(_Result, safeEval(this._expr, inputs));
+    respond(_Result, util.evaluate(this._expr, inputs));
   }
 }
 

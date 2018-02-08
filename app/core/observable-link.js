@@ -19,7 +19,7 @@ class ObservableLink extends base.Link {
 
   activate(data) {
     super.activate(data);
-    for (var listener of this._listeners)
+    for (let listener of this._listeners)
       listener(data);
   }
 }

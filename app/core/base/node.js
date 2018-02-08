@@ -5,11 +5,11 @@ class Node {
     this._controlLinks = [];
 
     if (inputs)
-      for (var input of inputs)
+      for (let input of inputs)
         this._inputLinks[input] = undefined;
 
     if (outputs)
-      for (var output of outputs)
+      for (let output of outputs)
         this._outputLinks[output] = [];
   }
 
@@ -74,13 +74,13 @@ class Node {
 
   get outbound() {
     var res = [];
-    for (var links of Object.values(this._outputLinks))
+    for (let links of Object.values(this._outputLinks))
       res = res.concat(links);
     return res;
   }
 
   get canActivate() {
-    for (var link of this.incoming)
+    for (let link of this.incoming)
       if (!link || !link.active) return false;
 
     return true;
@@ -90,7 +90,7 @@ class Node {
     if (this.canActivate) {
       return new Promise(resolve => {
         var inputs = {};
-        for (var [input, link] of Object.entries(this._inputLinks))
+        for (let [input, link] of Object.entries(this._inputLinks))
           inputs[input] = link.data;
 
         this.run(inputs, (output, data) => {
@@ -102,7 +102,7 @@ class Node {
           }
         });
       }).then(response => {
-        for (var link of this._outputLinks[response.output])
+        for (let link of this._outputLinks[response.output])
           link.activate(response.data);
       });
     }

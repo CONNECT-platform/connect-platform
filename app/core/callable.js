@@ -1,12 +1,13 @@
 const base = require('./base');
 const ObservableLink = require('./observable-link');
+const util = require('./util');
 
 
-const callable = nodeFactory => {
+const callable = nodeFactoryOrClass => {
   return inputs => {
     return new Promise(resolve => {
       inputs = inputs || {};
-      let node = nodeFactory();
+      let node = util.buildFromFactoryOrClass(nodeFactoryOrClass);
 
       for (var input of node.inputs) {
         let link = new base.Link();
