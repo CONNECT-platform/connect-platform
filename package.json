@@ -1,0 +1,16 @@
+{
+  "name": "platform",
+  "version": "1.0.0",
+  "description": "A platform to build backened code mostly in a visual manner.",
+  "main": "app",
+  "scripts": {
+    "start": "DEVELOPMENT=true node app",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Eugene Ghanizadeh Khoub",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.2",
+    "safe-eval": "^0.3.0"
+  }
+}
