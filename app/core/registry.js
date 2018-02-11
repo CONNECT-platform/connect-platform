@@ -11,6 +11,8 @@ class Registry {
       signature: signature,
       factoryOrClass: factoryOrClass,
     };
+
+    return this;
   }
 
   signature(path) {

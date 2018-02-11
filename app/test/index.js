@@ -1,0 +1,1 @@
+require('../core/base/test');

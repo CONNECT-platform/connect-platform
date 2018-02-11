@@ -7,7 +7,13 @@ class Value extends Expression {
   }
 
   connect(link) {
-    super.connectResult(link);
+    this.connectResult(link);
+    return this;
+  }
+
+  disconnect(link) {
+    this.disconnectResult(link);
+    return this;
   }
 }
 

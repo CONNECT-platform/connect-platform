@@ -12,10 +12,12 @@ class Expression extends base.Node {
 
   connectResult(link) {
     this.connectOutput(_Result, link);
+    return this;
   }
 
   disconnectResult(link) {
     this.disconnectOutput(_Result, link);
+    return this;
   }
 
   run(inputs, respond) {

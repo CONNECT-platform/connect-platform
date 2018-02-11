@@ -12,6 +12,12 @@ class Switch extends base.Node {
 
   connectTarget(link) {
     this.connectInput(_Target, link);
+    return this;
+  }
+
+  disconnectTarget(link) {
+    this.disconnectInput(_Target, link);
+    return this;
   }
 
   run(inputs, respond) {

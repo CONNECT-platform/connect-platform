@@ -7,14 +7,13 @@ class Call extends base.Node {
     if (registry.registered(path)) {
       let signature = registry.signature(path);
       super(signature.inputs, signature.outputs);
-      this._instance = registry.instance(path);
     }
 
     this._path = path;
   }
 
   run(inputs, respond) {
-    this._instance.run(inputs, respond);
+    registry.instance(this._path).run(inputs, respond);
   }
 }
 

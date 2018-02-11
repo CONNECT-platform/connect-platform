@@ -1,114 +1,126 @@
-class Node {
-  constructor(inputs, outputs) {
-    this._inputLinks = {};
-    this._outputLinks = {};
-    this._controlLinks = [];
+const { Subscribable } = require('./subscribable');
+const { PinEvents } = require('./pin');
+const { InputPin, OutputPin, IOPinEvents } = require('./io');
+const { ControlPin } = require('./control');
+const { WrongNodeOutput } = require('./errors');
 
-    if (inputs)
-      for (let input of inputs)
-        this._inputLinks[input] = undefined;
 
-    if (outputs)
-      for (let output of outputs)
-        this._outputLinks[output] = [];
+const NodeEvents = {
+  activate: 'activate',
+  reset: 'reset',
+}
+
+class Node extends Subscribable {
+  constructor(signature) {
+    super();
+    this._pins = {
+      in: {},
+      out: {},
+      control: new ControlPin(),
+    };
+    this._signature = signature || {};
+    this._activated = false;
+    this
+      ._generateInputPins()
+      ._generateOutputPins()
+      ._bindActivation()
+      ._bindExecute()
+      ;
   }
 
-  connectInput(input, link) {
-    if (input in this._inputLinks) {
-      if(!this._inputLinks[input]) {
-        this._inputLinks[input] = link;
-        link.connectTo(this);
-      }
+  _generateInputPins() {
+    if (this.signature.inputs) {
+      for (let input of this.signature.inputs)
+        this._pins.in[input] = new InputPin();
     }
+
+    return this;
   }
 
-  connectOutput(output, link) {
-    if (output in this._outputLinks) {
-      this._outputLinks[output].push(link);
-      link.connectFrom(this);
+  _generateOutputPins() {
+    if (this.signature.outputs) {
+      for (let output of this.signature.outputs)
+        this._pins.out[output] = new OutputPin();
     }
+
+    return this;
   }
 
-  connectControl(link) {
-    this._controlLinks.push(link);
-    link.connectTo(this);
+  _bindActivation() {
+    let _ca = this.checkActivate.bind(this);
+    for (let pin of Object.values(this.pins.in))
+      pin.subscribe(PinEvents.activate, _ca);
+
+    this.pins.control.subscribe(PinEvents.activate, _ca);
+    return this;
   }
 
-  disconnectInput(input) {
-    if (input in this._inputLinks) {
-      this._inputLinks[input].disconnectTo();
-      this._inputLinks[input] = undefined;
-    }
+  _bindExecute() {
+    this.subscribe(NodeEvents.activate, this._execute.bind(this));
+    return this;
   }
 
-  disconnectOutput(output, link) {
-    if (output in this._outputLinks) {
-      this._outputLinks[output] = this._outputLinks[output].filter(l => l != link);
-      link.disconnectFrom();
-    }
+  _activate() {
+    this._activated = true;
+    this.publish(NodeEvents.activate);
+    return this;
   }
 
-  disconnectControl(link) {
-    this._controlLinks = this._controlLinks.filter(l => l != link);
-    link.disconnectTo();
+  _execute() {
+    let inputs = {};
+    for (let [input, pin] of Object.entries(this.pins.in))
+      inputs[input] = pin.data;
+
+    new Promise(resolve => {
+      this.run(inputs, (output, data) => {
+        resolve({output: output, data: data});
+      });
+    }).then(({output, data}) => {
+      if (!(output in this.pins.out))
+        throw new WrongNodeOutput(this, output);
+
+      this.pins.out[output].send(data);
+    });
   }
 
-  get inputs() {
-    return Object.keys(this._inputLinks);
-  }
-
-  get outputs() {
-    return Object.keys(this._outputLinks);
-  }
-
-  get signature() {
-    return {
-      inputs: this.inputs,
-      outputs: this.outputs,
-    }
-  }
-
-  get incoming() {
-    return Object.values(this._inputLinks).concat(this._controlLinks);
-  }
-
-  get outbound() {
-    var res = [];
-    for (let links of Object.values(this._outputLinks))
-      res = res.concat(links);
-    return res;
-  }
+  get activated() { return this._activated; }
+  get pins() { return this._pins; }
+  get signature() { return this._signature; }
 
   get canActivate() {
-    for (let link of this.incoming)
-      if (!link || !link.active) return false;
+    for (let pin of Object.values(this.pins.in))
+      if (!pin.activated) return false;
 
-    return true;
+    return this.pins.control.activated ||
+        this.pins.control.connections.length == 0;
   }
 
   checkActivate() {
-    if (this.canActivate) {
-      return new Promise(resolve => {
-        var inputs = {};
-        for (let [input, link] of Object.entries(this._inputLinks))
-          inputs[input] = link.data;
+    if (!this.canActivate) return;
 
-        this.run(inputs, (output, data) => {
-          if (output in this._outputLinks) {
-            resolve({
-              output: output,
-              data: data,
-            });
-          }
-        });
-      }).then(response => {
-        for (let link of this._outputLinks[response.output])
-          link.activate(response.data);
-      });
-    }
+    this._activate();
+    return this;
   }
 
-  run(inputs, respond) {}
+  run(inputs, output) {}
+
+  reset() {
+    this._activated = false;
+
+    for (let pin of Object.values(this.pins.in))
+      pin.reset();
+
+    for (let pin of Object.values(this.pins.out))
+      pin.reset();
+
+    this.pins.control.reset();
+    this.publish(NodeEvents.reset);
+
+    return this;
+  }
 }
 
-module.exports = Node;
+module.exports = {
+  Node: Node,
+  NodeEvents: NodeEvents,
+}
