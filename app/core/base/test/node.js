@@ -123,4 +123,28 @@ describe('Node', ()=> {
       n.reset();
     });
   });
+
+  describe('.checkActivate()', () => {
+    it('should activate a node when it can be activated.', ()=> {
+      let n = new Node();
+      n.checkActivate();
+      assert(n.activated);
+
+      let n2 = new Node({inputs: ['a']});
+      n2.checkActivate();
+      assert(!n2.activated);
+
+      let n3 = new Node();
+      let c = new ControllerPin().connect(n3.pins.control);
+      n3.checkActivate();
+      assert(!n3.activated);
+    });
+
+    it('should result in node\'s running as well.', done => {
+      let n = new class extends Node {
+        run(){done();}
+      }();
+      n.checkActivate();
+    });
+  });
 });

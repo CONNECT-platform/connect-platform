@@ -1,4 +1,7 @@
 module.exports = {
-  Node: require('./node'),
-  Link: require('./link'),
+  errors: require('./errors'),
+  pin: require('./pin'),
+  io: require('./io'),
+  control: require('./control'),
+  node: require('./node'),
 }

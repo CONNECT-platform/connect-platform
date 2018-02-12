@@ -1,31 +1,35 @@
 const base = require('./base');
 const util = require('./util');
+const { InputMissing } = require('./errors');
 
 
 const _Target = 'target';
 
-class Switch extends base.Node {
+class Switch extends base.node.Node {
   constructor(cases) {
-    super([_Target], cases);
-    this._cases = cases;
+    super({ inputs: [_Target] });
+
+    this.pins.target = this.pins.in[_Target];
+    this.pins.cases = {};
+    for (let _case of cases)
+      this.pins.cases[_case] = new base.control.ControllerPin();
   }
 
-  connectTarget(link) {
-    this.connectInput(_Target, link);
-    return this;
-  }
+  run(inputs, done) {
+    if (!(_Target in inputs))
+      throw new InputMissing(_Target, inputs);
 
-  disconnectTarget(link) {
-    this.disconnectInput(_Target, link);
-    return this;
-  }
-
-  run(inputs, respond) {
-    for (let _case of this._cases) {
-      if (inputs[_Target] ===  util.evaluate(_case, {}))
-        respond(_case);
+    for (let [_case, pin] of Object.entries(this.pins.cases)) {
+      if (inputs[_Target] ===  util.evaluate(_case, {})) {
+        pin.activate();
+        break;
+      }
     }
+
+    done();
   }
 }
 
-module.exports = Switch;
+module.exports = {
+  Switch: Switch
+}

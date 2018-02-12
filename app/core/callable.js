@@ -1,32 +1,34 @@
 const base = require('./base');
-const ObservableLink = require('./observable-link');
 const util = require('./util');
+const { InputMissing } = require('./errors');
 
 
 const callable = nodeFactoryOrClass => {
   return inputs => {
+    inputs = inputs || {};
     return new Promise(resolve => {
-      inputs = inputs || {};
       let node = util.buildFromFactoryOrClass(nodeFactoryOrClass);
 
-      for (var input of node.inputs) {
-        let link = new base.Link();
-        node.connectInput(input, link);
-        link.activate(inputs[input]);
-      }
-
-      for (let output of node.outputs) {
-        let link = new ObservableLink().subscribe(data => {
-          let res = {};
-          if (data == undefined) res[output] = true;
-          else res[output] = data;
-
-          resolve(res);
+      for (let [output, pin] of Object.entries(node.pins.out)) {
+        pin.subscribe(base.io.IOPinEvents.send, data => {
+          resolve({
+            output: output,
+            data: data,
+          });
         });
-        node.connectOutput(output, link);
       }
 
-      node.checkActivate();
+      if (Object.entries(node.pins.in).length == 0) {
+        node.checkActivate();
+      }
+      else {
+        for (let [input, pin] of Object.entries(node.pins.in)) {
+          if (!(input in inputs))
+            throw new InputMissing(input, inputs);
+
+          node.pins.in[input].receive(inputs[input]);
+        }
+      }
     });
   }
 }

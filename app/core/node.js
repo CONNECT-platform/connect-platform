@@ -3,13 +3,13 @@ const registry = require('./registry');
 
 
 const node = (signature, func) => {
-  let _class = class extends base.Node {
+  let _class = class extends base.node.Node {
     constructor() {
-      super(signature.inputs, signature.outputs);
+      super(signature);
     }
 
-    run(inputs, respond) {
-      func(inputs, respond);
+    run(inputs, output) {
+      func(inputs, output);
     }
   };
 

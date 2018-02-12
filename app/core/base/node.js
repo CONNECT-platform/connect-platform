@@ -61,6 +61,9 @@ class Node extends Subscribable {
   }
 
   _activate() {
+    if (this.activated)
+      return;
+
     this._activated = true;
     this.publish(NodeEvents.activate);
     return this;
@@ -76,10 +79,12 @@ class Node extends Subscribable {
         resolve({output: output, data: data});
       });
     }).then(({output, data}) => {
-      if (!(output in this.pins.out))
-        throw new WrongNodeOutput(this, output);
+      if (Object.keys(this.pins.out).length > 0) {
+        if (!(output in this.pins.out))
+          throw new WrongNodeOutput(this, output);
 
-      this.pins.out[output].send(data);
+        this.pins.out[output].send(data);
+      }
     });
   }
 

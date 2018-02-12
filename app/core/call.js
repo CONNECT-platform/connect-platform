@@ -2,19 +2,17 @@ const base = require('./base');
 const registry = require('./registry');
 
 
-class Call extends base.Node {
+class Call extends base.node.Node {
   constructor(path) {
-    if (registry.registered(path)) {
-      let signature = registry.signature(path);
-      super(signature.inputs, signature.outputs);
-    }
-
+    super(registry.signature(path));
     this._path = path;
   }
 
-  run(inputs, respond) {
-    registry.instance(this._path).run(inputs, respond);
+  run(inputs, output) {
+    registry.instance(this._path).run(inputs, output);
   }
 }
 
-module.exports = Call;
+module.exports = {
+  Call: Call,
+}
