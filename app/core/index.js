@@ -1,5 +1,6 @@
 const { PinEvents } = require('./base/pin');
-const { IOPinEvents } = require('./base/io');
+const { InputPin, OutputPin, IOPinEvents } = require('./base/io');
+const { ControlPin, ControllerPin } = require('./base/control');
 const { Node, NodeEvents } = require('./base/node');
 const { Expression } = require('./expression');
 const { Switch } = require('./switch');
@@ -10,10 +11,17 @@ const callable = require('./callable');
 const registry = require('./registry');
 
 module.exports = {
-  Events: {
+  events: {
     pin: PinEvents,
     io: IOPinEvents,
     node: NodeEvents,
+  },
+
+  pins: {
+    InputPin: InputPin,
+    OutputPin: OutputPin,
+    ControlPin: ControlPin,
+    ControllerPin: ControllerPin,
   },
 
   Node: Node,

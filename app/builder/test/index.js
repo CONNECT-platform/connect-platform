@@ -1,0 +1,3 @@
+describe('builder', ()=> {
+  require('./canvas');
+});
