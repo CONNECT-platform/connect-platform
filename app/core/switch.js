@@ -12,6 +12,8 @@ class Switch extends base.node.Node {
     this.pins.target = this.pins.in[_Target];
     this.pins.cases = this.pins.controlOut;
     this._cases = cases;
+
+    this._sync = true;
   }
 
   get cases() { return this._cases; }

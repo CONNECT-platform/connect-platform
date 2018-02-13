@@ -45,6 +45,8 @@ class Node extends Subscribable {
       ._bindActivation()
       ._bindExecute()
       ;
+
+    this._sync = false;
   }
 
   _generateInputPins() {
@@ -98,9 +100,63 @@ class Node extends Subscribable {
   }
 
   _execute() {
+    if (this._sync)
+      this._executeSync();
+    else
+      this._executeAsync();
+  }
+
+  _prepareInputs() {
     let inputs = {};
     for (let [input, pin] of Object.entries(this.pins.in))
       inputs[input] = pin.data;
+
+    return inputs;
+  }
+
+  _handleBreak(_break, unrecongized) {
+    if (_break instanceof OutputBreak) {
+      let { output, data } = _break;
+
+      if (!(output in this.pins.out))
+        throw new WrongNodeOutput(this, output);
+
+      this.pins.out[output].send(data);
+    }
+    else if (_break instanceof ControlBreak) {
+      let { control } = _break;
+
+      if (!(control in this.pins.controlOut))
+        throw new WrongNodeOutput(this, control);
+
+      this.pins.controlOut[control].activate();
+    }
+    else {
+      if (unrecongized)
+        unrecongized(_break);
+    }
+  }
+
+  _executeSync() {
+    let inputs = this._prepareInputs();
+
+    try {
+      this.run(inputs, (output, data) => {
+        let _break = new OutputBreak(output, data);
+
+        throw _break;
+      }, control => {
+        let _break = new ControlBreak(control);
+
+        throw _break;
+      });
+    } catch(_break) {
+      this._handleBreak(_break, error => {throw error;});
+    };
+  }
+
+  _executeAsync() {
+    let inputs = this._prepareInputs();
 
     new Promise(resolve => {
       this.run(inputs, (output, data) => {
@@ -115,26 +171,10 @@ class Node extends Subscribable {
         throw _break;
       });
     }).then(_break => {
-      if (_break instanceof OutputBreak) {
-        let { output, data } = _break;
-
-        if (!(output in this.pins.out))
-          throw new WrongNodeOutput(this, output);
-
-        this.pins.out[output].send(data);
-      }
-
-      if (_break instanceof ControlBreak) {
-        let { control } = _break;
-
-        if (!(control in this.pins.controlOut))
-          throw new WrongNodeOutput(this, control);
-
-        this.pins.controlOut[control].activate();
-      }
-    }).catch(_break => {
-      if (!(_break instanceof Break))
-        throw _break;
+      this._handleBreak(_break);
+    }).catch(error => {
+      if (!(error instanceof Break))
+        throw error;
     });
   }
 

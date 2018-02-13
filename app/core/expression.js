@@ -10,6 +10,8 @@ class Expression extends base.node.Node {
 
     this._expr = expression;
     this.pins.result = this.pins.out[_Result];
+
+    this._sync = true;
   }
 
   run(inputs, output) {
