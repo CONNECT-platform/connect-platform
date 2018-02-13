@@ -39,6 +39,11 @@ class Canvas {
     return this;
   }
 
+  removeConfig(name) {
+    delete this._configs[name];
+    return this;
+  }
+
   addCall(tag, path) {
     this._nodes[tag] = new core.Call(path);
     return this;
@@ -49,5 +54,7 @@ class Canvas {
     return this;
   }
 
-  add
+  addExpr(tag, ins, expr) {
+    this._nodes[tag] = new core.Expression(ins, expr);
+  }
 }

@@ -1,5 +1,5 @@
 const base = require('./base');
-const util = require('./util');
+const script = require('./script');
 
 
 const _Result = 'result';
@@ -9,13 +9,14 @@ class Expression extends base.node.Node {
     super({ inputs: inputs || [], outputs: [_Result]});
 
     this._expr = expression;
+    this._script = script(this._expr);
     this.pins.result = this.pins.out[_Result];
 
     this._sync = true;
   }
 
   run(inputs, output) {
-    output(_Result, util.evaluate(this._expr, inputs));
+    output(_Result, this._script.evaluate(inputs));
   }
 }
 

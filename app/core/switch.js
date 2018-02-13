@@ -1,5 +1,5 @@
 const base = require('./base');
-const util = require('./util');
+const script = require('./script');
 const { InputMissing } = require('./errors');
 
 
@@ -12,6 +12,9 @@ class Switch extends base.node.Node {
     this.pins.target = this.pins.in[_Target];
     this.pins.cases = this.pins.controlOut;
     this._cases = cases;
+    this._scripts = {};
+    for (let _case of this._cases)
+      this._scripts[_case] = script(_case);
 
     this._sync = true;
   }
@@ -23,7 +26,7 @@ class Switch extends base.node.Node {
       throw new InputMissing(_Target, inputs);
 
     for (let _case of this.cases) {
-      if (inputs[_Target] ===  util.evaluate(_case, {})) {
+      if (inputs[_Target] ===  this._scripts[_case].evaluate({})) {
         control(_case);
       }
     }
