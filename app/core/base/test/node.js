@@ -1,5 +1,6 @@
 const assert = require('assert');
 const { Node, NodeEvents } = require('../node');
+const { PinEvents } = require('../pin');
 const { InputPin, OutputPin, IOPinEvents } = require('../io');
 const { ControlPin, ControllerPin } = require('../control');
 
@@ -21,6 +22,56 @@ describe('Node', ()=> {
     n.pins.in.a.receive(3);
   });
 
+  it('should run the run() method when activated and activate proper controller pins.', done => {
+    let n = new class extends Node {
+      run(_, __, control) {
+        control('x');
+      }
+    }({inputs: ['a'], controlOutputs: ['x']});
+
+    n.pins.controlOut.x.subscribe(PinEvents.activate, () => {
+      done();
+    });
+
+    n.pins.in.a.receive('stuff.');
+  });
+
+  it('should stop run() after ouput is given.', done => {
+    let life = 2;
+    let n1 = new class extends Node {
+      run(inputs, output) {
+        life += 1;
+        output('res', inputs.a);
+        life += 1;
+      }
+    }({inputs: ['a'], outputs:['res']});
+
+    n1.pins.out.res.subscribe(IOPinEvents.send, data => {
+      assert.equal(life, 3);
+      done();
+    });
+
+    n1.pins.in.a.receive('well ...');
+  });
+
+  it('should stop the run() when control called.', done => {
+    let life = 4;
+    let n = new class extends Node {
+      run(_, __, control) {
+        life += 1;
+        control('x');
+        life += 1;
+      }
+    }({inputs: ['a'], controlOutputs: ['x']});
+
+    n.pins.controlOut.x.subscribe(PinEvents.activate, () => {
+      assert.equal(life, 5);
+      done();
+    });
+
+    n.pins.in.a.receive('stuff.');
+  });
+
   describe('constructor()', ()=> {
     it('should generate input pins from signature.', ()=> {
       let n = new Node({
@@ -38,6 +89,15 @@ describe('Node', ()=> {
 
       assert(n.pins.out.a instanceof OutputPin);
       assert(n.pins.out.b instanceof OutputPin);
+    });
+
+    it('should generate control output pins from signature.', ()=> {
+      let n = new Node({
+        controlOutputs: ['a', 'b']
+      });
+
+      assert(n.pins.controlOut.a instanceof ControllerPin);
+      assert(n.pins.controlOut.b instanceof ControllerPin);
     });
 
     it('should generate a control pin.', ()=> {

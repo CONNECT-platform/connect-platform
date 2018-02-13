@@ -2,7 +2,7 @@ const assert = require('assert');
 const node = require('../node');
 const callable = require('../callable');
 
-const { OutputPin, IOPinEvents } = require('../base/io');
+const { InputPin, OutputPin, IOPinEvents } = require('../base/io');
 const { Expression } = require('../expression');
 const { Switch } = require('../switch');
 const { Call } = require('../call');
@@ -24,6 +24,7 @@ describe("*** fibonacci test ***", () => {
       let c2 = new Call('tests/fib');
 
       let _in = new OutputPin();
+      let _out = new InputPin();
 
       _in
         .connect(i.pins.in.n)
@@ -39,8 +40,11 @@ describe("*** fibonacci test ***", () => {
       c1.pins.out.res.connect(p.pins.in.a);
       c2.pins.out.res.connect(p.pins.in.b);
 
-      p.pins.result.subscribe(IOPinEvents.send, res => output('res', res));
-      iv.pins.result.subscribe(IOPinEvents.send, res => output('res', res));
+      _out
+        .connect(p.pins.result)
+        .connect(iv.pins.result);
+
+      _out.subscribe(IOPinEvents.receive, res => output('res', res));
 
       _in.send(inputs.n);
     });

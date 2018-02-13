@@ -52,8 +52,13 @@ class Pin extends Subscribable {
     return this._activated;
   }
 
-  _activate() {
+  _activate(callback) {
+    if (this.activated)
+      return;
+
     this._activated = true;
+    if (callback)
+      callback();
 
     this.publish(PinEvents.activate);
     return this;

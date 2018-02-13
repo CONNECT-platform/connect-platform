@@ -29,6 +29,19 @@ describe('InputPin & OutputPin', ()=> {
 
       o.send('HOLA!');
     });
+
+    it('should only transfer the first time.', () => {
+      let i = new InputPin();
+      let o1 = new OutputPin().connect(i);
+      let o2 = new OutputPin().connect(i);
+
+      o1.send('Hellow');
+      o2.send('World');
+      o2.send('XXX');
+
+      assert.equal(i.data, 'Hellow');
+      assert.equal(o2.data, 'World');
+    });
   });
 
   describe('.connect()', ()=> {
@@ -47,17 +60,6 @@ describe('InputPin & OutputPin', ()=> {
       }, IncompatiblePins);
 
       o1.connect(i1);
-    });
-
-    it('should only accept one connection on input pins.', ()=> {
-      let i = new InputPin();
-      let o1 = new OutputPin();
-      let o2 = new OutputPin();
-
-      assert.throws(()=> {
-        i.connect(o1);
-        i.connect(o2);
-      }, PinConnectionError);
     });
   });
 

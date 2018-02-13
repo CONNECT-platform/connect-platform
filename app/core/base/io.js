@@ -14,9 +14,6 @@ class InputPin extends Pin {
   }
 
   checkConnection(pin) {
-    if (this.connections.length > 0)
-      throw new PinConnectionError('already connected.', this, pin);
-
     if (!(pin instanceof OutputPin))
       throw new IncompatiblePins(this, pin);
 
@@ -24,10 +21,11 @@ class InputPin extends Pin {
   }
 
   receive(data) {
-    this._data = data;
-    this._activate();
+    this._activate(()=> {
+      this._data = data;
+      this.publish(IOPinEvents.receive, data);
+    });
 
-    this.publish(IOPinEvents.receive, data);
     return this;
   }
 
@@ -54,13 +52,12 @@ class OutputPin extends Pin {
   }
 
   send(data) {
-    this._data = data;
-    this._activate();
-
-    this.publish(IOPinEvents.send, data);
-
-    for (let pin of this.connections)
-      pin.receive(data);
+    this._activate(() => {
+      this._data = data;
+      this.publish(IOPinEvents.send, data);
+      for (let pin of this.connections)
+        pin.receive(data);
+    })
 
     return this;
   }

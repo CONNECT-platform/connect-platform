@@ -1,13 +1,30 @@
 const { Subscribable } = require('./subscribable');
 const { PinEvents } = require('./pin');
 const { InputPin, OutputPin, IOPinEvents } = require('./io');
-const { ControlPin } = require('./control');
+const { ControlPin, ControllerPin } = require('./control');
 const { WrongNodeOutput } = require('./errors');
 
 
 const NodeEvents = {
   activate: 'activate',
   reset: 'reset',
+}
+
+class Break {}
+
+class OutputBreak extends Break {
+  constructor(output, data) {
+    super();
+    this.output = output;
+    this.data = data;
+  }
+}
+
+class ControlBreak extends Break {
+  constructor(control) {
+    super();
+    this.control = control;
+  }
 }
 
 class Node extends Subscribable {
@@ -17,12 +34,14 @@ class Node extends Subscribable {
       in: {},
       out: {},
       control: new ControlPin(),
+      controlOut: {},
     };
     this._signature = signature || {};
     this._activated = false;
     this
       ._generateInputPins()
       ._generateOutputPins()
+      ._generateControlOutputPins()
       ._bindActivation()
       ._bindExecute()
       ;
@@ -41,6 +60,15 @@ class Node extends Subscribable {
     if (this.signature.outputs) {
       for (let output of this.signature.outputs)
         this._pins.out[output] = new OutputPin();
+    }
+
+    return this;
+  }
+
+  _generateControlOutputPins() {
+    if (this.signature.controlOutputs) {
+      for (let control of this.signature.controlOutputs)
+        this._pins.controlOut[control] = new ControllerPin();
     }
 
     return this;
@@ -76,15 +104,37 @@ class Node extends Subscribable {
 
     new Promise(resolve => {
       this.run(inputs, (output, data) => {
-        resolve({output: output, data: data});
+        let _break = new OutputBreak(output, data);
+
+        resolve(_break);
+        throw _break;
+      }, control => {
+        let _break = new ControlBreak(control);
+
+        resolve(_break);
+        throw _break;
       });
-    }).then(({output, data}) => {
-      if (Object.keys(this.pins.out).length > 0) {
+    }).then(_break => {
+      if (_break instanceof OutputBreak) {
+        let { output, data } = _break;
+
         if (!(output in this.pins.out))
           throw new WrongNodeOutput(this, output);
 
         this.pins.out[output].send(data);
       }
+
+      if (_break instanceof ControlBreak) {
+        let { control } = _break;
+
+        if (!(control in this.pins.controlOut))
+          throw new WrongNodeOutput(this, control);
+
+        this.pins.controlOut[control].activate();
+      }
+    }).catch(_break => {
+      if (!(_break instanceof Break))
+        throw _break;
     });
   }
 
@@ -107,7 +157,7 @@ class Node extends Subscribable {
     return this;
   }
 
-  run(inputs, output) {}
+  run(inputs, output, control) {}
 
   reset() {
     this._activated = false;

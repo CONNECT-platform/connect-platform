@@ -16,7 +16,7 @@ class IncompatiblePins extends PinConnectionError {
 
 class WrongNodeOutput extends Error {
   constructor(node, output) {
-    super(`output ${output} is not in node ${node} of type ${typeof(node)}'s signature.'`);
+    super(`${output} is not acceptable for node ${node} with signature ${node.signature}.'`);
   }
 }
 
