@@ -1,6 +1,7 @@
 class Recipe {
-  constructor() {
+  constructor(signature) {
     this.instructions = [];
+    this.signature = signature || {};
   }
 
   add(instruction) {
@@ -8,12 +9,8 @@ class Recipe {
     return this;
   }
 
-  remove(instruction) {
-    this.instructions.remove(instruction);
-    return this;
-  }
-
   apply(composition) {
+    composition.meta = this.signature;
     for (let instruction of this.instructions)
       instruction(composition);
 

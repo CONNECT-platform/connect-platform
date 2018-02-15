@@ -54,6 +54,17 @@ describe('fromJSON()', () => {
 
   let recipe = fromJSON(json);
 
+  it('should bear the signature based on given json.', () => {
+    assert.equal(recipe.signature.path, '/something/');
+    assert(recipe.signature.inputs);
+    assert(recipe.signature.outputs);
+    assert(recipe.signature.controlOutputs);
+
+    assert(recipe.signature.inputs.indexOf('a') != -1);
+    assert(recipe.signature.outputs.indexOf('b') != -1);
+    assert(recipe.signature.controlOutputs.indexOf('bad') != -1);
+  });
+
   it('should create a recipe from given json.', () => {
     let comp = new Composition();
     recipe.apply(comp);

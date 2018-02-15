@@ -1,6 +1,9 @@
 describe('builder', ()=> {
   require('./composition');
-  require('./recipe');
   require('./composite');
+  require('./recipe');
+  require('./builder');
   require('./from-json');
+
+  require('./fact');
 });

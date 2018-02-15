@@ -30,7 +30,7 @@ describe('Recipe', () => {
       r.add(() => _ += 'a');
       r.add(() => _ += 'b');
       r.add(() => _ += 'c');
-      r.apply(null);
+      r.apply(new Composition());
       assert.equal(_, 'abc');
     });
   });

@@ -84,15 +84,26 @@ const fromJSON = json => {
   let recipe = new Recipe();
   let desc = JSON.parse(json);
 
-  recipe.add(c => {
-    if (desc.path) c.meta.path = desc.path;
-    if (desc.description) c.meta.description = desc.description;
-    if (desc.public) c.meta.public = desc.public;
-  });
+  if (desc.path) recipe.signature.path = desc.path;
+  if (desc.description) recipe.signature.description = desc.description;
+  if (desc.public) recipe.signature.public = desc.public;
+  if (desc.method) recipe.signature.method = desc.method;
 
-  if (desc.in) for (let _in of desc.in) handleInput(_in, recipe);
-  if (desc.out) for (let out of desc.out) handleOutput(out, recipe);
-  if (desc.control) for (let control of desc.control) handleControl(control, recipe);
+  if (desc.in) {
+    recipe.signature.inputs = desc.in;
+    for (let _in of desc.in) handleInput(_in, recipe);
+  }
+
+  if (desc.out) {
+    recipe.signature.outputs = desc.out;
+    for (let out of desc.out) handleOutput(out, recipe);
+  }
+
+  if (desc.control) {
+    recipe.signature.controlOutputs = desc.control;
+    for (let control of desc.control) handleControl(control, recipe);
+  }
+
   if (desc.configs) for (let config of desc.configs) handleConfig(config, recipe);
   if (desc.nodes) for (let node of desc.nodes) handleNode(node, recipe);
   if (desc.links) for (let link of desc.links) handleLink(link, recipe);
