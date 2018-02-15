@@ -11,6 +11,10 @@ class Call extends base.node.Node {
   run(inputs, output) {
     registry.instance(this._path).run(inputs, output);
   }
+
+  get path() {
+    return this._path;
+  }
 }
 
 module.exports = {

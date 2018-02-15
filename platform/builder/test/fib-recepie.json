@@ -1,0 +1,43 @@
+{
+  "path": "/test/fib/",
+  "description": "fibonacci function",
+  "in": ["n"],
+  "out": ["f"],
+  "control": ["bad_input"],
+  "nodes": [
+    {"tag": "check-input", "in": ["n"], "expr": "n > 0"},
+    {"tag": "check-input-switch", "cases": ["true", "false"]},
+    {"tag": "initial-cond", "in": ["n"], "expr": "n < 3"},
+    {"tag": "initial-val", "expr": "1"},
+    {"tag": "initial-switch", "cases": ["true", "false"]},
+
+    {"tag": "calc-n-1", "in": ["n"], "expr": "n - 1"},
+    {"tag": "calc-n-2", "in": ["n"], "expr": "n - 2"},
+    {"tag": "call-n-1", "path": "/test/fib/"},
+    {"tag": "call-n-2", "path": "/test/fib/"},
+    {"tag": "add-all", "in": ["a", "b"], "expr": "a + b"},
+  ],
+  "links": [
+    [{"in": "n"}, [
+      {"check-input": {"in": "n"}},
+      {"initial-cond": {"in": "n"}},
+      {"calc-n-1": {"in": "n"}},
+      {"calc-n-2": {"in": "n"}},
+    ]],
+
+    [{"check-input-switch": "target"}, {"check-input": "result"}],
+    [{"check-input-switch": {"case": "true"}}, "initial-cond"],
+    [{"check-input-switch": {"case": "fase"}}, {"control": "bad_input"}],
+
+    [{"initial-cond": "result"}, {"initial-switch": "target"}],
+    [{"initial-switch": {"case": "true"}}, "initial-val"],
+    [{"initial-switch": {"case": "false"}}, ["calc-n-1", "calc-n-2"]],
+
+    [{"calc-n-1": "result"}, {"call-n-1": {"in": "n"}}],
+    [{"calc-n-2": "result"}, {"call-n-2": {"in": "n"}}],
+    [{"call-n-1": {"out": "f"}}, {"add-all": {"in": "a"}}],
+    [{"call-n-2": {"out": "f"}}, {"add-all": {"in": "b"}}],
+
+    [[{"add-all": "result"}, {"initial-val": "result"}], {"out": "f"}]
+  ]
+}

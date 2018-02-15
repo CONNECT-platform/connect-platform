@@ -1,1 +1,1 @@
-require('./app/test');
+require('./platform/test');
