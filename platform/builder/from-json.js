@@ -1,10 +1,11 @@
 const { Recipe } = require('./recipe');
+const { NotFound } = require('./errors');
 
 
 const handleInput = (_in, r) => r.add(c => c.addInput(_in));
 const handleOutput = (_out, r) => r.add(c => c.addOutput(_out));
-const handleControl = (_control, r) => r.add(c => c.addOutput(_contro, true));
-const handleConfig = (_config, r) => r.add(c.addConfig(_config));
+const handleControl = (_control, r) => r.add(c => c.addOutput(_control, true));
+const handleConfig = (_config, r) => r.add(c => c.addConfig(_config));
 
 const handleNode = (_node, r) => {
   if (_node.expr && _node.in) r.add(c => c.addExpr(_node.tag, _node.in, _node.expr));
@@ -34,16 +35,49 @@ const findPin = (desc, c) => {
   let tag = Object.keys(desc)[0];
   let body = desc[tag];
 
-  if (tag == 'in') return c.inputs[body];
-  if (tag == 'out') return c.outputs[body];
-  if (tag == 'config') return c.configs[body];
+  if (tag == 'in') {
+    if (!(body in c.inputs)) throw new NotFound(`input pin ${body}`);
+    return c.inputs[body];
+  }
+
+  if (tag == 'out') {
+    if (!(body in c.outputs)) throw new NotFound(`output pin ${body}`);
+    return c.outputs[body];
+  }
+
+  if (tag == 'config') {
+    if (!(body in c.configs)) throw new NotFound(`config pin ${body}`);
+    return c.configs[body];
+  }
 
   let node = c.node(tag);
-  if (body == 'target') return node.pins.target;
-  if (body == 'result') return node.pins.result;
-  if (body.in) return node.pins.in[body.in];
-  if (body.out) return node.pins.out[body.out];
-  if (body.case) return node.pins.cases[body.cases];
+  if (body == 'target') {
+    if (!('target' in node.pins)) throw new NotFound(`pin target of node ${tag}`);
+    return node.pins.target;
+  }
+
+  if (body == 'result') {
+    if (!('result' in node.pins)) throw new NotFound(`pin result of node ${tag}`);
+    return node.pins.result;
+  }
+
+  if (body.in) {
+    if (!(body.in in node.pins.in)) throw new NotFound(`input pin ${body.in} of node ${tag}`);
+    return node.pins.in[body.in];
+  }
+
+  if (body.out) {
+    if (!(body.out in node.pins.out)) throw new NotFound(`output pin ${body.out} of node ${tag}`);
+    return node.pins.out[body.out];
+  }
+
+  if (body.case) {
+    if (!(body.case in node.pins.cases))
+      throw new NotFound(`case pin "${body.case}" of node ${tag}`);
+    return node.pins.cases[body.case];
+  }
+
+  throw new NotFound(`pin described as ${desc}.`);
 };
 
 const fromJSON = json => {
@@ -56,12 +90,12 @@ const fromJSON = json => {
     if (desc.public) c.meta.public = desc.public;
   });
 
-  for (let _in of desc.in) handleInput(_in, recipe);
-  for (let out of desc.out) handleOutput(out, recipe);
-  for (let control of desc.control) handleControl(control, recipe);
-  for (let config of desc.configs) handleConfig(config, recipe);
-  for (let node of desc.nodes) handleNode(node, recipe);
-  for (let link of desc.links) handleLink(node, recipe);
+  if (desc.in) for (let _in of desc.in) handleInput(_in, recipe);
+  if (desc.out) for (let out of desc.out) handleOutput(out, recipe);
+  if (desc.control) for (let control of desc.control) handleControl(control, recipe);
+  if (desc.configs) for (let config of desc.configs) handleConfig(config, recipe);
+  if (desc.nodes) for (let node of desc.nodes) handleNode(node, recipe);
+  if (desc.links) for (let link of desc.links) handleLink(link, recipe);
 
   return recipe;
 };

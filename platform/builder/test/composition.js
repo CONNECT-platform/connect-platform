@@ -35,7 +35,9 @@ describe('Composition', () => {
   });
 
   describe('.addCall()', () => {
-    core.node({path: '/hellow/world'}, ()=>{});
+    before(() => {
+      core.node({path: '/hellow/world'}, ()=>{});
+    });
 
     it('should add a call node.', () => {
       let c = new Composition();
