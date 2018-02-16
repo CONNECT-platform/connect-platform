@@ -33,8 +33,12 @@ var correct = function() {
     }
 
     if ($win.scrollTop() >= $(document).height() - $win.height() - 16) {
-      $el.css("transform", "translate(0, 0)");
-      $el.css("-webkit-transform", "translate(0, 0)");
+      setTimeout(function() {
+        if ($win.scrollTop() >= $(document).height() - $win.height() - 16) {
+          $el.css("transform", "translate(0, 0)");
+          $el.css("-webkit-transform", "translate(0, 0)");
+        }
+      }, (total-index)/total*300);
     }
     else {
       var targety = $win.scrollTop() + $win.height()/2 - (19 * 3) * ((total - index) - total/2);
