@@ -107,10 +107,10 @@ class Composition {
 
   start(inputs, configs) {
     for (let [input, pin] of Object.entries(this._inputs))
-      pin.send(inputs[input]);
+      pin.send(inputs[input].valueOf());
 
     for (let [config, pin] of Object.entries(this._configs))
-      pin.send(configs[config]);
+      pin.send(configs[config].valueOf());
 
     for (let node of Object.values(this._nodes))
       node.checkActivate();
