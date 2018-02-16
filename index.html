@@ -1,6 +1,7 @@
 <html>
   <head>
     <title>Connect Platform</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://fonts.googleapis.com/css?family=Didact+Gothic" rel="stylesheet">
   </head>
   <body>
@@ -9,12 +10,68 @@
         font-family: 'Didact Gothic', sans-serif;
         background: #424242;
         text-align: center;
+        color: #bdbdbd;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        font-size: 18px;
+      }
+
+      img {
+        margin-top: 2vw;
+      }
+
+      div {
+        width: 512px;
+        margin: auto;
+      }
+
+      a {
+        text-decoration: none !important;
+        outline: none !important;
         color: white;
+        border: 1px solid white;
+        display: inline-block;
+        border-radius: 64px;
+        line-height: 12px;
+        padding: 14px 24px;
+        padding-top: 10px;
+        margin: 32px;
+
+        transition: all .3s;
+      }
+
+      a:hover {
+        color: #B2FF59;
+        border-color: #B2FF59;
+      }
+
+      @media screen and (max-width: 600px) {
+        body {
+          font-size: 20px;
+        }
+
+        img {
+          width: 100vw;
+          height: 100vw;
+        }
+
+        div {
+          width: 100vw;
+        }
       }
     </style>
 
     <section>
-      <h1>Connect Platform</h1>
+      <img src="logo.svg"/>
+      <div>
+        Connect Platform is a project with the goal is to make building api micro-services
+        so easy and convinient that it can be done via some simple to use visual panel,
+        far faster, safer and easier than before.
+      </div>
+      <a href="https://github.com/loreanvictor/connect-platform">
+        view on github
+      </a>
     </section>
   </body>
 </html>
