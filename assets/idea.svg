@@ -1,0 +1,804 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1440px" height="900px" viewBox="0 0 1440 900" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="background: #252525;">
+    <!-- Generator: Sketch 46 (44423) - http://www.bohemiancoding.com/sketch -->
+    <title>node-view, dark theme</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <filter x="-7.1%" y="-1.0%" width="114.1%" height="102.4%" filterUnits="objectBoundingBox" id="filter-1">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="3" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="SourceGraphic"></feMergeNode>
+            </feMerge>
+        </filter>
+        <rect id="path-2" x="0" y="0" width="156" height="900"></rect>
+        <filter x="-7.1%" y="-1.0%" width="114.1%" height="102.4%" filterUnits="objectBoundingBox" id="filter-3">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="3" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="SourceGraphic"></feMergeNode>
+            </feMerge>
+        </filter>
+        <rect id="path-4" x="0" y="0" width="156" height="900"></rect>
+        <filter x="-9.2%" y="-11.0%" width="118.3%" height="125.6%" filterUnits="objectBoundingBox" id="filter-5">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="3" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="SourceGraphic"></feMergeNode>
+            </feMerge>
+        </filter>
+        <rect id="path-6" x="0" y="0" width="120" height="70"></rect>
+        <rect id="path-7" x="0" y="0" width="108" height="24" rx="12"></rect>
+        <filter x="-9.2%" y="-11.0%" width="118.3%" height="125.6%" filterUnits="objectBoundingBox" id="filter-8">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="3" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="SourceGraphic"></feMergeNode>
+            </feMerge>
+        </filter>
+        <rect id="path-9" x="0" y="0" width="120" height="70"></rect>
+        <rect id="path-10" x="0" y="0" width="108" height="24" rx="12"></rect>
+        <filter x="-8.0%" y="-11.0%" width="115.9%" height="126.8%" filterUnits="objectBoundingBox" id="filter-11">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="3" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="SourceGraphic"></feMergeNode>
+            </feMerge>
+        </filter>
+        <rect id="path-12" x="0" y="0" width="138" height="70"></rect>
+        <rect id="path-13" x="0" y="0" width="126" height="24" rx="12"></rect>
+        <filter x="-8.0%" y="-11.0%" width="115.9%" height="126.8%" filterUnits="objectBoundingBox" id="filter-14">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="3" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="SourceGraphic"></feMergeNode>
+            </feMerge>
+        </filter>
+        <rect id="path-15" x="0" y="0" width="138" height="70"></rect>
+        <rect id="path-16" x="0" y="0" width="126" height="24" rx="12"></rect>
+        <filter x="-8.0%" y="-11.0%" width="115.9%" height="126.8%" filterUnits="objectBoundingBox" id="filter-17">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="3" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="SourceGraphic"></feMergeNode>
+            </feMerge>
+        </filter>
+        <rect id="path-18" x="0" y="0" width="138" height="70"></rect>
+        <rect id="path-19" x="0" y="0" width="126" height="24" rx="12"></rect>
+        <filter x="-8.0%" y="-6.6%" width="115.9%" height="115.4%" filterUnits="objectBoundingBox" id="filter-20">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="3" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="SourceGraphic"></feMergeNode>
+            </feMerge>
+        </filter>
+        <rect id="path-21" x="0" y="0" width="138" height="93"></rect>
+        <rect id="path-22" x="0" y="0" width="126" height="56" rx="12"></rect>
+        <filter x="-6.7%" y="-8.3%" width="113.4%" height="120.4%" filterUnits="objectBoundingBox" id="filter-23">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="3" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="SourceGraphic"></feMergeNode>
+            </feMerge>
+        </filter>
+        <rect id="path-24" x="0" y="0" width="164" height="108"></rect>
+        <filter x="-6.7%" y="-6.9%" width="113.4%" height="116.8%" filterUnits="objectBoundingBox" id="filter-25">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="3" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="SourceGraphic"></feMergeNode>
+            </feMerge>
+        </filter>
+        <rect id="path-26" x="0" y="0" width="164" height="131"></rect>
+        <filter x="-6.7%" y="-6.9%" width="113.4%" height="116.8%" filterUnits="objectBoundingBox" id="filter-27">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="3" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="SourceGraphic"></feMergeNode>
+            </feMerge>
+        </filter>
+        <rect id="path-28" x="0" y="0" width="164" height="131"></rect>
+        <filter x="-10.4%" y="-33.3%" width="120.8%" height="183.3%" filterUnits="objectBoundingBox" id="filter-29">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="3" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="SourceGraphic"></feMergeNode>
+            </feMerge>
+        </filter>
+        <rect id="path-30" x="0" y="0" width="96" height="24" rx="12"></rect>
+        <filter x="-10.4%" y="-33.3%" width="120.8%" height="183.3%" filterUnits="objectBoundingBox" id="filter-31">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="3" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="SourceGraphic"></feMergeNode>
+            </feMerge>
+        </filter>
+        <rect id="path-32" x="0" y="0" width="96" height="24" rx="12"></rect>
+        <filter x="-6.9%" y="-6.2%" width="113.9%" height="115.6%" filterUnits="objectBoundingBox" id="filter-33">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="3" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="SourceGraphic"></feMergeNode>
+            </feMerge>
+        </filter>
+        <rect id="path-34" x="0" y="0" width="144" height="128"></rect>
+        <rect id="path-35" x="0" y="0" width="126" height="24" rx="12"></rect>
+        <rect id="path-36" x="0" y="0" width="126" height="24" rx="12"></rect>
+        <rect id="path-37" x="0" y="0" width="24" height="24" rx="12"></rect>
+        <filter x="-6.9%" y="-6.2%" width="113.9%" height="115.6%" filterUnits="objectBoundingBox" id="filter-38">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="3" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="SourceGraphic"></feMergeNode>
+            </feMerge>
+        </filter>
+        <rect id="path-39" x="0" y="0" width="144" height="128"></rect>
+        <rect id="path-40" x="0" y="0" width="126" height="24" rx="12"></rect>
+        <rect id="path-41" x="0" y="0" width="126" height="24" rx="12"></rect>
+        <rect id="path-42" x="0" y="0" width="24" height="24" rx="12"></rect>
+        <filter x="-6.9%" y="-6.2%" width="113.9%" height="115.6%" filterUnits="objectBoundingBox" id="filter-43">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="3" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="SourceGraphic"></feMergeNode>
+            </feMerge>
+        </filter>
+        <rect id="path-44" x="0" y="0" width="144" height="128"></rect>
+        <rect id="path-45" x="0" y="0" width="126" height="24" rx="12"></rect>
+        <rect id="path-46" x="0" y="0" width="126" height="24" rx="12"></rect>
+        <rect id="path-47" x="0" y="0" width="24" height="24" rx="12"></rect>
+        <filter x="-10.4%" y="-33.3%" width="120.8%" height="183.3%" filterUnits="objectBoundingBox" id="filter-48">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="3" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="SourceGraphic"></feMergeNode>
+            </feMerge>
+        </filter>
+        <filter x="-10.4%" y="-33.3%" width="120.8%" height="183.3%" filterUnits="objectBoundingBox" id="filter-49">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="3" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="SourceGraphic"></feMergeNode>
+            </feMerge>
+        </filter>
+    </defs>
+    <g id="idea" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="node-view,-dark-theme">
+            <g id="logo" opacity="0.15" transform="translate(208.000000, -62.000000)" stroke="#424242">
+                <rect id="bound" stroke-width="0.5" x="0.25" y="0.25" width="1023.5" height="1023.5"></rect>
+                <path d="M460.238626,685.999828 L460.741354,685.627656 C429.534889,714.671575 384.521951,727.48584 340.307098,715.638506 C272.023436,697.341954 231.500878,627.154823 249.79743,558.871162 C261.609028,514.789677 295.046185,482.277718 335.320007,469.76001 C352.558824,463.60255 367.791382,451.727834 377.661197,434.632813 C388.04191,416.652891 390.649988,396.318347 386.654925,378.005734 C384.019142,365.241888 383.345943,352.153545 384.635328,339.223941 C387.465401,310.844732 399.750402,283.230262 421.490332,261.490332 C471.477441,211.503223 552.522559,211.503223 602.509668,261.490332 C634.775056,293.75572 646.213969,338.96102 636.914355,380.09887 C633.627464,398.106854 636.470894,417.330428 646.340709,434.425449 C656.721422,452.405371 673.027614,464.831305 691.368479,470.660713 C729.679439,482.98713 762.519588,515.269677 774.20257,558.871162 C792.499122,627.154823 751.976564,697.341954 683.692902,715.638506 C640.109064,727.31676 595.74976,715.032312 564.603137,686.861222 C551.541163,674.911054 532.761426,667 512,667 C492.260371,667 474.190551,674.149304 460.238626,685.999828 Z M512,432 C556.18278,432 592,396.18278 592,352 C592,307.81722 556.18278,272 512,272 C467.81722,272 432,307.81722 432,352 C432,396.18278 467.81722,432 512,432 Z M719.846097,632 C741.937487,593.73659 728.827474,544.809358 690.564065,522.717968 C652.300655,500.626578 603.373422,513.73659 581.282032,552 C559.190642,590.26341 572.300655,639.190642 610.564065,661.282032 C648.827474,683.373422 697.754707,670.26341 719.846097,632 Z M304.153903,632 C326.245293,670.26341 375.172526,683.373422 413.435935,661.282032 C451.699345,639.190642 464.809358,590.26341 442.717968,552 C420.626578,513.73659 371.699345,500.626578 333.435935,522.717968 C295.172526,544.809358 282.062513,593.73659 304.153903,632 Z" id="Combined-Shape" stroke-width="16"></path>
+            </g>
+            <g id="left-pane" filter="url(#filter-1)">
+                <g id="back">
+                    <use fill="#424242" fill-rule="evenodd" xlink:href="#path-2"></use>
+                    <rect stroke="#424242" stroke-width="1" x="-0.5" y="-0.5" width="157" height="901"></rect>
+                </g>
+                <g id="configs" transform="translate(16.000000, 242.000000)">
+                    <g id="config-new" opacity="0.25" transform="translate(0.000000, 58.000000)">
+                        <rect id="holder" stroke="#FAFAFA" x="0.5" y="0.5" width="23" height="23" rx="11.5"></rect>
+                        <text id="label" font-family="Futura-Medium, Futura" font-size="14" font-weight="400" fill="#FAFAFA">
+                            <tspan x="7.6796875" y="17">+</tspan>
+                        </text>
+                    </g>
+                    <g id="config" transform="translate(0.000000, 26.000000)">
+                        <rect id="holder" stroke="#FAFAFA" x="0.5" y="0.5" width="89" height="23" rx="11.5"></rect>
+                        <text id="label" font-family="Futura-Medium, Futura" font-size="12" font-weight="400" fill="#FAFAFA">
+                            <tspan x="6" y="16">jwt_key</tspan>
+                        </text>
+                        <circle id="pin" stroke="#FAFAFA" cx="78" cy="12" r="6"></circle>
+                    </g>
+                    <text id="title" font-family="Futura-Bold, Futura" font-size="12" font-weight="bold" fill="#BDBDBD">
+                        <tspan x="0" y="15">configs</tspan>
+                    </text>
+                </g>
+                <g id="inputs" transform="translate(16.000000, 96.000000)">
+                    <g id="input-new" opacity="0.25" transform="translate(0.000000, 90.000000)">
+                        <rect id="holder" stroke="#FAFAFA" x="0.5" y="0.5" width="23" height="23" rx="11.5"></rect>
+                        <text id="label" font-family="Futura-Medium, Futura" font-size="14" font-weight="400" fill="#FAFAFA">
+                            <tspan x="7.6796875" y="17">+</tspan>
+                        </text>
+                    </g>
+                    <g id="input" transform="translate(0.000000, 26.000000)">
+                        <rect id="holder" stroke="#FAFAFA" x="0.5" y="0.5" width="89" height="23" rx="11.5"></rect>
+                        <text id="label" font-family="Futura-Medium, Futura" font-size="12" font-weight="400" fill="#FAFAFA">
+                            <tspan x="6" y="16">user_token</tspan>
+                        </text>
+                        <circle id="pin" stroke="#FAFAFA" cx="78" cy="12" r="6"></circle>
+                    </g>
+                    <g id="input" transform="translate(0.000000, 58.000000)">
+                        <rect id="holder" stroke="#FAFAFA" x="0.5" y="0.5" width="89" height="23" rx="11.5"></rect>
+                        <text id="label" font-family="Futura-Medium, Futura" font-size="12" font-weight="400" fill="#FAFAFA">
+                            <tspan x="6" y="16">article_id</tspan>
+                        </text>
+                        <circle id="pin" stroke="#FAFAFA" cx="78" cy="12" r="6"></circle>
+                    </g>
+                    <text id="title" font-family="Futura-Bold, Futura" font-size="12" font-weight="bold" fill="#BDBDBD">
+                        <tspan x="0" y="15">inputs</tspan>
+                    </text>
+                </g>
+                <g id="header" transform="translate(16.000000, 12.000000)" font-size="16">
+                    <text id="address" font-family="Futura-Medium, Futura" font-weight="400" fill="#F5F5F5">
+                        <tspan x="0" y="48">/articles/get/</tspan>
+                    </text>
+                    <text id="access-indicator" font-family="Futura-Bold, Futura" font-weight="bold">
+                        <tspan x="0" y="21" fill="#76FF03">public</tspan>
+                        <tspan x="50.736" y="21" fill="#8BC34A"> </tspan>
+                        <tspan x="56.176" y="21" font-size="12" fill="#9E9E9E">GET</tspan>
+                    </text>
+                </g>
+                <g id="logo" opacity="0.25" transform="translate(0.000000, 744.000000)">
+                    <rect id="bound" stroke="#424242" stroke-width="0.8125" x="0.40625" y="0.40625" width="155.1875" height="155.1875"></rect>
+                    <path d="M70.1144782,104.507786 L70.1910656,104.451088 C65.4369558,108.875748 58.579516,110.827921 51.8436594,109.023054 C41.4410704,106.235688 35.2677118,95.5431176 38.0550772,85.1405286 C39.8545003,78.4249899 44.9484423,73.4719961 51.0839074,71.5650015 C53.7101334,70.6269509 56.0307184,68.8179121 57.534323,66.2135927 C59.1157597,63.4744639 59.5130841,60.3766232 58.9044612,57.5868111 C58.5029162,55.6423188 58.4003586,53.6483916 58.5967883,51.6786472 C59.0279321,47.3552521 60.8994753,43.1483602 64.2114178,39.8364178 C71.8266415,32.2211941 84.1733585,32.2211941 91.7885822,39.8364178 C96.7040124,44.751848 98.4466594,51.6385929 97.0299213,57.9056872 C96.5291839,60.649091 96.9623628,63.5776825 98.4659674,66.1820019 C100.047404,68.9211307 102.531551,70.8141441 105.325667,71.7022179 C111.162102,73.5800705 116.165093,78.4981148 117.944923,85.1405286 C120.732288,95.5431176 114.55893,106.235688 104.156341,109.023054 C97.5166153,110.802163 90.7587524,108.930704 86.0137591,104.639014 C84.023849,102.818481 81.1628735,101.613281 78,101.613281 C74.9927909,101.613281 72.2399668,102.702433 70.1144782,104.507786 Z M78,65.8125 C84.7309704,65.8125 90.1875,60.3559704 90.1875,53.625 C90.1875,46.8940296 84.7309704,41.4375 78,41.4375 C71.2690296,41.4375 65.8125,46.8940296 65.8125,53.625 C65.8125,60.3559704 71.2690296,65.8125 78,65.8125 Z M109.664054,96.28125 C113.029539,90.4520587 111.032311,82.9983006 105.203119,79.6328154 C99.3739279,76.2673302 91.9201698,78.2645587 88.5546846,84.09375 C85.1891994,89.9229413 87.1864279,97.3766994 93.0156192,100.742185 C98.8448106,104.10767 106.298569,102.110441 109.664054,96.28125 Z M46.3359462,96.28125 C49.7014314,102.110441 57.1551894,104.10767 62.9843808,100.742185 C68.8135721,97.3766994 70.8108006,89.9229413 67.4453154,84.09375 C64.0798302,78.2645587 56.6260721,76.2673302 50.7968808,79.6328154 C44.9676894,82.9983006 42.970461,90.4520587 46.3359462,96.28125 Z" id="Combined-Shape" stroke="#FFFFFF" stroke-width="2.4375"></path>
+                </g>
+            </g>
+            <g id="right-pane" filter="url(#filter-3)" transform="translate(1283.000000, 0.000000)">
+                <g id="back">
+                    <use fill="#424242" fill-rule="evenodd" xlink:href="#path-4"></use>
+                    <rect stroke="#424242" stroke-width="1" x="-0.5" y="-0.5" width="157" height="901"></rect>
+                </g>
+                <g id="outputs" transform="translate(17.000000, 658.000000)">
+                    <g id="output-new" opacity="0.25" transform="translate(100.000000, 122.000000)">
+                        <rect id="holder" stroke="#FAFAFA" x="0.5" y="0.5" width="23" height="23" rx="11.5"></rect>
+                        <text id="label" font-family="Futura-Medium, Futura" font-size="14" font-weight="400" fill="#FAFAFA">
+                            <tspan x="7.6796875" y="17">+</tspan>
+                        </text>
+                    </g>
+                    <g id="output" transform="translate(34.000000, 58.000000)">
+                        <rect id="holder" stroke="#FFC400" x="0.5" y="0.5" width="89" height="23" rx="11.5"></rect>
+                        <text id="label" font-family="Futura-Medium, Futura" font-size="12" font-weight="400" fill="#FFC400">
+                            <tspan x="28.8339844" y="16">not_found</tspan>
+                        </text>
+                        <circle id="pin" stroke="#FFC400" cx="12" cy="12" r="6"></circle>
+                    </g>
+                    <g id="output" transform="translate(10.000000, 90.000000)">
+                        <rect id="holder" stroke="#FFC400" x="0.5" y="0.5" width="113" height="23" rx="11.5"></rect>
+                        <text id="label" font-family="Futura-Medium, Futura" font-size="12" font-weight="400" fill="#FFC400">
+                            <tspan x="25.0078125" y="16">not_authorized</tspan>
+                        </text>
+                        <circle id="pin" stroke="#FFC400" cx="12" cy="12" r="6"></circle>
+                    </g>
+                    <g id="output" transform="translate(34.000000, 26.000000)">
+                        <rect id="holder" stroke="#FAFAFA" x="0.5" y="0.5" width="89" height="23" rx="11.5"></rect>
+                        <text id="label" font-family="Futura-Medium, Futura" font-size="12" font-weight="400" fill="#FAFAFA">
+                            <tspan x="50.2675781" y="16">article</tspan>
+                        </text>
+                        <circle id="pin" stroke="#FAFAFA" cx="12" cy="12" r="6"></circle>
+                    </g>
+                    <text id="title" font-family="Futura-Bold, Futura" font-size="12" font-weight="bold" fill="#BDBDBD">
+                        <tspan x="76.012" y="15">outputs</tspan>
+                    </text>
+                </g>
+                <g id="add" opacity="0.25" transform="translate(32.000000, 32.000000)">
+                    <rect id="holder" stroke="#FAFAFA" stroke-width="3.83333333" x="1.91666667" y="1.91666667" width="88.1666667" height="88.1666667" rx="44.0833333"></rect>
+                    <text id="label" font-family="Futura-Medium, Futura" font-size="53.6666667" font-weight="400" fill="#FAFAFA">
+                        <tspan x="29.4388021" y="65.6666667">+</tspan>
+                    </text>
+                </g>
+            </g>
+            <g id="expression" filter="url(#filter-5)" transform="translate(311.000000, 154.000000)">
+                <g id="holder">
+                    <use fill="#424242" fill-rule="evenodd" xlink:href="#path-6"></use>
+                    <rect stroke="#424242" stroke-width="1" x="-0.5" y="-0.5" width="121" height="71"></rect>
+                </g>
+                <g id="input-new" opacity="0.25" transform="translate(12.000000, 35.000000)">
+                    <text id="label" font-family="Futura-Medium, Futura" font-size="12" font-weight="400" fill="#FAFAFA">
+                        <tspan x="2.296875" y="12.5">+</tspan>
+                    </text>
+                    <circle id="pin" stroke="#FAFAFA" cx="6" cy="8" r="6"></circle>
+                </g>
+                <g id="input" transform="translate(12.000000, 12.000000)">
+                    <text id="label" font-family="Futura-Medium, Futura" font-size="12" font-weight="400" fill="#FAFAFA">
+                        <tspan x="18" y="12">id</tspan>
+                    </text>
+                    <circle id="pin" stroke="#FAFAFA" cx="6" cy="8" r="6"></circle>
+                </g>
+                <g id="value" transform="translate(6.000000, 58.000000)">
+                    <g id="holder">
+                        <use fill="#212121" fill-rule="evenodd" xlink:href="#path-7"></use>
+                        <rect stroke="#FAFAFA" stroke-width="1" x="0.5" y="0.5" width="107" height="23" rx="11.5"></rect>
+                    </g>
+                    <text font-family="Futura-Medium, Futura" font-size="12" font-weight="400">
+                        <tspan x="15.0605469" y="16" fill="#4A90E2">{</tspan>
+                        <tspan x="19.3496094" y="16" fill="#00897B">“id”</tspan>
+                        <tspan x="42.0605469" y="16" fill="#4A90E2">: </tspan>
+                        <tspan x="49.4667969" y="16" fill="#E91E63">id</tspan>
+                        <tspan x="59.6503906" y="16" fill="#4A90E2">}</tspan>
+                    </text>
+                    <circle id="pin" stroke="#FAFAFA" cx="96" cy="12" r="6"></circle>
+                </g>
+            </g>
+            <g id="expression" filter="url(#filter-8)" transform="translate(237.000000, 478.000000)">
+                <g id="holder">
+                    <use fill="#424242" fill-rule="evenodd" xlink:href="#path-9"></use>
+                    <rect stroke="#424242" stroke-width="1" x="-0.5" y="-0.5" width="121" height="71"></rect>
+                </g>
+                <g id="input-new" opacity="0.25" transform="translate(12.000000, 35.000000)">
+                    <text id="label" font-family="Futura-Medium, Futura" font-size="12" font-weight="400" fill="#FAFAFA">
+                        <tspan x="2.296875" y="12.5">+</tspan>
+                    </text>
+                    <circle id="pin" stroke="#FAFAFA" cx="6" cy="8" r="6"></circle>
+                </g>
+                <g id="input" transform="translate(12.000000, 12.000000)">
+                    <text id="label" font-family="Futura-Medium, Futura" font-size="12" font-weight="400" fill="#FAFAFA">
+                        <tspan x="18" y="12">id</tspan>
+                    </text>
+                    <circle id="pin" stroke="#FAFAFA" cx="6" cy="8" r="6"></circle>
+                </g>
+                <g id="value" transform="translate(6.000000, 58.000000)">
+                    <g id="holder">
+                        <use fill="#212121" fill-rule="evenodd" xlink:href="#path-10"></use>
+                        <rect stroke="#FAFAFA" stroke-width="1" x="0.5" y="0.5" width="107" height="23" rx="11.5"></rect>
+                    </g>
+                    <text font-family="Futura-Medium, Futura" font-size="12" font-weight="400">
+                        <tspan x="15.0605469" y="16" fill="#4A90E2">{</tspan>
+                        <tspan x="19.3496094" y="16" fill="#00897B">“id”</tspan>
+                        <tspan x="42.0605469" y="16" fill="#4A90E2">: </tspan>
+                        <tspan x="49.4667969" y="16" fill="#E91E63">id</tspan>
+                        <tspan x="59.6503906" y="16" fill="#4A90E2">}</tspan>
+                    </text>
+                    <circle id="pin" stroke="#FAFAFA" cx="96" cy="12" r="6"></circle>
+                </g>
+            </g>
+            <g id="expression" filter="url(#filter-11)" transform="translate(669.000000, 233.000000)">
+                <g id="holder">
+                    <use fill="#424242" fill-rule="evenodd" xlink:href="#path-12"></use>
+                    <rect stroke="#424242" stroke-width="1" x="-0.5" y="-0.5" width="139" height="71"></rect>
+                </g>
+                <g id="input-new" opacity="0.25" transform="translate(12.000000, 35.000000)">
+                    <text id="label" font-family="Futura-Medium, Futura" font-size="12" font-weight="400" fill="#FAFAFA">
+                        <tspan x="2.296875" y="12.5">+</tspan>
+                    </text>
+                    <circle id="pin" stroke="#FAFAFA" cx="6" cy="8" r="6"></circle>
+                </g>
+                <g id="input" transform="translate(12.000000, 12.000000)">
+                    <text id="label" font-family="Futura-Medium, Futura" font-size="12" font-weight="400" fill="#FAFAFA">
+                        <tspan x="18" y="12">result</tspan>
+                    </text>
+                    <circle id="pin" stroke="#FAFAFA" cx="6" cy="8" r="6"></circle>
+                </g>
+                <g id="value" transform="translate(6.000000, 58.000000)">
+                    <g id="holder">
+                        <use fill="#212121" fill-rule="evenodd" xlink:href="#path-13"></use>
+                        <rect stroke="#FAFAFA" stroke-width="1" x="0.5" y="0.5" width="125" height="23" rx="11.5"></rect>
+                    </g>
+                    <text font-family="Futura-Medium, Futura" font-size="12" font-weight="400">
+                        <tspan x="9.93164062" y="16" fill="#E91E63">result</tspan>
+                        <tspan x="38.6542969" y="16" fill="#4A90E2">.</tspan>
+                        <tspan x="42.3574219" y="16" fill="#D500F9">length</tspan>
+                        <tspan x="75.8496094" y="16" fill="#4A90E2"> &gt; </tspan>
+                        <tspan x="90.6621094" y="16" fill="#F5A623">0</tspan>
+                    </text>
+                    <circle id="pin" stroke="#FAFAFA" cx="114" cy="12" r="6"></circle>
+                </g>
+            </g>
+            <g id="expression" filter="url(#filter-14)" transform="translate(1115.000000, 519.000000)">
+                <g id="holder">
+                    <use fill="#424242" fill-rule="evenodd" xlink:href="#path-15"></use>
+                    <rect stroke="#424242" stroke-width="1" x="-0.5" y="-0.5" width="139" height="71"></rect>
+                </g>
+                <g id="input-new" opacity="0.25" transform="translate(12.000000, 35.000000)">
+                    <text id="label" font-family="Futura-Medium, Futura" font-size="12" font-weight="400" fill="#FAFAFA">
+                        <tspan x="2.296875" y="12.5">+</tspan>
+                    </text>
+                    <circle id="pin" stroke="#FAFAFA" cx="6" cy="8" r="6"></circle>
+                </g>
+                <g id="input" transform="translate(12.000000, 12.000000)">
+                    <text id="label" font-family="Futura-Medium, Futura" font-size="12" font-weight="400" fill="#FAFAFA">
+                        <tspan x="18" y="12">articles</tspan>
+                    </text>
+                    <circle id="pin" stroke="#FAFAFA" cx="6" cy="8" r="6"></circle>
+                </g>
+                <g id="value" transform="translate(6.000000, 58.000000)">
+                    <g id="holder">
+                        <use fill="#212121" fill-rule="evenodd" xlink:href="#path-16"></use>
+                        <rect stroke="#FAFAFA" stroke-width="1" x="0.5" y="0.5" width="125" height="23" rx="11.5"></rect>
+                    </g>
+                    <text font-family="Futura-Medium, Futura" font-size="12" font-weight="400">
+                        <tspan x="26.7070312" y="16" fill="#E91E63">articles</tspan>
+                        <tspan x="65.3085938" y="16" fill="#4A90E2">[</tspan>
+                        <tspan x="69.5976562" y="16" fill="#F5A623">0</tspan>
+                        <tspan x="77.0039062" y="16" fill="#4A90E2">]</tspan>
+                    </text>
+                    <circle id="pin" stroke="#FAFAFA" cx="114" cy="12" r="6"></circle>
+                </g>
+            </g>
+            <g id="expression" filter="url(#filter-17)" transform="translate(727.000000, 586.000000)">
+                <g id="holder">
+                    <use fill="#424242" fill-rule="evenodd" xlink:href="#path-18"></use>
+                    <rect stroke="#424242" stroke-width="1" x="-0.5" y="-0.5" width="139" height="71"></rect>
+                </g>
+                <g id="input-new" opacity="0.25" transform="translate(12.000000, 35.000000)">
+                    <text id="label" font-family="Futura-Medium, Futura" font-size="12" font-weight="400" fill="#FAFAFA">
+                        <tspan x="2.296875" y="12.5">+</tspan>
+                    </text>
+                    <circle id="pin" stroke="#FAFAFA" cx="6" cy="8" r="6"></circle>
+                </g>
+                <g id="input" transform="translate(12.000000, 12.000000)">
+                    <text id="label" font-family="Futura-Medium, Futura" font-size="12" font-weight="400" fill="#FAFAFA">
+                        <tspan x="18" y="12">result</tspan>
+                    </text>
+                    <circle id="pin" stroke="#FAFAFA" cx="6" cy="8" r="6"></circle>
+                </g>
+                <g id="value" transform="translate(6.000000, 58.000000)">
+                    <g id="holder">
+                        <use fill="#212121" fill-rule="evenodd" xlink:href="#path-19"></use>
+                        <rect stroke="#FAFAFA" stroke-width="1" x="0.5" y="0.5" width="125" height="23" rx="11.5"></rect>
+                    </g>
+                    <text font-family="Futura-Medium, Futura" font-size="12" font-weight="400">
+                        <tspan x="9.93164062" y="16" fill="#E91E63">result</tspan>
+                        <tspan x="38.6542969" y="16" fill="#4A90E2">.</tspan>
+                        <tspan x="42.3574219" y="16" fill="#D500F9">length</tspan>
+                        <tspan x="75.8496094" y="16" fill="#4A90E2"> &gt; </tspan>
+                        <tspan x="90.6621094" y="16" fill="#F5A623">0</tspan>
+                    </text>
+                    <circle id="pin" stroke="#FAFAFA" cx="114" cy="12" r="6"></circle>
+                </g>
+            </g>
+            <g id="expression" filter="url(#filter-20)" transform="translate(857.000000, 302.000000)">
+                <g id="holder">
+                    <use fill="#424242" fill-rule="evenodd" xlink:href="#path-21"></use>
+                    <rect stroke="#424242" stroke-width="1" x="-0.5" y="-0.5" width="139" height="94"></rect>
+                </g>
+                <g id="input-new" opacity="0.25" transform="translate(12.000000, 57.000000)">
+                    <text id="label" font-family="Futura-Medium, Futura" font-size="12" font-weight="400" fill="#FAFAFA">
+                        <tspan x="2.296875" y="12.5">+</tspan>
+                    </text>
+                    <circle id="pin" stroke="#FAFAFA" cx="6" cy="8" r="6"></circle>
+                </g>
+                <g id="input" transform="translate(12.000000, 12.000000)">
+                    <text id="label" font-family="Futura-Medium, Futura" font-size="12" font-weight="400" fill="#FAFAFA">
+                        <tspan x="18" y="12">users</tspan>
+                    </text>
+                    <circle id="pin" stroke="#FAFAFA" cx="6" cy="8" r="6"></circle>
+                </g>
+                <g id="input" transform="translate(12.000000, 35.000000)">
+                    <text id="label" font-family="Futura-Medium, Futura" font-size="12" font-weight="400" fill="#FAFAFA">
+                        <tspan x="18" y="12">articles</tspan>
+                    </text>
+                    <circle id="pin" stroke="#FAFAFA" cx="6" cy="8" r="6"></circle>
+                </g>
+                <g id="value" transform="translate(6.000000, 80.000000)">
+                    <g id="holder">
+                        <use fill="#212121" fill-rule="evenodd" xlink:href="#path-22"></use>
+                        <rect stroke="#FAFAFA" stroke-width="1" x="0.5" y="0.5" width="125" height="55" rx="12"></rect>
+                    </g>
+                    <text font-family="Futura-Medium, Futura" font-size="12" font-weight="400">
+                        <tspan x="12.9492188" y="16" fill="#E91E63">users</tspan>
+                        <tspan x="40.3535156" y="16" fill="#4A90E2">[</tspan>
+                        <tspan x="44.6425781" y="16" fill="#F5A623">0</tspan>
+                        <tspan x="52.0488281" y="16" fill="#4A90E2">].</tspan>
+                        <tspan x="60.0410156" y="16" fill="#D500F9">access</tspan>
+                        <tspan x="95.0507812" y="16" fill="#D0021B"> </tspan>
+                        <tspan x="46.59375" y="31" fill="#4A90E2">&gt;=</tspan>
+                        <tspan x="61.40625" y="31" fill="#D0021B"> </tspan>
+                        <tspan x="7.35058594" y="46" fill="#E91E63">articles</tspan>
+                        <tspan x="45.9521484" y="46" fill="#4A90E2">[</tspan>
+                        <tspan x="50.2412109" y="46" fill="#F5A623">0</tspan>
+                        <tspan x="57.6474609" y="46" fill="#4A90E2">].</tspan>
+                        <tspan x="65.6396484" y="46" fill="#D500F9">access</tspan>
+                    </text>
+                    <circle id="pin" stroke="#FAFAFA" cx="114" cy="12" r="6"></circle>
+                </g>
+            </g>
+            <g id="card" filter="url(#filter-23)" transform="translate(181.000000, 32.000000)">
+                <g id="holder">
+                    <use fill="#424242" fill-rule="evenodd" xlink:href="#path-24"></use>
+                    <rect stroke="#424242" stroke-width="1" x="-0.5" y="-0.5" width="165" height="109"></rect>
+                </g>
+                <g id="input" transform="translate(12.000000, 35.000000)">
+                    <text id="label" font-family="Futura-Medium, Futura" font-size="12" font-weight="400" fill="#FAFAFA">
+                        <tspan x="18" y="12">token</tspan>
+                    </text>
+                    <circle id="pin" stroke="#FAFAFA" cx="6" cy="8" r="6"></circle>
+                </g>
+                <g id="input" transform="translate(12.000000, 58.000000)">
+                    <text id="label" font-family="Futura-Medium, Futura" font-size="12" font-weight="400" fill="#FAFAFA">
+                        <tspan x="18" y="12">secret_key</tspan>
+                    </text>
+                    <circle id="pin" stroke="#FAFAFA" cx="6" cy="8" r="6"></circle>
+                </g>
+                <g id="output" transform="translate(12.000000, 81.000000)">
+                    <text id="label" font-family="Futura-Medium, Futura" font-size="12" font-weight="400" fill="#FAFAFA">
+                        <tspan x="93.2773438" y="12">result</tspan>
+                    </text>
+                    <circle id="pin" stroke="#FAFAFA" cx="134" cy="8" r="6"></circle>
+                </g>
+                <text id="address" font-family="Futura-Medium, Futura" font-size="12" font-weight="400" fill="#00BFA5">
+                    <tspan x="44.0605469" y="24">/jwt/decrypt/</tspan>
+                </text>
+            </g>
+            <g id="card" filter="url(#filter-25)" transform="translate(468.000000, 102.000000)">
+                <g id="holder">
+                    <use fill="#424242" fill-rule="evenodd" xlink:href="#path-26"></use>
+                    <rect stroke="#424242" stroke-width="1" x="-0.5" y="-0.5" width="165" height="132"></rect>
+                </g>
+                <g id="input" transform="translate(12.000000, 35.000000)">
+                    <text id="label" font-family="Futura-Medium, Futura" font-size="12" font-weight="400" fill="#FAFAFA">
+                        <tspan x="18" y="12">collection</tspan>
+                    </text>
+                    <circle id="pin" stroke="#FAFAFA" cx="6" cy="8" r="6"></circle>
+                </g>
+                <g id="input" transform="translate(12.000000, 58.000000)">
+                    <text id="label" font-family="Futura-Medium, Futura" font-size="12" font-weight="400" fill="#FAFAFA">
+                        <tspan x="18" y="12">fields</tspan>
+                    </text>
+                    <circle id="pin" stroke="#FAFAFA" cx="6" cy="8" r="6"></circle>
+                </g>
+                <g id="output" transform="translate(12.000000, 81.000000)">
+                    <text id="label" font-family="Futura-Medium, Futura" font-size="12" font-weight="400" fill="#FAFAFA">
+                        <tspan x="93.2773438" y="12">result</tspan>
+                    </text>
+                    <circle id="pin" stroke="#FAFAFA" cx="134" cy="8" r="6"></circle>
+                </g>
+                <g id="output" transform="translate(12.000000, 104.000000)">
+                    <text id="label" font-family="Futura-Medium, Futura" font-size="12" font-weight="400" fill="#FFC400">
+                        <tspan x="94.6074219" y="12">error</tspan>
+                    </text>
+                    <circle id="pin" stroke="#FFC400" cx="134" cy="8" r="6"></circle>
+                </g>
+                <text id="address" font-family="Futura-Medium, Futura" font-size="12" font-weight="400" fill="#00BFA5">
+                    <tspan x="55.4072266" y="24">/db/find/</tspan>
+                </text>
+            </g>
+            <g id="card" filter="url(#filter-27)" transform="translate(449.000000, 501.000000)">
+                <g id="holder">
+                    <use fill="#424242" fill-rule="evenodd" xlink:href="#path-28"></use>
+                    <rect stroke="#424242" stroke-width="1" x="-0.5" y="-0.5" width="165" height="132"></rect>
+                </g>
+                <g id="input" transform="translate(12.000000, 35.000000)">
+                    <text id="label" font-family="Futura-Medium, Futura" font-size="12" font-weight="400" fill="#FAFAFA">
+                        <tspan x="18" y="12">collection</tspan>
+                    </text>
+                    <circle id="pin" stroke="#FAFAFA" cx="6" cy="8" r="6"></circle>
+                </g>
+                <g id="input" transform="translate(12.000000, 58.000000)">
+                    <text id="label" font-family="Futura-Medium, Futura" font-size="12" font-weight="400" fill="#FAFAFA">
+                        <tspan x="18" y="12">fields</tspan>
+                    </text>
+                    <circle id="pin" stroke="#FAFAFA" cx="6" cy="8" r="6"></circle>
+                </g>
+                <g id="output" transform="translate(12.000000, 81.000000)">
+                    <text id="label" font-family="Futura-Medium, Futura" font-size="12" font-weight="400" fill="#FAFAFA">
+                        <tspan x="93.2773438" y="12">result</tspan>
+                    </text>
+                    <circle id="pin" stroke="#FAFAFA" cx="134" cy="8" r="6"></circle>
+                </g>
+                <g id="output" transform="translate(12.000000, 104.000000)">
+                    <text id="label" font-family="Futura-Medium, Futura" font-size="12" font-weight="400" fill="#FFC400">
+                        <tspan x="94.6074219" y="12">error</tspan>
+                    </text>
+                    <circle id="pin" stroke="#FFC400" cx="134" cy="8" r="6"></circle>
+                </g>
+                <text id="address" font-family="Futura-Medium, Futura" font-size="12" font-weight="400" fill="#00BFA5">
+                    <tspan x="55.4072266" y="24">/db/find/</tspan>
+                </text>
+            </g>
+            <g id="value" filter="url(#filter-29)" transform="translate(353.000000, 116.000000)">
+                <g id="holder">
+                    <use fill="#212121" fill-rule="evenodd" xlink:href="#path-30"></use>
+                    <rect stroke="#FAFAFA" stroke-width="1" x="0.5" y="0.5" width="95" height="23" rx="11.5"></rect>
+                </g>
+                <text font-family="Futura-Medium, Futura" font-size="12" font-weight="400" fill="#00897B">
+                    <tspan x="19.5341797" y="16">“users”</tspan>
+                </text>
+                <circle id="pin" stroke="#FAFAFA" cx="84" cy="12" r="6"></circle>
+            </g>
+            <g id="value" filter="url(#filter-31)" transform="translate(249.000000, 438.000000)">
+                <g id="holder">
+                    <use fill="#212121" fill-rule="evenodd" xlink:href="#path-32"></use>
+                    <rect stroke="#FAFAFA" stroke-width="1" x="0.5" y="0.5" width="95" height="23" rx="11.5"></rect>
+                </g>
+                <text font-family="Futura-Medium, Futura" font-size="12" font-weight="400" fill="#00897B">
+                    <tspan x="13.9355469" y="16">“articles”</tspan>
+                </text>
+                <circle id="pin" stroke="#FAFAFA" cx="84" cy="12" r="6"></circle>
+            </g>
+            <g id="switch" filter="url(#filter-33)" transform="translate(668.000000, 331.000000)">
+                <g id="holder">
+                    <use fill="#424242" fill-rule="evenodd" xlink:href="#path-34"></use>
+                    <rect stroke="#424242" stroke-width="1" x="0.5" y="0.5" width="143" height="127"></rect>
+                </g>
+                <circle id="pin" stroke="#FAFAFA" cx="72" cy="18" r="6"></circle>
+                <g id="value" transform="translate(9.000000, 32.000000)">
+                    <g id="holder">
+                        <use fill="#212121" fill-rule="evenodd" xlink:href="#path-35"></use>
+                        <rect stroke="#FFC400" stroke-width="1" x="0.5" y="0.5" width="125" height="23" rx="11.5"></rect>
+                    </g>
+                    <text font-family="Futura-Medium, Futura" font-size="12" font-weight="400" fill="#C0CA33">
+                        <tspan x="43.4355469" y="16">true</tspan>
+                    </text>
+                    <circle id="pin" stroke="#FFC400" cx="114" cy="12" r="6"></circle>
+                </g>
+                <g id="value" transform="translate(9.000000, 64.000000)">
+                    <g id="holder">
+                        <use fill="#212121" fill-rule="evenodd" xlink:href="#path-36"></use>
+                        <rect stroke="#FFC400" stroke-width="1" x="0.5" y="0.5" width="125" height="23" rx="11.5"></rect>
+                    </g>
+                    <text font-family="Futura-Medium, Futura" font-size="12" font-weight="400" fill="#C0CA33">
+                        <tspan x="41.2822266" y="16">false</tspan>
+                    </text>
+                    <circle id="pin" stroke="#FFC400" cx="114" cy="12" r="6"></circle>
+                </g>
+                <g id="value-new" opacity="0.25" transform="translate(9.000000, 96.000000)">
+                    <g id="holder">
+                        <use fill="#212121" fill-rule="evenodd" xlink:href="#path-37"></use>
+                        <rect stroke="#FAFAFA" stroke-width="1" x="0.5" y="0.5" width="23" height="23" rx="11.5"></rect>
+                    </g>
+                    <text id="value" font-family="Futura-Medium, Futura" font-size="12" font-weight="400" fill="#FAFAFA">
+                        <tspan x="8.296875" y="16.5">+</tspan>
+                    </text>
+                </g>
+            </g>
+            <g id="switch" filter="url(#filter-38)" transform="translate(1016.000000, 342.000000)">
+                <g id="holder">
+                    <use fill="#424242" fill-rule="evenodd" xlink:href="#path-39"></use>
+                    <rect stroke="#424242" stroke-width="1" x="0.5" y="0.5" width="143" height="127"></rect>
+                </g>
+                <circle id="pin" stroke="#FAFAFA" cx="72" cy="18" r="6"></circle>
+                <g id="value" transform="translate(9.000000, 32.000000)">
+                    <g id="holder">
+                        <use fill="#212121" fill-rule="evenodd" xlink:href="#path-40"></use>
+                        <rect stroke="#FFC400" stroke-width="1" x="0.5" y="0.5" width="125" height="23" rx="11.5"></rect>
+                    </g>
+                    <text font-family="Futura-Medium, Futura" font-size="12" font-weight="400" fill="#C0CA33">
+                        <tspan x="43.4355469" y="16">true</tspan>
+                    </text>
+                    <circle id="pin" stroke="#FFC400" cx="114" cy="12" r="6"></circle>
+                </g>
+                <g id="value" transform="translate(9.000000, 64.000000)">
+                    <g id="holder">
+                        <use fill="#212121" fill-rule="evenodd" xlink:href="#path-41"></use>
+                        <rect stroke="#FFC400" stroke-width="1" x="0.5" y="0.5" width="125" height="23" rx="11.5"></rect>
+                    </g>
+                    <text font-family="Futura-Medium, Futura" font-size="12" font-weight="400" fill="#C0CA33">
+                        <tspan x="41.2822266" y="16">false</tspan>
+                    </text>
+                    <circle id="pin" stroke="#FFC400" cx="114" cy="12" r="6"></circle>
+                </g>
+                <g id="value-new" opacity="0.25" transform="translate(9.000000, 96.000000)">
+                    <g id="holder">
+                        <use fill="#212121" fill-rule="evenodd" xlink:href="#path-42"></use>
+                        <rect stroke="#FAFAFA" stroke-width="1" x="0.5" y="0.5" width="23" height="23" rx="11.5"></rect>
+                    </g>
+                    <text id="value" font-family="Futura-Medium, Futura" font-size="12" font-weight="400" fill="#FAFAFA">
+                        <tspan x="8.296875" y="16.5">+</tspan>
+                    </text>
+                </g>
+            </g>
+            <g id="switch" filter="url(#filter-43)" transform="translate(721.000000, 701.000000)">
+                <g id="holder">
+                    <use fill="#424242" fill-rule="evenodd" xlink:href="#path-44"></use>
+                    <rect stroke="#424242" stroke-width="1" x="0.5" y="0.5" width="143" height="127"></rect>
+                </g>
+                <circle id="pin" stroke="#FAFAFA" cx="72" cy="18" r="6"></circle>
+                <g id="value" transform="translate(9.000000, 32.000000)">
+                    <g id="holder">
+                        <use fill="#212121" fill-rule="evenodd" xlink:href="#path-45"></use>
+                        <rect stroke="#FFC400" stroke-width="1" x="0.5" y="0.5" width="125" height="23" rx="11.5"></rect>
+                    </g>
+                    <text font-family="Futura-Medium, Futura" font-size="12" font-weight="400" fill="#C0CA33">
+                        <tspan x="43.4355469" y="16">true</tspan>
+                    </text>
+                    <circle id="pin" stroke="#FFC400" cx="114" cy="12" r="6"></circle>
+                </g>
+                <g id="value" transform="translate(9.000000, 64.000000)">
+                    <g id="holder">
+                        <use fill="#212121" fill-rule="evenodd" xlink:href="#path-46"></use>
+                        <rect stroke="#FFC400" stroke-width="1" x="0.5" y="0.5" width="125" height="23" rx="11.5"></rect>
+                    </g>
+                    <text font-family="Futura-Medium, Futura" font-size="12" font-weight="400" fill="#C0CA33">
+                        <tspan x="41.2822266" y="16">false</tspan>
+                    </text>
+                    <circle id="pin" stroke="#FFC400" cx="114" cy="12" r="6"></circle>
+                </g>
+                <g id="value-new" opacity="0.25" transform="translate(9.000000, 96.000000)">
+                    <g id="holder">
+                        <use fill="#212121" fill-rule="evenodd" xlink:href="#path-47"></use>
+                        <rect stroke="#FAFAFA" stroke-width="1" x="0.5" y="0.5" width="23" height="23" rx="11.5"></rect>
+                    </g>
+                    <text id="value" font-family="Futura-Medium, Futura" font-size="12" font-weight="400" fill="#FAFAFA">
+                        <tspan x="8.296875" y="16.5">+</tspan>
+                    </text>
+                </g>
+            </g>
+            <g id="internal-error" filter="url(#filter-48)" transform="translate(531.000000, 262.000000)">
+                <rect id="holder" fill="#F44336" x="0" y="0" width="96" height="24" rx="12"></rect>
+                <text id="label" font-family="Futura-Medium, Futura" font-size="12" font-weight="400" fill="#FFFFFF">
+                    <tspan x="11.9384766" y="16">internal error</tspan>
+                </text>
+            </g>
+            <g id="internal-error" filter="url(#filter-49)" transform="translate(523.000000, 668.000000)">
+                <rect id="holder" fill="#F44336" x="0" y="0" width="96" height="24" rx="12"></rect>
+                <text id="label" font-family="Futura-Medium, Futura" font-size="12" font-weight="400" fill="#FFFFFF">
+                    <tspan x="11.9384766" y="16">internal error</tspan>
+                </text>
+            </g>
+            <path d="M100.5,131.5 L191.5,77.5" id="flow" stroke-opacity="0.5" stroke="#76FF03" fill="#76FF03" stroke-linecap="square" stroke-dasharray="8"></path>
+            <path id="flow-decoration-1" d="M191.5,77.5 L180.681208,80.4315071 L183.74313,85.5914133 L191.5,77.5 Z" stroke-opacity="0.5" stroke="#76FF03" fill="#76FF03" stroke-linecap="square" stroke-dasharray="8"></path>
+            <path d="M97.5,273.5 L193.5,102.5" id="flow" stroke-opacity="0.5" stroke="#76FF03" fill="#76FF03" stroke-linecap="square" stroke-dasharray="8"></path>
+            <path id="flow-decoration-1" d="M193.5,102.5 L185.597073,110.448821 L190.828976,113.386029 L193.5,102.5 Z" stroke-opacity="0.5" stroke="#76FF03" fill="#76FF03" stroke-linecap="square" stroke-dasharray="8"></path>
+            <path d="M96.5,172.5 L249.5,491.5" id="flow" stroke-opacity="0.5" stroke="#76FF03" fill="#76FF03" stroke-linecap="square" stroke-dasharray="8"></path>
+            <path id="flow-decoration-1" d="M249.5,491.5 L247.534448,480.464756 L242.124516,483.059489 L249.5,491.5 Z" stroke-opacity="0.5" stroke="#76FF03" fill="#76FF03" stroke-linecap="square" stroke-dasharray="8"></path>
+            <path d="M327.5,127.5 L327.5,166.5" id="flow" stroke-opacity="0.5" stroke="#76FF03" fill="#76FF03" stroke-linecap="square" stroke-dasharray="8"></path>
+            <path id="flow-decoration-1" d="M327.5,166.5 L330.5,155.7 L324.5,155.7 L327.5,166.5 Z" stroke-opacity="0.5" stroke="#76FF03" fill="#76FF03" stroke-linecap="square" stroke-dasharray="8"></path>
+            <path d="M417.5,220.5 L479.5,172.5" id="flow" stroke-opacity="0.5" stroke="#76FF03" fill="#76FF03" stroke-linecap="square" stroke-dasharray="8"></path>
+            <path id="flow-decoration-1" d="M479.5,172.5 L469.123664,176.739299 L472.796704,181.483642 L479.5,172.5 Z" stroke-opacity="0.5" stroke="#76FF03" fill="#76FF03" stroke-linecap="square" stroke-dasharray="8"></path>
+            <path d="M345.5,545.5 L456.5,564.5" id="flow" stroke-opacity="0.5" stroke="#76FF03" fill="#76FF03" stroke-linecap="square" stroke-dasharray="8"></path>
+            <path id="flow-decoration-1" d="M456.5,564.5 L446.360976,559.720859 L445.348672,565.634846 L456.5,564.5 Z" stroke-opacity="0.5" stroke="#76FF03" fill="#76FF03" stroke-linecap="square" stroke-dasharray="8"></path>
+            <path d="M340.5,451.5 L457.5,536.5" id="flow" stroke-opacity="0.5" stroke="#76FF03" fill="#76FF03" stroke-linecap="square" stroke-dasharray="8"></path>
+            <path id="flow-decoration-1" d="M457.5,536.5 L450.525703,527.725082 L446.999141,532.579292 L457.5,536.5 Z" stroke-opacity="0.5" stroke="#76FF03" fill="#76FF03" stroke-linecap="square" stroke-dasharray="8"></path>
+            <path d="M602.5,591.5 L738.5,605.5" id="flow" stroke-opacity="0.5" stroke="#76FF03" fill="#76FF03" stroke-linecap="square" stroke-dasharray="8"></path>
+            <path id="flow-decoration-1" d="M738.5,605.5 L728.063973,601.40985 L727.449572,607.378309 L738.5,605.5 Z" stroke-opacity="0.5" stroke="#76FF03" fill="#76FF03" stroke-linecap="square" stroke-dasharray="8"></path>
+            <path d="M842.5,660.5 L798.5,712.5" id="flow" stroke-opacity="0.5" stroke="#76FF03" fill="#76FF03" stroke-linecap="square" stroke-dasharray="8"></path>
+            <path id="flow-decoration-1" d="M798.5,712.5 L807.766335,706.193255 L803.186017,702.317601 L798.5,712.5 Z" stroke-opacity="0.5" stroke="#76FF03" fill="#76FF03" stroke-linecap="square" stroke-dasharray="8"></path>
+            <path d="M603.5,589.5 L1124.5,540.5" id="flow" stroke-opacity="0.5" stroke="#76FF03" fill="#76FF03" stroke-linecap="square" stroke-dasharray="8"></path>
+            <path id="flow-decoration-1" d="M1124.5,540.5 L1113.46654,538.524457 L1114.02836,544.498096 L1124.5,540.5 Z" stroke-opacity="0.5" stroke="#76FF03" fill="#76FF03" stroke-linecap="square" stroke-dasharray="8"></path>
+            <path d="M1241.5,594.5 L1340.5,691.5" id="flow" stroke-opacity="0.5" stroke="#76FF03" fill="#76FF03" stroke-linecap="square" stroke-dasharray="8"></path>
+            <path id="flow-decoration-1" d="M1340.5,691.5 L1334.88529,681.798711 L1330.68616,686.084421 L1340.5,691.5 Z" stroke-opacity="0.5" stroke="#76FF03" fill="#76FF03" stroke-linecap="square" stroke-dasharray="8"></path>
+            <path d="M602.5,587.5 L868.5,351.5" id="flow" stroke-opacity="0.5" stroke="#76FF03" fill="#76FF03" stroke-linecap="square" stroke-dasharray="8"></path>
+            <path id="flow-decoration-1" d="M868.5,351.5 L858.430284,356.423497 L862.412276,360.911675 L868.5,351.5 Z" stroke-opacity="0.5" stroke="#76FF03" fill="#76FF03" stroke-linecap="square" stroke-dasharray="8"></path>
+            <path d="M619.5,196.5 L679.5,245.5" id="flow" stroke-opacity="0.5" stroke="#76FF03" fill="#76FF03" stroke-linecap="square" stroke-dasharray="8"></path>
+            <path id="flow-decoration-1" d="M679.5,245.5 L673.032657,236.34503 L669.237449,240.992223 L679.5,245.5 Z" stroke-opacity="0.5" stroke="#76FF03" fill="#76FF03" stroke-linecap="square" stroke-dasharray="8"></path>
+            <path d="M620.5,194.5 L865.5,316.5" id="flow" stroke-opacity="0.5" stroke="#76FF03" fill="#76FF03" stroke-linecap="square" stroke-dasharray="8"></path>
+            <path id="flow-decoration-1" d="M865.5,316.5 L857.169562,309.000413 L854.495053,314.371354 L865.5,316.5 Z" stroke-opacity="0.5" stroke="#76FF03" fill="#76FF03" stroke-linecap="square" stroke-dasharray="8"></path>
+            <path d="M981.5,388.5 L1080.5,361.5" id="flow" stroke-opacity="0.5" stroke="#76FF03" fill="#76FF03" stroke-linecap="square" stroke-dasharray="8"></path>
+            <path id="flow-decoration-1" d="M1080.5,361.5 L1069.2912,361.447377 L1070.8699,367.235959 L1080.5,361.5 Z" stroke-opacity="0.5" stroke="#76FF03" fill="#76FF03" stroke-linecap="square" stroke-dasharray="8"></path>
+            <path d="M783.5,306.5 L746.5,344.5" id="flow" stroke-opacity="0.5" stroke="#76FF03" fill="#76FF03" stroke-linecap="square" stroke-dasharray="8"></path>
+            <path id="flow-decoration-1" d="M746.5,344.5 L756.183674,338.854961 L751.884847,334.669261 L746.5,344.5 Z" stroke-opacity="0.5" stroke="#76FF03" fill="#76FF03" stroke-linecap="square" stroke-dasharray="8"></path>
+            <path d="M443.5,130.5 L478.5,142.5" id="flow" stroke-opacity="0.5" stroke="#76FF03" fill="#76FF03" stroke-linecap="square" stroke-dasharray="8"></path>
+            <path id="flow-decoration-1" d="M478.5,142.5 L469.256757,136.159459 L467.310811,141.835135 L478.5,142.5 Z" stroke-opacity="0.5" stroke="#76FF03" fill="#76FF03" stroke-linecap="square" stroke-dasharray="8"></path>
+            <path d="M611.5,221.5 L602.5,261.5" id="flow-control" stroke-opacity="0.5" stroke="#FFC400" fill="#FFC400" stroke-linecap="square" stroke-dasharray="8"></path>
+            <path id="flow-control-decoration-1" d="M602.5,261.5 L607.797561,251.621951 L601.943902,250.304878 L602.5,261.5 Z" stroke-opacity="0.5" stroke="#FFC400" fill="#FFC400" stroke-linecap="square" stroke-dasharray="8"></path>
+            <path d="M592.5,620.5 L573.5,666.5" id="flow-control" stroke-opacity="0.5" stroke="#FFC400" fill="#FFC400" stroke-linecap="square" stroke-dasharray="8"></path>
+            <path id="flow-control-decoration-1" d="M573.5,666.5 L580.395794,657.663257 L574.850225,655.372696 L573.5,666.5 Z" stroke-opacity="0.5" stroke="#FFC400" fill="#FFC400" stroke-linecap="square" stroke-dasharray="8"></path>
+            <path d="M1141.5,392.5 L1179.5,519.5" id="flow-control" stroke-opacity="0.5" stroke="#FFC400" fill="#FFC400" stroke-linecap="square" stroke-dasharray="8"></path>
+            <path id="flow-control-decoration-1" d="M1179.5,519.5 L1179.27822,508.293269 L1173.53002,510.013204 L1179.5,519.5 Z" stroke-opacity="0.5" stroke="#FFC400" fill="#FFC400" stroke-linecap="square" stroke-dasharray="8"></path>
+            <path d="M1141.5,423.5 L1315.5,754.5" id="flow-control" stroke-opacity="0.5" stroke="#FFC400" fill="#FFC400" stroke-linecap="square" stroke-dasharray="8"></path>
+            <path id="flow-control-decoration-1" d="M1315.5,754.5 L1313.13015,743.544462 L1307.81925,746.336295 L1315.5,754.5 Z" stroke-opacity="0.5" stroke="#FFC400" fill="#FFC400" stroke-linecap="square" stroke-dasharray="8"></path>
+            <path d="M851.5,772.5 L1338.5,727.5" id="flow-control" stroke-opacity="0.5" stroke="#FFC400" fill="#FFC400" stroke-linecap="square" stroke-dasharray="8"></path>
+            <path id="flow-control-decoration-1" d="M1338.5,727.5 L1327.46978,725.506439 L1328.02184,731.480987 L1338.5,727.5 Z" stroke-opacity="0.5" stroke="#FFC400" fill="#FFC400" stroke-linecap="square" stroke-dasharray="8"></path>
+            <path d="M796.5,410.5 L1313.5,755.5" id="flow-control" stroke-opacity="0.5" stroke="#FFC400" fill="#FFC400" stroke-linecap="square" stroke-dasharray="8"></path>
+            <path id="flow-control-decoration-1" d="M1313.5,755.5 L1306.18175,747.009821 L1302.85132,752.000637 L1313.5,755.5 Z" stroke-opacity="0.5" stroke="#FFC400" fill="#FFC400" stroke-linecap="square" stroke-dasharray="8"></path>
+            <path d="M797.5,371.5 L853.5,339.5" id="flow-control" stroke-opacity="0.5" stroke="#FFC400" fill="#FFC400" stroke-linecap="square" stroke-dasharray="8"></path>
+            <path id="flow-control-decoration-1" d="M853.5,339.5 L842.634557,342.253571 L845.611391,347.46303 L853.5,339.5 Z" stroke-opacity="0.5" stroke="#FFC400" fill="#FFC400" stroke-linecap="square" stroke-dasharray="8"></path>
+            <path d="M848.5,740.5 L900.5,441.5" id="flow-control" stroke-opacity="0.5" stroke="#FFC400" fill="#FFC400" stroke-linecap="square" stroke-dasharray="8"></path>
+            <path id="flow-control-decoration-1" d="M900.5,441.5 L895.69388,451.626263 L901.605151,452.65431 L900.5,441.5 Z" stroke-opacity="0.5" stroke="#FFC400" fill="#FFC400" stroke-linecap="square" stroke-dasharray="8"></path>
+        </g>
+    </g>
+</svg>
