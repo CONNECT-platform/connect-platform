@@ -28,6 +28,25 @@ describe('callable()', ()=> {
     });
   });
 
+  it('should also handle control output of the node.', done => {
+    class N2 extends base.node.Node {
+      constructor(){
+        super({controlOutputs: ['c']});
+      }
+
+      run(i, o, control) {
+        control('c');
+      }
+    };
+
+    let f = callable(N2);
+
+    f().then(result => {
+      assert.equal(result.control, 'c');
+      done();
+    });
+  });
+
   it('should throw proper error if required input not provided.', done => {
     class N extends base.node.Node {
       constructor(){super({inputs: ['a', 'b']});}

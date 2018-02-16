@@ -14,6 +14,16 @@ const callable = nodeFactoryOrClass => {
           resolve({
             output: output,
             data: data,
+            node: node,
+          });
+        });
+      }
+
+      for (let [control, pin] of Object.entries(node.pins.controlOut)) {
+        pin.subscribe(base.pin.PinEvents.activate, () => {
+          resolve({
+            control: control,
+            node: node,
           });
         });
       }

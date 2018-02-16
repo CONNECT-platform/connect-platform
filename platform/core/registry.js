@@ -35,6 +35,10 @@ class Registry {
   registered(path) {
     return path in this._paths;
   }
+
+  get registrants() {
+    return this._paths;
+  }
 }
 
 module.exports = new Registry();
