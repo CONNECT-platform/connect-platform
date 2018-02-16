@@ -141,8 +141,8 @@ span.hl {
     font-size: 20px;
   }
 
-  img.logo {
-    width: 100vw;
+  img.logo, .img img {
+    max-width: 100vw;
   }
 
   div, div.small {
