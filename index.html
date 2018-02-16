@@ -1,158 +1,30 @@
+<!doctype html>
 <html>
   <head>
     <title>Connect Platform</title>
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
-
-    <link href="https://fonts.googleapis.com/css?family=Didact+Gothic" rel="stylesheet">
-    <link rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Didact+Gothic" rel="stylesheet">
+
+    <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+
+    <link href="assets/index.css" rel="stylesheet">
+    <script src="assets/index.js"></script>
   </head>
   <body>
     <script>
       hljs.initHighlightingOnLoad();
-      scrollToSection = function($section) {
-        $('body,html').animate({ scrollTop: $section.offset().top }, 300);
-      };
     </script>
-    <style>
-      body {
-        font-family: 'Didact Gothic', sans-serif;
-        background: #424242;
-        text-align: center;
-        color: #bdbdbd;
-        width: 100%;
-        margin: 0;
-        padding: 0;
-        font-size: 18px;
-      }
 
-      .carbon {
-        position: fixed;
-        width: 1024px;
-        height: 1024px;
-        left: -512px;
-        top: 50%;
-        margin-top: -512px;
-        z-index: -1000;
-      }
-
-      section {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-      }
-
-      section:not(:last-child) {
-        margin-bottom: 256px;
-      }
-
-      section.full {
-        min-height: 100vh;
-      }
-
-      h1 {
-        color: white;
-      }
-
-      div {
-        width: 768px;
-        margin: auto;
-      }
-
-      div.small {
-        width: 512px;
-      }
-
-      a {
-        text-decoration: none !important;
-        outline: none !important;
-        color: white;
-        border: 1px solid white;
-        display: inline-block;
-        border-radius: 19px;
-        line-height: 12px;
-        padding: 14px 24px;
-        padding-top: 10px;
-        margin: 8px;
-        width: 128px;
-        cursor: pointer;
-
-        transition: all .3s;
-      }
-
-      a.filled {
-        background: white;
-        color: #424242;
-      }
-
-      a.img {
-        border: none;
-        padding: 0;
-        margin: 0;
-        width: auto;
-      }
-
-      a.img img {
-        box-shadow: 0 0 12px rgba(0, 0, 0, .25);
-      }
-
-      a:hover {
-        color: #B2FF59;
-        border-color: #B2FF59;
-      }
-
-      a.filled:hover {
-        background: #B2FF59;
-        color: #424242;
-      }
-
-      pre {
-        max-width: 100%;
-      }
-
-      code.hljs {
-        display: inline-block;
-        background: #212121;
-        padding: 10px 16px;
-        border-radius: 19px;
-        border: 1px solid white;
-        color: #bdbdbd;
-        font-size: 14px;
-        white-space: normal;
-        word-break: break-word;
-      }
-
-      code.hljs span.hljs-built_in {
-        color: #B2FF59;
-      }
-
-      span.hl {
-        color: #B2FF59;
-      }
-
-      @media screen and (max-width: 600px) {
-        body {
-          font-size: 20px;
-        }
-
-        img {
-          width: 100vw;
-        }
-
-        div, div.small {
-          width: auto;
-          margin: 12px;
-        }
-      }
-    </style>
     <img class="carbon" src="assets/carbon.svg"/>
 
     <section id="intro" class="full">
       <div>
-        <img src="assets/logo.svg"/>
+        <img src="assets/logo.svg" class="logo"/>
         <div class="small">
           I hate it that building API micro-services isn't as easy as just a few clicks
           and drags, specifically when most of the time you don't need extremely convoluted
@@ -163,7 +35,6 @@
         <a href="https://github.com/loreanvictor/connect-platform" target="_blank">
           view on github
         </a>
-        <pre><code class="bash">git clone https://github.com/loreanvictor/connect-platform.git</code></pre>
       </div>
     </section>
     <section id="idea">
@@ -230,11 +101,21 @@
         </div>
         <br/>
         <div>
-          <a href="https://github.com/loreanvictor/connect-platform" target="_blank">
-            view on github
-          </a>
-          <a href="mailto:ghanizadeh.eugene@gmail.com">contact me</a>
           <pre><code class="bash">git clone https://github.com/loreanvictor/connect-platform.git</code></pre>
+        </div>
+        <div class="sticky-contacts">
+          <a class="circle sticky-contact"
+            href="https://twitter.com/lorean_victor/" target="_blank">
+            <img src="assets/twitter.svg"/>
+          </a>
+          <a class="circle sticky-contact"
+              href="https://github.com/loreanvictor/connect-platform" target="_blank">
+            <img src="assets/github.svg"/>
+          </a>
+          <a class="circle sticky-contact"
+            href="https://www.linkedin.com/in/eugeneghanizadeh" target="_blank">
+            <img src="assets/linkedin.svg"/>
+          </a>
         </div>
       </div>
     </section>

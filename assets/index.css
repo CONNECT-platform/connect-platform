@@ -1,0 +1,152 @@
+body {
+  font-family: 'Didact Gothic', sans-serif;
+  background: #424242;
+  text-align: center;
+  color: #bdbdbd;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  font-size: 18px;
+}
+
+.carbon {
+  position: fixed;
+  width: 1024px;
+  height: 1024px;
+  left: -512px;
+  top: 50%;
+  margin-top: -512px;
+  z-index: -1000;
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+section:not(:last-child) {
+  margin-bottom: 256px;
+}
+
+section.full {
+  min-height: 100vh;
+}
+
+h1 {
+  color: white;
+}
+
+div {
+  width: 768px;
+  margin: auto;
+}
+
+div.small {
+  width: 512px;
+}
+
+a {
+  text-decoration: none !important;
+  outline: none !important;
+  color: white;
+  border: 1px solid white;
+  display: inline-block;
+  border-radius: 38px;
+  line-height: 12px;
+  padding: 14px 24px;
+  padding-top: 10px;
+  margin: 8px;
+  width: 128px;
+  cursor: pointer;
+
+  transition: all .3s;
+}
+
+a.filled {
+  background: white;
+  color: #424242;
+}
+
+a.img {
+  border: none;
+  padding: 0;
+  width: auto;
+}
+
+a.img img {
+  box-shadow: 0 0 12px rgba(0, 0, 0, .25);
+}
+
+a.circle {
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  vertical-align: middle;
+  position: relative;
+}
+
+a.circle img {
+  margin: 6px;
+  width: 24px;
+  height: 24px;
+  filter: grayscale(100);
+  transition: all .3s;
+}
+
+a:hover {
+  color: #B2FF59;
+  border-color: #B2FF59;
+}
+
+a.filled:hover {
+  background: #B2FF59;
+  color: #424242;
+}
+
+a.circle:hover img {
+  filter: grayscale(0);
+}
+
+pre {
+  max-width: 100%;
+}
+
+code.hljs {
+  display: inline-block;
+  background: #212121;
+  padding: 10px 16px;
+  border-radius: 19px;
+  border: 1px solid white;
+  color: #bdbdbd;
+  font-size: 14px;
+  white-space: normal;
+  word-break: break-word;
+}
+
+code.hljs span.hljs-built_in {
+  color: #B2FF59;
+}
+
+span.hl {
+  color: #B2FF59;
+}
+
+.sticky-contacts .anchor {
+  display: inline-block;
+}
+
+@media screen and (max-width: 600px) {
+  body {
+    font-size: 20px;
+  }
+
+  img.logo {
+    width: 100vw;
+  }
+
+  div, div.small {
+    width: auto;
+    margin: 12px;
+  }
+}
