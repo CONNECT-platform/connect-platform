@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="193px" height="275px" viewBox="0 0 193 275" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46 (44423) - http://www.bohemiancoding.com/sketch -->
+    <title>twitter</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="twitter" fill-rule="nonzero" fill="#B2FF59">
+            <path d="M165.119,220 L99.701,220 C75.263,220 55.382,200.118 55.382,175.681 L55.382,137.06 L165.119,137.06 C180.307,137.06 192.619,124.748 192.619,109.56 C192.619,94.372 180.307,82.06 165.119,82.06 L55.381,82.06 L55.381,27.5 C55.381,12.312 43.069,0 27.881,0 C12.693,0 0.381,12.312 0.381,27.5 L0.381,175.681 C0.381,230.446 44.936,275 99.7,275 L165.118,275 C180.306,275 192.618,262.688 192.618,247.5 C192.619,232.312 180.307,220 165.119,220 Z" id="Shape"></path>
+        </g>
+    </g>
+</svg>
