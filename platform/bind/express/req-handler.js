@@ -5,6 +5,7 @@ const reqHandler = factoryOrClass => {
   return (req, res) => {
     let params = req.body;
     Object.assign(params, req.params);
+    Object.assign(params, req.query);
 
     core.callable(factoryOrClass)(params).then(result => {
       if (result.output && result.data) {

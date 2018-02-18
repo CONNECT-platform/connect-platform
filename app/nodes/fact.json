@@ -1,5 +1,5 @@
 {
-  "path": "/fact/:n",
+  "path": "/fact",
   "public": true,
   "description": "factoriel function",
   "in": ["n"],
@@ -9,7 +9,7 @@
     {"tag": "cis", "cases": ["true", "false"]},
     {"tag": "iv", "expr": "1"},
     {"tag": "pn", "in": ["n"], "expr": "n - 1"},
-    {"tag": "fpn", "path": "/fact/:n"},
+    {"tag": "fpn", "path": "/fact"},
     {"tag": "nn", "in": ["n", "fpn"], "expr": "n * fpn"}
   ],
   "links": [

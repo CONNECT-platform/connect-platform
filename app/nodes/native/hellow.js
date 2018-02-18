@@ -1,4 +1,4 @@
-const platform = require('../../platform');
+const platform = require('platform');
 
 
 platform.core.node({
