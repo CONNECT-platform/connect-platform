@@ -3,7 +3,8 @@
   "nodes": {
     "native": [
       "nodes/native/hellow",
-      "nodes/native/goodbye"
+      "nodes/native/goodbye",
+      "nodes/native/8fact"
     ],
     "json": [
       "nodes/fact"

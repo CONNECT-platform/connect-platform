@@ -6,7 +6,7 @@ const { InputMissing } = require('./errors');
 const callable = nodeFactoryOrClass => {
   return inputs => {
     inputs = inputs || {};
-    return new Promise(resolve => {
+    return new Promise((resolve, reject) => {
       let node = util.buildFromFactoryOrClass(nodeFactoryOrClass);
 
       for (let [output, pin] of Object.entries(node.pins.out)) {
@@ -27,6 +27,12 @@ const callable = nodeFactoryOrClass => {
           });
         });
       }
+
+      node.subscribe(base.node.NodeEvents.promised, promise => {
+        promise.catch(error => {
+          reject(error);
+        });
+      });
 
       if (Object.entries(node.pins.in).length == 0) {
         node.checkActivate();

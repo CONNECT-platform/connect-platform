@@ -8,6 +8,7 @@ const { WrongNodeOutput } = require('./errors');
 const NodeEvents = {
   activate: 'activate',
   reset: 'reset',
+  promised: 'promised',
 }
 
 class Break {}
@@ -102,8 +103,10 @@ class Node extends Subscribable {
   _execute() {
     if (this._sync)
       this._executeSync();
-    else
-      this._executeAsync();
+    else {
+      let promise = this._executeAsync();
+      this.publish(NodeEvents.promised, promise);
+    }
   }
 
   _prepareInputs() {
@@ -158,7 +161,7 @@ class Node extends Subscribable {
   _executeAsync() {
     let inputs = this._prepareInputs();
 
-    new Promise(resolve => {
+    return new Promise((resolve, reject) => {
       this.run(inputs, (output, data) => {
         let _break = new OutputBreak(output, data);
 

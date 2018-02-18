@@ -59,4 +59,6 @@ class Platform {
 }
 
 module.exports = (a, b) => new Platform(a, b);
+
 module.exports.core = require('./core');
+module.exports.call = require('./tools/native-call');
