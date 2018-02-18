@@ -70,7 +70,24 @@ describe('config', () => {
       let c = config({a : {x : {y : 2, z : 3}}});
       c.append({a : {x : {z : 4, w : 5}}});
       c.get('a').x.should.have.property('w');
-      c.get('a').x.z.should.equal(4);      
+      c.get('a').x.z.should.equal(4);
     });
   });
+
+  describe('.core()', () => {
+    it('should return a proxy dict handled by the config object.', () => {
+      let c = config();
+      let d = c.core();
+
+      c.append({x : {y : 2, z : 3, arr : ['a', 'b']}});
+
+      d.x.z.should.equal(3);
+
+      c.append({x : {z : 4, w : 5, arr: ['c']}});
+
+      d.x.z.should.equal(4);
+      d.x.w.should.equal(5);
+      d.x.arr.should.have.members(['a', 'b', 'c']);
+    });
+  })
 });

@@ -35,6 +35,14 @@ class Configuration {
   has(key) {
     return key in this._params;
   }
+
+  core() {
+    return new Proxy({}, {
+      get: (_, prop) => this.get(prop),
+      has: (_, prop) => this.has(prop),
+      set: () => {},
+    });
+  }
 }
 
 module.exports = (initial) => new Configuration(initial);
