@@ -219,6 +219,7 @@ class Node extends Subscribable {
 }
 
 module.exports = {
+  Break: Break,
   Node: Node,
   NodeEvents: NodeEvents,
 }

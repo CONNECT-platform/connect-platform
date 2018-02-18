@@ -6,8 +6,7 @@ platform.core.node({
   public: true,
   outputs: ['8!'],
 }, (_, o) => {
-  platform.call('/fact', {n : 8}).then(res => {
+  platform.call('/fact', {n : 8}, res => {
     o('8!', res.data);
-  }).catch(error => {
   });
 });
