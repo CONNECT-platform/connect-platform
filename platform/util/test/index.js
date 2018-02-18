@@ -1,0 +1,3 @@
+describe('util', () => {
+  require('./config');
+});

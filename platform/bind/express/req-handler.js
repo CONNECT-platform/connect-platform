@@ -3,7 +3,10 @@ const core = require('../../core');
 
 const reqHandler = factoryOrClass => {
   return (req, res) => {
-    core.callable(factoryOrClass)(req.body).then(result => {
+    let params = req.body;
+    Object.assign(params, req.params);
+
+    core.callable(factoryOrClass)(params).then(result => {
       if (result.output && result.data) {
         let r = {};
         r[result.output] = result.data;

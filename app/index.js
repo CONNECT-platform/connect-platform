@@ -1,5 +1,4 @@
 const platform = require('../platform');
-const config = require('./config');
 
 
 platform.core.node({
@@ -8,7 +7,7 @@ platform.core.node({
   outputs: ['msg']
 }, (_, output) => output('msg', 'Hellow World!'));
 
-platform(config)
+platform()
   .configure({port : 4000})
   .start()
   .then(server => {

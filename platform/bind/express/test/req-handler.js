@@ -27,6 +27,19 @@ describe('reqHandler()', () => {
     });
   });
 
+  it('return func should handle url parameters as well.', done => {
+    let node = core.node({inputs: ['a'], outputs: ['b']}, (inputs, output) => {
+                output('b', inputs.a + ' World!');
+              });
+    app.get('/1/:a', reqHandler(node));
+    chai.request(app).get('/1/Goodbye').send().then(res => {
+      res.status.should.equal(200);
+      res.body.should.have.property('b');
+      res.body.b.should.equal('Goodbye World!');
+      done();
+    });
+  });
+
   it('return func should also handle control outputs.', done => {
     let node = core.node({controlOutputs: ['c']}, (i, o, control) => {
       control('c');

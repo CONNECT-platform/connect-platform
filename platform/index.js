@@ -1,5 +1,5 @@
-const { Builder, fromJSON } = require('./builder');
 const expressBind = require('./bind/express');
+const util = require('./util');
 
 
 class Platform {
@@ -9,9 +9,8 @@ class Platform {
   }
 
   init(app, config) {
-    this.builder = new Builder(config);
     this.app = app;
-    this.config = config || {};
+    this.config = util.config(config);
   }
 
   bind() {
@@ -29,14 +28,13 @@ class Platform {
 
   start() {
     let port = null;
-    if (this.config.port) port = this.config.port.valueOf();
-    if (this.config.server && this.config.server.port) port = this.config.server.port.valueOf();
+    if (this.config.has('port')) port = this.config.get('port');
 
     return this.listen(port);
   }
 
-  configure(conf) {
-    this.config = Object.assign(this.config, conf);
+  configure(config) {
+    this.config.append(config);
     return this;
   }
 }

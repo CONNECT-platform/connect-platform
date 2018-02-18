@@ -3,6 +3,6 @@ describe('platform', ()=> {
   require('../core/test');
 
   require('../builder/test');
-
   require('../bind/express/test');
+  require('../util/test');
 });
