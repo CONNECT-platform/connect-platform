@@ -1,5 +1,8 @@
 const expressBind = require('./bind/express');
+const loaders = require('./loaders');
 const util = require('./util');
+
+const {Builder} = require('./builder');
 
 
 class Platform {
@@ -11,10 +14,24 @@ class Platform {
   init(app, config) {
     this.app = app;
     this.config = util.config(config);
+    this.builder = new Builder(this.config.core);
   }
 
   bind() {
     this.app = expressBind(this.app);
+  }
+
+  load() {
+    if (this.config.has('nodes')) {
+      let nodes = this.config.get('nodes');
+      for (let [type, list] of Object.entries(nodes)) {
+        if (type in loaders) {
+          let loader = loaders[type];
+          for (let node of list)
+            loader(node, this.config.core);
+        }
+      }
+    }
   }
 
   listen(port) {
@@ -27,6 +44,8 @@ class Platform {
   }
 
   start() {
+    this.load();
+
     let port = null;
     if (this.config.has('port')) port = this.config.get('port');
 

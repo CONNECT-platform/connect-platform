@@ -74,10 +74,10 @@ describe('config', () => {
     });
   });
 
-  describe('.core()', () => {
+  describe('.core', () => {
     it('should return a proxy dict handled by the config object.', () => {
       let c = config();
-      let d = c.core();
+      let d = c.core;
 
       c.append({x : {y : 2, z : 3, arr : ['a', 'b']}});
 

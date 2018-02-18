@@ -1,0 +1,24 @@
+{
+  "path": "/fact/:n",
+  "public": true,
+  "description": "factoriel function",
+  "in": ["n"],
+  "out": ["f"],
+  "nodes": [
+    {"tag": "ci", "in": ["n"], "expr": "n > 1"},
+    {"tag": "cis", "cases": ["true", "false"]},
+    {"tag": "iv", "expr": "1"},
+    {"tag": "pn", "in": ["n"], "expr": "n - 1"},
+    {"tag": "fpn", "path": "/fact/:n"},
+    {"tag": "nn", "in": ["n", "fpn"], "expr": "n * fpn"}
+  ],
+  "links": [
+    [{"in": "n"}, [{"ci": {"in": "n"}}, {"pn": {"in": "n"}}, {"nn": {"in": "n"}}]],
+    [{"ci": "result"}, {"cis": "target"}],
+    [{"cis": {"case": "false"}}, "iv"],
+    [{"cis": {"case": "true"}}, "pn"],
+    [{"pn": "result"}, {"fpn": {"in": "n"}}],
+    [{"fpn": {"out": "f"}}, {"nn": {"in": "fpn"}}],
+    [{"out": "f"}, [{"iv": "result"}, {"nn": "result"}]]
+  ]
+}

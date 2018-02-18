@@ -1,14 +1,10 @@
+const path = require('path');
 const platform = require('../platform');
 
 
-platform.core.node({
-  path: '/',
-  public: true,
-  outputs: ['msg']
-}, (_, output) => output('msg', 'Hellow World!'));
-
 platform()
-  .configure({port : 4000})
+  .configure(require('./config'))
+  .configure({root: __dirname})
   .start()
   .then(server => {
     console.log(`running on http://${server.address().address}` +

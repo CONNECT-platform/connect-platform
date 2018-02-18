@@ -82,7 +82,9 @@ const findPin = (desc, c) => {
 
 const fromJSON = json => {
   let recipe = new Recipe();
-  let desc = JSON.parse(json);
+  let desc = json;
+  if (typeof(json) === 'string')
+    desc = JSON.parse(json);
 
   if (desc.path) recipe.signature.path = desc.path;
   if (desc.description) recipe.signature.description = desc.description;

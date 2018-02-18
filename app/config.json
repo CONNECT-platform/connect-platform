@@ -1,0 +1,12 @@
+{
+  "port": 4000,
+  "nodes": {
+    "native": [
+      "nodes/hellow",
+      "nodes/goodbye"
+    ],
+    "json": [
+      "nodes/fact"
+    ]
+  }
+}

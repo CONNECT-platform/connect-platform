@@ -36,7 +36,7 @@ class Configuration {
     return key in this._params;
   }
 
-  core() {
+  get core() {
     return new Proxy({}, {
       get: (_, prop) => this.get(prop),
       has: (_, prop) => this.has(prop),
