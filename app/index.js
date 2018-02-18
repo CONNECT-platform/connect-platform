@@ -1,5 +1,5 @@
 const path = require('path');
-const platform = require('../platform');
+const platform = require('platform');
 
 
 platform()
