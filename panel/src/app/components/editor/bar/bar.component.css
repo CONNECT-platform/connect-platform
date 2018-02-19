@@ -1,0 +1,17 @@
+.holder {
+  background: #424242;
+  position: absolute;
+  top: 0;
+  height: 100vh;
+  width: 156px;
+  z-index: 1000;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+.holder.left {
+  left: 0;
+}
+
+.holder.right {
+  right: 0;
+}

@@ -1,0 +1,15 @@
+.outer {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  background: #212121;
+  overflow: scroll;
+  z-index: 0;
+}
+
+.inner {
+  width: 1000%;
+  height: 100%;
+}

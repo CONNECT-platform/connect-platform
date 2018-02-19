@@ -1,0 +1,9 @@
+.holder {
+  position: absolute;
+  width: 156px;
+  height: 156px;
+  background: #424242;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+
+  transition: all .3s, left .1s ease-out, top .1s ease-out;
+}
