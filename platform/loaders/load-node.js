@@ -2,21 +2,25 @@ const path = require('path');
 const ct = require('../util/color-text');
 
 
-module.exports = (originalPath, config) => {
-  let searchPaths = [];
+module.exports = (originalPath, searchPaths, callback) => {
+  let searchedPaths = [];
 
-  try {
-    return require(originalPath);
-  } catch(_) { searchPaths.push(originalPath); }
+  if (searchPaths.indexOf('') == -1)
+    searchPaths = [''].concat(searchPaths);
 
-  if (config.root) {
-    try {
-    return require(path.join(config.root, originalPath));
-    } catch(_){ searchPaths.push(path.join(config.root, originalPath)); }
+  if (searchPaths) {
+    for (let searchPath of searchPaths) {
+      let _path = path.join(searchPath, originalPath);
+      try {
+        let loaded = require(_path);
+        if (callback) callback(loaded, _path);
+        return loaded;
+      } catch(_){ searchedPaths.push(_path); }
+    }
   }
 
   console.log(ct(ct.yellow + ct.bright, 'WARNING:: ') +
           `couldn't load node ${ct(ct.cyan, originalPath)}, searched in`+
-          `${ct(ct.bg.cyan + ct.cyan + ct.bright, '\n\t' + searchPaths.join('\n\t'))}\n`
+          `${ct(ct.bg.cyan + ct.cyan + ct.bright, '\n\t' + searchedPaths.join('\n\t'))}\n`
              );
 }

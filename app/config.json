@@ -1,13 +1,7 @@
 {
   "port": 4000,
   "nodes": {
-    "native": [
-      "nodes/native/hellow",
-      "nodes/native/goodbye",
-      "nodes/native/8fact"
-    ],
-    "json": [
-      "nodes/fact"
-    ]
+    "native": ["hellow"],
+    "module": ["facts"]
   }
 }

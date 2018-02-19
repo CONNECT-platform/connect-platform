@@ -22,16 +22,10 @@ class Platform {
   }
 
   load() {
-    if (this.config.has('nodes')) {
-      let nodes = this.config.get('nodes');
-      for (let [type, list] of Object.entries(nodes)) {
-        if (type in loaders) {
-          let loader = loaders[type];
-          for (let node of list)
-            loader(node, this.config.core);
-        }
-      }
-    }
+    loaders.module
+      .loadNodesFromConf(this.config.core,
+                        [this.config.get('root')],
+                        this.config.core);
   }
 
   listen(port) {

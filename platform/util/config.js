@@ -25,11 +25,11 @@ class Configuration {
     return this;
   }
 
-  get(key) {
+  get(key, _default) {
     if (this.has(key))
       return this._params[key].valueOf();
 
-    return undefined;
+    return _default;
   }
 
   has(key) {
