@@ -16,3 +16,55 @@ html, body {
     -ms-user-select: none; /* IE10+/Edge */
     user-select: none; /* Standard */
 }
+
+/*** ACE EDITOR OVERRIDES ***/
+
+ace-editor {
+  font-family: 'Roboto Mono', monospace !important;
+  font-size: 12px !important;
+  background-color: rgba(0, 0, 0, 0) !important;
+}
+
+ace-editor .ace_marker-layer .ace_active-line {
+  background-color: rgba(0, 0, 0, 0) !important;
+}
+
+ace-editor .ace_marker-layer .ace_selection {
+  background: rgba(255, 255, 255, .1) !important;
+}
+
+ace-editor .ace_keyword {
+  color: #c6ff00 !important;
+}
+
+ace-editor .ace_type {
+  color: #c6ff00 !important;
+}
+
+ace-editor .ace_string {
+  color: #00bfa5 !important;
+}
+
+ace-editor .ace_paren {
+  color: #4A90E2 !important;
+}
+
+ace-editor .ace_operator {
+  color: #4A90E2 !important;
+}
+
+ace-editor .ace_identifier {
+  color: #ff4081 !important;
+}
+
+ace-editor .ace_support {
+  color: #D500F9 !important;
+}
+
+ace-editor .ace_numeric {
+  color: #F5A623 !important;
+}
+
+ace-editor .ace_language {
+  color: #C0CA33 !important;
+}

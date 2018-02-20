@@ -14,6 +14,7 @@ export class CardComponent implements OnInit {
   @ViewChildren(PinComponent) pins;
   @Input() private box: Box;
 
+  private code: string = `console.log('hellow!');`;
   private picked: boolean = false;
 
   constructor(private editorService: EditorService) {

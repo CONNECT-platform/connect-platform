@@ -1,0 +1,21 @@
+.holder {
+  background: #212121;
+  border: 1px solid white;
+  padding: 8px;
+  border-radius: 18px;
+  margin: 8px 0;
+  position: relative;
+}
+
+.ace-holder {
+  margin-right: 20px;
+}
+
+ace-editor {
+}
+
+pin {
+  position: absolute;
+  right: 6px;
+  top: 3px;
+}

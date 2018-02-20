@@ -61,7 +61,6 @@ export class LinkComponent implements OnInit {
     let dl = (from.left - to.left);
     let dt = (from.top - to.top);
     let angle = Math.atan2(dt, dl) * 180 / Math.PI + 180;
-    console.log(`rotation(${angle}deg)`);
 
     return `rotate(${angle}deg)`;
   }

@@ -14,8 +14,8 @@ export class EditorComponent implements OnInit {
   constructor(private model : EditorModelService) { }
 
   ngOnInit() {
-    let b1 = new Box(240, 156, 156, 156);
-    let b2 = new Box(240, 356, 156, 156);
+    let b1 = new Box(240, 156, 192, 156);
+    let b2 = new Box(240, 356, 192, 156);
     let l = new Link(b1, b2);
 
     this.model.nodes.push(b1);
