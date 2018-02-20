@@ -1,6 +1,5 @@
 .holder {
   position: absolute;
-  padding: 8px;
   width: 156px;
   height: 156px;
   background: #424242;
@@ -13,4 +12,8 @@
 .holder:hover {
   box-shadow: 0 3px 16px rgba(0,0,0,0.16), 0 6px 16px rgba(0,0,0,0.23);
   transform: translateY(-1px);
+}
+
+.holder .inner {
+  padding: 8px;
 }
