@@ -1,7 +1,9 @@
 <div class="outer" (scroll)="scrollEvent($event)">
   <div class="inner"
-    (mousemove)="mouseMoveEvent($event)">
-    <editor-card x="200" y="240"></editor-card>
-    <editor-card x="500" y="100"></editor-card>
+    (mousemove)="mouseMoveEvent($event)"
+    (mouseup)="mouseUpEvent()">
+    <ng-container *ngFor="let node of model.nodes">
+      <editor-card [box]="node"></editor-card>
+    </ng-container>
   </div>
 </div>

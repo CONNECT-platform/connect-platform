@@ -1,0 +1,33 @@
+.holder {
+  position: absolute;
+  z-index: 2000;
+  height: 0px;
+  opacity: 0.75;
+  transition: opacity .3s;
+  cursor: pointer;
+  transform-origin: left;
+
+  top: 120px;
+  width: 256px;
+}
+
+.holder:hover {
+  opacity: 1;
+}
+
+.holder .inner {
+  position: relative;
+}
+
+.holder .line {
+  border: 5px dashed #76FF03;
+  transform: scaleY(.2);
+}
+
+.holder img {
+  width: 13px;
+  height: 13px;
+  position: absolute;
+  right: -6px;
+  top: -2px;
+}

@@ -1,50 +1,35 @@
-import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChildren } from '@angular/core';
+import { PinComponent } from '../../pin/pin.component';
 import { EditorService, EditorEvents } from '../../../services/editor.service';
-import { EventReporter } from '../event-reporter';
+import { Box } from '../../../models/box.model';
+
 
 @Component({
   selector: 'editor-card',
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.css']
 })
-export class CardComponent extends EventReporter implements OnInit, OnDestroy {
+export class CardComponent implements OnInit {
 
-  @Input() private x: number = 0;
-  @Input() private y: number = 0;
+  @ViewChildren(PinComponent) pins;
+  @Input() private box: Box;
 
-  private picked: any;
+  private picked: boolean = false;
 
-  private mouseMoveHandler;
-
-  constructor(editorService: EditorService) {
-    super(editorService);
+  constructor(private editorService: EditorService) {
   }
 
   ngOnInit() {
-    this.mouseMoveHandler = event => {
-      if (this.picked)
-        this.move(event.x - this.picked.x, event.y - this.picked.y);
-    };
-    this.editorService.subscribe(EditorEvents.mousemove, this.mouseMoveHandler);
-  }
-
-  ngOnDestroy() {
-    this.editorService.unsubscribe(EditorEvents.mousemove, this.mouseMoveHandler);
-  }
-
-  public move(x, y) {
-    this.x = x;
-    this.y = y;
   }
 
   public pick(event) {
-    this.picked = {
-      x: event.offsetX,
-      y: event.offsetY,
-    }
+    this.picked = true;
+    event.pickedObject = this.box;
+    this.editorService.pickEvent(event);
   }
 
   public unpick() {
-    this.picked = null;
+    if (this.picked)
+      this.editorService.unpickEvent();
   }
 }

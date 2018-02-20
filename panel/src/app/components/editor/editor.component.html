@@ -1,5 +1,8 @@
 <div class="container">
   <editor-bar position="left"></editor-bar>
   <editor-pane></editor-pane>
+  <ng-container *ngFor="let link of model.links">
+    <editor-link [link]="link"></editor-link>
+  </ng-container>
   <editor-bar position="right"></editor-bar>
 </div>

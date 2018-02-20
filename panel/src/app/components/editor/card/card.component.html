@@ -1,5 +1,7 @@
 <div class="holder"
-    [ngStyle]="{'left.px': x, 'top.px': y}"
+    [ngStyle]="{'left.px': box.left, 'top.px': box.top, 'width.px': box.width, 'height.px': box.height}"
     (mousedown)="pick($event)"
     (mouseup)="unpick()">
+    <div><pin tag="p"></pin>input a</div>
+    <div><pin tag="q"></pin>input b</div>
 </div>

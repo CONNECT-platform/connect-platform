@@ -1,9 +1,16 @@
 .holder {
   position: absolute;
+  padding: 8px;
   width: 156px;
   height: 156px;
   background: #424242;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  cursor: pointer;
+  box-shadow: 0 0 6px rgba(0,0,0,0.16), 0 0 6px rgba(0,0,0,0.23);
+  transform: translateY(0px);
+  transition: box-shadow .1s, transform .1s;
+}
 
-  transition: all .3s, left .1s ease-out, top .1s ease-out;
+.holder:hover {
+  box-shadow: 0 3px 16px rgba(0,0,0,0.16), 0 6px 16px rgba(0,0,0,0.23);
+  transform: translateY(-1px);
 }

@@ -10,6 +10,9 @@ import { EditorService } from './services/editor.service';
 import { BarComponent } from './components/editor/bar/bar.component';
 
 import {FlexLayoutModule} from "@angular/flex-layout";
+import { PinComponent } from './components/pin/pin.component';
+import { LinkComponent } from './components/editor/link/link.component';
+import { EditorModelService } from './services/editor-model.service';
 
 
 @NgModule({
@@ -19,12 +22,14 @@ import {FlexLayoutModule} from "@angular/flex-layout";
     PaneComponent,
     CardComponent,
     BarComponent,
+    PinComponent,
+    LinkComponent,
   ],
   imports: [
     BrowserModule,
     FlexLayoutModule
   ],
   bootstrap: [AppComponent],
-  providers: [EditorService]
+  providers: [EditorService, EditorModelService]
 })
 export class AppModule { }
