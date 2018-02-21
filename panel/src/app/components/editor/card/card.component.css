@@ -6,7 +6,7 @@
   cursor: pointer;
   box-shadow: 0 0 6px rgba(0,0,0,0.16), 0 0 6px rgba(0,0,0,0.23);
   transform: translateY(0px);
-  transition: box-shadow .1s, transform .1s;
+  transition: box-shadow .1s, transform .1s, height .1s;
 }
 
 .holder:hover {
@@ -16,4 +16,19 @@
 
 .holder .inner {
   padding: 8px;
+}
+
+.input {
+  margin: 8px;
+  font-size: 14px;
+  opacity: .7;
+  transition: opacity .3s;
+}
+
+.input:hover {
+  opacity: 1;
+}
+
+.input editor-pin {
+  margin-right: 8px;
 }

@@ -1,5 +1,4 @@
-import { Component, OnInit,
-        Input, ChangeDetectorRef, AfterViewChecked } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Link } from '../../../models/link.model';
 import { Node } from '../../../models/node.model';
 import { Pin } from '../../../models/pin.model';
@@ -11,23 +10,15 @@ import { EditorService } from '../../../services/editor.service';
   templateUrl: './link.component.html',
   styleUrls: ['./link.component.css']
 })
-export class LinkComponent implements OnInit, AfterViewChecked {
+export class LinkComponent implements OnInit {
 
   @Input() link: Link;
   private _lastFromPos = null;
   private _lastToPos = null;
 
-  constructor(private editorService: EditorService,
-      private cdr: ChangeDetectorRef) { }
+  constructor(private editorService: EditorService) { }
 
   ngOnInit() {
-  }
-
-  ngAfterViewChecked() {
-    setTimeout(() => {
-      this._lastToPos = null;
-      this._lastFromPos = null;
-    });
   }
 
   private _clientPos(pos) {
@@ -38,12 +29,18 @@ export class LinkComponent implements OnInit, AfterViewChecked {
   }
 
   get fromPos() {
-    if (!this._lastFromPos) this._lastFromPos = this._fromPos;
+    if (!this._lastFromPos) {
+      this._lastFromPos = this._fromPos;
+      setTimeout(() => this._lastFromPos = null, 10);
+    }
     return this._lastFromPos;
   }
 
   get toPos() {
-    if (!this._lastToPos) this._lastToPos = this._toPos;
+    if (!this._lastToPos) {
+      this._lastToPos = this._toPos;
+      setTimeout(() => this._lastToPos = null, 10);
+    }
     return this._lastToPos;
   }
 

@@ -18,14 +18,14 @@ export class EditorComponent implements OnInit {
     let e1 = Expr.emptyExpr(240, 128);
     let e2 = Expr.emptyExpr(384, 256);
     let e3 = Expr.emptyExpr(212, 500);
-    e1.code = '"Hellow World!".length';
-    e2.code = 'a * 2 + b';
+    e1.code = '"Hellow World!"\n.length';
+    e2.code = 'first*2 + second';
     e3.code = '3.1415926';
 
-    e2.addIn('a').addIn('b');
+    e2.addIn('first').addIn('second');
 
-    let l = new Link(e1.out['result'], e2.in['a']);
-    let l2 = new Link(e3.out['result'], e2.in['b']);
+    let l = new Link(e1.out['result'], e2.in['first']);
+    let l2 = new Link(e3.out['result'], e2.in['second']);
 
     this.model.addNode(e1)
               .addNode(e2)

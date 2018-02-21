@@ -3,11 +3,14 @@
     (mousedown)="pick($event)"
     (mouseup)="unpick()">
 
-    <ng-container *ngIf="isExpression">
-      <div class="inner expr">
+    <ng-container *ngIf="type == types.expr">
+      <div class="inner expr" #inner>
         <div #inputs>
           <ng-container *ngFor="let entry of node.in | entries">
-            <editor-pin [pin]="entry[1]"></editor-pin>{{entry[0]}}<br/>
+            <div class="input">
+              <editor-pin [pin]="entry[1]"></editor-pin>
+              <span class="name">{{entry[0]}}</span>
+            </div>
           </ng-container>
         </div>
         <editor-expr [(code)]="node.code" [pin]="node.out.result"></editor-expr>

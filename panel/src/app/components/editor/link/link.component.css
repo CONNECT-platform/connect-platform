@@ -2,7 +2,7 @@
   position: absolute;
   z-index: 2000;
   height: 0px;
-  opacity: 0.7;
+  opacity: 0.3;
   transition: opacity .3s;
   cursor: pointer;
   transform-origin: center left;

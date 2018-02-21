@@ -68,3 +68,7 @@ ace-editor .ace_numeric {
 ace-editor .ace_language {
   color: #C0CA33 !important;
 }
+
+ace-editor .ace_hidden-cursors {
+  opacity: 0 !important;
+}
