@@ -1,9 +1,9 @@
 <div class="holder">
   <div class="ace-holder">
     <ace-editor mode="javascript"
-                [(text)]="code"
+                [(text)]="_code"
                 [options]="options"
                 style='min-height:16px;'></ace-editor>
   </div>
-  <pin></pin>
+  <editor-pin [pin]="pin"></editor-pin>
 </div>

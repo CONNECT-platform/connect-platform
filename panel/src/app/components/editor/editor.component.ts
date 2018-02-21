@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Link } from '../../models/link.model';
+import { Expr } from '../../models/expr.model';
 import { Box } from '../../models/box.model';
 import { EditorModelService } from '../../services/editor-model.service';
 
@@ -14,12 +15,22 @@ export class EditorComponent implements OnInit {
   constructor(private model : EditorModelService) { }
 
   ngOnInit() {
-    let b1 = new Box(240, 156, 192, 156);
-    let b2 = new Box(240, 356, 192, 156);
-    let l = new Link(b1, b2);
+    let e1 = Expr.emptyExpr(240, 128);
+    let e2 = Expr.emptyExpr(384, 256);
+    let e3 = Expr.emptyExpr(212, 500);
+    e1.code = '"Hellow World!".length';
+    e2.code = 'a * 2 + b';
+    e3.code = '3.1415926';
 
-    this.model.nodes.push(b1);
-    this.model.nodes.push(b2);
-    this.model.links.push(l);
+    e2.addIn('a').addIn('b');
+
+    let l = new Link(e1.out['result'], e2.in['a']);
+    let l2 = new Link(e3.out['result'], e2.in['b']);
+
+    this.model.addNode(e1)
+              .addNode(e2)
+              .addNode(e3)
+              .addLink(l2)
+              .addLink(l);
   }
 }

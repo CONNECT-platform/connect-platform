@@ -5,6 +5,8 @@ import { Box } from '../models/box.model';
 
 export enum EditorEvents {
   mousemove,
+  paneScroll,
+  pick, unpick,
 }
 
 @Injectable()
@@ -38,6 +40,7 @@ export class EditorService extends Subscribable {
 
   public paneScrollEvent(event: any) {
     this.paneScroll = event.srcElement.scrollLeft;
+    this.publish(EditorEvents.paneScroll, this.paneScroll);
   }
 
   public pickEvent(event: any) {
@@ -48,7 +51,15 @@ export class EditorService extends Subscribable {
         top: event.clientY - event.pickedObject.top,
       }
     }
+    this.publish(EditorEvents.pick, this.picked);
   }
 
-  public unpickEvent() { this.picked = null; }
+  public unpickEvent() {
+    this.publish(EditorEvents.unpick, this.picked);
+    this.picked = null;
+  }
+
+  public isPicked(obj) {
+    return this.picked && obj == this.picked.target;
+  }
 }

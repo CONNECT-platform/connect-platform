@@ -2,10 +2,10 @@
   position: absolute;
   z-index: 2000;
   height: 0px;
-  opacity: 0.5;
+  opacity: 0.7;
   transition: opacity .3s;
   cursor: pointer;
-  transform-origin: left;
+  transform-origin: center left;
 
   top: 120px;
   width: 256px;
@@ -21,6 +21,9 @@
 
 .holder .line {
   border: 5px dashed #76FF03;
+  margin-top: -4px;
+  margin-left: 11px;
+  margin-right: 8px;
   transform: scaleY(.2);
 }
 
@@ -28,6 +31,6 @@
   width: 13px;
   height: 13px;
   position: absolute;
-  right: -6px;
+  right: 0px;
   top: -2px;
 }

@@ -1,7 +1,9 @@
-import { Component, OnInit, Input, ViewChildren } from '@angular/core';
-import { PinComponent } from '../../pin/pin.component';
+import { Component, OnInit, Input,
+          ViewChild, ElementRef, OnChanges,
+          AfterViewInit } from '@angular/core';
 import { EditorService, EditorEvents } from '../../../services/editor.service';
-import { Box } from '../../../models/box.model';
+import { Node } from '../../../models/node.model';
+import { Expr } from '../../../models/expr.model';
 
 
 @Component({
@@ -9,23 +11,31 @@ import { Box } from '../../../models/box.model';
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.css']
 })
-export class CardComponent implements OnInit {
-
-  @ViewChildren(PinComponent) pins;
-  @Input() private box: Box;
-
-  private code: string = `console.log('hellow!');`;
-  private picked: boolean = false;
+export class CardComponent implements OnInit, OnChanges, AfterViewInit {
+  @Input() private node: Node;
+  @ViewChild('inputs') private inputs: ElementRef;
 
   constructor(private editorService: EditorService) {
   }
 
   ngOnInit() {
+    this.node.component = this;
+  }
+
+  ngOnChanges() {
+    if (this.inputs) setTimeout(() => this._setHeight());
+  }
+
+  ngAfterViewInit() {
+    setTimeout(() => this._setHeight());
+  }
+
+  private _setHeight() {
+    this.node.box.height = this.inputs.nativeElement.offsetHeight + 32;
   }
 
   public pick(event) {
-    this.picked = true;
-    event.pickedObject = this.box;
+    event.pickedObject = this.node.box;
     this.editorService.pickEvent(event);
   }
 
@@ -33,4 +43,10 @@ export class CardComponent implements OnInit {
     if (this.picked)
       this.editorService.unpickEvent();
   }
+
+  public get picked() {
+    return this.editorService.isPicked(this.node.box);
+  }
+
+  public get isExpression() { return this.node instanceof Expr; }
 }

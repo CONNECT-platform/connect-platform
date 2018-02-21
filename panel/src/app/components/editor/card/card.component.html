@@ -1,10 +1,16 @@
 <div class="holder"
-    [ngStyle]="{'left.px': box.left, 'top.px': box.top, 'width.px': box.width, 'height.px': box.height}"
+    [ngStyle]="{'left.px': node.box.left, 'top.px': node.box.top, 'width.px': node.box.width, 'height.px': node.box.height}"
     (mousedown)="pick($event)"
     (mouseup)="unpick()">
-    <div class="inner">
-      <div><pin tag="p"></pin>input a</div>
-      <div><pin tag="q"></pin>input b</div>
-      <editor-expr></editor-expr>
-    </div>
+
+    <ng-container *ngIf="isExpression">
+      <div class="inner expr">
+        <div #inputs>
+          <ng-container *ngFor="let entry of node.in | entries">
+            <editor-pin [pin]="entry[1]"></editor-pin>{{entry[0]}}<br/>
+          </ng-container>
+        </div>
+        <editor-expr [(code)]="node.code" [pin]="node.out.result"></editor-expr>
+      </div>
+    </ng-container>
 </div>

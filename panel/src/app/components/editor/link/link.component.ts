@@ -1,6 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit,
+        Input, ChangeDetectorRef, AfterViewChecked } from '@angular/core';
 import { Link } from '../../../models/link.model';
-import { Box } from '../../../models/box.model';
+import { Node } from '../../../models/node.model';
+import { Pin } from '../../../models/pin.model';
 import { EditorService } from '../../../services/editor.service';
 
 
@@ -9,13 +11,23 @@ import { EditorService } from '../../../services/editor.service';
   templateUrl: './link.component.html',
   styleUrls: ['./link.component.css']
 })
-export class LinkComponent implements OnInit {
+export class LinkComponent implements OnInit, AfterViewChecked {
 
   @Input() link: Link;
+  private _lastFromPos = null;
+  private _lastToPos = null;
 
-  constructor(private editorService: EditorService) { }
+  constructor(private editorService: EditorService,
+      private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
+  }
+
+  ngAfterViewChecked() {
+    setTimeout(() => {
+      this._lastToPos = null;
+      this._lastFromPos = null;
+    });
   }
 
   private _clientPos(pos) {
@@ -26,24 +38,51 @@ export class LinkComponent implements OnInit {
   }
 
   get fromPos() {
-    if (this.link.from instanceof Box) return this._clientPos(this.link.from.center);
+    if (!this._lastFromPos) this._lastFromPos = this._fromPos;
+    return this._lastFromPos;
   }
 
   get toPos() {
-    if (this.link.to instanceof Box) {
+    if (!this._lastToPos) this._lastToPos = this._toPos;
+    return this._lastToPos;
+  }
+
+  private get _fromPos() {
+    if (this.link.from instanceof Node) return this._clientPos(this.link.from.box.center);
+    if (this.link.from instanceof Pin && this.link.from.component) {
+      return this.link.from.component.pos;
+    }
+
+    return {
+      left: 0,
+      top: 0,
+    }
+  }
+
+  private get _toPos() {
+    if (this.link.to instanceof Node) {
       let from = this.fromPos;
-      let center = this._clientPos(this.link.to.center);
+      let center = this._clientPos(this.link.to.box.center);
 
       let dl = from.left - center.left;
       let dt = from.top - center.top;
       let angle = Math.atan2(dt, dl) * 180 / Math.PI + 180;
 
-      if (angle < 45 || angle >= 270 + 45) return this._clientPos(this.link.to.centerLeft);
-      if (angle >= 45 && angle < 90 + 45) return this._clientPos(this.link.to.centerTop);
-      if (angle >= 90 + 45 && angle < 180 + 45) return this._clientPos(this.link.to.centerRight);
-      if (angle >= 180 + 45 && angle < 270 + 45) return this._clientPos(this.link.to.centerBottom);
+      if (angle < 45 || angle >= 270 + 45) return this._clientPos(this.link.to.box.centerLeft);
+      if (angle >= 45 && angle < 90 + 45) return this._clientPos(this.link.to.box.centerTop);
+      if (angle >= 90 + 45 && angle < 180 + 45) return this._clientPos(this.link.to.box.centerRight);
+      if (angle >= 180 + 45 && angle < 270 + 45) return this._clientPos(this.link.to.box.centerBottom);
 
       return center;
+    }
+
+    if (this.link.to instanceof Pin && this.link.to.component) {
+      return this.link.to.component.pos;
+    }
+
+    return {
+      left: 0,
+      top: 0,
     }
   }
 

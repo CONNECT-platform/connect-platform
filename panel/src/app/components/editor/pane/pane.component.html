@@ -3,7 +3,7 @@
     (mousemove)="mouseMoveEvent($event)"
     (mouseup)="mouseUpEvent()">
     <ng-container *ngFor="let node of model.nodes">
-      <editor-card [box]="node"></editor-card>
+      <editor-card [node]="node"></editor-card>
     </ng-container>
   </div>
 </div>
