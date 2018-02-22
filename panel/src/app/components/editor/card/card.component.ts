@@ -4,6 +4,7 @@ import { Component, OnInit, Input,
 import { EditorService, EditorEvents } from '../../../services/editor.service';
 import { Node } from '../../../models/node.model';
 import { Expr, ExprEvents } from '../../../models/expr.model';
+import { decomposeCode, recomposeCode } from '../../../base/decompose-code';
 
 
 enum CardType { expr, }
@@ -19,6 +20,8 @@ export class CardComponent implements OnInit, OnChanges, AfterViewInit {
   @ViewChild('inputs') private inputs: ElementRef;
 
   private types = CardType;
+  private focusedInputVal: string;
+  private decomposedFIVal: any;
 
   constructor(private editorService: EditorService) {
   }
@@ -60,5 +63,25 @@ export class CardComponent implements OnInit, OnChanges, AfterViewInit {
 
   public get type() {
     if (this.node instanceof Expr) return CardType.expr;
+  }
+
+  public inputFocus(event) {
+    this.focusedInputVal = event.target.value;
+    if (this.type == CardType.expr) {
+      let expr = this.node as Expr;
+      this.decomposedFIVal = decomposeCode(expr.code, this.focusedInputVal);
+    }
+  }
+
+  public inputChange(event) {
+    let newVal = event.target.value;
+    this.node.renameIn(this.focusedInputVal, newVal);
+
+    if (this.type == CardType.expr) {
+      let expr = this.node as Expr;
+      expr.code = recomposeCode(this.decomposedFIVal, newVal);
+    }
+
+    this.focusedInputVal = newVal;
   }
 }

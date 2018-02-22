@@ -32,3 +32,14 @@
 .input editor-pin {
   margin-right: 8px;
 }
+
+.input input {
+  display: inline;
+  background: none;
+  border: none;
+  outline: none;
+  max-width: 96px;
+  font-family: inherit;
+  font-size: 14px;
+  color: white;
+}

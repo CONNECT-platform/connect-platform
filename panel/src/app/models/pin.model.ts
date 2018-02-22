@@ -13,12 +13,10 @@ export enum PinEvents {
 export class Pin extends Subscribable {
   private _node: Node;
   private _type: PinType;
-  private _name: string;
   private _component: any;
 
-  constructor(name: string, type: PinType, node?: Node) {
+  constructor(type: PinType, node?: Node) {
     super();
-    this._name = name;
     this._type = type;
     this._node = node;
   }
@@ -31,5 +29,4 @@ export class Pin extends Subscribable {
 
   public get node() { return this._node; }
   public get type() { return this._type; }
-  public get name() { return this._name; }
 }

@@ -35,8 +35,16 @@ export class Node extends Subscribable {
   public get control() { return this._controls; }
 
   public addIn(_in: string): Node {
-    this._ins[_in] = new Pin(_in, PinType.input, this);
+    this._ins[_in] = new Pin(PinType.input, this);
     this.publish(NodeEvents.addIn, _in);
+    return this;
+  }
+
+  public renameIn(oldName: string, newName: string): Node {
+    if (oldName != newName && oldName in this._ins) {
+      this._ins[newName] = this._ins[oldName];
+      delete this._ins[oldName];
+    }
     return this;
   }
 
@@ -47,7 +55,7 @@ export class Node extends Subscribable {
   }
 
   public addOut(_out: string): Node {
-    this._outs[_out] = new Pin(_out, PinType.output, this);
+    this._outs[_out] = new Pin(PinType.output, this);
     this.publish(NodeEvents.addOut, _out);
     return this;
   }
@@ -59,7 +67,7 @@ export class Node extends Subscribable {
   }
 
   public addControl(_ctrl: string): Node {
-    this._controls[_ctrl] = new Pin(_ctrl, PinType.control, this);
+    this._controls[_ctrl] = new Pin(PinType.control, this);
     this.publish(NodeEvents.addControl, _ctrl);
     return this;
   }

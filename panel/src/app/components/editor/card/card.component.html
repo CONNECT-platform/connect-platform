@@ -9,7 +9,11 @@
           <ng-container *ngFor="let entry of node.in | entries">
             <div class="input">
               <editor-pin [pin]="entry[1]"></editor-pin>
-              <span class="name">{{entry[0]}}</span>
+              <input type="text"
+                    [value]="entry[0]"
+                    (focus)="inputFocus($event)"
+                    (keyup)="inputChange($event)"
+                    (change)="inputChange($event)">
             </div>
           </ng-container>
         </div>
