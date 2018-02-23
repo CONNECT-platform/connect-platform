@@ -15,7 +15,7 @@ import { PinComponent } from './components/editor/pin/pin.component';
 import { LinkComponent } from './components/editor/link/link.component';
 import { EditorModelService } from './services/editor-model.service';
 import { ExprComponent } from './components/editor/expr/expr.component';
-import { EntriesPipe } from './base/entries.pipe';
+import { EntriesPipe } from './util/entries.pipe';
 
 
 @NgModule({

@@ -16,13 +16,21 @@ export class Expr extends Node {
     this.addOut(Expr.Result);
   }
 
-  public get code() { return this._code; }
+  public get code() { return this._getCode(); }
   public set code(code) {
-    this._code = code;
-    this.publish(ExprEvents.codeChange, code);
+    this._setCode(code);
   }
 
   public static emptyExpr(left: number, top: number): Expr {
     return new Expr(new Box(left, top, 192, 32));
+  }
+
+  protected _setCode(code: string) {
+    this._code = code;
+    this.publish(ExprEvents.codeChange, code);
+  }
+
+  protected _getCode() {
+    return this._code;
   }
 }

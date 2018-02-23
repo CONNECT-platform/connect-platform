@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Link } from '../../../models/link.model';
 import { Node } from '../../../models/node.model';
+import { Expr } from '../../../models/expr.model';
 import { Pin } from '../../../models/pin.model';
 import { EditorService } from '../../../services/editor.service';
 
@@ -45,9 +46,17 @@ export class LinkComponent implements OnInit {
   }
 
   private get _fromPos() {
-    if (this.link.from instanceof Node) return this._clientPos(this.link.from.box.center);
-    if (this.link.from instanceof Pin && this.link.from.component) {
-      return this.link.from.component.pos;
+    let component = this.link.from.component;
+
+    if (component) {
+      if (this.link.from instanceof Node) {
+        let box = component.box;
+        if (box) return box.center;
+      }
+
+      if (this.link.from instanceof Pin) {
+        return component.pos;
+      }
     }
 
     return {
@@ -57,24 +66,17 @@ export class LinkComponent implements OnInit {
   }
 
   private get _toPos() {
-    if (this.link.to instanceof Node) {
-      let from = this.fromPos;
-      let center = this._clientPos(this.link.to.box.center);
+    let component = this.link.to.component;
 
-      let dl = from.left - center.left;
-      let dt = from.top - center.top;
-      let angle = Math.atan2(dt, dl) * 180 / Math.PI + 180;
+    if (component) {
+      if (this.link.to instanceof Node) {
+          let box = component.box;
+          if (box) return box.attachPoint(this.fromPos);
+      }
 
-      if (angle < 45 || angle >= 270 + 45) return this._clientPos(this.link.to.box.centerLeft);
-      if (angle >= 45 && angle < 90 + 45) return this._clientPos(this.link.to.box.centerTop);
-      if (angle >= 90 + 45 && angle < 180 + 45) return this._clientPos(this.link.to.box.centerRight);
-      if (angle >= 180 + 45 && angle < 270 + 45) return this._clientPos(this.link.to.box.centerBottom);
-
-      return center;
-    }
-
-    if (this.link.to instanceof Pin && this.link.to.component) {
-      return this.link.to.component.pos;
+      if (this.link.to instanceof Pin) {
+        return component.pos;
+      }
     }
 
     return {
@@ -99,5 +101,14 @@ export class LinkComponent implements OnInit {
     let angle = Math.atan2(dt, dl) * 180 / Math.PI + 180;
 
     return `rotate(${angle}deg)`;
+  }
+
+  get inPane() {
+    return LinkComponent._inPane(this.link.from) &&
+          LinkComponent._inPane(this.link.to);
+  }
+
+  private static _inPane(obj) {
+    return (obj instanceof Node) || (obj instanceof Pin && obj.node);
   }
 }

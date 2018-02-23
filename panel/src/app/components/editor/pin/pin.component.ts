@@ -1,6 +1,6 @@
 import { Component, OnInit, ElementRef, Input } from '@angular/core';
 import { Pin } from '../../../models/pin.model';
-import { elementBox } from '../../../base/elem-box';
+import { Box } from '../../../models/box.model';
 
 
 @Component({
@@ -19,10 +19,6 @@ export class PinComponent implements OnInit {
   }
 
   public get pos() {
-    let b = elementBox(this.el.nativeElement);
-    return {
-      left: (b.left + b.right)/2,
-      top: (b.top + b.bottom)/2,
-    }
+    return Box.fromElement(this.el.nativeElement).center;
   }
 }

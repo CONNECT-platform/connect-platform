@@ -20,4 +20,10 @@
         <editor-expr [(code)]="node.code" [pin]="node.out.result"></editor-expr>
       </div>
     </ng-container>
+
+    <ng-container *ngIf="type == types.value">
+      <div class="inner value" #inner>
+        <editor-expr [(code)]="node.code" [pin]="node.out.result"></editor-expr>
+      </div>
+    </ng-container>
 </div>

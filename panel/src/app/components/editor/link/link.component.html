@@ -1,4 +1,4 @@
-<div class="holder"
+<div class="holder" [ngClass]="{'in-pane': inPane}"
   [ngStyle]="{'left.px': fromPos.left, 'top.px': fromPos.top, 'width.px': linkWidth, 'transform': linkTransform}"
   >
   <div class="inner">

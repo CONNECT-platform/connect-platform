@@ -11,6 +11,10 @@
   width: 256px;
 }
 
+.holder.in-pane {
+  z-index: 999;
+}
+
 .holder:hover {
   opacity: 1;
 }

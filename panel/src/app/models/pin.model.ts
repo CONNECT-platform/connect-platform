@@ -1,4 +1,4 @@
-import { Subscribable } from '../base/subscribable';
+import { Subscribable } from '../util/subscribable';
 import { Node } from './node.model';
 
 

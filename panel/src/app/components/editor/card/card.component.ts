@@ -3,11 +3,13 @@ import { Component, OnInit, Input,
           AfterViewInit } from '@angular/core';
 import { EditorService, EditorEvents } from '../../../services/editor.service';
 import { Node } from '../../../models/node.model';
+import { Value } from '../../../models/value.model';
 import { Expr, ExprEvents } from '../../../models/expr.model';
-import { decomposeCode, recomposeCode } from '../../../base/decompose-code';
+import { decomposeCode, recomposeCode } from '../../../util/decompose-code';
+import { Box } from '../../../models/box.model';
 
 
-enum CardType { expr, }
+enum CardType { value, expr, }
 
 @Component({
   selector: 'editor-card',
@@ -44,7 +46,10 @@ export class CardComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   private _setHeight() {
-    this.node.box.height = this.inner.nativeElement.offsetHeight - 32;
+    if (this.type == CardType.value) this.node.box.height = 0;
+
+    if (this.type == CardType.expr)
+      this.node.box.height = this.inner.nativeElement.offsetHeight - 24;
   }
 
   public pick(event) {
@@ -62,7 +67,13 @@ export class CardComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   public get type() {
+    if (this.node instanceof Value) return CardType.value;
     if (this.node instanceof Expr) return CardType.expr;
+  }
+
+  public get box() {
+    if (this.inner)
+      return Box.fromElement(this.inner.nativeElement);
   }
 
   public inputFocus(event) {

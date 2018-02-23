@@ -1,4 +1,4 @@
-import { Subscribable } from '../base/subscribable';
+import { Subscribable } from '../util/subscribable';
 import { Box } from './box.model';
 import { Pin, PinType } from './pin.model';
 

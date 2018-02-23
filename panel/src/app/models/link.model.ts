@@ -1,4 +1,4 @@
-import { Subscribable } from '../base/subscribable';
+import { Subscribable } from '../util/subscribable';
 
 
 export class Link extends Subscribable {

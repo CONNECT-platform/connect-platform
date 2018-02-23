@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subscribable } from '../base/subscribable';
+import { Subscribable } from '../util/subscribable';
 import { Box } from '../models/box.model';
 
 

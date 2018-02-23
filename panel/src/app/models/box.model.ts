@@ -1,4 +1,5 @@
-import { Subscribable } from '../base/subscribable';
+import { Subscribable } from '../util/subscribable';
+import { elementBox } from '../util/elem-box';
 
 
 export enum BoxEvents {
@@ -69,6 +70,40 @@ export class Box extends Subscribable {
 
   public get anchor() { return this._anchor || this.center; }
 
+  public attachPoint(viewPoint: {left: number, top: number},
+                    margin?: {left?: number, top?: number, right?: number, bottom?:number}) {
+    let center = this.center;
+    let dl = viewPoint.left - center.left;
+    let dt = viewPoint.top - center.top;
+    let angle = Math.atan2(dt, dl) * 180 / Math.PI + 180;
+
+    if (angle < 45 || angle >= 270 + 45) {
+      let attach = this.centerLeft;
+      if (margin && margin.left) attach.left -= margin.left;
+      return attach;
+    }
+
+    if (angle >= 45 && angle < 90 + 45) {
+      let attach = this.centerTop;
+      if (margin && margin.top) attach.top -= margin.top;
+      return attach;
+    }
+
+    if (angle >= 90 + 45 && angle < 180 + 45) {
+      let attach = this.centerRight;
+      if (margin && margin.right) attach.left += margin.right;
+      return attach;
+    }
+
+    if (angle >= 180 + 45 && angle < 270 + 45) {
+      let attach = this.centerBottom;
+      if (margin && margin.bottom) attach.top += margin.bottom;
+      return attach;
+    }
+
+    return center;
+  }
+
   public pick(_anchor): Box {
     this._anchor = _anchor;
     this.publish(BoxEvents.anchor, _anchor);
@@ -80,5 +115,10 @@ export class Box extends Subscribable {
     this.top = _pos.top - this.anchor.top;
     this.publish(BoxEvents.move, {left: this.left, top: this.top});
     return this;
+  }
+
+  public static fromElement(el) {
+    let _box = elementBox(el);
+    return new Box(_box.left, _box.top, _box.right - _box.left, _box.bottom - _box.top);
   }
 }
