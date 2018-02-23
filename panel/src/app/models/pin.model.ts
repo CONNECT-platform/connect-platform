@@ -11,6 +11,8 @@ export enum PinEvents {
 }
 
 export class Pin extends Subscribable {
+  public types = PinType;
+
   private _node: Node;
   private _type: PinType;
   private _component: any;

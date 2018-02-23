@@ -14,7 +14,7 @@ export class Value extends Expr {
 
   public get code() { return this._getCode(); }
 
-  public static emptyValue(left: number, top: number): Expr {
+  public static emptyValue(left: number, top: number): Value {
     return new Value(new Box(left, top, 192, 32));
   }
 }

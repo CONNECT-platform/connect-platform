@@ -43,3 +43,11 @@
   font-size: 14px;
   color: white;
 }
+
+.target {
+  text-align: center;
+}
+
+.case {
+  margin: 12px 0;
+}

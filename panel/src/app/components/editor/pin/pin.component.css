@@ -11,6 +11,10 @@ div {
   transition: opacity .3s;
 }
 
+div.control {
+  border-color: #FFC400;
+}
+
 div:hover {
   opacity: 1;
 }

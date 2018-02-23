@@ -14,8 +14,7 @@ import { BarComponent } from './components/editor/bar/bar.component';
 import { PinComponent } from './components/editor/pin/pin.component';
 import { LinkComponent } from './components/editor/link/link.component';
 import { EditorModelService } from './services/editor-model.service';
-import { ExprComponent } from './components/editor/expr/expr.component';
-import { EntriesPipe } from './util/entries.pipe';
+import { CodeComponent } from './components/editor/code/code.component';
 
 
 @NgModule({
@@ -27,8 +26,7 @@ import { EntriesPipe } from './util/entries.pipe';
     BarComponent,
     PinComponent,
     LinkComponent,
-    ExprComponent,
-    EntriesPipe,
+    CodeComponent,
   ],
   imports: [
     BrowserModule,

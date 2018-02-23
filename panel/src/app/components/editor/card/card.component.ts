@@ -1,15 +1,16 @@
 import { Component, OnInit, Input,
           ViewChild, ElementRef, OnChanges,
-          AfterViewInit } from '@angular/core';
+          AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { EditorService, EditorEvents } from '../../../services/editor.service';
-import { Node } from '../../../models/node.model';
+import { Node, NodeEvents } from '../../../models/node.model';
 import { Value } from '../../../models/value.model';
 import { Expr, ExprEvents } from '../../../models/expr.model';
-import { decomposeCode, recomposeCode } from '../../../util/decompose-code';
+import { Switch, SwitchEvents } from '../../../models/switch.model';
 import { Box } from '../../../models/box.model';
+import { decomposeCode, recomposeCode } from '../../../util/decompose-code';
 
 
-enum CardType { value, expr, }
+enum CardType { value, expr, switch, call, }
 
 @Component({
   selector: 'editor-card',
@@ -25,11 +26,19 @@ export class CardComponent implements OnInit, OnChanges, AfterViewInit {
   private focusedInputVal: string;
   private decomposedFIVal: any;
 
-  constructor(private editorService: EditorService) {
+  constructor(private editorService: EditorService,
+            private cdr: ChangeDetectorRef) {
   }
 
   ngOnInit() {
     this.node.component = this;
+
+    this.node.subscribe([NodeEvents.addIn, NodeEvents.removeIn,
+                        NodeEvents.addOut, NodeEvents.removeOut,
+                        NodeEvents.addControl, NodeEvents.removeControl], () => {
+                          setTimeout(() => this._setHeight());
+                        });
+
     if (this.type == CardType.expr) {
       this.node.subscribe(ExprEvents.codeChange, () => {
         setTimeout(() => this._setHeight());
@@ -47,9 +56,10 @@ export class CardComponent implements OnInit, OnChanges, AfterViewInit {
 
   private _setHeight() {
     if (this.type == CardType.value) this.node.box.height = 0;
-
-    if (this.type == CardType.expr)
+    else if (this.type == CardType.expr)
       this.node.box.height = this.inner.nativeElement.offsetHeight - 24;
+    else
+      this.node.box.height = this.inner.nativeElement.offsetHeight;
   }
 
   public pick(event) {
@@ -69,6 +79,7 @@ export class CardComponent implements OnInit, OnChanges, AfterViewInit {
   public get type() {
     if (this.node instanceof Value) return CardType.value;
     if (this.node instanceof Expr) return CardType.expr;
+    if (this.node instanceof Switch) return CardType.switch;
   }
 
   public get box() {
@@ -84,9 +95,9 @@ export class CardComponent implements OnInit, OnChanges, AfterViewInit {
     }
   }
 
-  public inputChange(event) {
+  public inputChange(input, event) {
     let newVal = event.target.value;
-    this.node.renameIn(this.focusedInputVal, newVal);
+    input.label = newVal;
 
     if (this.type == CardType.expr) {
       let expr = this.node as Expr;

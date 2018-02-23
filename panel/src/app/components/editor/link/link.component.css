@@ -31,10 +31,19 @@
   transform: scaleY(.2);
 }
 
+.holder.control .line {
+  border-color: #FFC400;
+}
+
 .holder img {
+  content: url('/assets/arrow-head.svg');
   width: 13px;
   height: 13px;
   position: absolute;
   right: 0px;
   top: -2px;
+}
+
+.holder.control img {
+  content: url('/assets/arrow-head-control.svg');
 }

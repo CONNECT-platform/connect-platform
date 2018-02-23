@@ -3,11 +3,11 @@ import { Pin } from '../../../models/pin.model';
 
 
 @Component({
-  selector: 'editor-expr',
-  templateUrl: './expr.component.html',
-  styleUrls: ['./expr.component.css']
+  selector: 'editor-code',
+  templateUrl: './code.component.html',
+  styleUrls: ['./code.component.css']
 })
-export class ExprComponent implements OnInit {
+export class CodeComponent implements OnInit {
   @Input() code: string = '';
   @Input() pin: Pin;
   @Output() codeChange: EventEmitter<string> = new EventEmitter<string>();

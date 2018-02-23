@@ -7,6 +7,10 @@
   position: relative;
 }
 
+.holder.control {
+  border-color: #FFC400;
+}
+
 .ace-holder {
   margin-right: 20px;
 }

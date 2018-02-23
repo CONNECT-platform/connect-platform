@@ -12,9 +12,9 @@ export enum NodeEvents {
 
 export class Node extends Subscribable {
   private _component: any;
-  private _ins = {};
-  private _outs = {};
-  private _controls = {};
+  private _ins = [];
+  private _outs = [];
+  private _controls = [];
   private _box: Box;
 
   constructor(box: Box) {
@@ -35,46 +35,53 @@ export class Node extends Subscribable {
   public get control() { return this._controls; }
 
   public addIn(_in: string): Node {
-    this._ins[_in] = new Pin(PinType.input, this);
+    this._ins.push({label: _in, pin: new Pin(PinType.input, this)});
     this.publish(NodeEvents.addIn, _in);
     return this;
   }
 
-  public renameIn(oldName: string, newName: string): Node {
-    if (oldName != newName && oldName in this._ins) {
-      this._ins[newName] = this._ins[oldName];
-      delete this._ins[oldName];
-    }
-    return this;
-  }
-
   public removeIn(_in: string): Node {
-    delete this._ins[_in];
+    this._ins = this._ins.filter(i => i.label != _in);
     this.publish(NodeEvents.removeIn, _in);
     return this;
   }
 
+  public getIn(_in: string) {
+    let _search = this.in.filter(i => i.label == _in);
+    if (_search.length > 0) return _search[0];
+  }
+
   public addOut(_out: string): Node {
-    this._outs[_out] = new Pin(PinType.output, this);
+    this._outs.push({label: _out, pin: new Pin(PinType.output, this)});
     this.publish(NodeEvents.addOut, _out);
     return this;
   }
 
   public removeOut(_out: string): Node {
-    delete this._outs[_out];
+    this._outs = this._outs.filter(o => o.label != _out);
     this.publish(NodeEvents.removeOut, _out);
     return this;
   }
 
+  public getOut(_out: string) {
+    let _search = this.out.filter(o => o.label == _out);
+    if (_search.length > 0) return _search[0];
+  }
+
   public addControl(_ctrl: string): Node {
-    this._controls[_ctrl] = new Pin(PinType.control, this);
+    this._controls.push({label: _ctrl, pin: new Pin(PinType.control, this)});
     this.publish(NodeEvents.addControl, _ctrl);
     return this;
   }
 
   public removeControl(_ctrl: string): Node {
-    delete this._controls[_ctrl];
+    this._controls = this._controls.filter(c => c.label != _ctrl);
     this.publish(NodeEvents.removeControl, _ctrl);
     return this;
+  }
+
+  public getControl(_ctrl: string) {
+    let _search = this.control.filter(c => c.label == _ctrl);
+    if (_search.length > 0) return _search[0];
   }
 }

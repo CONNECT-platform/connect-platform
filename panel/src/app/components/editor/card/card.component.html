@@ -6,24 +6,39 @@
     <ng-container *ngIf="type == types.expr">
       <div class="inner expr" #inner>
         <div #inputs>
-          <ng-container *ngFor="let entry of node.in | entries">
+          <ng-container *ngFor="let in of node.in">
             <div class="input">
-              <editor-pin [pin]="entry[1]"></editor-pin>
+              <editor-pin [pin]="in.pin"></editor-pin>
               <input type="text"
-                    [value]="entry[0]"
+                    [value]="in.label"
                     (focus)="inputFocus($event)"
-                    (keyup)="inputChange($event)"
-                    (change)="inputChange($event)">
+                    (keyup)="inputChange(in, $event)"
+                    (change)="inputChange(in, $event)">
             </div>
           </ng-container>
         </div>
-        <editor-expr [(code)]="node.code" [pin]="node.out.result"></editor-expr>
+        <editor-code [(code)]="node.code" [pin]="node.getOut('result').pin"></editor-code>
       </div>
     </ng-container>
 
     <ng-container *ngIf="type == types.value">
       <div class="inner value" #inner>
-        <editor-expr [(code)]="node.code" [pin]="node.out.result"></editor-expr>
+        <editor-code [(code)]="node.code" [pin]="node.getOut('result').pin"></editor-code>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="type == types.switch">
+      <div class="inner switch" #inner>
+        <div class="target">
+          <editor-pin [pin]="node.getIn('target').pin"></editor-pin>
+          <div #cases class="cases">
+            <ng-container *ngFor="let control of node.control">
+              <div class="case">
+                <editor-code [(code)]="control.label" [pin]="control.pin"></editor-code>
+              </div>
+            </ng-container>
+          </div>
+        </div>
       </div>
     </ng-container>
 </div>

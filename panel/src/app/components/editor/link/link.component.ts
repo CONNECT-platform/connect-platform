@@ -47,17 +47,7 @@ export class LinkComponent implements OnInit {
 
   private get _fromPos() {
     let component = this.link.from.component;
-
-    if (component) {
-      if (this.link.from instanceof Node) {
-        let box = component.box;
-        if (box) return box.center;
-      }
-
-      if (this.link.from instanceof Pin) {
-        return component.pos;
-      }
-    }
+    if (component) return component.pos;
 
     return {
       left: 0,
