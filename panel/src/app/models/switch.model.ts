@@ -9,8 +9,8 @@ export enum SwitchEvents {
 export class Switch extends Node {
   public static _Target = 'target';
 
-  constructor(box: Box) {
-    super(box);
+  constructor(tag: string, box: Box) {
+    super(tag, box);
     this.addIn(Switch._Target);
   }
 
@@ -26,7 +26,10 @@ export class Switch extends Node {
     return this;
   }
 
+  private static _count = 0;
+
   public static emptySwitch(left: number, top: number): Switch {
-    return new Switch(new Box(left, top, 192, 32));
+    Switch._count++;
+    return new Switch(`s${Switch._count}`, new Box(left, top, 192, 32));
   }
 }

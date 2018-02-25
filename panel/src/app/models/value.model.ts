@@ -14,7 +14,10 @@ export class Value extends Expr {
 
   public get code() { return this._getCode(); }
 
+  private static _value_count = 0;
+
   public static emptyValue(left: number, top: number): Value {
-    return new Value(new Box(left, top, 192, 32));
+    Value._value_count++;
+    return new Value(`v${Value._value_count}`, new Box(left, top, 192, 32));
   }
 }

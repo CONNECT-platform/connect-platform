@@ -12,3 +12,9 @@ img {
   margin-left: -512px;
   margin-top: -412px;
 }
+
+img.loading {
+  animation:spin 2s ease-in-out infinite;
+}
+
+@keyframes spin { 100% {transform:rotate(720deg); } }

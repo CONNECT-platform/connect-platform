@@ -1,12 +1,11 @@
-import { Component, OnInit, Input,
-          ViewChild, ElementRef, OnChanges,
-          AfterViewInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { EditorService, EditorEvents } from '../../../services/editor.service';
 import { Node, NodeEvents } from '../../../models/node.model';
 import { Value } from '../../../models/value.model';
 import { Expr, ExprEvents } from '../../../models/expr.model';
 import { Switch, SwitchEvents } from '../../../models/switch.model';
 import { Box } from '../../../models/box.model';
+import { Call, CallEvents } from '../../../models/call.model';
 import { decomposeCode, recomposeCode } from '../../../util/decompose-code';
 
 
@@ -17,7 +16,7 @@ enum CardType { value, expr, switch, call, }
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.css']
 })
-export class CardComponent implements OnInit, OnChanges, AfterViewInit {
+export class CardComponent implements OnInit {
   @Input() private node: Node;
   @ViewChild('inner') private inner: ElementRef;
   @ViewChild('inputs') private inputs: ElementRef;
@@ -26,32 +25,15 @@ export class CardComponent implements OnInit, OnChanges, AfterViewInit {
   private focusedInputVal: string;
   private decomposedFIVal: any;
 
-  constructor(private editorService: EditorService,
-            private cdr: ChangeDetectorRef) {
+  private _newBorn = true;
+
+  constructor(private editorService: EditorService) {
   }
 
   ngOnInit() {
     this.node.component = this;
-
-    this.node.subscribe([NodeEvents.addIn, NodeEvents.removeIn,
-                        NodeEvents.addOut, NodeEvents.removeOut,
-                        NodeEvents.addControl, NodeEvents.removeControl], () => {
-                          setTimeout(() => this._setHeight());
-                        });
-
-    if (this.type == CardType.expr) {
-      this.node.subscribe(ExprEvents.codeChange, () => {
-        setTimeout(() => this._setHeight());
-      });
-    }
-  }
-
-  ngOnChanges() {
-    if (this.inputs) setTimeout(() => this._setHeight());
-  }
-
-  ngAfterViewInit() {
-    setTimeout(() => this._setHeight());
+    setInterval(() => this._setHeight(), 100);
+    setTimeout(() => {this._newBorn = false}, 500);
   }
 
   private _setHeight() {
@@ -80,6 +62,7 @@ export class CardComponent implements OnInit, OnChanges, AfterViewInit {
     if (this.node instanceof Value) return CardType.value;
     if (this.node instanceof Expr) return CardType.expr;
     if (this.node instanceof Switch) return CardType.switch;
+    if (this.node instanceof Call) return CardType.call;
   }
 
   public get box() {

@@ -6,7 +6,11 @@
   cursor: pointer;
   box-shadow: 0 0 6px rgba(0,0,0,0.16), 0 0 6px rgba(0,0,0,0.23);
   transform: translateY(0px);
-  transition: box-shadow .1s, transform .1s, height .1s;
+  transition: box-shadow .3s, transform .3s, height .5s;
+}
+
+.holder.initial {
+  transition: none;
 }
 
 .holder:hover {
@@ -18,14 +22,14 @@
   padding: 8px;
 }
 
-.input {
+.input, .output {
   margin: 8px;
   font-size: 14px;
   opacity: .7;
   transition: opacity .3s;
 }
 
-.input:hover {
+.input:hover, .output:hover {
   opacity: 1;
 }
 
@@ -33,7 +37,7 @@
   margin-right: 8px;
 }
 
-.input input {
+.input input, .path input {
   display: inline;
   background: none;
   border: none;
@@ -50,4 +54,23 @@
 
 .case {
   margin: 12px 0;
+}
+
+.output {
+  text-align: right;
+}
+
+.output.control {
+  color: #FFC400;
+}
+
+.output editor-pin {
+  margin-left: 8px;
+}
+
+.path, .path input {
+  text-align: center;
+  margin: 8px;
+  margin-top: 0;
+  color: #00BFA5;
 }

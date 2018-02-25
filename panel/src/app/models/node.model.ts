@@ -12,16 +12,19 @@ export enum NodeEvents {
 
 export class Node extends Subscribable {
   private _component: any;
+  private _tag: string;
   private _ins = [];
   private _outs = [];
   private _controls = [];
   private _box: Box;
 
-  constructor(box: Box) {
+  constructor(tag: string, box: Box) {
     super();
+    this._tag = tag;
     this._box = box;
   }
 
+  public get tag() { return this._tag; }
   public get box() { return this._box; }
 
   public get component() { return this._component; }
@@ -83,5 +86,11 @@ export class Node extends Subscribable {
   public getControl(_ctrl: string) {
     let _search = this.control.filter(c => c.label == _ctrl);
     if (_search.length > 0) return _search[0];
+  }
+
+  protected reset() {
+    this._ins = [];
+    this._outs = [];
+    this._controls = [];
   }
 }
