@@ -30,6 +30,6 @@ export class Switch extends Node {
 
   public static emptySwitch(left: number, top: number): Switch {
     Switch._count++;
-    return new Switch(`s${Switch._count}`, new Box(left, top, 192, 32));
+    return new Switch(`s${Switch._count}`, new Box(left, top, 144, 32));
   }
 }

@@ -1,9 +1,15 @@
 <div class="container">
   <img src="assets/logo-backdrop.svg"/>
-  <editor-bar position="left"></editor-bar>
+  <editor-bar position="left">
+    <editor-general></editor-general>
+  </editor-bar>
+
   <editor-pane></editor-pane>
+
   <ng-container *ngFor="let link of model.links">
     <editor-link [link]="link"></editor-link>
   </ng-container>
-  <editor-bar position="right"></editor-bar>
+
+  <editor-bar position="right">
+  </editor-bar>
 </div>

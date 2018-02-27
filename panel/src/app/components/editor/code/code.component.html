@@ -1,4 +1,4 @@
-<div class="holder" [ngClass]="{'control': pin.type == pin.types.control}">
+<div class="holder" [ngClass]="{'control': pin.type == pin.types.control, 'shadow': shadow}">
   <div class="ace-holder">
     <ace-editor mode="javascript"
                 [(text)]="_code"

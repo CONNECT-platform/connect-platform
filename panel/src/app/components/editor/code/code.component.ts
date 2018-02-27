@@ -9,6 +9,7 @@ import { Pin } from '../../../models/pin.model';
 })
 export class CodeComponent implements OnInit {
   @Input() code: string = '';
+  @Input() shadow: boolean = true;
   @Input() pin: Pin;
   @Output() codeChange: EventEmitter<string> = new EventEmitter<string>();
 

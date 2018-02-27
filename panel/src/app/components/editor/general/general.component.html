@@ -1,0 +1,16 @@
+<div class="holder">
+  <div>
+    <span class="access"
+          [ngClass]="{'public': model.public, 'internal': !model.public}"
+          (click)="model.public=!model.public">
+    {{model.public?"public":"internal"}}
+    </span>
+    <span class="method"
+          (click)="model.method=nextMethod()">
+      {{model.method}}
+    </span>
+  </div>
+  <div>
+    <input class="path" [(value)]="model.path" type="text"/>
+  </div>
+</div>

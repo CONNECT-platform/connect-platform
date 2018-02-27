@@ -19,10 +19,10 @@ const buildRouter = () => {
     let handler = reqHandler(() => core.registry.instance(signature.path));
     let method = (signature.method)?(signature.method.toLowerCase()):('get');
 
-    if (method == 'get') router.get(signature.path, handler);
-    if (method == 'post') router.post(signature.path, handler);
-    if (method == 'put') router.put(signature.path, handler);
-    if (method == 'delete') router.delete(signature.path, handler);
+    if (method.toLowerCase() == 'get') router.get(signature.path, handler);
+    if (method.toLowerCase() == 'post') router.post(signature.path, handler);
+    if (method.toLowerCase() == 'put') router.put(signature.path, handler);
+    if (method.toLowerCase() == 'delete') router.delete(signature.path, handler);
   }
 
   return router;

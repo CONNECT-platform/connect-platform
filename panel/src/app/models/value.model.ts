@@ -18,6 +18,6 @@ export class Value extends Expr {
 
   public static emptyValue(left: number, top: number): Value {
     Value._value_count++;
-    return new Value(`v${Value._value_count}`, new Box(left, top, 192, 32));
+    return new Value(`v${Value._value_count}`, new Box(left, top, 172, 32));
   }
 }

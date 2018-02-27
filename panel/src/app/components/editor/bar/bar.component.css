@@ -15,3 +15,7 @@
 .holder.right {
   right: 0;
 }
+
+.inner {
+  margin: 16px;
+}

@@ -31,6 +31,6 @@ export class Call extends Node {
 
   public static emptyCall(left: number, top: number): Call {
     Call._count++;
-    return new Call(`c${Call._count}`, new Box(left, top, 192, 32));
+    return new Call(`c${Call._count}`, new Box(left, top, 196, 32));
   }
 }

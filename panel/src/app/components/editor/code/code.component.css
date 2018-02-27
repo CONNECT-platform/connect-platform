@@ -1,10 +1,19 @@
 .holder {
   background: #212121;
   border: 1px solid white;
-  padding: 8px;
-  border-radius: 18px;
+  padding: 4px;
+  border-radius: 13px;
   margin: 0;
   position: relative;
+}
+
+.holder.shadow {
+  box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+  transition: box-shadow .3s;
+}
+
+.holder.shadow:hover {
+  box-shadow: 0 6px 18px rgba(0,0,0,0.5);
 }
 
 .holder.control {
@@ -22,5 +31,5 @@ editor-pin {
   position: absolute;
   right: 6px;
   top: 50%;
-  margin-top: -13px;
+  margin-top: -7px;
 }

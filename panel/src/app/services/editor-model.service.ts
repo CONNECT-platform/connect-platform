@@ -2,20 +2,51 @@ import { Injectable } from '@angular/core';
 import { Subscribable } from '../util/subscribable';
 import { Node } from '../models/node.model';
 import { Link } from '../models/link.model';
+import { Signature } from '../models/signature.model';
 
 
 export enum EditorModelEvents {
+  pathChange, methodChange, accessChange,
   addNode, removeNode,
   addLink, removeLink,
 }
 
 @Injectable()
 export class EditorModelService extends Subscribable {
+  private _signature: Signature = {
+      path: '/some-path/',
+      method: 'GET',
+      public: false,
+      inputs: [],
+      outputs: [],
+      controlOutputs: [],
+      configs: [],
+  };
+
   private _nodes: Array<Node> = [];
   private _links: Array<Link> = [];
 
-  public get nodes() { return this._nodes; }
-  public get links() { return this._links; }
+  public get signature(): Signature { return this._signature; }
+  public get path(): string { return this._signature.path; }
+  public get method(): string { return this._signature.method.toUpperCase(); }
+  public get public(): boolean { return this._signature.public; }
+  public get nodes(): Array<Node> { return this._nodes; }
+  public get links(): Array<Link> { return this._links; }
+
+  public set path(path: string) {
+    this._signature.path = path;
+    this.publish(EditorModelEvents.pathChange, path);
+  }
+
+  public set method(method: string) {
+    this._signature.method = method;
+    this.publish(EditorModelEvents.methodChange, method);
+  }
+
+  public set public(_public: boolean) {
+    this._signature.public = _public;
+    this.publish(EditorModelEvents.accessChange, _public);
+  }
 
   public addNode(node: Node): EditorModelService {
     this._nodes.push(node);

@@ -1,5 +1,5 @@
 <div class="holder"
-    [ngClass]="{'initial': _newBorn}"
+    [ngClass]="{'initial': _newBorn, 'picked': picked}"
     [ngStyle]="{'left.px': node.box.left, 'top.px': node.box.top, 'width.px': node.box.width, 'height.px': node.box.height}"
     (mousedown)="pick($event)"
     (mouseup)="unpick()">
@@ -18,7 +18,9 @@
             </div>
           </ng-container>
         </div>
-        <editor-code [(code)]="node.code" [pin]="node.getOut('result').pin"></editor-code>
+        <div class="expr-code">
+          <editor-code [(code)]="node.code" [pin]="node.getOut('result').pin"></editor-code>
+        </div>
       </div>
     </ng-container>
 
@@ -32,13 +34,13 @@
       <div class="inner switch" #inner>
         <div class="target">
           <editor-pin [pin]="node.getIn('target').pin"></editor-pin>
-          <div #cases class="cases">
-            <ng-container *ngFor="let control of node.control">
-              <div class="case">
-                <editor-code [(code)]="control.label" [pin]="control.pin"></editor-code>
-              </div>
-            </ng-container>
-          </div>
+        </div>
+        <div #cases class="cases">
+          <ng-container *ngFor="let control of node.control">
+            <div class="case">
+              <editor-code [shadow]="false" [(code)]="control.label" [pin]="control.pin"></editor-code>
+            </div>
+          </ng-container>
         </div>
       </div>
     </ng-container>
@@ -46,7 +48,7 @@
     <ng-container *ngIf="type == types.call">
       <div class="inner call" #inner>
         <div class="path"><input type="text" [value]="node.signature.path"/></div>
-        
+
         <div #inputs>
           <ng-container *ngFor="let in of node.in">
             <div class="input">

@@ -15,6 +15,7 @@ import { PinComponent } from './components/editor/pin/pin.component';
 import { LinkComponent } from './components/editor/link/link.component';
 import { EditorModelService } from './services/editor-model.service';
 import { CodeComponent } from './components/editor/code/code.component';
+import { GeneralComponent } from './components/editor/general/general.component';
 
 
 @NgModule({
@@ -27,6 +28,7 @@ import { CodeComponent } from './components/editor/code/code.component';
     PinComponent,
     LinkComponent,
     CodeComponent,
+    GeneralComponent,
   ],
   imports: [
     BrowserModule,

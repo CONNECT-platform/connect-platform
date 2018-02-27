@@ -8,9 +8,11 @@ let win
 let root = path.join(__dirname, '/dist/');
 
 function createWindow () {
-  win = new BrowserWindow({width: 1240, height: 860})
-  win.setFullScreen(true)
-  win.maximize()
+  win = new BrowserWindow({
+    width: 1240,
+    height: 860,
+    fullscreen: true,
+  })
 
   // and load the index.html of the app.
   win.loadURL(url.format({
