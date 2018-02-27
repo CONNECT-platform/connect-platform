@@ -1,8 +1,9 @@
-<div class="holder" [ngClass]="{'in-pane': inPane, 'control': link.from.type == link.from.types.control }"
+<div class="holder" [ngClass]="{'in-pane': inPane, 'control': isControl }"
   [ngStyle]="{'left.px': fromPos.left, 'top.px': fromPos.top, 'width.px': linkWidth, 'transform': linkTransform}"
   >
   <div class="inner">
     <div class="line"></div>
-    <img/>
+    <img src="assets/arrow-head.svg" *ngIf="!isControl"/>
+    <img src="assets/arrow-head-control.svg" *ngIf="isControl"/>
   </div>
 </div>

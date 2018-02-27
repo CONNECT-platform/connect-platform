@@ -75,6 +75,10 @@ export class LinkComponent implements OnInit {
     }
   }
 
+  get isControl(): boolean {
+    return this.link.from.type == this.link.from.types.control;
+  }
+
   get linkWidth() {
     let from = this.fromPos;
     let to = this.toPos;
