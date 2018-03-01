@@ -2,6 +2,30 @@
   <img src="assets/logo-backdrop.svg"/>
   <editor-bar position="left">
     <editor-general></editor-general>
+
+    <div class="inputs pin-list">
+      <div class="title">inputs</div>
+      <ng-container *ngFor="let in of model.in.items">
+        <div class="input item">
+          <input type="text"
+                [(value)]="in.label"/>
+          <editor-pin [pin]="in.pin"></editor-pin>
+        </div>
+      </ng-container>
+      <div class="input item add-more">+</div>
+    </div>
+
+    <div class="configs pin-list">
+      <div class="title">configs</div>
+      <ng-container *ngFor="let conf of model.config.items">
+        <div class="config item">
+          <input type="text"
+                [(value)]="conf.label"/>
+          <editor-pin [pin]="conf.pin"></editor-pin>
+        </div>
+      </ng-container>
+      <div class="config item add-more">+</div>
+    </div>
   </editor-bar>
 
   <editor-pane></editor-pane>
@@ -11,5 +35,9 @@
   </ng-container>
 
   <editor-bar position="right">
+    <div
+      [ngClass]="{'delete': state == states.adding || state == states.selected }"
+      (click)="mainAction()"
+      class="main-action">+</div>
   </editor-bar>
 </div>

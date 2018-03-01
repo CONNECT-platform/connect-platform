@@ -13,6 +13,7 @@
   z-index: 999;
 }
 
+
 .holder:hover {
   opacity: 1;
 }
@@ -28,15 +29,24 @@
   margin-right: 16px;
   transform: scaleY(.15);
   opacity: 0.5;
-  transition: opacity .3s;
+  transition: opacity .3s, box-shadow .3s;
 }
 
 .holder:hover .line {
   opacity: 1;
 }
 
+.holder.selected .line {
+  opacity: 1;
+  box-shadow: 0 0 32px #76FF03;
+}
+
 .holder.control .line {
   border-color: #FFC400;
+}
+
+.holder.control.selected .line {
+  box-shadow: 0 0 32px #FFC400;
 }
 
 .holder img {

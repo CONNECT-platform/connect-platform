@@ -12,8 +12,12 @@
   transition: box-shadow .3s;
 }
 
-.holder.shadow:hover {
+.holder.shadow:hover:not(.selected) {
   box-shadow: 0 6px 18px rgba(0,0,0,0.5);
+}
+
+.holder.selected {
+  box-shadow: 0 0px 0px 1px #40c4ff, 0 0px 32px #0064b7;
 }
 
 .holder.control {

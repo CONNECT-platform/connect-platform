@@ -16,8 +16,12 @@
   transition: none;
 }
 
-.holder:hover {
+.holder:hover:not(.selected) {
   box-shadow: 0 6px 8px rgba(0,0,0,0.5);
+}
+
+.holder.selected:not(.value) {
+  box-shadow: 0 0px 0px 2px #40c4ff, 0 0px 32px #0064b7;
 }
 
 .holder .inner {
@@ -74,4 +78,33 @@
   text-align: center;
   color: #00BFA5;
   margin-bottom: 8px;
+}
+
+.input.placeholder {
+  padding: 2px 0;
+}
+
+.add-more {
+  width: 12px;
+  height: 12px;
+  text-align: center;
+  border: 1px solid white;
+  border-radius: 24px;
+  font-size: 10px;
+  opacity: .5;
+  cursor: pointer;
+  transition: all .2s ease-in-out;
+}
+
+.add-more:hover {
+  opacity: 1;
+}
+
+.case .add-more {
+  width: 22px;
+  height: 22px;
+  font-size: 16px;
+  color: #FFC400;
+  border-color: #FFC400;
+  background: #212121;
 }

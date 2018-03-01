@@ -27,7 +27,7 @@ export class Subscribable {
     return this;
   }
 
-  public publish(event, data): Subscribable {
+  public publish(event, data?): Subscribable {
     if (this.subscribers[event])
       for (let callback of this.subscribers[event])
         callback(data, this);

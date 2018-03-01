@@ -20,10 +20,10 @@ export class Call extends Node {
   private _adoptSignature() {
     super.reset();
     if (this.signature) {
-      this.signature.inputs.forEach(input => this.addIn(input));
-      this.signature.outputs.forEach(output => this.addOut(output));
+      this.signature.inputs.forEach(input => this.in.add(input));
+      this.signature.outputs.forEach(output => this.out.add(output));
       if (this.signature.controlOutputs)
-        this.signature.controlOutputs.forEach(control => this.addControl(control));
+        this.signature.controlOutputs.forEach(control => this.control.add(control));
     }
   }
 

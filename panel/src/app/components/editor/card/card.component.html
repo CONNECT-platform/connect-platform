@@ -1,13 +1,14 @@
 <div class="holder"
-    [ngClass]="{'initial': _newBorn, 'picked': picked}"
+    [ngClass]="{'initial': _newBorn, 'picked': picked, 'selected': selected,
+                'expr': type==types.expr, 'value': type==types.value, 'switch': type==types.switch, 'call':type==types.call}"
     [ngStyle]="{'left.px': node.box.left, 'top.px': node.box.top, 'width.px': node.box.width, 'height.px': node.box.height}"
     (mousedown)="pick($event)"
     (mouseup)="unpick()">
 
     <ng-container *ngIf="type == types.expr">
-      <div class="inner expr" #inner>
+      <div class="inner" #inner>
         <div #inputs>
-          <ng-container *ngFor="let in of node.in">
+          <ng-container *ngFor="let in of node.in.items">
             <div class="input">
               <editor-pin [pin]="in.pin"></editor-pin>
               <input type="text"
@@ -17,40 +18,49 @@
                     (change)="inputChange(in, $event)">
             </div>
           </ng-container>
+          <div class="input placeholder">
+            <div class="add-more">+</div>
+          </div>
         </div>
         <div class="expr-code">
-          <editor-code [(code)]="node.code" [pin]="node.getOut('result').pin"></editor-code>
+          <editor-code [(code)]="node.code" [pin]="node.result"></editor-code>
         </div>
       </div>
     </ng-container>
 
     <ng-container *ngIf="type == types.value">
-      <div class="inner value" #inner>
-        <editor-code [(code)]="node.code" [pin]="node.getOut('result').pin"></editor-code>
+      <div class="inner" #inner>
+        <editor-code
+          [selected]="selected"
+          [(code)]="node.code"
+          [pin]="node.result"></editor-code>
       </div>
     </ng-container>
 
     <ng-container *ngIf="type == types.switch">
-      <div class="inner switch" #inner>
+      <div class="inner" #inner>
         <div class="target">
-          <editor-pin [pin]="node.getIn('target').pin"></editor-pin>
+          <editor-pin [pin]="node.target"></editor-pin>
         </div>
         <div #cases class="cases">
-          <ng-container *ngFor="let control of node.control">
+          <ng-container *ngFor="let control of node.control.items">
             <div class="case">
               <editor-code [shadow]="false" [(code)]="control.label" [pin]="control.pin"></editor-code>
             </div>
           </ng-container>
+          <div class="case placeholder">
+            <div class="add-more">+</div>
+          </div>
         </div>
       </div>
     </ng-container>
 
     <ng-container *ngIf="type == types.call">
-      <div class="inner call" #inner>
+      <div class="inner" #inner>
         <div class="path"><input type="text" [value]="node.signature.path"/></div>
 
         <div #inputs>
-          <ng-container *ngFor="let in of node.in">
+          <ng-container *ngFor="let in of node.in.items">
             <div class="input">
               <editor-pin [pin]="in.pin"></editor-pin>
               <span type="text">{{in.label}}</span>
@@ -59,7 +69,7 @@
         </div>
 
         <div #outputs>
-          <ng-container *ngFor="let out of node.out">
+          <ng-container *ngFor="let out of node.out.items">
             <div class="output">
               <span type="text">{{out.label}}</span>
               <editor-pin [pin]="out.pin"></editor-pin>
@@ -68,7 +78,7 @@
         </div>
 
         <div #controls>
-          <ng-container *ngFor="let control of node.control">
+          <ng-container *ngFor="let control of node.control.items">
             <div class="output control">
               <span type="text">{{control.label}}</span>
               <editor-pin [pin]="control.pin"></editor-pin>

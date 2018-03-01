@@ -3,7 +3,7 @@ import { EditorService, EditorEvents } from '../../../services/editor.service';
 import { Node, NodeEvents } from '../../../models/node.model';
 import { Value } from '../../../models/value.model';
 import { Expr, ExprEvents } from '../../../models/expr.model';
-import { Switch, SwitchEvents } from '../../../models/switch.model';
+import { Switch } from '../../../models/switch.model';
 import { Box } from '../../../models/box.model';
 import { Call, CallEvents } from '../../../models/call.model';
 import { decomposeCode, recomposeCode } from '../../../util/decompose-code';
@@ -45,7 +45,7 @@ export class CardComponent implements OnInit {
   }
 
   public pick(event) {
-    event.pickedObject = this.node.box;
+    event.pickedObject = this.node;
     this.editorService.pickEvent(event);
   }
 
@@ -55,7 +55,11 @@ export class CardComponent implements OnInit {
   }
 
   public get picked() {
-    return this.editorService.isPicked(this.node.box);
+    return this.editorService.isPicked(this.node);
+  }
+
+  public get selected() {
+    return this.editorService.isSelected(this.node);
   }
 
   public get type() {

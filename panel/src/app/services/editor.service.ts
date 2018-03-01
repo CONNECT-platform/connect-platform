@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Subscribable } from '../util/subscribable';
-import { Box } from '../models/box.model';
 
 
 export enum EditorEvents {
   mousemove,
   paneScroll,
   pick, unpick,
+  select, deselect,
 }
 
 @Injectable()
@@ -15,6 +15,9 @@ export class EditorService extends Subscribable {
   private mouseY : number;
   private paneScroll : number = 0;
   private picked: any = null;
+  private selected: any = null;
+
+  private pickedTime = null;
 
   constructor() {
     super();
@@ -27,8 +30,8 @@ export class EditorService extends Subscribable {
     this.mouseY = event.clientY;
 
     if (this.picked) {
-      if (this.picked.target instanceof Box) {
-        this.picked.target.pick(this.picked.anchor).move({
+      if (this.picked.target.box) {
+        this.picked.target.box.pick(this.picked.anchor).move({
           left: this.mouseX,
           top: this.mouseY,
         });
@@ -44,22 +47,55 @@ export class EditorService extends Subscribable {
   }
 
   public pickEvent(event: any) {
-    this.picked = {
-      target: event.pickedObject,
-      anchor: {
-        left: event.clientX - event.pickedObject.left + this.paneScroll,
-        top: event.clientY - event.pickedObject.top,
+    this.deselect();
+
+    if (event.pickedObject) {
+      this.picked = {
+        target: event.pickedObject,
+      };
+
+      if (event.pickedObject.box) {
+        this.picked.anchor = {
+          left: event.clientX - event.pickedObject.box.left + this.paneScroll,
+          top: event.clientY - event.pickedObject.box.top,
+        };
       }
+
+      this.pickedTime = Date.now();
+      this.publish(EditorEvents.pick, this.picked);
     }
-    this.publish(EditorEvents.pick, this.picked);
+  }
+
+  public select(target: any) {
+    if (target != this.selected) this.deselect();
+
+    this.selected = target;
+    this.publish(EditorEvents.select, this.selected);
+  }
+
+  public deselect() {
+    if (this.selected) {
+      this.publish(EditorEvents.deselect, this.selected);
+      this.selected = null;
+    }
   }
 
   public unpickEvent() {
-    this.publish(EditorEvents.unpick, this.picked);
-    this.picked = null;
+    if (this.picked) {
+      if (Date.now() - this.pickedTime < 10) {
+        this.select(this.picked.target);
+      }
+
+      this.publish(EditorEvents.unpick, this.picked);
+      this.picked = null;
+    }
   }
 
   public isPicked(obj) {
     return this.picked && obj == this.picked.target;
+  }
+
+  public isSelected(obj) {
+    return this.selected && obj == this.selected;
   }
 }

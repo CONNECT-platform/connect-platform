@@ -22,11 +22,13 @@ export class LinkComponent implements OnInit {
   ngOnInit() {
   }
 
-  private _clientPos(pos) {
-    return {
-      left: pos.left - this.editorService.paneScrollAmount,
-      top: pos.top
-    }
+  select() {
+    if (this.selected) this.editorService.deselect();
+    else this.editorService.select(this.link);
+  }
+
+  public get selected() {
+    return this.editorService.isSelected(this.link);
   }
 
   get fromPos() {

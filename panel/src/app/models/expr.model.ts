@@ -13,9 +13,10 @@ export class Expr extends Node {
 
   constructor(tag: string, box: Box) {
     super(tag, box);
-    this.addOut(Expr.Result);
+    this.out.add(Expr.Result);
   }
 
+  public get result() { return this.out.get(Expr.Result); }
   public get code() { return this._getCode(); }
   public set code(code) {
     this._setCode(code);

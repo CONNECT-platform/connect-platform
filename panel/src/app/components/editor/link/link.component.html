@@ -1,5 +1,6 @@
-<div class="holder" [ngClass]="{'in-pane': inPane, 'control': isControl }"
+<div class="holder" [ngClass]="{'in-pane': inPane, 'control': isControl, 'selected': selected }"
   [ngStyle]="{'left.px': fromPos.left, 'top.px': fromPos.top, 'width.px': linkWidth, 'transform': linkTransform}"
+  (click)="select()"
   >
   <div class="inner">
     <div class="line"></div>

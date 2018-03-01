@@ -2,29 +2,16 @@ import { Node } from './node.model';
 import { Box } from './box.model';
 
 
-export enum SwitchEvents {
-  addCase, removeCase,
-}
-
 export class Switch extends Node {
   public static _Target = 'target';
 
   constructor(tag: string, box: Box) {
     super(tag, box);
-    this.addIn(Switch._Target);
+    this.in.add(Switch._Target);
   }
 
-  public addCase(_case) {
-    this.addControl(_case);
-    this.publish(SwitchEvents.addCase, _case);
-    return this;
-  }
-
-  public removeCase(_case) {
-    this.removeControl(_case);
-    this.publish(SwitchEvents.removeCase, _case);
-    return this;
-  }
+  public get target() { return this.in.get(Switch._Target); }
+  public get cases() { return this.control; }
 
   private static _count = 0;
 

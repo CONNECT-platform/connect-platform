@@ -8,6 +8,7 @@ import { Pin } from '../../../models/pin.model';
   styleUrls: ['./code.component.css']
 })
 export class CodeComponent implements OnInit {
+  @Input() selected: boolean = false;
   @Input() code: string = '';
   @Input() shadow: boolean = true;
   @Input() pin: Pin;
