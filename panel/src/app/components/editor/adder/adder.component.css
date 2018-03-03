@@ -1,0 +1,58 @@
+.holder {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  text-align: center;
+  padding: 0;
+  font-size: 18px;
+  line-height: 24px;
+  cursor: pointer;
+  opacity: .25;
+  border: 1px solid #FFFFFF;
+  border-radius: 32px;
+  transition: opacity .3s, width .3s, margin-top .3s;
+}
+
+.holder span {
+  opacity: 1;
+  transition: opacity .1s;
+}
+
+.holder editor-pin {
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  margin-top: -7px;
+  opacity: 0;
+  transition: opacity .3s;
+}
+
+.holder.active {
+  width: 100%;
+}
+
+.holder.active span {
+  opacity: 0;
+}
+
+.holder.active editor-pin {
+  opacity: 1;
+}
+
+.holder:hover {
+  opacity: 1;
+}
+
+.holder.reset {
+  opacity: 0;
+  margin-top: -34px;
+  transition: none;
+}
+
+.holder.reset span {
+  transition: none;
+}
+
+.holder.reset editor-pin {
+  transition: none;
+}

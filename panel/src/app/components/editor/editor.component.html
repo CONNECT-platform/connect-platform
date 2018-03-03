@@ -12,7 +12,7 @@
           <editor-pin [pin]="in.pin"></editor-pin>
         </div>
       </ng-container>
-      <div class="input item add-more">+</div>
+      <editor-adder (add)="newInput()"></editor-adder>
     </div>
 
     <div class="configs pin-list">
@@ -24,7 +24,7 @@
           <editor-pin [pin]="conf.pin"></editor-pin>
         </div>
       </ng-container>
-      <div class="config item add-more">+</div>
+      <editor-adder></editor-adder>
     </div>
   </editor-bar>
 

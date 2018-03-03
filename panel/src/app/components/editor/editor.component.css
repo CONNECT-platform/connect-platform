@@ -39,22 +39,6 @@ img.loading {
   position: relative;
 }
 
-.pin-list .item.add-more {
-  width: 26px;
-  height: 26px;
-  text-align: center;
-  padding: 0;
-  font-size: 18px;
-  line-height: 26px;
-  cursor: pointer;
-  opacity: .25;
-  transition: opacity .3s;
-}
-
-.pin-list .item.add-more:hover {
-  opacity: 1;
-}
-
 .pin-list .item editor-pin {
   position: absolute;
   right: 6px;

@@ -101,4 +101,8 @@ export class EditorComponent implements OnInit, OnDestroy {
     this.editor.unsubscribe(EditorEvents.select, this.selectHandle);
     this.editor.unsubscribe(EditorEvents.deselect, this.deselectHandle);
   }
+
+  newInput() {
+    this.model.in.add('');
+  }
 }

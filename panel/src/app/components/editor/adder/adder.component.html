@@ -1,0 +1,6 @@
+<div class="holder"
+    [ngClass]="{'active': state==states.activate, 'reset': state==states.reset}"
+      (click)="activate()">
+      <span>+</span>
+      <editor-pin></editor-pin>
+</div>

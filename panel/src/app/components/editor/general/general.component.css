@@ -23,6 +23,11 @@
   font-size: 13px;
   color: #9e9e9e;
   margin: 0 4px;
+  transition: color .3s;
+}
+
+.method:hover {
+  color: white;
 }
 
 .path {
