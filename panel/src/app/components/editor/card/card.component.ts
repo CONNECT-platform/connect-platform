@@ -32,7 +32,7 @@ export class CardComponent implements OnInit {
 
   ngOnInit() {
     this.node.component = this;
-    setInterval(() => this._setHeight(), 100);
+    setInterval(() => this._setHeight(), 50);
     setTimeout(() => {this._newBorn = false}, 500);
   }
 
@@ -75,22 +75,40 @@ export class CardComponent implements OnInit {
   }
 
   public inputFocus(event) {
-    this.focusedInputVal = event.target.value;
-    if (this.type == CardType.expr) {
-      let expr = this.node as Expr;
-      this.decomposedFIVal = decomposeCode(expr.code, this.focusedInputVal);
+    if (event.target.value.length > 0) {
+      this.focusedInputVal = event.target.value;
+      if (this.type == CardType.expr) {
+        let expr = this.node as Expr;
+        this.decomposedFIVal = decomposeCode(expr.code, this.focusedInputVal);
+      }
     }
+    else
+      this.decomposedFIVal = null;
   }
 
   public inputChange(input, event) {
-    let newVal = event.target.value;
-    input.label = newVal;
+    if (this.decomposedFIVal) {
+      let newVal = event.target.value;
+      input.label = newVal;
 
-    if (this.type == CardType.expr) {
-      let expr = this.node as Expr;
-      expr.code = recomposeCode(this.decomposedFIVal, newVal);
+      if (this.type == CardType.expr) {
+        let expr = this.node as Expr;
+        expr.code = recomposeCode(this.decomposedFIVal, newVal);
+      }
+
+      this.focusedInputVal = newVal;
     }
+  }
 
-    this.focusedInputVal = newVal;
+  newCase() {
+    if (this.type == CardType.switch) {
+      (this.node as Switch).cases.add('');
+    }
+  }
+
+  newInput() {
+    if (this.type == CardType.expr) {
+      (this.node as Expr).in.add('');
+    }
   }
 }

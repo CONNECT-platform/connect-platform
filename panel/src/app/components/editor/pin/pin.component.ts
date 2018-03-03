@@ -1,5 +1,5 @@
 import { Component, OnInit, ElementRef, Input } from '@angular/core';
-import { Pin } from '../../../models/pin.model';
+import { Pin, PinType } from '../../../models/pin.model';
 import { Box } from '../../../models/box.model';
 
 
@@ -11,6 +11,7 @@ import { Box } from '../../../models/box.model';
 export class PinComponent implements OnInit {
 
   @Input() pin: Pin;
+  @Input() controlStyle: boolean = false;
 
   constructor(private el: ElementRef) { }
 
@@ -20,5 +21,9 @@ export class PinComponent implements OnInit {
 
   public get pos() {
     return Box.fromElement(this.el.nativeElement).center;
+  }
+
+  get control() {
+    return (this.pin && this.pin.type == PinType.control) || this.controlStyle;
   }
 }

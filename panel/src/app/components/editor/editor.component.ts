@@ -105,4 +105,8 @@ export class EditorComponent implements OnInit, OnDestroy {
   newInput() {
     this.model.in.add('');
   }
+
+  newConfig() {
+    this.model.config.add('');
+  }
 }

@@ -15,6 +15,7 @@ export class AdderComponent implements OnInit {
   states = AdderStates;
   state = AdderStates.initial;
 
+  @Input() style;
   @Output() add : EventEmitter<void> = new EventEmitter<void>();
 
   constructor() { }

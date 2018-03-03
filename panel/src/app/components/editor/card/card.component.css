@@ -5,7 +5,7 @@
   background: #424242;
   cursor: pointer;
   box-shadow: 0 2px 6px rgba(0,0,0,0.5);
-  transition: box-shadow .3s, transform .3s, height .5s;
+  transition: box-shadow .3s, transform .3s, height .1s linear;
 }
 
 .holder.picked {

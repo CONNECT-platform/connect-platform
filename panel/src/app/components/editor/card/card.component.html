@@ -18,9 +18,7 @@
                     (change)="inputChange(in, $event)">
             </div>
           </ng-container>
-          <div class="input placeholder">
-            <div class="add-more">+</div>
-          </div>
+          <editor-adder style="expr" (add)="newInput()"></editor-adder>
         </div>
         <div class="expr-code">
           <editor-code [(code)]="node.code" [pin]="node.result"></editor-code>
@@ -48,9 +46,7 @@
               <editor-code [shadow]="false" [(code)]="control.label" [pin]="control.pin"></editor-code>
             </div>
           </ng-container>
-          <div class="case placeholder">
-            <div class="add-more">+</div>
-          </div>
+          <editor-adder style="switch" (add)="newCase()"></editor-adder>
         </div>
       </div>
     </ng-container>

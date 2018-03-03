@@ -27,6 +27,12 @@
   transition: opacity .3s;
 }
 
+.holder:hover {
+  opacity: 1;
+}
+
+/*** active state ***/
+
 .holder.active {
   width: 100%;
 }
@@ -39,9 +45,7 @@
   opacity: 1;
 }
 
-.holder:hover {
-  opacity: 1;
-}
+/*** reset state ***/
 
 .holder.reset {
   opacity: 0;
@@ -55,4 +59,33 @@
 
 .holder.reset editor-pin {
   transition: none;
+}
+
+/*** switch style ***/
+
+.holder.switch {
+  border-color: #FFC400;
+  background: #212121;
+}
+
+.holder.switch span {
+  color: #FFC400;
+}
+
+/*** expr style ***/
+
+.holder.expr {
+  border: none;
+  margin-top: 12px;
+  width: 14px;
+  height: 14px;
+  line-height: 15px;
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+
+.holder.expr editor-pin {
+  opacity: 1;
+  right: auto;
+  left: 0px;
 }

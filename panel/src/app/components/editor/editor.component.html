@@ -24,7 +24,7 @@
           <editor-pin [pin]="conf.pin"></editor-pin>
         </div>
       </ng-container>
-      <editor-adder></editor-adder>
+      <editor-adder (add)="newConfig()"></editor-adder>
     </div>
   </editor-bar>
 
