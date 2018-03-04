@@ -34,4 +34,7 @@ export class AdderComponent implements OnInit {
     setTimeout(() => this.state = AdderStates.initial, 300);
   }
 
+  get controlStyle() {
+    return this.style == 'switch' || this.style == 'control';
+  }
 }

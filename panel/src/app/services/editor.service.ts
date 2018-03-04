@@ -47,6 +47,9 @@ export class EditorService extends Subscribable {
   }
 
   public pickEvent(event: any) {
+    if (this.picked) return;
+
+    let updatePickTime = !this.isSelected(event.pickedObject);
     this.deselect();
 
     if (event.pickedObject) {
@@ -55,13 +58,23 @@ export class EditorService extends Subscribable {
       };
 
       if (event.pickedObject.box) {
-        this.picked.anchor = {
-          left: event.clientX - event.pickedObject.box.left + this.paneScroll,
-          top: event.clientY - event.pickedObject.box.top,
-        };
+        if (event.clientX && event.clientY) {
+          this.picked.anchor = {
+            left: event.clientX - event.pickedObject.box.left + this.paneScroll,
+            top: event.clientY - event.pickedObject.box.top,
+          };
+        }
+        else {
+          let center = event.pickedObject.box.center;
+          this.picked.anchor = {
+            left: center.left - event.pickedObject.box.left,
+            top: center.top - event.pickedObject.box.top,
+          }
+        }
       }
 
-      this.pickedTime = Date.now();
+      if (updatePickTime)
+        this.pickedTime = Date.now();
       this.publish(EditorEvents.pick, this.picked);
     }
   }
@@ -82,7 +95,7 @@ export class EditorService extends Subscribable {
 
   public unpickEvent() {
     if (this.picked) {
-      if (Date.now() - this.pickedTime < 10) {
+      if (Date.now() - this.pickedTime < 200) {
         this.select(this.picked.target);
       }
 

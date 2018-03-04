@@ -19,10 +19,10 @@ export class EditorModelService extends Subscribable {
       path: '/some-path/',
       method: 'GET',
       public: false,
-      inputs: ['user_id', 'article_id'],
-      outputs: ['article'],
-      controlOutputs: ['not_found', 'not_authorized'],
-      configs: ['secret_key'],
+      inputs: [],
+      outputs: [],
+      controlOutputs: [],
+      configs: [],
   };
 
   private _nodes: Array<Node> = [];

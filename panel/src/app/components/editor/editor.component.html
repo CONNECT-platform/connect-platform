@@ -35,9 +35,46 @@
   </ng-container>
 
   <editor-bar position="right">
-    <div
-      [ngClass]="{'delete': state == states.adding || state == states.selected }"
-      (click)="mainAction()"
-      class="main-action">+</div>
+    <div class="main-action-holder">
+      <div
+        [ngClass]="{'delete': state == states.adding || state == states.selected }"
+        (click)="mainAction()"
+        class="main-action">+</div>
+    </div>
+
+    <div class="add-nodes" [ngClass]="{'active': state == states.adding}">
+      <div class="button value" (click)="newValue()">value</div>
+      <div class="button expr" (click)="newExpr()">expression</div>
+      <div class="button switch" (click)="newSwitch()">switch</div>
+      <div class="button call" (click)="newCall()">call</div>
+    </div>
+
+    <div class="out-pins">
+
+      <div class="outputs pin-list">
+        <div class="title">outputs</div>
+        <ng-container *ngFor="let out of model.out.items">
+          <div class="output item">
+            <editor-pin [pin]="out.pin"></editor-pin>
+            <input type="text"
+                  [(value)]="out.label"/>
+          </div>
+        </ng-container>
+        <editor-adder (add)="newOutput()" style="output"></editor-adder>
+      </div>
+
+      <div class="controls outputs pin-list">
+        <div class="title">control outputs</div>
+        <ng-container *ngFor="let ctrl of model.control.items">
+          <div class="control output item">
+            <editor-pin [pin]="ctrl.pin" [controlStyle]="true"></editor-pin>
+            <input type="text"
+                  [(value)]="ctrl.label"/>
+          </div>
+        </ng-container>
+        <editor-adder (add)="newControl()" style="control"></editor-adder>
+      </div>
+
+    </div>
   </editor-bar>
 </div>

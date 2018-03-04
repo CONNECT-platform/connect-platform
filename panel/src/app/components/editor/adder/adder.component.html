@@ -2,6 +2,5 @@
     [ngClass]="{'active': state==states.activate, 'reset': state==states.reset}"
       (click)="activate()">
       <span>+</span>
-      <editor-pin *ngIf="style == 'switch'" [controlStyle]="true"></editor-pin>
-      <editor-pin *ngIf="style != 'switch'"></editor-pin>
+      <editor-pin [controlStyle]="controlStyle"></editor-pin>
 </div>

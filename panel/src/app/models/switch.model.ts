@@ -17,6 +17,9 @@ export class Switch extends Node {
 
   public static emptySwitch(left: number, top: number): Switch {
     Switch._count++;
-    return new Switch(`s${Switch._count}`, new Box(left, top, 144, 32));
+    let sw = new Switch(`s${Switch._count}`, new Box(left, top, 144, 32));
+    sw.cases.add('true');
+    sw.cases.add('false');
+    return sw;
   }
 }

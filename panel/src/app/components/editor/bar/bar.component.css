@@ -17,5 +17,9 @@
 }
 
 .inner {
-  margin: 16px;
+  position: absolute;
+  top: 16px;
+  bottom: 16px;
+  left: 16px;
+  right: 16px;
 }

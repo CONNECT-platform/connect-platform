@@ -89,3 +89,16 @@
   right: auto;
   left: 0px;
 }
+
+/*** output & control style ***/
+
+.holder.control {
+  border-color: #FFC400;
+  color: #FFC400;
+}
+
+.holder.output editor-pin,
+.holder.control editor-pin {
+  right: auto;
+  left: 6px;
+}

@@ -31,6 +31,13 @@ export class Call extends Node {
 
   public static emptyCall(left: number, top: number): Call {
     Call._count++;
-    return new Call(`c${Call._count}`, new Box(left, top, 196, 32));
+    let call = new Call(`c${Call._count}`, new Box(left, top, 196, 32));
+    call.signature = {
+      path: '/path-to-node/',
+      inputs: [],
+      outputs: [],
+      controlOutputs: []
+    };
+    return call;
   }
 }
