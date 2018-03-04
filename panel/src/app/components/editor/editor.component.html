@@ -8,7 +8,8 @@
       <ng-container *ngFor="let in of model.in.items">
         <div class="input item">
           <input type="text"
-                [(value)]="in.label"/>
+                (blur)="sanitizeInput(in)"
+                [(ngModel)]="in.label"/>
           <editor-pin [pin]="in.pin"></editor-pin>
         </div>
       </ng-container>
@@ -20,7 +21,8 @@
       <ng-container *ngFor="let conf of model.config.items">
         <div class="config item">
           <input type="text"
-                [(value)]="conf.label"/>
+                (blur)="sanitizeConfig(conf)"
+                [(ngModel)]="conf.label"/>
           <editor-pin [pin]="conf.pin"></editor-pin>
         </div>
       </ng-container>
@@ -57,7 +59,8 @@
           <div class="output item">
             <editor-pin [pin]="out.pin"></editor-pin>
             <input type="text"
-                  [(value)]="out.label"/>
+                  (blur)="sanitizeOutput(out)"
+                  [(ngModel)]="out.label"/>
           </div>
         </ng-container>
         <editor-adder (add)="newOutput()" style="output"></editor-adder>
@@ -69,7 +72,8 @@
           <div class="control output item">
             <editor-pin [pin]="ctrl.pin" [controlStyle]="true"></editor-pin>
             <input type="text"
-                  [(value)]="ctrl.label"/>
+                  (blur)="sanitizeControl(ctrl)"
+                  [(ngModel)]="ctrl.label"/>
           </div>
         </ng-container>
         <editor-adder (add)="newControl()" style="control"></editor-adder>

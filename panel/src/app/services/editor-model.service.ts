@@ -91,6 +91,18 @@ export class EditorModelService extends Subscribable {
   }
 
   public removeNode(node: Node): EditorModelService {
+    []
+      .concat(node.in.items)
+      .concat(node.out.items)
+      .concat(node.control.items)
+      .map(item => item.pin)
+      .forEach(pin => this.removePinLinks(pin));
+
+    this.links.forEach(l => {
+      if (l.to == node)
+        this.removeLink(l);
+    });
+
     this._nodes = this._nodes.filter(n => n != node);
     this.publish(EditorModelEvents.removeNode, node);
     return this;
@@ -105,6 +117,15 @@ export class EditorModelService extends Subscribable {
   public removeLink(link: Link): EditorModelService {
     this._links = this._links.filter(l => l != link);
     this.publish(EditorModelEvents.removeLink, link);
+    return this;
+  }
+
+  public removePinLinks(pin: Pin): EditorModelService {
+    this.links.forEach(l => {
+      if (l.from == pin || l.to == pin)
+        this.removeLink(l);
+    });
+
     return this;
   }
 

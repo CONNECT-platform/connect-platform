@@ -5,18 +5,18 @@ import { Node } from './node.model';
 
 export class Link extends Subscribable {
   private _from: Pin;
-  private _to: any;
+  private _to: Pin | Node;
 
-  constructor(from: Pin, to) {
+  constructor(from: Pin, to: Pin | Node) {
     super();
     this._from = from;
     this._to = to;
   }
 
   public get from(): Pin { return this._from; }
-  public get to() { return this._to; }
+  public get to(): Pin | Node { return this._to; }
 
-  public set to(pin: Pin) {
+  public set to(pin: Pin | Node) {
     if (this.compatible(pin))
       this._to = pin;
   }

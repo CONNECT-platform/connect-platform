@@ -139,6 +139,10 @@ export class EditorService extends Subscribable {
     return this.selected && obj == this.selected;
   }
 
+  get selectTarget() {
+    return this.selected;
+  }
+
   get cursor() {
     return {
       left: this.mouseX,

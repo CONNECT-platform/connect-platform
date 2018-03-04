@@ -5,6 +5,7 @@ import { Value } from '../../models/value.model';
 import { Switch } from '../../models/switch.model';
 import { Call } from '../../models/call.model';
 import { Box } from '../../models/box.model';
+import { Node } from '../../models/node.model';
 import { EditorService, EditorEvents } from '../../services/editor.service';
 import { EditorModelService } from '../../services/editor-model.service';
 
@@ -62,6 +63,18 @@ export class EditorComponent implements OnInit, OnDestroy {
   mainAction() {
     if (this.state == EditorState.initial) this.state = EditorState.adding;
     else if (this.state == EditorState.adding) this.state = EditorState.initial;
+    else if (this.state == EditorState.selected) {
+      if (this.editor.selectTarget instanceof Link) {
+        this.model.removeLink(this.editor.selectTarget);
+        this.editor.deselect();
+        this.state = EditorState.initial;
+      }
+      else if (this.editor.selectTarget instanceof Node) {
+        this.model.removeNode(this.editor.selectTarget);
+        this.editor.deselect();
+        this.state = EditorState.initial;
+      }
+    }
   }
 
   newInput() { this.model.in.add(''); }
@@ -83,6 +96,35 @@ export class EditorComponent implements OnInit, OnDestroy {
   newExpr() { this.newNode(Expr.emptyExpr(0, 0)); }
   newSwitch() { this.newNode(Switch.emptySwitch(0, 0)); }
   newCall() { this.newNode(Call.emptyCall(0, 0)); }
+
+  sanitizeInput(input) {
+    console.log(input.touched);
+    if (input.cleared) {
+      this.model.removePinLinks(input.pin);
+      this.model.in.remove(input);
+    }
+  }
+
+  sanitizeConfig(config) {
+    if (config.cleared) {
+      this.model.removePinLinks(config.pin);
+      this.model.config.remove(config);
+    }
+  }
+
+  sanitizeOutput(out) {
+    if (out.cleared) {
+      this.model.removePinLinks(out.pin);
+      this.model.out.remove(out);
+    }
+  }
+
+  sanitizeControl(control) {
+    if (control.cleared) {
+      this.model.removePinLinks(control.pin);
+      this.model.control.remove(control);
+    }
+  }
 
   _createMock() {
     let s = {

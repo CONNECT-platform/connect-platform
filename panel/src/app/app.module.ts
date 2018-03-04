@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 import {FlexLayoutModule} from "@angular/flex-layout";
 import {AceEditorModule} from "ng2-ace-editor";
@@ -36,6 +37,7 @@ import { AdderComponent } from './components/editor/adder/adder.component';
     BrowserModule,
     FlexLayoutModule,
     AceEditorModule,
+    FormsModule,
   ],
   bootstrap: [AppComponent],
   providers: [EditorModelService, EditorService]

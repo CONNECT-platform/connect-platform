@@ -14,6 +14,7 @@
               <input type="text"
                     [value]="in.label"
                     (focus)="inputFocus($event)"
+                    (blur)="sanitizeInput(in)"
                     (keyup)="inputChange(in, $event)"
                     (change)="inputChange(in, $event)">
             </div>
@@ -42,7 +43,7 @@
         </div>
         <div #cases class="cases">
           <ng-container *ngFor="let control of node.control.items">
-            <div class="case">
+            <div class="case" (focusout)="sanitizeControl(control)">
               <editor-code [shadow]="false" [(code)]="control.label" [pin]="control.pin"></editor-code>
             </div>
           </ng-container>

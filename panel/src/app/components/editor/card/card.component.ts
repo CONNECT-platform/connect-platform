@@ -1,5 +1,7 @@
 import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
+
 import { EditorService, EditorEvents } from '../../../services/editor.service';
+import { EditorModelService } from '../../../services/editor-model.service';
 import { Node, NodeEvents } from '../../../models/node.model';
 import { Value } from '../../../models/value.model';
 import { Expr, ExprEvents } from '../../../models/expr.model';
@@ -27,7 +29,7 @@ export class CardComponent implements OnInit {
 
   private _newBorn = true;
 
-  constructor(private editorService: EditorService) {
+  constructor(private editorService: EditorService, private model : EditorModelService) {
   }
 
   ngOnInit() {
@@ -87,10 +89,9 @@ export class CardComponent implements OnInit {
   }
 
   public inputChange(input, event) {
+    let newVal = event.target.value;
+    input.label = newVal;
     if (this.decomposedFIVal) {
-      let newVal = event.target.value;
-      input.label = newVal;
-
       if (this.type == CardType.expr) {
         let expr = this.node as Expr;
         expr.code = recomposeCode(this.decomposedFIVal, newVal);
@@ -109,6 +110,20 @@ export class CardComponent implements OnInit {
   newInput() {
     if (this.type == CardType.expr) {
       (this.node as Expr).in.add('');
+    }
+  }
+
+  sanitizeInput(input) {
+    if (input.cleared) {
+      this.model.removePinLinks(input.pin);
+      this.node.in.remove(input);
+    }
+  }
+
+  sanitizeControl(control) {
+    if (control.cleared) {
+      this.model.removePinLinks(control.pin);
+      this.node.control.remove(control);
     }
   }
 }
