@@ -58,6 +58,15 @@ export class LinkComponent implements OnInit {
   }
 
   private get _toPos() {
+    if (!this.link.to) {
+      let c = this.editorService.cursor;
+      let f = this.fromPos;
+      return {
+        left: f.left + (c.left - f.left) * .9,
+        top: f.top + (c.top - f.top) * .9,
+      }
+    }
+
     let component = this.link.to.component;
 
     if (component) {

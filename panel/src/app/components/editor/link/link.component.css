@@ -38,7 +38,8 @@
 
 .holder.selected .line {
   opacity: 1;
-  box-shadow: 0 0 32px #76FF03;
+  border-style: solid;
+  box-shadow: 0 0px 0px 8px rgba(118,255,3,.2), 0 0px 128px #76FF03;
 }
 
 .holder.control .line {
@@ -46,7 +47,8 @@
 }
 
 .holder.control.selected .line {
-  box-shadow: 0 0 32px #FFC400;
+  box-shadow: 0 0 64px #FFC400;
+  box-shadow: 0 0px 0px 8px rgba(255,196,0,.2), 0 0px 128px #FFC400;
 }
 
 .holder img {

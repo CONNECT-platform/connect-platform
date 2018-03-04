@@ -36,7 +36,6 @@ export class Expr extends Node {
   public static emptyExpr(left: number, top: number): Expr {
     Expr._count++;
     let expr = new Expr(`e${Expr._count}`, new Box(left, top, 172, 32));
-    expr.in.add('a');
     expr.code = '//something...';
     return expr;
   }

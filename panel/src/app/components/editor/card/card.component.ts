@@ -45,7 +45,7 @@ export class CardComponent implements OnInit {
   }
 
   public pick(event) {
-    event.pickedObject = this.node;
+    event.node = this.node;
     this.editorService.pickEvent(event);
   }
 

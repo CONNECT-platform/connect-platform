@@ -38,6 +38,6 @@ import { AdderComponent } from './components/editor/adder/adder.component';
     AceEditorModule,
   ],
   bootstrap: [AppComponent],
-  providers: [EditorService, EditorModelService]
+  providers: [EditorModelService, EditorService]
 })
 export class AppModule { }

@@ -32,6 +32,8 @@ export class EditorComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.subscribe();
+
+  //  this._createMock();
   }
 
   ngOnDestroy() {
@@ -70,7 +72,7 @@ export class EditorComponent implements OnInit, OnDestroy {
   newNode(node) {
     this.model.addNode(node);
     this.editor.pickEvent({
-      pickedObject: node
+      node: node
     });
 
     if (this.state == EditorState.adding)
