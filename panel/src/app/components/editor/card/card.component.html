@@ -54,7 +54,17 @@
 
     <ng-container *ngIf="type == types.call">
       <div class="inner" #inner>
-        <div class="path"><input type="text" [(ngModel)]="node.path"/></div>
+        <div class="path">
+          <input type="text"
+                (focus)="_suggesting=true"
+                (focusout)="_suggesting=false"
+                [(ngModel)]="node.path"/>
+        </div>
+        <div class="path-suggest" *ngIf="suggestPaths">
+          <div class="item" *ngFor="let path of suggestPaths" (mousedown)="node.path=path">
+            {{ path }}
+          </div>
+        </div>
 
         <div #inputs>
           <ng-container *ngFor="let in of node.in.items">

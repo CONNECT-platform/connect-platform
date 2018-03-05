@@ -11,7 +11,7 @@ import { Box } from '../../../models/box.model';
 })
 export class PaneComponent implements OnInit {
 
-  constructor(private editorService: EditorService,
+  constructor(private editor: EditorService,
               private model: EditorModelService) {
   }
 
@@ -19,14 +19,14 @@ export class PaneComponent implements OnInit {
   }
 
   public scrollEvent(event) {
-    this.editorService.paneScrollEvent(event);
+    this.editor.paneScrollEvent(event);
   }
 
   public mouseMoveEvent(event) {
-    this.editorService.mouseMoveEvent(event);
+    this.editor.mouseMoveEvent(event);
   }
 
   public mouseUpEvent() {
-    this.editorService.unpickEvent();
+    this.editor.unpickEvent();
   }
 }

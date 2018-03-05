@@ -26,6 +26,8 @@ export class Link extends Subscribable {
 
     if (target instanceof Pin) {
       let pin = target as Pin;
+      if (pin.node && pin.node == this._from.node) return false;
+      
       if (this._from.type == PinType.output)
         return pin.type == PinType.input;
       if (this._from.type == PinType.control)

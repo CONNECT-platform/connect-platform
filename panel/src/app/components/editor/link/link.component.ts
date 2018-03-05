@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, HostListener } from '@angular/core';
 import { Link } from '../../../models/link.model';
 import { Node } from '../../../models/node.model';
 import { Expr } from '../../../models/expr.model';
@@ -17,18 +17,18 @@ export class LinkComponent implements OnInit {
   private _lastFromPos = null;
   private _lastToPos = null;
 
-  constructor(private editorService: EditorService) { }
+  constructor(private editor: EditorService) { }
 
   ngOnInit() {
   }
 
   select() {
-    if (this.selected) this.editorService.deselect();
-    else this.editorService.select(this.link);
+    if (this.selected) this.editor.deselect();
+    else this.editor.select(this.link);
   }
 
   public get selected() {
-    return this.editorService.isSelected(this.link);
+    return this.editor.isSelected(this.link);
   }
 
   get fromPos() {
@@ -59,7 +59,7 @@ export class LinkComponent implements OnInit {
 
   private get _toPos() {
     if (!this.link.to) {
-      let c = this.editorService.cursor;
+      let c = this.editor.cursor;
       let f = this.fromPos;
       return {
         left: f.left + (c.left - f.left) * .9,
@@ -115,5 +115,12 @@ export class LinkComponent implements OnInit {
 
   private static _inPane(obj) {
     return (obj instanceof Node) || (obj instanceof Pin && obj.node);
+  }
+
+  @HostListener('document:keyup', ['$event'])
+  keypress(event: KeyboardEvent) {
+    if (event.keyCode == 27 && this.link.from != null && this.link.to == null) {
+      this.editor.releaseFreeLink();
+    }
   }
 }

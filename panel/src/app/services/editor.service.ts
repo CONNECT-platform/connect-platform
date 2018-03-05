@@ -149,4 +149,11 @@ export class EditorService extends Subscribable {
       top: this.mouseY,
     }
   }
+
+  public releaseFreeLink() {
+    if (this.freeLink) {
+      this.model.removeLink(this.freeLink);
+      this.freeLink = null;
+    }
+  }
 }

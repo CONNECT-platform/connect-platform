@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { Link } from '../../models/link.model';
 import { Expr } from '../../models/expr.model';
 import { Value } from '../../models/value.model';
@@ -126,58 +126,9 @@ export class EditorComponent implements OnInit, OnDestroy {
     }
   }
 
-  _createMock() {
-    let s = {
-        path: '/some-path/',
-        method: 'GET',
-        public: false,
-        inputs: ['user_id', 'article_id'],
-        outputs: ['article'],
-        controlOutputs: ['not_found', 'not_authorized'],
-        configs: ['secret_key'],
-    };
-
-    this.model.adopt(s);
-
-    let e1 = Value.emptyValue(240, 128);
-    let e2 = Expr.emptyExpr(384, 256);
-    let e3 = Value.emptyValue(212, 500);
-    let s1 = Switch.emptySwitch(700, 128);
-    let c1 = Call.emptyCall(620, 480);
-
-    e1.code = '"Hellow World!"\n.length';
-    e2.code = 'first*2 + second';
-    e3.code = '3.1415926';
-
-    c1.signature = {
-      path: '/some/path/',
-      inputs: ['what', 'when'],
-      outputs: ['this', 'that'],
-      controlOutputs: ['error'],
-    };
-
-    e2.in.add('first').add('second');
-
-    let lp = new Link(this.model.in.get('user_id'), e2.in.get('second'));
-    let l = new Link(e1.out.get('result'), e2.in.get('first'));
-    let l2 = new Link(this.model.in.get('article_id'), c1.in.get('when'));
-    let l3 = new Link(e2.out.get('result'), s1.in.get('target'));
-    let l4 = new Link(s1.control.get('true'), c1);
-    let l5 = new Link(e3.out.get('result'), c1.in.get('what'));
-    let l6 = new Link(c1.out.get('this'), this.model.out.get('article'));
-
-    this.model.addNode(e1)
-              .addNode(e2)
-              .addNode(e3)
-              .addNode(s1)
-              .addNode(c1)
-              .addLink(l2)
-              .addLink(lp)
-              .addLink(l)
-              .addLink(l4)
-              .addLink(l3)
-              .addLink(l6)
-              .addLink(l5);
-
+  @HostListener('document:keyup', ['$event'])
+  keypress(event) {
+    if (event.keyCode == 27 && this.state == EditorState.adding)
+      this.state = EditorState.initial;
   }
 }

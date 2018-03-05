@@ -20,10 +20,8 @@ export class Call extends Node {
 
   public get path() { return this._path; }
   public set path(path : string) {
-    if (path != this.path) {
-      this._path = path;
-      this.publish(CallEvents.pathChange, path);
-    }
+    this._path = path;
+    this.publish(CallEvents.pathChange, path);
   }
 
   private _adoptSignature() {

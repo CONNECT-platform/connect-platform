@@ -13,7 +13,10 @@ export enum PinListItemEvents {
 export class PinListItem extends Subscribable {
   private _touched : boolean = false;
 
-  constructor(private _label : string, private _pin : Pin) {super()}
+  constructor(private _label : string, private _pin : Pin) {
+    super();
+    if (this._label != '') this._touched = true;
+  }
 
   public get label(): string { return this._label; }
   public get pin(): Pin { return this._pin; }

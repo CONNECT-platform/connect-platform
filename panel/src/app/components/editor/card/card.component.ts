@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, HostListener } from '@angular/core';
 
 import { EditorService, EditorEvents } from '../../../services/editor.service';
 import { EditorModelService } from '../../../services/editor-model.service';
@@ -27,11 +27,11 @@ export class CardComponent implements OnInit {
   private types = CardType;
   private focusedInputVal: string;
   private decomposedFIVal: any;
-
   private _newBorn = true;
+  private _suggesting = null;
 
   constructor(
-    private editorService: EditorService,
+    private editor: EditorService,
     private model : EditorModelService,
     private registry : RegistryService,
     ) {}
@@ -71,20 +71,20 @@ export class CardComponent implements OnInit {
 
   public pick(event) {
     event.node = this.node;
-    this.editorService.pickEvent(event);
+    this.editor.pickEvent(event);
   }
 
   public unpick() {
     if (this.picked)
-      this.editorService.unpickEvent();
+      this.editor.unpickEvent();
   }
 
   public get picked() {
-    return this.editorService.isPicked(this.node);
+    return this.editor.isPicked(this.node);
   }
 
   public get selected() {
-    return this.editorService.isSelected(this.node);
+    return this.editor.isSelected(this.node);
   }
 
   public get type() {
@@ -124,6 +124,12 @@ export class CardComponent implements OnInit {
     }
   }
 
+  public get suggestPaths() {
+    let call = this.node as Call;
+    if (this._suggesting) return this.registry.allPaths.filter(path => path.startsWith(call.path));
+    else return null;
+  }
+
   newCase() {
     if (this.type == CardType.switch) {
       (this.node as Switch).cases.add('');
@@ -147,6 +153,15 @@ export class CardComponent implements OnInit {
     if (control.cleared) {
       this.model.removePinLinks(control.pin);
       this.node.control.remove(control);
+    }
+  }
+
+  @HostListener('document:keyup', ['$event'])
+  keypress(event: KeyboardEvent) {
+    if (event.keyCode == 27) {
+      if (this.editor.isSelected(this.node))
+        this.editor.deselect();
+      if (this._suggesting) this._suggesting = false;
     }
   }
 }
