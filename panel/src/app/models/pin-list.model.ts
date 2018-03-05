@@ -39,9 +39,12 @@ export class PinListItem extends Subscribable {
 
 export class PinList extends Subscribable {
   private _core : Array<PinListItem> = [];
+  private _publishChange: any;
 
   constructor(private pinFactory : () => Pin) {
     super();
+
+    this._publishChange = () => this.publish(PinListEvents.change);
   }
 
   public get items() : Array<PinListItem> {
@@ -52,6 +55,9 @@ export class PinList extends Subscribable {
     let _new = new PinListItem(label, this.pinFactory());
 
     this._core.push(_new);
+
+    _new.subscribe(PinListItemEvents.change, this._publishChange);
+
     this.publish(PinListEvents.add, _new);
     this.publish(PinListEvents.change);
     return this;
@@ -72,6 +78,8 @@ export class PinList extends Subscribable {
   }
 
   public remove(item : PinListItem) : PinList {
+    item.unsubscribe(PinListItemEvents.change, this._publishChange);
+
     this._core = this._core.filter(i => i != item);
     this.publish(PinListEvents.remove, item);
     this.publish(PinListEvents.change);

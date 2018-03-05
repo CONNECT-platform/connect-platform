@@ -3,7 +3,7 @@ import { Subscribable } from '../util/subscribable';
 import { Node } from '../models/node.model';
 import { Link } from '../models/link.model';
 import { Pin, PinType } from '../models/pin.model';
-import { PinList } from '../models/pin-list.model';
+import { PinList, PinListEvents } from '../models/pin-list.model';
 import { Signature } from '../models/signature.model';
 
 
@@ -33,12 +33,34 @@ export class EditorModelService extends Subscribable {
   private _confs: PinList;
   private _ctrls: PinList;
 
+  private _building = false;
+
   constructor() {
     super();
     this._ins = new PinList(() => new Pin(PinType.output));
     this._confs = new PinList(() => new Pin(PinType.output));
     this._outs = new PinList(() => new Pin(PinType.input));
     this._ctrls = new PinList(() => new Pin(PinType.input));
+
+    this._ins.subscribe(PinListEvents.change, () => {
+      if (!this._building)
+        this._signature.inputs = this._ins.items.map(i => i.label);
+    });
+
+    this._confs.subscribe(PinListEvents.change, () => {
+      if (!this._building)
+        this._signature.configs = this._confs.items.map(i => i.label);
+    });
+
+    this._outs.subscribe(PinListEvents.change, () => {
+      if (!this._building)
+        this._signature.outputs = this._outs.items.map(i => i.label);
+    });
+
+    this._ctrls.subscribe(PinListEvents.change, () => {
+      if (!this._building)
+        this._signature.controlOutputs = this._ctrls.items.map(i => i.label);
+    });
 
     this._buildPins();
   }
@@ -91,13 +113,7 @@ export class EditorModelService extends Subscribable {
   }
 
   public removeNode(node: Node): EditorModelService {
-    []
-      .concat(node.in.items)
-      .concat(node.out.items)
-      .concat(node.control.items)
-      .map(item => item.pin)
-      .forEach(pin => this.removePinLinks(pin));
-
+    this.removeNodeLinks(node);
     this.links.forEach(l => {
       if (l.to == node)
         this.removeLink(l);
@@ -120,6 +136,16 @@ export class EditorModelService extends Subscribable {
     return this;
   }
 
+  public removeNodeLinks(node: Node): EditorModelService {
+    []
+      .concat(node.in.items)
+      .concat(node.out.items)
+      .concat(node.control.items)
+      .map(item => item.pin)
+      .forEach(pin => this.removePinLinks(pin));
+    return this;
+  }
+
   public removePinLinks(pin: Pin): EditorModelService {
     this.links.forEach(l => {
       if (l.from == pin || l.to == pin)
@@ -130,6 +156,8 @@ export class EditorModelService extends Subscribable {
   }
 
   private _buildPins() {
+    this._building = true;
+
     this.in.clear();
     this.config.clear();
     this.out.clear();
@@ -139,5 +167,7 @@ export class EditorModelService extends Subscribable {
     for (let _conf of this.signature.configs) this.config.add(_conf);
     for (let _out of this.signature.outputs) this.out.add(_out);
     for (let _ctrl of this.signature.controlOutputs) this.control.add(_ctrl);
+
+    this._building = false;
   }
 }

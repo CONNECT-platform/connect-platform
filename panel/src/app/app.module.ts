@@ -10,6 +10,7 @@ import { EditorComponent } from './components/editor/editor.component';
 import { PaneComponent } from './components/editor/pane/pane.component';
 import { CardComponent } from './components/editor/card/card.component';
 import { EditorService } from './services/editor.service';
+import { RegistryService } from './services/registry.service';
 import { BarComponent } from './components/editor/bar/bar.component';
 
 import { PinComponent } from './components/editor/pin/pin.component';
@@ -40,6 +41,6 @@ import { AdderComponent } from './components/editor/adder/adder.component';
     FormsModule,
   ],
   bootstrap: [AppComponent],
-  providers: [EditorModelService, EditorService]
+  providers: [EditorModelService, EditorService, RegistryService]
 })
 export class AppModule { }

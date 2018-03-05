@@ -54,7 +54,7 @@
 
     <ng-container *ngIf="type == types.call">
       <div class="inner" #inner>
-        <div class="path"><input type="text" [value]="node.signature.path"/></div>
+        <div class="path"><input type="text" [(ngModel)]="node.path"/></div>
 
         <div #inputs>
           <ng-container *ngFor="let in of node.in.items">

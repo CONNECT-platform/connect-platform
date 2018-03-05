@@ -2,6 +2,7 @@ import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 
 import { EditorService, EditorEvents } from '../../../services/editor.service';
 import { EditorModelService } from '../../../services/editor-model.service';
+import { RegistryService } from '../../../services/registry.service';
 import { Node, NodeEvents } from '../../../models/node.model';
 import { Value } from '../../../models/value.model';
 import { Expr, ExprEvents } from '../../../models/expr.model';
@@ -29,13 +30,35 @@ export class CardComponent implements OnInit {
 
   private _newBorn = true;
 
-  constructor(private editorService: EditorService, private model : EditorModelService) {
-  }
+  constructor(
+    private editorService: EditorService,
+    private model : EditorModelService,
+    private registry : RegistryService,
+    ) {}
 
   ngOnInit() {
     this.node.component = this;
     setInterval(() => this._setHeight(), 50);
     setTimeout(() => {this._newBorn = false}, 500);
+
+    if (this.node instanceof Call) {
+      let call = this.node as Call;
+
+      call.subscribe(CallEvents.pathChange, path => {
+        this.model.removeNodeLinks(call);
+        if (this.registry.isRegistered(path)) {
+          call.signature = this.registry.signature(path);
+        }
+        else {
+          call.signature = {
+            path: path,
+            inputs: [],
+            outputs: [],
+            controlOutputs: [],
+          };
+        }
+      });
+    }
   }
 
   private _setHeight() {
