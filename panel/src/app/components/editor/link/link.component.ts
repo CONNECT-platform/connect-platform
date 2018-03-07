@@ -34,7 +34,7 @@ export class LinkComponent implements OnInit {
   get fromPos() {
     if (!this._lastFromPos) {
       this._lastFromPos = this._fromPos;
-      setTimeout(() => this._lastFromPos = null, 10);
+      setTimeout(() => this._lastFromPos = null, 25);
     }
     return this._lastFromPos;
   }
@@ -42,7 +42,7 @@ export class LinkComponent implements OnInit {
   get toPos() {
     if (!this._lastToPos) {
       this._lastToPos = this._toPos;
-      setTimeout(() => this._lastToPos = null, 10);
+      setTimeout(() => this._lastToPos = null, 25);
     }
     return this._lastToPos;
   }
@@ -59,7 +59,7 @@ export class LinkComponent implements OnInit {
 
   private get _toPos() {
     if (!this.link.to) {
-      let c = this.editor.cursor;
+      let c = this.editor.cursorAbsolute;
       let f = this.fromPos;
       return {
         left: f.left + (c.left - f.left) * .9,

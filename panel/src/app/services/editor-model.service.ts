@@ -1,8 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Subscribable } from '../util/subscribable';
 import { Node } from '../models/node.model';
+import { Call } from '../models/call.model';
+import { Expr } from '../models/expr.model';
+import { Switch } from '../models/switch.model';
+import { Value } from '../models/value.model';
 import { Link } from '../models/link.model';
-import { Pin, PinType } from '../models/pin.model';
+import { Pin, PinType, PinTag } from '../models/pin.model';
 import { PinList, PinListEvents } from '../models/pin-list.model';
 import { Signature } from '../models/signature.model';
 
@@ -37,10 +41,10 @@ export class EditorModelService extends Subscribable {
 
   constructor() {
     super();
-    this._ins = new PinList(() => new Pin(PinType.output));
-    this._confs = new PinList(() => new Pin(PinType.output));
-    this._outs = new PinList(() => new Pin(PinType.input));
-    this._ctrls = new PinList(() => new Pin(PinType.input));
+    this._ins = new PinList(() => new Pin(PinType.output, PinTag.input));
+    this._confs = new PinList(() => new Pin(PinType.output, PinTag.config));
+    this._outs = new PinList(() => new Pin(PinType.input, PinTag.output));
+    this._ctrls = new PinList(() => new Pin(PinType.input, PinTag.control));
 
     this._ins.subscribe(PinListEvents.change, () => {
       if (!this._building)
@@ -106,6 +110,27 @@ export class EditorModelService extends Subscribable {
     this._buildPins();
   }
 
+  public createNode(nodeClass, position) : Node {
+    let _builder : (tag:string, left:number, top:number) => Node;
+    let _prefix : string;
+
+    if (nodeClass == Call) { _builder = Call.emptyCall, _prefix = 'c'; }
+    if (nodeClass == Expr) { _builder = Expr.emptyExpr, _prefix = 'e'; }
+    if (nodeClass == Value) { _builder = Value.emptyValue, _prefix = 'v'; }
+    if (nodeClass == Switch) { _builder = Switch.emptySwitch, _prefix = 's'; }
+
+    let _index = 0;
+    let _tag : string;
+    while(true) {
+      _tag = `${_prefix}${_index}`;
+      if (this._nodes.filter(n => n.tag == _tag).length == 0)
+        break;
+      _index++;
+    }
+
+    return _builder(_tag, position.left, position.top);
+  }
+
   public addNode(node: Node): EditorModelService {
     this._nodes.push(node);
     this.publish(EditorModelEvents.addNode, node);
@@ -169,5 +194,19 @@ export class EditorModelService extends Subscribable {
     for (let _ctrl of this.signature.controlOutputs) this.control.add(_ctrl);
 
     this._building = false;
+  }
+
+  public get json() {
+    return {
+      path : this.path,
+      method : this.method,
+      public : this.public,
+      in : this.signature.inputs,
+      out : this.signature.outputs,
+      configs : this.signature.configs,
+      control : this.signature.controlOutputs,
+      nodes : this._nodes.map(node => node.json),
+      links : this._links.map(link => link.json),
+    };
   }
 }

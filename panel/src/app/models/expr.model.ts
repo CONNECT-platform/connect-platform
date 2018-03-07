@@ -22,6 +22,18 @@ export class Expr extends Node {
     this._setCode(code);
   }
 
+  protected toJson() {
+    if (this.in.items.length > 0)
+      return Object.assign(super.toJson(), {
+        in : this.in.items.map(i => i.label),
+        expr : this.code,
+      });
+    else
+      return Object.assign(super.toJson(), {
+        expr : this.code,
+      });
+  }
+
   protected _setCode(code: string) {
     this._code = code;
     this.publish(ExprEvents.codeChange, code);
@@ -31,11 +43,8 @@ export class Expr extends Node {
     return this._code;
   }
 
-  private static _count = 0;
-
-  public static emptyExpr(left: number, top: number): Expr {
-    Expr._count++;
-    let expr = new Expr(`e${Expr._count}`, new Box(left, top, 172, 32));
+  public static emptyExpr(tag: string, left: number, top: number): Expr {
+    let expr = new Expr(tag, new Box(left, top, 172, 32));
     expr.code = '//something...';
     return expr;
   }

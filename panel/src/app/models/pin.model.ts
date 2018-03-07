@@ -1,9 +1,14 @@
 import { Subscribable } from '../util/subscribable';
 import { Node } from './node.model';
+import { PinListItem } from './pin-list.model';
 
 
 export enum PinType {
   input, output, control,
+}
+
+export enum PinTag {
+  input, config, output, control,
 }
 
 export enum PinEvents {
@@ -15,12 +20,18 @@ export class Pin extends Subscribable {
 
   private _node: Node;
   private _type: PinType;
+  private _tag: PinTag;
+  private _item: PinListItem;
   private _component: any;
 
-  constructor(type: PinType, node?: Node) {
+  constructor(type: PinType, nodeOrTag?: Node | PinTag) {
     super();
     this._type = type;
-    this._node = node;
+
+    if (nodeOrTag instanceof Node)
+      this._node = nodeOrTag;
+    else
+      this._tag = nodeOrTag;
   }
 
   public get component() { return this._component; }
@@ -29,6 +40,46 @@ export class Pin extends Subscribable {
     this.publish(PinEvents.attach, comp);
   }
 
+  public get item() { return this._item; }
+  public set item(item : PinListItem) {
+    this._item = item;
+  }
+
   public get node() { return this._node; }
   public get type() { return this._type; }
+  public get tag():PinTag { return this._tag; }
+
+  public get json() {
+    if (!this.item) return {};
+
+    if (this.node) {
+      let res = {};
+      res[this.node.tag] = {};
+
+      if (this.type == PinType.input) {
+        res[this.node.tag]["in"] = this.item.label;
+        return res;
+      }
+
+      if (this.type == PinType.output) {
+        res[this.node.tag]["out"] = this.item.label;
+        return res;
+      }
+
+      if (this.type == PinType.control) {
+        res[this.node.tag]["out"] = this.item.label;
+        return res;
+      }
+    }
+
+    if (this.tag) {
+      let _tag = this.tag as PinTag;
+      if (_tag == PinTag.input) return {"in": this.item.label};
+      if (_tag == PinTag.config) return {"config": this.item.label};
+      if (_tag == PinTag.output) return {"output": this.item.label};
+      if (_tag == PinTag.control) return {"control": this.item.label};
+    }
+
+    return {}
+  }
 }

@@ -118,9 +118,12 @@ img.loading {
   opacity: 1;
 }
 
-.add-nodes {
+.action-list {
   margin-top: 24px;
   text-align: center;
+}
+
+.add-nodes {
   z-index: 10;
   transform: translateY(-50%);
   opacity: 0;
@@ -133,7 +136,7 @@ img.loading {
   opacity: 1;
 }
 
-.add-nodes .button {
+editor-bar .button {
   padding: 2px;
   padding-bottom: 3px;
   border: 1px solid white;
@@ -146,6 +149,6 @@ img.loading {
   transition: opacity .3s;
 }
 
-.add-nodes .button:hover {
+editor-bar .button:hover {
   opacity: 1;
 }

@@ -1,4 +1,5 @@
-import { Component, OnInit, Input, ViewChild, ElementRef, HostListener } from '@angular/core';
+import { Component, OnInit, OnDestroy,
+        Input, ViewChild, ElementRef, HostListener } from '@angular/core';
 
 import { EditorService, EditorEvents } from '../../../services/editor.service';
 import { EditorModelService } from '../../../services/editor-model.service';
@@ -19,7 +20,7 @@ enum CardType { value, expr, switch, call, }
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.css']
 })
-export class CardComponent implements OnInit {
+export class CardComponent implements OnInit, OnDestroy {
   @Input() private node: Node;
   @ViewChild('inner') private inner: ElementRef;
   @ViewChild('inputs') private inputs: ElementRef;
@@ -29,6 +30,7 @@ export class CardComponent implements OnInit {
   private decomposedFIVal: any;
   private _newBorn = true;
   private _suggesting = null;
+  private _interval : any;
 
   constructor(
     private editor: EditorService,
@@ -38,7 +40,7 @@ export class CardComponent implements OnInit {
 
   ngOnInit() {
     this.node.component = this;
-    setInterval(() => this._setHeight(), 50);
+    this._interval = setInterval(() => this._setHeight(), 200);
     setTimeout(() => {this._newBorn = false}, 500);
 
     if (this.node instanceof Call) {
@@ -59,6 +61,10 @@ export class CardComponent implements OnInit {
         }
       });
     }
+  }
+
+  ngOnDestroy() {
+    clearInterval(this._interval);
   }
 
   private _setHeight() {

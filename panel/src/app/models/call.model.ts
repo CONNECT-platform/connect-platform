@@ -24,6 +24,12 @@ export class Call extends Node {
     this.publish(CallEvents.pathChange, path);
   }
 
+  protected toJson() {
+    return Object.assign(super.toJson(), {
+      path : this.path,
+    });
+  }
+
   private _adoptSignature() {
     super.reset();
     if (this.signature) {
@@ -34,11 +40,8 @@ export class Call extends Node {
     }
   }
 
-  private static _count = 0;
-
-  public static emptyCall(left: number, top: number): Call {
-    Call._count++;
-    let call = new Call(`c${Call._count}`, new Box(left, top, 196, 32));
+  public static emptyCall(tag: string, left: number, top: number): Call {
+    let call = new Call(tag, new Box(left, top, 196, 32));
     call.path = '/path-to-node/';
     call.signature = {
       path: '/path-to-node/',

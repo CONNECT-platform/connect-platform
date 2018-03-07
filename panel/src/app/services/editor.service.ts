@@ -150,6 +150,13 @@ export class EditorService extends Subscribable {
     }
   }
 
+  get cursorAbsolute() {
+    return {
+      left: this.mouseX - this.paneScroll,
+      top: this.mouseY,
+    }
+  }
+
   public releaseFreeLink() {
     if (this.freeLink) {
       this.model.removeLink(this.freeLink);

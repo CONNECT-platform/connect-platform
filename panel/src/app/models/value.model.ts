@@ -14,11 +14,8 @@ export class Value extends Expr {
 
   public get code() { return this._getCode(); }
 
-  private static _value_count = 0;
-
-  public static emptyValue(left: number, top: number): Value {
-    Value._value_count++;
-    let value = new Value(`v${Value._value_count}`, new Box(left, top, 172, 32));
+  public static emptyValue(tag: string, left: number, top: number): Value {
+    let value = new Value(tag, new Box(left, top, 172, 32));
     value.code = '//something ...';
     return value;
   }

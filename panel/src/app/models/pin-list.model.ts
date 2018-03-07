@@ -15,6 +15,7 @@ export class PinListItem extends Subscribable {
 
   constructor(private _label : string, private _pin : Pin) {
     super();
+    this._pin.item = this;
     if (this._label != '') this._touched = true;
   }
 

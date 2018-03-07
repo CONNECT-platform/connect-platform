@@ -28,6 +28,10 @@
       </ng-container>
       <editor-adder (add)="newConfig()"></editor-adder>
     </div>
+
+    <div class="action-list">
+      <div class="button" (click)="save()">Save</div>
+    </div>
   </editor-bar>
 
   <editor-pane></editor-pane>
@@ -44,7 +48,7 @@
         class="main-action">+</div>
     </div>
 
-    <div class="add-nodes" [ngClass]="{'active': state == states.adding}">
+    <div class="action-list add-nodes" [ngClass]="{'active': state == states.adding}">
       <div class="button value" (click)="newValue()">value</div>
       <div class="button expr" (click)="newExpr()">expression</div>
       <div class="button switch" (click)="newSwitch()">switch</div>

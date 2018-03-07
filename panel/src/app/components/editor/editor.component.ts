@@ -92,10 +92,10 @@ export class EditorComponent implements OnInit, OnDestroy {
       this.state = EditorState.initial;
   }
 
-  newValue() { this.newNode(Value.emptyValue(512, 512)); }
-  newExpr() { this.newNode(Expr.emptyExpr(0, 0)); }
-  newSwitch() { this.newNode(Switch.emptySwitch(0, 0)); }
-  newCall() { this.newNode(Call.emptyCall(0, 0)); }
+  newValue() { this.newNode(this.model.createNode(Value, this.editor.cursorAbsolute)); }
+  newExpr() { this.newNode(this.model.createNode(Expr, this.editor.cursorAbsolute)); }
+  newSwitch() { this.newNode(this.model.createNode(Switch, this.editor.cursorAbsolute)); }
+  newCall() { this.newNode(this.model.createNode(Call, this.editor.cursorAbsolute)); }
 
   sanitizeInput(input) {
     console.log(input.touched);
@@ -124,6 +124,10 @@ export class EditorComponent implements OnInit, OnDestroy {
       this.model.removePinLinks(control.pin);
       this.model.control.remove(control);
     }
+  }
+
+  save() {
+    console.log(this.model.json);
   }
 
   @HostListener('document:keyup', ['$event'])

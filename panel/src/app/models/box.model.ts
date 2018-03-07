@@ -117,6 +117,15 @@ export class Box extends Subscribable {
     return this;
   }
 
+  public get json() {
+    return {
+      left : this.left,
+      right : this.right,
+      top : this.top,
+      bottom : this.bottom,
+    }
+  }
+
   public static fromElement(el) {
     let _box = elementBox(el);
     return new Box(_box.left, _box.top, _box.right - _box.left, _box.bottom - _box.top);

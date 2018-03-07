@@ -40,6 +40,17 @@ export class Node extends Subscribable {
   public get out() { return this._outs; }
   public get control() { return this._controls; }
 
+  public get json() {
+    return this.toJson();
+  }
+
+  protected toJson() {
+    return {
+      tag : this.tag,
+      box : this.box.json,
+    }
+  }
+
   protected reset() {
     this.in.clear();
     this.out.clear();

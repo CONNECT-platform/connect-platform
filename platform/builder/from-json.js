@@ -71,6 +71,11 @@ const findPin = (desc, c) => {
     return node.pins.out[body.out];
   }
 
+  if (body.control) {
+    if (!(body.control in node.pins.controlOut)) throw new NotFound(`control output pin ${body.control} of node ${tag}`);
+    return node.pins.controlOut[body.control];
+  }
+
   if (body.case) {
     if (!(body.case in node.pins.cases))
       throw new NotFound(`case pin "${body.case}" of node ${tag}`);
