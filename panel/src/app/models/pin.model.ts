@@ -1,5 +1,8 @@
 import { Subscribable } from '../util/subscribable';
 import { Node } from './node.model';
+import { Switch } from './switch.model';
+import { Expr } from './expr.model';
+import { Value } from './value.model';
 import { PinListItem } from './pin-list.model';
 
 
@@ -56,6 +59,28 @@ export class Pin extends Subscribable {
       let res = {};
       res[this.node.tag] = {};
 
+      if (this.node instanceof Switch) {
+        if (this.type == PinType.input) {
+          res[this.node.tag] = this.item.label;
+          return res;
+        }
+
+        if (this.type == PinType.control) {
+          res[this.node.tag]["case"] = this.item.label;
+          return res;
+        }
+      }
+
+      if (this.node instanceof Value) {
+        res[this.node.tag] = this.item.label;
+        return res;
+      }
+
+      if (this.node instanceof Expr && this.type == PinType.output) {
+        res[this.node.tag] = this.item.label;
+        return res;
+      }
+
       if (this.type == PinType.input) {
         res[this.node.tag]["in"] = this.item.label;
         return res;
@@ -72,7 +97,7 @@ export class Pin extends Subscribable {
       }
     }
 
-    if (this.tag) {
+    if (this.tag != undefined) {
       let _tag = this.tag as PinTag;
       if (_tag == PinTag.input) return {"in": this.item.label};
       if (_tag == PinTag.config) return {"config": this.item.label};
