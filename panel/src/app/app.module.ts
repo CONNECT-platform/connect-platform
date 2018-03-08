@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 
 import {FlexLayoutModule} from "@angular/flex-layout";
@@ -44,6 +45,8 @@ import { AdderComponent } from './components/editor/adder/adder.component';
     HttpClientModule,
   ],
   bootstrap: [AppComponent],
-  providers: [BackendService, RegistryService, EditorModelService, EditorService]
+  providers: [
+    Location,{provide: LocationStrategy, useClass: PathLocationStrategy},
+    BackendService, RegistryService, EditorModelService, EditorService]
 })
 export class AppModule { }

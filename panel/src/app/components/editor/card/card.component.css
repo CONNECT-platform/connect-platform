@@ -78,6 +78,7 @@
   text-align: center;
   color: #00BFA5;
   margin-bottom: 8px;
+  min-width: 100%;
 }
 
 .input.placeholder {

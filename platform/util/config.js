@@ -4,6 +4,7 @@ const deepAssign = (sourceDict, newDict) => {
       let sourceVal = sourceDict[key];
 
       if (sourceVal instanceof Array) {
+        if (!newVal instanceof Array) newVal = [newVal];
         sourceDict[key] = Array.from(new Set(sourceVal.concat(newVal)));
       }
       else if (sourceVal.constructor === Object) {

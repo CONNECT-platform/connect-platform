@@ -3,7 +3,7 @@ const config = require('./config');
 
 
 platform.core.node({
-  path : `/${config.path}registry`,
+  path : `${config.path}registry`,
   method : 'GET',
   public: config.expose,
   outputs : ['registry'],

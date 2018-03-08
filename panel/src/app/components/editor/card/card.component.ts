@@ -132,7 +132,10 @@ export class CardComponent implements OnInit, OnDestroy {
 
   public get suggestPaths() {
     let call = this.node as Call;
-    if (this._suggesting) return this.registry.allPaths.filter(path => path.startsWith(call.path));
+    if (this._suggesting)
+      return this.registry.allPaths
+            .filter(path => path.startsWith(call.path))
+            .slice(0, 16);
     else return null;
   }
 

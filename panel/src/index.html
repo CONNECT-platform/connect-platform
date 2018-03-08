@@ -15,5 +15,9 @@
 </head>
 <body>
   <app-root></app-root>
+  <script>
+    window.electron = false;
+    try { require('electron'); window.electron = true; } catch(_) {}
+  </script>
 </body>
 </html>
