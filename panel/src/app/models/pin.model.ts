@@ -101,7 +101,7 @@ export class Pin extends Subscribable {
       let _tag = this.tag as PinTag;
       if (_tag == PinTag.input) return {"in": this.item.label};
       if (_tag == PinTag.config) return {"config": this.item.label};
-      if (_tag == PinTag.output) return {"output": this.item.label};
+      if (_tag == PinTag.output) return {"out": this.item.label};
       if (_tag == PinTag.control) return {"control": this.item.label};
     }
 

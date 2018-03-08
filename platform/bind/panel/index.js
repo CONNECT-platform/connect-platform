@@ -15,7 +15,10 @@ platform.subscribe(platform.events.bind, (_, platform) => {
 module.exports.platform = {
   config : {
     nodes: {
-      native: ["registry-service"],
+      native: [
+        "registry-service",
+        "save-node",
+      ],
     },
   },
 }

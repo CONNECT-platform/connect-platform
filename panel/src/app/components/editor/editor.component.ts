@@ -8,6 +8,8 @@ import { Box } from '../../models/box.model';
 import { Node } from '../../models/node.model';
 import { EditorService, EditorEvents } from '../../services/editor.service';
 import { EditorModelService } from '../../services/editor-model.service';
+import { BackendService } from '../../services/backend.service';
+
 
 enum EditorState {
   initial, adding, selected,
@@ -26,9 +28,12 @@ export class EditorComponent implements OnInit, OnDestroy {
   private selectHandle;
   private deselectHandle;
 
+  communicating : boolean = false;
+
   constructor(
     private model : EditorModelService,
     private editor: EditorService,
+    private backend : BackendService,
   ) { }
 
   ngOnInit() {
@@ -127,7 +132,17 @@ export class EditorComponent implements OnInit, OnDestroy {
   }
 
   save() {
+    this.communicating = true;
     console.log(this.model.json);
+    this.backend.save().subscribe(response => {
+      console.log(response);
+      setTimeout(() => this.communicating = false, 2000);
+    }, error => {
+      //TODO: properly announce the error.
+      //
+      console.log(error);
+      setTimeout(() => this.communicating = false, 2000);
+    });
   }
 
   @HostListener('document:keyup', ['$event'])

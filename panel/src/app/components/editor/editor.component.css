@@ -152,3 +152,10 @@ editor-bar .button {
 editor-bar .button:hover {
   opacity: 1;
 }
+
+editor-bar .action-list.bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}

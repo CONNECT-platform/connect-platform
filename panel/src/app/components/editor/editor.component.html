@@ -1,5 +1,5 @@
 <div class="container">
-  <img src="assets/logo-backdrop.svg"/>
+  <img src="assets/logo-backdrop.svg" [ngClass]="{'loading': communicating}"/>
   <editor-bar position="left">
     <editor-general></editor-general>
 
@@ -29,7 +29,7 @@
       <editor-adder (add)="newConfig()"></editor-adder>
     </div>
 
-    <div class="action-list">
+    <div class="action-list bottom">
       <div class="button" (click)="save()">Save</div>
     </div>
   </editor-bar>
