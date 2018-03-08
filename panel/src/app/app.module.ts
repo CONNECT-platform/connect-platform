@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import {FlexLayoutModule} from "@angular/flex-layout";
 import {AceEditorModule} from "ng2-ace-editor";
@@ -12,6 +13,7 @@ import { CardComponent } from './components/editor/card/card.component';
 import { EditorService } from './services/editor.service';
 import { RegistryService } from './services/registry.service';
 import { BarComponent } from './components/editor/bar/bar.component';
+import { BackendService } from './services/backend.service';
 
 import { PinComponent } from './components/editor/pin/pin.component';
 import { LinkComponent } from './components/editor/link/link.component';
@@ -39,8 +41,9 @@ import { AdderComponent } from './components/editor/adder/adder.component';
     FlexLayoutModule,
     AceEditorModule,
     FormsModule,
+    HttpClientModule,
   ],
   bootstrap: [AppComponent],
-  providers: [EditorModelService, EditorService, RegistryService]
+  providers: [BackendService, RegistryService, EditorModelService, EditorService]
 })
 export class AppModule { }

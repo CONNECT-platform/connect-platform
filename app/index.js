@@ -2,7 +2,8 @@ const path = require('path');
 const platform = require('platform');
 
 
-platform()
+platform
+  .init()
   .configure(require('./config'))
   .configure({root: __dirname})
   .start()

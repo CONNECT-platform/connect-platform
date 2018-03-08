@@ -1,7 +1,13 @@
 {
   "port": 4000,
+  "panel": {
+    "expose": true
+  },
   "nodes": {
     "native": ["hellow"],
-    "module": ["facts"]
+    "module": [
+      "facts",
+      "platform/bind/panel"
+    ]
   }
 }

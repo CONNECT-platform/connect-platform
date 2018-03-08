@@ -6,19 +6,19 @@ const {Builder} = require('./builder');
 
 
 class Platform {
-  constructor(a, b) {
-    if (!b) this.init(null, a);
-    else this.init(a, b);
-  }
-
-  init(app, config) {
-    this.app = app;
-    this.config = util.config(config);
+  constructor() {
+    this.config = util.config();
     this.builder = new Builder(this.config.core);
   }
 
+  init(app) {
+    this.app = app;
+    return this;
+  }
+
   bind() {
-    this.app = expressBind(this.app);
+    this.app = expressBind(this.app, this.config);
+    return this;
   }
 
   load() {
@@ -26,6 +26,7 @@ class Platform {
       .loadNodesFromConf(this.config.core,
                         [this.config.get('root')],
                         this.config.core);
+    return this;
   }
 
   listen(port) {
@@ -52,7 +53,9 @@ class Platform {
   }
 }
 
-module.exports = (a, b) => new Platform(a, b);
+const _platform = new Platform();
+
+module.exports = _platform;
 
 module.exports.core = require('./core');
 module.exports.call = require('./tools/native-call');
