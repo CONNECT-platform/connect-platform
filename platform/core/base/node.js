@@ -162,16 +162,18 @@ class Node extends Subscribable {
     let inputs = this._prepareInputs();
 
     return new Promise((resolve, reject) => {
-      this.run(inputs, (output, data) => {
+      this.run(inputs, (output, data, safe) => {
         let _break = new OutputBreak(output, data);
 
         resolve(_break);
-        throw _break;
-      }, control => {
+        if (!safe)
+          throw _break;
+      }, (control, safe) => {
         let _break = new ControlBreak(control);
 
         resolve(_break);
-        throw _break;
+        if (!safe)
+          throw _break;
       });
     }).then(_break => {
       this._handleBreak(_break);

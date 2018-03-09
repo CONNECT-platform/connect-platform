@@ -77,15 +77,15 @@ platform.core.node({
             files.json.save(confile, conf).then(() => {}).catch(error => {});
           }).catch(error => {});
 
-          output('id', _id);
+          output('id', _id, true);
         })
         .catch(error => {
           console.log(error);
-          control('internal_error')
+          control('internal_error', true);
         });
     })
     .catch(error => {
       console.log(error);
-      control('internal_error')
+      control('internal_error', true);
     });
 });
