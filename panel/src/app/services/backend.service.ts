@@ -23,6 +23,8 @@ export class BackendService {
   }
 
   save() {
-    return this.http.post(this.api + 'save', { signature : this.model.json});
+    return this.http.post<
+    { id: string, }>
+    (this.api + 'save', { id : this.model.id, signature : this.model.json});
   }
 }

@@ -9,7 +9,7 @@ platform.core.node({
   path : `${config.path}save`,
   public : config.expose,
   method : 'POST',
-  inputs : ['signature'],
+  inputs : ['signature', 'id'],
   outputs : ['id'],
   controlOutputs : ['no_directory_set', 'bad_input', 'internal_error'],
 }, (inputs, output, control) => {
@@ -24,13 +24,29 @@ platform.core.node({
   files.json.load(pathmapfile, {})
     .then(pathmap => {
       let _path = inputs.signature.path;
+      let _update_pathmap = false;
       let _id;
 
-      if (_path in pathmap) {
-        _id = pathmap[_path];
+      if (inputs.id) {
+        _id = inputs.id;
+        Object.entries(pathmap)
+              .filter(entry => entry[1] == _id)
+              .forEach(entry => {
+                delete pathmap[entry[0]];
+              });
+        _update_pathmap = true;
       }
       else {
-        _id = 'n' + Math.random().toString(36).substring(2, 15);
+        if (_path in pathmap) {
+          _id = pathmap[_path];
+        }
+        else {
+          _id = 'n' + Math.random().toString(36).substring(2, 15);
+          _update_pathmap = true;
+        }
+      }
+
+      if (_update_pathmap) {
         pathmap[_path] = _id;
         files.json.save(pathmapfile, pathmap)
           .then(() => {})

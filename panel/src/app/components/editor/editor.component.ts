@@ -133,9 +133,11 @@ export class EditorComponent implements OnInit, OnDestroy {
 
   save() {
     this.communicating = true;
-    console.log(this.model.json);
+
     this.backend.save().subscribe(response => {
-      console.log(response);
+      if (response.id) {
+        this.model.id = response.id;
+      }
       setTimeout(() => this.communicating = false, 2000);
     }, error => {
       //TODO: properly announce the error.

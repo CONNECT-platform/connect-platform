@@ -15,6 +15,7 @@ export enum EditorModelEvents {
   pathChange, methodChange, accessChange,
   addNode, removeNode,
   addLink, removeLink,
+  saved,
 }
 
 @Injectable()
@@ -28,6 +29,8 @@ export class EditorModelService extends Subscribable {
       controlOutputs: [],
       configs: [],
   };
+
+  private _id : string = null;
 
   private _nodes: Array<Node> = [];
   private _links: Array<Link> = [];
@@ -69,6 +72,7 @@ export class EditorModelService extends Subscribable {
     this._buildPins();
   }
 
+  public get id() : string { return this._id; }
   public get signature(): Signature { return this._signature; }
   public get path(): string { return this._signature.path; }
   public get method(): string { return this._signature.method.toUpperCase(); }
@@ -81,6 +85,11 @@ export class EditorModelService extends Subscribable {
 
   public get nodes(): Array<Node> { return this._nodes; }
   public get links(): Array<Link> { return this._links; }
+
+  public set id(id : string) {
+    this._id = id;
+    this.publish(EditorModelEvents.saved);
+  }
 
   public set path(path: string) {
     this._signature.path = path;
