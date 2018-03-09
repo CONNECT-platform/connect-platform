@@ -16,7 +16,7 @@ class Switch extends base.node.Node {
     for (let _case of this._cases)
       this._scripts[_case] = script(_case);
 
-    this._sync = true;
+    //this._sync = true;
   }
 
   get cases() { return this._cases; }

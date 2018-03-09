@@ -12,7 +12,7 @@ class Expression extends base.node.Node {
     this._script = script(this._expr);
     this.pins.result = this.pins.out[_Result];
 
-    this._sync = true;
+    //this._sync = true;
   }
 
   run(inputs, output) {
