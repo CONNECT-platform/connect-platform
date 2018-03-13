@@ -3,12 +3,16 @@
   "panel": {
     "expose": true
   },
+  "jwt": {
+    "secret": "asldjalwdwoadnkasnkzshoqdiwhask"
+  },
   "nodes": {
     "native": ["hellow"],
     "module": [
       "facts",
       "platform/bind/panel",
-      "panel-generated"
+      "panel-generated",
+      "platform/bind/jwt"
     ]
    }
  }

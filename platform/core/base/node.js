@@ -146,11 +146,9 @@ class Node extends Subscribable {
     try {
       this.run(inputs, (output, data) => {
         let _break = new OutputBreak(output, data);
-
         throw _break;
       }, control => {
         let _break = new ControlBreak(control);
-
         throw _break;
       });
     } catch(_break) {
@@ -162,18 +160,13 @@ class Node extends Subscribable {
     let inputs = this._prepareInputs();
 
     return new Promise((resolve, reject) => {
-      this.run(inputs, (output, data, safe) => {
+      this.run(inputs, (output, data) => {
         let _break = new OutputBreak(output, data);
-
         resolve(_break);
-        if (!safe)
-          throw _break;
-      }, (control, safe) => {
+      },
+      control => {
         let _break = new ControlBreak(control);
-
         resolve(_break);
-        if (!safe)
-          throw _break;
       });
     }).then(_break => {
       this._handleBreak(_break);

@@ -92,7 +92,7 @@ export class Pin extends Subscribable {
       }
 
       if (this.type == PinType.control) {
-        res[this.node.tag]["out"] = this.item.label;
+        res[this.node.tag]["control"] = this.item.label;
         return res;
       }
     }

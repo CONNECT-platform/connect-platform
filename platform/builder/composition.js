@@ -112,8 +112,16 @@ class Composition {
     for (let [config, pin] of Object.entries(this._configs)) {
       let confpath = config.split('\.');
       let confval = configs;
-      for (let seg of confpath)
-        confval = confval[seg];
+
+      for (let seg of confpath) {
+        if (seg in confval)
+          confval = confval[seg];
+        else {
+          confval = undefined;
+          break;
+        }
+      }
+
       pin.send(confval);
     }
 

@@ -302,7 +302,9 @@ export class EditorModelService extends Subscribable {
         return this.control.get(_v[1]);
       }
       else if (_v[0] == 'out') {
-        return this.out.get(_v[1]);
+        let _p = this.out.get(_v[1]);
+        if (_p) return _p;
+        else return this.control.get(_v[1]);
       }
       else {
         let _n = this._nodes.filter(n => n.tag == _v[0])[0];
@@ -321,10 +323,11 @@ export class EditorModelService extends Subscribable {
           else if (_vv[0] == 'case') {
             return (_n as Switch).cases.get(_vv[1]);
           }
-          else if (_vv[0] == 'out') {
-            let _p = _n.out.get(_vv[1]);
-            if (_p) return _p;
+          else if (_vv[0] == 'control') {
             return _n.control.get(_vv[1]);
+          }
+          else if (_vv[0] == 'out') {
+            return _n.out.get(_vv[1]);
           }
         }
       }
