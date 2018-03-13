@@ -16,6 +16,14 @@
     </div>
   </div>
   <div class="toolbar">
+    <div class="search action"
+        [ngClass]="{'active': searching}">
+      <span (click)="toggleSearch()"
+            class="material-icons">search</span>
+      <input #searchinput
+            (blur)="searching=searchinput.value.length>0"
+            type="text"/>
+    </div>
     <div routerLink="editor" class="add action">+</div>
   </div>
 </div>

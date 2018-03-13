@@ -68,6 +68,8 @@
 
 .toolbar .action {
   display: inline-block;
+  vertical-align: middle;
+  position: relative;
   width: 32px;
   height: 32px;
   text-align: center;
@@ -82,4 +84,38 @@
 
 .toolbar .action:hover {
   opacity: 1;
+}
+
+.toolbar .search.action {
+  text-align: right;
+  position: relative;
+}
+
+.toolbar .search.action input {
+  display: none;
+}
+
+.toolbar .search.action span {
+  position: absolute;
+  top: 3px;
+  right: 4px;
+}
+
+.toolbar .search.action.active {
+  width: 192px;
+  opacity: 1;
+}
+
+.toolbar .search.action.active input {
+  display: inline-block;
+  background: none;
+  border: none;
+  outline: none;
+  font-family: inherit;
+  position: absolute;
+  left: 8px;
+  color: white;
+  width: 156px;
+  top: 6px;
+  font-size: 14px;
 }
