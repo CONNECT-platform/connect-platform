@@ -109,8 +109,13 @@ class Composition {
     for (let [input, pin] of Object.entries(this._inputs))
       pin.send(inputs[input]);
 
-    for (let [config, pin] of Object.entries(this._configs))
-      pin.send(configs[config]);
+    for (let [config, pin] of Object.entries(this._configs)) {
+      let confpath = config.split('\.');
+      let confval = configs;
+      for (let seg of confpath)
+        confval = confval[seg];
+      pin.send(confval);
+    }
 
     for (let node of Object.values(this._nodes))
       node.checkActivate();
