@@ -51,4 +51,11 @@ export class Call extends Node {
     };
     return call;
   }
+
+  public static fromJson(json) {
+    let call = new Call(json.tag, Box.fromJson(json.box));
+    call.path = json.path;
+
+    return call;
+  }
 }

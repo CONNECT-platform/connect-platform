@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" [@container]="">
   <img src="assets/logo-backdrop.svg" [ngClass]="{'loading': communicating}"/>
   <editor-bar position="left">
     <editor-general></editor-general>
@@ -31,6 +31,7 @@
 
     <div class="action-list bottom">
       <div class="button" (click)="save()">Save</div>
+      <div class="button" routerLink="/">Home</div>
     </div>
   </editor-bar>
 

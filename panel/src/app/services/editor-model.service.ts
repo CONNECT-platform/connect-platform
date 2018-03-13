@@ -15,20 +15,22 @@ export enum EditorModelEvents {
   pathChange, methodChange, accessChange,
   addNode, removeNode,
   addLink, removeLink,
-  saved,
+  save,
 }
+
+const _defaultSignature : Signature = {
+    path: '/some-path/',
+    method: 'GET',
+    public: false,
+    inputs: [],
+    outputs: [],
+    controlOutputs: [],
+    configs: [],
+};
 
 @Injectable()
 export class EditorModelService extends Subscribable {
-  private _signature: Signature = {
-      path: '/some-path/',
-      method: 'GET',
-      public: false,
-      inputs: [],
-      outputs: [],
-      controlOutputs: [],
-      configs: [],
-  };
+  private _signature: Signature = Object.assign({}, _defaultSignature);
 
   private _id : string = null;
 
@@ -88,7 +90,7 @@ export class EditorModelService extends Subscribable {
 
   public set id(id : string) {
     this._id = id;
-    this.publish(EditorModelEvents.saved);
+    this.publish(EditorModelEvents.save);
   }
 
   public set path(path: string) {
@@ -217,5 +219,118 @@ export class EditorModelService extends Subscribable {
       nodes : this._nodes.map(node => node.json),
       links : this._links.map(link => link.json),
     };
+  }
+
+  public reset() : EditorModelService {
+    this._id = null;
+    this._signature = Object.assign({}, _defaultSignature);
+    this._ins.clear();
+    this._outs.clear();
+    this._confs.clear();
+    this._ctrls.clear();
+    this._nodes = [];
+    this._links = [];
+    return this;
+  }
+
+  public load(id, json, registry) : EditorModelService {
+    this.reset();
+
+    this._id = id;
+
+    this._signature.path = json.path;
+    this._signature.method = json.method;
+    this._signature.public = json.public;
+    this._signature.inputs = json.in;
+    this._signature.outputs = json.out;
+    this._signature.configs = json.configs;
+    this._signature.controlOutputs = json.control;
+
+    this._buildPins();
+
+    this._nodes = [];
+    this._links = [];
+
+    for (let _node of json.nodes) {
+      if (_node.expr) {
+        if (_node.in) {
+          this.addNode(Expr.fromJson(_node));
+        }
+        else {
+          this.addNode(Value.fromJson(_node));
+        }
+      }
+      else if (_node.cases) {
+        this.addNode(Switch.fromJson(_node));
+      }
+      else if (_node.path) {
+        let c = Call.fromJson(_node);
+        if (registry.isRegistered(c.path))
+          c.signature = registry.signature(c.path);
+        this.addNode(c);
+      }
+    }
+
+    for (let _link of json.links) {
+      let _from = this._findPin(_link[0]) as Pin;
+      let _to = this._findPin(_link[1]);
+      if (_from && _to) {
+        this.addLink(new Link(_from, _to));
+      }
+      else {
+        console.log('NOT FOUND');
+        console.log(_link);
+      }
+    }
+
+    return this;
+  }
+
+  private _findPin(json) : Node | Pin {
+    if (typeof(json) == 'string') {
+      return this._nodes.filter(n => n.tag == json)[0];
+    }
+    else {
+      let _v = Object.entries(json)[0];
+      if (_v[0] == 'in') {
+        return this.in.get(_v[1]);
+      }
+      else if (_v[0] == 'config') {
+        return this.config.get(_v[1]);
+      }
+      else if (_v[0] == 'control') {
+        return this.control.get(_v[1]);
+      }
+      else if (_v[0] == 'out') {
+        return this.out.get(_v[1]);
+      }
+      else {
+        let _n = this._nodes.filter(n => n.tag == _v[0])[0];
+
+        if (_v[1] == 'target') {
+          return _n.in.get('target');
+        }
+        else if (_v[1] == 'result') {
+          return _n.out.get('result');
+        }
+        else {
+          let _vv = Object.entries(_v[1])[0];
+          if (_vv[0] == 'in') {
+            return _n.in.get(_vv[1]);
+          }
+          else if (_vv[0] == 'case') {
+            return (_n as Switch).cases.get(_vv[1]);
+          }
+          else if (_vv[0] == 'out') {
+            let _p = _n.out.get(_vv[1]);
+            if (_p) return _p;
+            return _n.control.get(_vv[1]);
+          }
+        }
+      }
+    }
+
+    console.log('ERRRR');
+    console.log(json);
   }
 }

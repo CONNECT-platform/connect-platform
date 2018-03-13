@@ -46,6 +46,10 @@ export class CardComponent implements OnInit, OnDestroy {
     if (this.node instanceof Call) {
       let call = this.node as Call;
 
+      if (this.registry.isRegistered(call.path) && !call.signature) {
+        call.signature = this.registry.signature(call.path);
+      }
+
       call.subscribe(CallEvents.pathChange, path => {
         this.model.removeNodeLinks(call);
         if (this.registry.isRegistered(path)) {

@@ -1,4 +1,7 @@
 import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { trigger, state, style, animate, transition } from '@angular/animations';
+
 import { Link } from '../../models/link.model';
 import { Expr } from '../../models/expr.model';
 import { Value } from '../../models/value.model';
@@ -6,6 +9,7 @@ import { Switch } from '../../models/switch.model';
 import { Call } from '../../models/call.model';
 import { Box } from '../../models/box.model';
 import { Node } from '../../models/node.model';
+import { RegistryService } from '../../services/registry.service';
 import { EditorService, EditorEvents } from '../../services/editor.service';
 import { EditorModelService } from '../../services/editor-model.service';
 import { BackendService } from '../../services/backend.service';
@@ -18,7 +22,20 @@ enum EditorState {
 @Component({
   selector: 'editor',
   templateUrl: './editor.component.html',
-  styleUrls: ['./editor.component.css']
+  styleUrls: ['./editor.component.css'],
+  animations: [
+    trigger('container', [
+      state('in', style({opacity: 1})),
+      transition(':enter', [
+        style({opacity: 0}),
+        animate('300ms ease-in-out')
+      ]),
+      transition(':leave', [
+        style({opacity: 0}),
+        animate('300ms ease-in-out')
+      ])
+    ])
+  ]
 })
 export class EditorComponent implements OnInit, OnDestroy {
 
@@ -31,15 +48,24 @@ export class EditorComponent implements OnInit, OnDestroy {
   communicating : boolean = false;
 
   constructor(
+    private registry : RegistryService,
     private model : EditorModelService,
     private editor: EditorService,
     private backend : BackendService,
+    private route : ActivatedRoute,
   ) { }
 
   ngOnInit() {
     this.subscribe();
 
-  //  this._createMock();
+    this.route.queryParams.subscribe(params => {
+      if (params.id) {
+        this.backend.load(params.id).subscribe(data => {
+          this.model.load(params.id, data.node, this.registry);
+        });
+      }
+      else this.model.reset();
+    });
   }
 
   ngOnDestroy() {

@@ -1,0 +1,33 @@
+.holder {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.aligner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.inner {
+  width: 80vw;
+}
+
+.header img {
+  max-width: 100%;
+}
+
+.body {
+  text-align: left;
+  max-height: 75vh;
+  overflow: scroll;
+}
+
+.server {
+  font-size: 10px;
+  opacity: .3;
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+}

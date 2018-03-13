@@ -1,0 +1,21 @@
+<div class="holder">
+  <div class="title">NODES</div>
+  <div class="node-list">
+    <div *ngFor="let node of nodes" class="node item"
+          routerLink="editor"
+          [queryParams]="{id: node.id}">
+      {{ node.path }}
+      <div class="extra">
+        <span class="access" [ngClass]="{'public': node.public, 'internal' : !node.public}">
+          {{node.public?'public':'internal'}}
+        </span>
+        <span class="method">
+          {{node.method}}
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="toolbar">
+    <div routerLink="editor" class="add action">+</div>
+  </div>
+</div>

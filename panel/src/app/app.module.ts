@@ -1,8 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
+import { RouterModule, Routes } from '@angular/router';
 
 import {FlexLayoutModule} from "@angular/flex-layout";
 import {AceEditorModule} from "ng2-ace-editor";
@@ -22,7 +24,14 @@ import { EditorModelService } from './services/editor-model.service';
 import { CodeComponent } from './components/editor/code/code.component';
 import { GeneralComponent } from './components/editor/general/general.component';
 import { AdderComponent } from './components/editor/adder/adder.component';
+import { HomeComponent } from './components/home/home.component';
+import { NodesComponent } from './components/home/nodes/nodes.component';
 
+
+const routes : Routes = [
+  {path: '', component: HomeComponent},
+  {path : 'editor', component: EditorComponent},
+]
 
 @NgModule({
   declarations: [
@@ -36,9 +45,13 @@ import { AdderComponent } from './components/editor/adder/adder.component';
     CodeComponent,
     GeneralComponent,
     AdderComponent,
+    HomeComponent,
+    NodesComponent,
   ],
   imports: [
+    RouterModule.forRoot(routes, { enableTracing: false }),
     BrowserModule,
+    BrowserAnimationsModule,
     FlexLayoutModule,
     AceEditorModule,
     FormsModule,

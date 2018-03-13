@@ -27,7 +27,9 @@ export class RegistryService {
   constructor(
     private backend: BackendService,
     private model: EditorModelService
-  ) {}
+  ) {
+    this._refetch();
+  }
 
   public isRegistered(path): boolean {
     return path in this._registry;

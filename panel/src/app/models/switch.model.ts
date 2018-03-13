@@ -25,4 +25,13 @@ export class Switch extends Node {
     sw.cases.add('false');
     return sw;
   }
+
+  public static fromJson(json) {
+    let sw = new Switch(json.tag, Box.fromJson(json.box));
+    for (let c of json.cases) {
+      sw.cases.add(c);
+    }
+
+    return sw;
+  }
 }

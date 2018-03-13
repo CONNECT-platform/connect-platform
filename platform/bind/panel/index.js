@@ -9,6 +9,9 @@ platform.subscribe(platform.events.bind, (_, platform) => {
   if (config.expose) {
     let staticFiles = path.join(__dirname, '../../../panel/dist/');
     platform.app.use(config.path, express.static(staticFiles));
+    platform.app.use(path.join(config.path, '*'), (req, res) => {
+      res.sendFile(path.join(staticFiles, 'index.html'));
+    });
   }
 });
 
@@ -18,6 +21,8 @@ module.exports.platform = {
       native: [
         "registry-service",
         "save-node",
+        "load-node",
+        "panel-nodes",
       ],
     },
   },

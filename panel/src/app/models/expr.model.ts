@@ -48,4 +48,14 @@ export class Expr extends Node {
     expr.code = '//something...';
     return expr;
   }
+
+  public static fromJson(json) {
+    let expr = new Expr(json.tag, Box.fromJson(json.box));
+    expr.code = json.expr;
+    for (let i of json.in) {
+      expr.in.add(i);
+    }
+
+    return expr;
+  }
 }

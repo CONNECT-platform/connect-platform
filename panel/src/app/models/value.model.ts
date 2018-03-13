@@ -19,4 +19,10 @@ export class Value extends Expr {
     value.code = '//something ...';
     return value;
   }
+
+  public static fromJson(json) {
+    let value = new Value(json.tag, Box.fromJson(json.box));
+    value.code = json.expr;
+    return value;
+  }
 }
