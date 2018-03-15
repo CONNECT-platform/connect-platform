@@ -13,11 +13,15 @@ platform.core.node({
   outputs : ['id'],
   controlOutputs : ['no_directory_set', 'bad_input', 'internal_error'],
 }, (inputs, output, control) => {
-  if (!config.directory)
+  if (!config.directory) {
     control('no_directory_set');
+    return;
+  }
 
-  if (!inputs.signature.path)
+  if (!inputs.signature.path) {
     control('bad_input');
+    return;
+  }
 
   let pathmapfile = path.join(config.directory, config.files.pathmap);
 

@@ -22,6 +22,7 @@ module.exports.platform = {
         "registry-service",
         "save-node",
         "load-node",
+        "delete-node",
         "panel-nodes",
       ],
     },

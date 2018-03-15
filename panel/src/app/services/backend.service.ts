@@ -13,6 +13,7 @@ export class BackendService {
     registry : 'registry',
     save : 'save',
     load : 'load',
+    delete : 'delete',
     nodes: 'nodes',
   }
 
@@ -35,6 +36,10 @@ export class BackendService {
       <{ id: string, }>
       (this.api + BackendService.apiCalls.save,
         { id : this.model.id, signature : this.model.json});
+  }
+
+  delete() {
+    return this.http.delete(this.api + BackendService.apiCalls.delete + '/' + this.model.id);
   }
 
   load(id) {

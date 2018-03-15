@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 
 import { Link } from '../../models/link.model';
@@ -53,6 +53,7 @@ export class EditorComponent implements OnInit, OnDestroy {
     private editor: EditorService,
     private backend : BackendService,
     private route : ActivatedRoute,
+    private router : Router,
   ) { }
 
   ngOnInit() {
@@ -165,6 +166,22 @@ export class EditorComponent implements OnInit, OnDestroy {
         this.model.id = response.id;
       }
       setTimeout(() => this.communicating = false, 2000);
+    }, error => {
+      //TODO: properly announce the error.
+      //
+      console.log(error);
+      setTimeout(() => this.communicating = false, 2000);
+    });
+  }
+
+  delete() {
+    this.communicating = true;
+
+    this.backend.delete().subscribe(response => {
+      setTimeout(() => {
+        this.communicating = false;
+        this.router.navigate(['']);
+      }, 2000);
     }, error => {
       //TODO: properly announce the error.
       //
