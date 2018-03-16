@@ -32,8 +32,10 @@
     <div class="action-list bottom">
       <div class="button" (click)="save()">Save</div>
       <div class="button" routerLink="/">Home</div>
-      <br/><br/>
-      <div class="button" (click)="confirmDeletion()">Delete</div>
+      <ng-container *ngIf="model.id">
+        <br/><br/>
+        <div class="button" (click)="confirmDeletion()">Delete</div>
+      </ng-container>
     </div>
   </editor-bar>
 
