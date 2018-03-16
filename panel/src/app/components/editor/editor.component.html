@@ -33,7 +33,7 @@
       <div class="button" (click)="save()">Save</div>
       <div class="button" routerLink="/">Home</div>
       <br/><br/>
-      <div class="button" (click)="delete()">Delete</div>
+      <div class="button" (click)="confirmDeletion()">Delete</div>
     </div>
   </editor-bar>
 
@@ -89,3 +89,31 @@
     </div>
   </editor-bar>
 </div>
+
+
+<overlay #deleteOverlay>
+  <overlay-title>Confirm Deletion</overlay-title>
+  <overlay-content>
+    Are you sure you want to delete node
+    <span class="overlay-path">{{model.path}}</span>?
+    <br/>
+    This process cannot be undone. Additionally, nodes
+    that depend on it will malfunction and require correction.
+  </overlay-content>
+  <overlay-actions>
+    <button>Oh Wait ...</button>
+    <button class="danger" (click)="delete()">Delete</button>
+  </overlay-actions>
+</overlay>
+
+<overlay #deletedOverlay>
+  <overlay-title>Deleted</overlay-title>
+  <overlay-content>
+    Node
+    <span class="overlay-path">{{model.path}}</span>
+    sucssessfully deleted.
+  </overlay-content>
+  <overlay-actions>
+    <button>Ok</button>
+  </overlay-actions>
+</overlay>

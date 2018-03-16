@@ -159,3 +159,7 @@ editor-bar .action-list.bottom {
   left: 0;
   right: 0;
 }
+
+.overlay-path {
+  color: #00BFA5;
+}

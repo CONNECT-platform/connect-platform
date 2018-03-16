@@ -1,0 +1,39 @@
+.holder {
+  position: fixed;
+  top: 0; bottom: 0; left: 0; right: 0;
+  background: rgba(0, 0, 0, .75);
+  opacity: 0;
+  z-index: -10000;
+  transition: opacity .3s;
+}
+
+.holder.active {
+  opacity: 1;
+  z-index: 10000;
+}
+
+.aligner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.inner {
+  font-size: 24px;
+}
+
+.inner .title {
+  font-size : 32px;
+  margin-bottom: 32px;
+}
+
+.inner .content {
+  font-size: 16px;
+  max-width: 30vw;
+}
+
+.inner .actions {
+  text-align: right;
+  padding: 32px 0;
+}

@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule } from '@angular/core';
+import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
@@ -26,6 +26,7 @@ import { GeneralComponent } from './components/editor/general/general.component'
 import { AdderComponent } from './components/editor/adder/adder.component';
 import { HomeComponent } from './components/home/home.component';
 import { NodesComponent } from './components/home/nodes/nodes.component';
+import { OverlayComponent } from './components/shared/overlay/overlay.component';
 
 
 const routes : Routes = [
@@ -47,6 +48,7 @@ const routes : Routes = [
     AdderComponent,
     HomeComponent,
     NodesComponent,
+    OverlayComponent,
   ],
   imports: [
     RouterModule.forRoot(routes, { enableTracing: false }),
@@ -57,6 +59,7 @@ const routes : Routes = [
     FormsModule,
     HttpClientModule,
   ],
+  schemas:      [ NO_ERRORS_SCHEMA ],
   bootstrap: [AppComponent],
   providers: [
     Location,{provide: LocationStrategy, useClass: PathLocationStrategy},

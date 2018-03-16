@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 
@@ -44,6 +44,9 @@ export class EditorComponent implements OnInit, OnDestroy {
 
   private selectHandle;
   private deselectHandle;
+
+  @ViewChild('deleteOverlay') deleteOverlay;
+  @ViewChild('deletedOverlay') deletedOverlay;
 
   communicating : boolean = false;
 
@@ -174,13 +177,19 @@ export class EditorComponent implements OnInit, OnDestroy {
     });
   }
 
+  confirmDeletion() {
+    this.deleteOverlay.activate();
+  }
+
   delete() {
     this.communicating = true;
 
     this.backend.delete().subscribe(response => {
       setTimeout(() => {
         this.communicating = false;
-        this.router.navigate(['']);
+        this.deletedOverlay.activate().onClose.subscribe(() => {
+          this.router.navigate(['']);
+        });
       }, 2000);
     }, error => {
       //TODO: properly announce the error.

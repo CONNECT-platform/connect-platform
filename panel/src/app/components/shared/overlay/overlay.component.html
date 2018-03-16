@@ -1,0 +1,17 @@
+<div class="overlay holder"
+(click)="close()"
+[ngClass]="{'active': active}">
+  <div class="aligner">
+    <div class="inner">
+      <div class="title">
+        <ng-content select="overlay-title"></ng-content>
+      </div>
+      <div class="content">
+        <ng-content select="overlay-content"></ng-content>
+      </div>
+      <div class="actions">
+        <ng-content select="overlay-actions"></ng-content>
+      </div>
+    </div>
+  </div>
+</div>

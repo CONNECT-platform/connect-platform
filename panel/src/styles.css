@@ -34,13 +34,32 @@ button {
   font-family: inherit;
   margin: 8px 0;
   cursor: pointer;
+  outline: none;
   opacity: .5;
 
-  transition: opacity .3s;
+  transition: opacity .1s, background .1s, color .1s;
+}
+
+button.danger {
+  color: #ff1744;
+  border-color: #ff1744;
 }
 
 button:hover {
   opacity: 1;
+}
+
+.overlay .inner button {
+  opacity: 1;
+}
+
+.overlay .inner button:hover {
+  background: white;
+  color: black;
+}
+
+.overlay .inner button.danger:hover {
+  background: #ff1744;
 }
 
 /*** ACE EDITOR OVERRIDES ***/
