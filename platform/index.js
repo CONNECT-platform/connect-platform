@@ -1,5 +1,6 @@
 const expressBind = require('./bind/express');
 const loaders = require('./loaders');
+const core = require('./core');
 const util = require('./util');
 
 const {Subscribable} = require('./core/base/subscribable');
@@ -33,6 +34,13 @@ class Platform extends Subscribable {
       .loadNodesFromConf(this.config.core,
                         [this.config.get('root')],
                         this.config.core);
+
+    if (this.config.has('aliases')) {
+      for (let [alias, path] of Object.entries(this.config.get('aliases'))) {
+        core.registry.alias(alias, path);
+      }
+    }
+
     return this;
   }
 

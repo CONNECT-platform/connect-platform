@@ -36,7 +36,7 @@ describe('Node', ()=> {
     n.pins.in.a.receive('stuff.');
   });
 
-  it('should stop run() after ouput is given.', done => {
+  it.skip('should stop run() after ouput is given.', done => {
     let life = 2;
     let n1 = new class extends Node {
       run(inputs, output) {
@@ -54,7 +54,7 @@ describe('Node', ()=> {
     n1.pins.in.a.receive('well ...');
   });
 
-  it('should stop the run() when control called.', done => {
+  it.skip('should stop the run() when control called.', done => {
     let life = 4;
     let n = new class extends Node {
       run(_, __, control) {

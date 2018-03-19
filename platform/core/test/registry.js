@@ -57,4 +57,29 @@ describe('registry', () => {
       }, UnregisteredPath);
     });
   });
+
+  describe('.alias()', () => {
+    it('should make an alias for a given path.', () => {
+      class A extends base.node.Node{};
+      registry.register({path: 'X'}, A);
+
+      assert.throws(() => {
+        registry.instance('X-alias');
+      }, UnregisteredPath);
+
+      registry.alias('X-alias', 'X');
+
+      assert(registry.instance('X-alias') instanceof A);
+    });
+
+    it('should be able to resolve chain alaising as well.', () => {
+      registry.alias('XZZ', 'WZZ');
+      registry.alias('WZZ', 'ZZZ');
+
+      class D extends base.node.Node{};
+      registry.register({path: 'ZZZ'}, D);
+
+      assert(registry.instance('WZZ') instanceof D);
+    });
+  });
 });

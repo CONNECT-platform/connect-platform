@@ -14,5 +14,8 @@
       "panel-generated",
       "platform/bind/jwt"
     ]
-   }
+  },
+  "aliases": {
+    "/eightf" : "/8fact"
+  }
  }

@@ -8,7 +8,7 @@ const fromJSON = require('../from-json');
 
 describe('*** Magnificent Factoriel Composite ***', () => {
   it('should calculate 5!', done => {
-    fs.readFile(path.join(__dirname, 'fact-recipe.json'), (err, json) => {
+    fs.readFile(path.join(__dirname, 'fact-recipe.json'), 'utf-8', (err, json) => {
       new Builder().build(fromJSON(json));
 
       let f = core.callable(() => core.registry.instance('/test/fact/'));

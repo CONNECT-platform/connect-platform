@@ -16,8 +16,9 @@ class Builder {
       return new Composite(composition, this._config);
     };
 
-    if (recipe.signature.path && !skipRegistration)
+    if (recipe.signature.path && !skipRegistration) {
       core.registry.register(recipe.signature, factory);
+    }
 
     return factory;
   }
