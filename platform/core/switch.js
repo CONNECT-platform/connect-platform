@@ -4,6 +4,7 @@ const { InputMissing } = require('./errors');
 
 
 const _Target = 'target';
+const _Default = '...';
 
 class Switch extends base.node.Node {
   constructor(cases) {
@@ -13,8 +14,10 @@ class Switch extends base.node.Node {
     this.pins.cases = this.pins.controlOut;
     this._cases = cases;
     this._scripts = {};
-    for (let _case of this._cases)
-      this._scripts[_case] = script(_case);
+    for (let _case of this._cases) {
+      if (_case != _Default)
+        this._scripts[_case] = script(_case);
+    }
 
     //this._sync = true;
   }
@@ -26,8 +29,14 @@ class Switch extends base.node.Node {
       throw new InputMissing(_Target, inputs);
 
     for (let _case of this.cases) {
+      if (_case == _Default) {
+        control(_case);
+        return;
+      }
+
       if (inputs[_Target] ===  this._scripts[_case].evaluate({})) {
         control(_case);
+        return;
       }
     }
   }
