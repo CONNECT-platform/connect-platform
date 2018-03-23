@@ -10,7 +10,10 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "electron": "ng build && ./node_modules/.bin/electron ."
+
+    "angwatch" : "./node_modules/.bin/ng build --watch",
+    "angular": "./node_modules/.bin/ng build",
+    "electron": "./node_modules/.bin/ng build && ./node_modules/.bin/electron ."
   },
   "private": true,
   "dependencies": {

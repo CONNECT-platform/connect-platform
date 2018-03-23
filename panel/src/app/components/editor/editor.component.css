@@ -17,6 +17,10 @@ img.loading {
   animation:spin 2s ease-in-out infinite;
 }
 
+img.loading.reverse {
+  animation:spin-reverse 2s ease-in-out infinite;
+}
+
 .pin-list {
   margin-top: 32px;
   width: 120px;
@@ -83,6 +87,7 @@ img.loading {
 }
 
 @keyframes spin { 100% {transform:rotate(720deg); } }
+@keyframes spin-reverse { 100% {transform:rotate(-720deg); } }
 
 .main-action-holder {
   background: #424242;
@@ -121,6 +126,15 @@ img.loading {
 .action-list {
   margin-top: 24px;
   text-align: center;
+}
+
+.action-list.main {
+  transform: translateY(80px);
+  transition: transform .3s;
+}
+
+.action-list.main.wd {
+  transform: translateY(0px);
 }
 
 .add-nodes {

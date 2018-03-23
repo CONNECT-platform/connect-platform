@@ -1,5 +1,5 @@
 <div class="container" [@container]="">
-  <img src="assets/logo-backdrop.svg" [ngClass]="{'loading': communicating}"/>
+  <img src="assets/logo-backdrop.svg" [ngClass]="{'loading': communicating, 'reverse' : reverting}"/>
   <editor-bar position="left">
     <editor-general></editor-general>
 
@@ -29,13 +29,11 @@
       <editor-adder (add)="newConfig()"></editor-adder>
     </div>
 
-    <div class="action-list bottom">
+    <div class="action-list bottom main" [ngClass]="{'wd' : model.id}">
       <div class="button" (click)="save()">Save</div>
       <div class="button" routerLink="/">Home</div>
-      <ng-container *ngIf="model.id">
-        <br/><br/>
-        <div class="button" (click)="confirmDeletion()">Delete</div>
-      </ng-container>
+      <br/><br/>
+      <div class="button" (click)="confirmDeletion()">Delete</div>
     </div>
   </editor-bar>
 

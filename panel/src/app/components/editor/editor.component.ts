@@ -49,6 +49,7 @@ export class EditorComponent implements OnInit, OnDestroy {
   @ViewChild('deletedOverlay') deletedOverlay;
 
   communicating : boolean = false;
+  reverting: boolean = false;
 
   constructor(
     private registry : RegistryService,
@@ -183,10 +184,12 @@ export class EditorComponent implements OnInit, OnDestroy {
 
   delete() {
     this.communicating = true;
+    this.reverting = true;
 
     this.backend.delete().subscribe(response => {
       setTimeout(() => {
         this.communicating = false;
+        this.reverting = false;
         this.deletedOverlay.activate().onClose.subscribe(() => {
           this.router.navigate(['']);
         });
