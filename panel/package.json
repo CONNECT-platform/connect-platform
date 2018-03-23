@@ -11,8 +11,8 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
 
-    "angwatch" : "./node_modules/.bin/ng build --watch",
-    "angular": "./node_modules/.bin/ng build",
+    "angular-build": "./node_modules/.bin/ng build",
+    "angular": "./node_modules/.bin/ng build --watch",
     "electron": "./node_modules/.bin/ng build && ./node_modules/.bin/electron ."
   },
   "private": true,

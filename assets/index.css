@@ -74,7 +74,7 @@ a.img {
   width: auto;
 }
 
-a.img img {
+a.img img, iframe.video {
   box-shadow: 0 0 12px rgba(0, 0, 0, .25);
 }
 
@@ -120,12 +120,23 @@ code.hljs {
   border: 1px solid white;
   color: #bdbdbd;
   font-size: 14px;
-  white-space: normal;
-  word-break: break-word;
+  text-align: left;
 }
 
 code.hljs span.hljs-built_in {
   color: #B2FF59;
+}
+
+code.hljs span.hljs-keyword {
+  color: #2979FF;
+}
+
+code.hljs span.hljs-params {
+  color: #FFC400;
+}
+
+code.hljs span.hljs-number {
+  color: #d500f9;
 }
 
 span.hl {

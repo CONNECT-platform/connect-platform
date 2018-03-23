@@ -26,9 +26,10 @@
       <div>
         <img src="assets/logo.svg" class="logo"/>
         <div class="small">
-          I hate it that building API micro-services isn't as easy as just a few clicks
-          and drags, specifically when most of the time you don't need extremely convoluted
-          logical or hefty computational code on them. the goal of this project is to change that.
+          I hate it that building API micro-services isn't as easy as it should be, specifically
+          as most of the time extremely complex logic or computation isn't involved. I believe that
+          this stems from the wrong tools we use to represent micro-service logic right now,
+          and aim to change that with this project.
         </div>
         <br>
         <a onclick="scrollToSection($('#idea'))">read on</a>
@@ -43,16 +44,7 @@
         the main idea is to build something like this:
       </div>
       <br/>
-      <a class="img" href="assets/idea.svg" target="_blank">
-        <img src="assets/idea.svg"/>
-      </a>
-      <br/><br/>
-      <div class="small">
-        which, to be more precise, is a nodejs package that enables you to
-        use such a panel for development. you should be able to add "native" javascript
-        code to it easily, and use them as boxes, which I like to call <span class="hl">nodes</span>,
-        like above.
-      </div>
+      <iframe class="video" width="1280" height="720" src="https://www.youtube-nocookie.com/embed/CXmPXbjY6EQ" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
       <br/>
       <a onclick="scrollToSection($('#intuition'))">hmmm ...</a>
     </section>
@@ -60,33 +52,109 @@
       <div>
         <h1>cool, but why?</h1>
         <div class="small">
-          the intuition is to seperate <span class="hl">micro-logic</span> and <span class="hl">macro-logic</span>,
-          i.e. logic that has a limited domain (like a password check, database query, etc)
-          and logic whose scope encapsulates the whole service, as <span class="hl">micro-logic</span>
-          is extremely repetetive and when done in the correct structure heavily reusable,
-          and it is the <span class="hl">macro-logic</span> of each service that is unique
-          and requires work.
+          I see two main reasons that make development of API micro-services more complicated
+          than what they should be. First one is, that web-service logic is essentially asynchronous,
+          which results in non-linear execution flows, while we are representing such flows in an
+          extremely linear fashion, that is, a sequence of characters.
         </div>
         <br/>
         <div class="small">
-          however, without that seperation, the work that needs to be done gets cluttered
-          up and I believe that is one of the main reasons that with all the available tools
-          we have today it is still a cumbersome thing to do.
+          So, we do this:
         </div>
+        <div>
+          <pre><code class="javascript">
+doA().then(function(outA) {
+  doB(outA).then(function(outB) {
+    doC(outB);
+  });
+});
+          </code></pre>
+        </div>
+        <div class="small">
+          instead of this:
+        </div>
+        <br/>
+      </div>
+      <a class="img">
+        <img src="assets/shot1.png" width="80%"/>
+      </a>
+      <div>
         <br/>
         <div class="small">
-          I think by seperating the two and encapsulating <span class="hl">micro-logic</span>
-          into reusable chunks, the main task that remains, which is defining the
-          <span class="hl">macro-logic</span>, will be an extremely easy one, easy enough
-          to be able to be done via a visual panel as the one demonstrated above.
+          which specifically gets worse when the logical flow really gets
+          non-linear:
         </div>
+        <div>
+          <pre><code class="javascript">
+doA().then(function(outA) {
+  Promise.all([doB(outA), doC(outA)]).then(function(values) {
+    Promise.all([doD(values[0]), doE(values[1])]).then(function(otherValues) {
+      doF(values[0], values[1]);
+    });
+  });
+});
+          </code></pre>
+        </div>
+        <div class="small">
+          compared to this:
+        </div>
+        <br/>
+      </div>
+      <a class="img">
+        <img src="assets/shot2.png" width="80%"/>
+      </a>
+      <div>
         <br/>
         <div class="small">
-          and since that is the main design intuition here, I hope that with the tools provided
-          via this project even pure coding (of nodejs api micro-services) becomes far more
-          streamlined and structured as well.
+          pretty obvious what we are doing wrong, right?
         </div>
         <br/>
+        <a onclick="scrollToSection($('#seperation'))">i guess so ...</a>
+      </div>
+    </section>
+    <section id="seperation">
+      <div>
+        <h1>so whats the other reason?</h1>
+        <div class="small">
+          for elaborating on the second reason, you should first get familiar
+          with two different kind of logic used for describing products (in terms of programming them mainly):
+
+          <h1><span class="hl">micrologic</span></h1>
+          which is the kind of logic programmers understand and love. this is low-scope
+          logic, probably not specific to the application domain of the product. imagine a code
+          that sends an email, does a query in database, and greatly differs from
+
+          <h1><span class="hl">macrologic</span></h1>
+          which is the larger-scope logic of the product. think user journey, process analysis,
+          or however context a product designer/manager/owner/whatever might like to describe
+          the product. this goes far less into details, as this cares not for example on how
+          an email is sent, but that it does get sent after some specific thing happens.
+
+          <br/><br/>
+
+          based on my experience, mixing these two is the other key reason that developing
+          backend logic (which is most of the time the main product logic), or product logic in a more
+          general sense, is an expensive and time-consuming task. programmers are comfortable
+          doing <span class="hl">micrologic</span>, but when it comes to <span class="hl">macrologic</span>,
+          it falls upon product managers/designers or people responsible for that kind of thing in team.
+          they need to come up with a description that they cannot test since they cannot implement actually,
+          then they need to communicate that description to developers, subsequently developers need to
+          again describe their understanding of that description to machine language (whatever programming language they are using).
+          it is just then that the whole thing can be tested and iterated upon. miscommunications
+          easily make up for a lot of effort that goes in to this process, and generally it is rather
+          obvious why this is a lazy and time-consuming process.
+
+          <br/><br/>
+
+          so the idea here is to avert that. the <span class="hl">CONNECT platform</span> is not there
+          to replace traditional programming 100%. it is a tool for describing and easily testing
+          <span class="hl">macrologic</span>, so it naturally requires far less technical knowledge
+          than traditional programming and can be operated by people with little to no prior technical knowledge.
+          it also heavily relies on extensibility of native codes, as that is how the <span class="hl">micrologic</span>
+          gets injected and added to the logic.
+
+          <br/><br/>
+        </div>
         <a onclick="scrollToSection($('#farewell'))">interesting ...</a>
       </div>
     </section>
@@ -94,14 +162,34 @@
       <div>
         <h1>interested?</h1>
         <div class="small">
-          I've just started this project, so if you want to get it a test
-          run I am afraid you have to be a little patient. however, if you'd like,
-          you can take a look at the codes or even run them and see whats going on,
-          or directly contact me.
+          this is a really early stage project. I have not tested this in production environment
+          and the platform is currently really feature-empty. of-course, if you still want to
+          give it a test run and/or maybe even contribute, simply do the following:
         </div>
         <br/>
         <div>
-          <pre><code class="bash">git clone https://github.com/loreanvictor/connect-platform.git</code></pre>
+          <pre><code class="bash">
+# clone from git
+git clone https://github.com/loreanvictor/connect-platform.git
+
+# go to the directory
+cd connect
+cd platform
+
+# install dependencies
+npm install
+
+# go to panel directory and install its dependencies
+cd panel
+npm install
+
+# build the panel
+npm run angular-build
+
+# go back and start the project
+cd ..
+npm start
+          </code></pre>
         </div>
         <div class="sticky-contacts">
           <a class="circle sticky-contact"
