@@ -88,10 +88,23 @@ doA().then(function(outA) {
         <div>
           <pre><code class="javascript">
 doA().then(function(outA) {
-  Promise.all([doB(outA), doC(outA)]).then(function(values) {
-    Promise.all([doD(values[0]), doE(values[1])]).then(function(otherValues) {
-      doF(otherValues[0], otherValues[1]);
-    });
+  Promise.all([
+    new Promise(function(resolve) {
+      doB(outA).then(function(outB) {
+        doD(outB).then(function(outD) {
+          resolve(outD);
+        });
+      });
+    }),
+    new Promise(function(resolve) {
+      doC(outA).then(function(outC) {
+        doE(outC).then(function(outE) {
+          resolve(outE);
+        });
+      });
+    })
+  ]).then(function(values) {
+    doF(values[0], values[1]);
   });
 });
           </code></pre>
