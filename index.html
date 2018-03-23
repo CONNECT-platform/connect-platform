@@ -90,7 +90,7 @@ doA().then(function(outA) {
 doA().then(function(outA) {
   Promise.all([doB(outA), doC(outA)]).then(function(values) {
     Promise.all([doD(values[0]), doE(values[1])]).then(function(otherValues) {
-      doF(values[0], values[1]);
+      doF(otherValues[0], otherValues[1]);
     });
   });
 });
