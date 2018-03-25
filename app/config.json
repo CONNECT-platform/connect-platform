@@ -6,13 +6,18 @@
   "jwt": {
     "secret": "asldjalwdwoadnkasnkzshoqdiwhask"
   },
+  "firestore": {
+    "project": "connect-platform-binding-test",
+    "keyfile": "secure/firestore.json"
+  },
   "nodes": {
     "native": ["hellow"],
     "module": [
       "facts",
       "platform/bind/panel",
       "panel-generated",
-      "platform/bind/jwt"
+      "platform/bind/jwt",
+      "platform/bind/firestore"
     ]
   },
   "aliases": {

@@ -22,7 +22,7 @@ class Composition {
 
   addOutput(name, control) {
     if (control) {
-      let pin = new core.pins.ControlPin();
+      let pin = new core.pins.ControlPin(true);
       this._controlOuts[name] = pin;
       this._allOuts[name] = pin;
       delete this._outputs[name];

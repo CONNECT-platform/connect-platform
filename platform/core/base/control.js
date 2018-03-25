@@ -17,7 +17,7 @@ class ControllerPin extends Pin {
 }
 
 class ControlPin extends Pin {
-  constructor() {
+  constructor(singleActivation) {
     super();
     this.__checkActivate = this._checkActivate.bind(this);
 
@@ -30,6 +30,8 @@ class ControlPin extends Pin {
       pin.unsubscribe(PinEvents.activate, this.__checkActivate);
       this._checkActivate();
     });
+
+    this.singleActivation = singleActivation || false;
   }
 
   checkConnection(pin) {
@@ -40,12 +42,21 @@ class ControlPin extends Pin {
   }
 
   _checkActivate() {
-    for (let pin of this.connections) {
-      if (!pin.activated)
-        return;
+    if (this.singleActivation) {
+      for (let pin of this.connections)
+        if (pin.activated) {
+          this._activate();
+          return;
+        }
     }
+    else {
+      for (let pin of this.connections) {
+        if (!pin.activated)
+          return;
+      }
 
-    this._activate();
+      this._activate();
+    }
   }
 }
 
