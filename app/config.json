@@ -6,13 +6,18 @@
   "jwt": {
     "secret": "asldjalwdwoadnkasnkzshoqdiwhask"
   },
+  "mongo-db": {
+    "dbURL": "mongodb://localhost:22000",
+    "dbName": "mydb"
+  },
   "nodes": {
     "native": ["hellow"],
     "module": [
       "facts",
       "platform/bind/panel",
       "panel-generated",
-      "platform/bind/jwt"
+      "platform/bind/jwt",
+      "platform/bind/mongo-db"
     ]
   },
   "aliases": {
