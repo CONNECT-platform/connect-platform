@@ -4,7 +4,7 @@
   "description": "A platform to build backened code mostly in a visual manner.",
   "main": "app",
   "scripts": {
-    "start": "NODE_PATH=. DEVELOPMENT=true nodemon app",
+    "start": "NODE_PATH=. DEVELOPMENT=true nodemon  app",
     "test": "mocha --exit"
   },
   "author": "Eugene Ghanizadeh Khoub",
@@ -14,7 +14,8 @@
     "cors": "^2.8.4",
     "express": "^4.16.2",
     "jsonwebtoken": "^8.2.0",
-    "mkdirp": "^0.5.1"
+    "mkdirp": "^0.5.1",
+    "mongodb": "^3.0.5"
   },
   "devDependencies": {
     "chai": "^4.1.2",
