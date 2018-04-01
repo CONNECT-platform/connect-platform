@@ -2,10 +2,14 @@
   position: relative;
   width: 24px;
   height: 24px;
-  text-align: center;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   padding: 0;
   font-size: 18px;
-  line-height: 24px;
+
   cursor: pointer;
   opacity: .25;
   border: 1px solid #FFFFFF;
@@ -79,7 +83,7 @@
   margin-top: 12px;
   width: 14px;
   height: 14px;
-  line-height: 15px;
+
   font-size: 12px;
   margin-bottom: 8px;
 }
