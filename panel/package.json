@@ -10,7 +10,6 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-
     "angular-build": "./node_modules/.bin/ng build",
     "angular": "./node_modules/.bin/ng build --watch",
     "electron": "./node_modules/.bin/ng build && ./node_modules/.bin/electron ."
@@ -28,7 +27,7 @@
     "@angular/platform-browser-dynamic": "^5.0.0",
     "@angular/router": "^5.0.0",
     "core-js": "^2.4.1",
-    "electron": "^1.8.2",
+    "electron": "^1.8.4",
     "ng2-ace-editor": "^0.3.4",
     "rxjs": "^5.5.2",
     "zone.js": "^0.8.14"
