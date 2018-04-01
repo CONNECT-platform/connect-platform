@@ -1,7 +1,7 @@
 module.exports.platform = {
   config : {
     nodes : {
-      native : ['insert', 'update']
+      native : ['insert', 'update', 'get', 'delete']
     }
   }
 }
