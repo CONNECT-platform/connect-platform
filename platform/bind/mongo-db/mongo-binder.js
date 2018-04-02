@@ -15,38 +15,74 @@ mongoClient.connect(_config.dbURL, (err, client) => {
 });
 
 platform.core.node({
-  path: '/mongo-db',
+  path: '/mongo-db/find',
+  method: 'POST',
+  public: true,
+  inputs: ['collection', 'criteria'],
+  // TODO: remove err
+  outputs: ['result', 'err'],
+  controlOutputs: ['db_not_available']
+}, (inputs, output, control) => {
+  if (db) {
+    let { collection, criteria } = inputs;
+    db.collection(collection).find(criteria || {}).toArray()
+      .then(result => output('result', result))
+      .catch(err => output('err', err))
+  } else {
+    control('db_not_available')
+  }
+});
+
+platform.core.node({
+  path: '/mongo-db/insert',
+  method: 'POST',
+  public: true,
+  inputs: ['collection', 'documents'],
+  outputs: ['result', 'err'],
+  controlOutputs: ['db_not_available']
+}, (inputs, output, control) => {
+  if (db) {
+    let { documents, collection } = inputs;
+    db.collection(collection).insertMany(documents)
+      .then(result => output('result', result.insertedIds))
+      .catch(err => output('err', err))
+  } else {
+    control('db_not_available')
+  }
+});
+
+platform.core.node({
+  path: '/mongo-db/update',
   method: 'POST',
   public: true,
   inputs: ['args'],
   outputs: ['result', 'err'],
+  controlOutputs: ['db_not_available']
 }, (inputs, output, control) => {
   if (db) {
-    let { method, collection } = inputs.args;
-    if (method === 'find') {
-      let { criteria } = inputs.args;
-      db.collection(collection).find(criteria || {}).toArray()
-        .then(result => output('result', result))
-        .catch(err => output('err', err))
-    } else if (method === 'insert') {
-      let { documents } = inputs.args;
-      db.collection(collection).insertMany(documents)
-        .then(result => output('result', result.insertedIds))
-        .catch(err => output('err', err))
-    } else if (method === 'update') {
-      let { criteria, update } = inputs.args;
-      db.collection(collection).updateMany(criteria, { $set: update })
-        .then(result => output('result', result))
-        .catch(err => output('err', err))
-    } else if (method === 'delete') {
-      let { criteria } = inputs.args;
-      db.collection(collection).deleteMany(criteria)
-        .then(result => output('result', result))
-        .catch(err => outpu('err', err))
-    } else {
-      output('err', `method ${method} is not supported`);
-    }
+    let { collection, criteria, update } = inputs;
+    db.collection(collection).updateMany(criteria, { $set: update })
+      .then(result => output('result', result))
+      .catch(err => output('err', err))
   } else {
-    output('err', `connection to db is not available with error ${dbConnectErr}`)
+    control('db_not_available')
+  }
+});
+
+platform.core.node({
+  path: '/mongo-db/delete',
+  method: 'POST',
+  public: true,
+  inputs: ['args'],
+  outputs: ['result', 'err'],
+  controlOutputs: ['db_not_available']
+}, (inputs, output, control) => {
+  if (db) {
+    let { collection, criteria } = inputs;
+    db.collection(collection).deleteMany(criteria)
+      .then(result => output('result', result))
+      .catch(err => outpu('err', err))
+  } else {
+    control('db_not_available')
   }
 });
