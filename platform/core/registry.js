@@ -1,19 +1,30 @@
 const util = require('../util');
 const { UnregisteredPath } = require('./errors');
+const { Subscribable } = require('./base/subscribable');
 
 
-class Registry {
+const RegistryEvents = {
+  registered: 'registered',
+  instantiated: 'instantiated',
+  aliased: 'aliased',
+}
+
+class Registry extends Subscribable {
   constructor() {
+    super();
     this._paths = {};
     this._aliases = {};
   }
 
   register(signature, factoryOrClass) {
     if (signature.path) {
-      this._paths[signature.path] = {
+      let entry = {
         signature: signature,
         factoryOrClass: factoryOrClass,
       };
+
+      this._paths[signature.path] = entry;
+      this.publish(RegistryEvents.registered, entry);
     }
 
     return this;
@@ -29,8 +40,11 @@ class Registry {
 
   instance(path) {
     let resolved = this.resolve(path);
-    if (this.registered(resolved))
-      return util.buildFromFactoryOrClass(this._paths[resolved].factoryOrClass);
+    if (this.registered(resolved)) {
+      let instantiated = util.buildFromFactoryOrClass(this._paths[resolved].factoryOrClass);
+      this.publish(RegistryEvents.instantiated, instantiated);
+      return instantiated;
+    }
 
     throw new UnregisteredPath(path);
   }
@@ -50,6 +64,12 @@ class Registry {
 
   alias(alias, path) {
     this._aliases[alias] = path;
+    this.publish(RegistryEvents.aliased, {
+      alias: alias,
+      original: path,
+    });
+
+    return this;
   }
 
   get registrants() {
@@ -71,3 +91,4 @@ class Registry {
 }
 
 module.exports = new Registry();
+module.exports.events = RegistryEvents;

@@ -121,6 +121,7 @@ code.hljs {
   color: #bdbdbd;
   font-size: 14px;
   text-align: left;
+  max-width: 80vw;
 }
 
 code.hljs span.hljs-built_in {
@@ -145,6 +146,25 @@ span.hl {
 
 .sticky-contacts .anchor {
   display: inline-block;
+}
+
+.video-container {
+    position: relative;
+    width: 90%;
+    padding-bottom: 56.25%;
+    padding-top: 30px;
+    height: 0;
+    overflow: hidden;
+}
+
+.video-container iframe,
+.video-container object,
+.video-container embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
 }
 
 @media screen and (max-width: 600px) {
