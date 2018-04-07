@@ -1,14 +1,19 @@
 {
-  "name": "platform",
-  "version": "1.0.0",
+  "name": "connect-platform-test",
+  "version": "0.0.6",
   "description": "A platform to build backened code mostly in a visual manner.",
-  "main": "app",
+  "keywords": ["connect", "platform", "connect-platform", "visual development", "RAD", "low code", "no code"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/loreanvictor/connect-platform.git"
+  },
+  "main": "platform",
   "scripts": {
     "start": "NODE_PATH=. DEVELOPMENT=true nodemon app",
     "test": "mocha --exit"
   },
   "author": "Eugene Ghanizadeh Khoub",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "@google-cloud/firestore": "^0.13.0",
     "body-parser": "^1.18.2",
