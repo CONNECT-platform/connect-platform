@@ -1,6 +1,6 @@
 {
-  "name": "connect-platform-test",
-  "version": "0.0.6",
+  "name": "connect-platform",
+  "version": "0.1.0",
   "description": "A platform to build backened code mostly in a visual manner.",
   "keywords": ["connect", "platform", "connect-platform", "visual development", "RAD", "low code", "no code"],
   "repository": {
