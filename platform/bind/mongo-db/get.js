@@ -1,27 +1,30 @@
 const platform = require('../../');
-const instance = require('./instance');
+let db = require('./database');
+const { ObjectID } = require('mongodb');
 
 
 platform.core.node({
-  path: '/firestore/get',
-  public: false,
+  path: '/mongo-db/get',
+  public: true,
   inputs: ['collection', 'id'],
   outputs: ['data'],
   controlOutputs: ['not_found', 'no_connection'],
 }, (inputs, output, control) => {
-  if (instance) {
-    instance
+  if (db.connected) {
+    db.instance
       .collection(inputs.collection)
-      .doc(inputs.id)
-      .get()
-      .then(snapshot => {
-        if (snapshot.exists) {
-          output('data', snapshot.data());
-        }
-        else {
+      .findOne({ _id: ObjectID(inputs.id) })
+      .then(doc => {
+        if (doc === null) {
           control('not_found');
+        } else {
+          output('data', doc);
         }
-      });
+      })
+      .catch(err => control('no_connection'))
+    //             .catch();
+
+  } else {
+    control('no_connection');
   }
-  else control('no_connection');
 });

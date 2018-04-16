@@ -1,23 +1,21 @@
 const platform = require('../../');
-const instance = require('./instance');
+const db = require('./database');
 
 
 platform.core.node({
-  path: '/firestore/insert',
+  path: '/mongo-db/insert',
   public: false,
   inputs: ['collection', 'data'],
   outputs: ['id'],
   controlOutputs: ['no_connection', 'bad_input'],
 }, (inputs, output, control) => {
-  if (instance) {
+  if (db.connected) {
     try {
-      instance
+      db.instance
         .collection(inputs.collection)
-        .add(Object.assign({}, inputs.data))
-        .then(doc => {
-          output('id', doc.id);
-        });
-    } catch(error) {
+        .insertOne(inputs.data)
+        .then(({ insertedId }) => output('id', insertedId));
+    } catch (error) {
       control('bad_input');
     }
   }

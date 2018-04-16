@@ -1,20 +1,20 @@
 const platform = require('../../../');
-const instance = require('../instance');
+const db = require('../database');
 
 
 platform.core.node({
-  path: '/firestore/search/resolve',
+  path: '/mongo-db/search/resolve',
   public: false,
   inputs: ['query'],
   outputs: ['result', 'db_error'],
   controlOutputs: ['no_connection'],
 }, (inputs, output, control) => {
-  if (instance) {
-    inputs.query.get().then(snapshot => {
-      output('result', snapshot.docs.map(doc => doc.data()));
-    }).catch(error => {
-      output('db_error', error.details);
-    });
+  if (db.connected) {
+    inputs.query.toArray()
+      .then(docs => output('result', docs))
+      .catch(error => {
+        output('db_error', error.details);
+      });
   }
   else control('no_connection');
 });

@@ -15,17 +15,17 @@ module.exports.platform = {
       ]
     },
     aliases: {
-      '/db/insert': '/firestore/insert',
-      '/db/update': '/firestore/update',
-      '/db/get': '/firestore/get',
-      '/db/delete': '/firestore/delete',
+    //   '/db/insert': '/firestore/insert',
+    //   '/db/update': '/firestore/update',
+    //   '/db/get': '/firestore/get',
+    //   '/db/delete': '/firestore/delete',
 
-      '/db/search': '/firestore/search',
-      '/db/search/resolve': '/firestore/search/resolve',
-      '/db/search/filter': '/firestore/search/filter',
-      '/db/search/sort': '/firestore/search/sort',
-      '/db/search/limit': '/firestore/search/limit',
-      '/db/search/offset': '/firestore/search/offset',
+    //   '/db/search': '/firestore/search',
+    //   '/db/search/resolve': '/firestore/search/resolve',
+    //   '/db/search/filter': '/firestore/search/filter',
+    //   '/db/search/sort': '/firestore/search/sort',
+    //   '/db/search/limit': '/firestore/search/limit',
+    //   '/db/search/offset': '/firestore/search/offset',
     }
   }
 }

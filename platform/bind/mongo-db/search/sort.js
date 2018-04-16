@@ -1,18 +1,20 @@
 const platform = require('../../../');
-const instance = require('../instance');
+const db = require('../database');
 
 
 platform.core.node({
-  path: '/firestore/search/sort',
+  path: '/mongo-db/search/sort',
   public: false,
   inputs: ['query', 'field', 'direction'],
   outputs: ['sorted'],
   controlOutputs: ['no_connection'],
 }, (inputs, output, control) => {
-  if (instance) {
-    let direction = 'asc';
-    if (inputs.direction == 'descending') direction = 'desc';
-    output('sorted', inputs.query.orderBy(inputs.field, direction));
+  if (db.connected) {
+    let direction = 1;
+    if (inputs.direction == 'descending') direction = -1;
+    let sortOptions = {};
+    sortOptions[inputs.field] = direction;
+    output('sorted', inputs.query.sort(sortOptions));
   }
   else control('no_connection');
 });

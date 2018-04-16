@@ -1,21 +1,29 @@
 const platform = require('../../');
-const instance = require('./instance');
+const db = require('./database');
+let {ObjectId} = require('mongodb');
 
 
 platform.core.node({
-  path: '/firestore/delete',
+  path: '/mongo-db/delete',
   public: false,
   inputs: ['collection', 'id'],
   outputs: [],
-  controlOutputs: ['done', 'no_connection'],
+  controlOutputs: ['done', 'no_connection', 'not_found'],
 }, (inputs, output, control) => {
-  if (instance) {
-    instance
+  if (db.connected) {
+    db.instance
       .collection(inputs.collection)
-      .doc(inputs.id)
-      .delete()
-      .then(() => {
-          control('done');
+      .deleteOne({_id: ObjectId(inputs.id)})
+      .then(({result: deletion}) => {
+        if(deletion.ok){
+          if(deletion.n > 0){
+            control('done');
+          } else {
+            control('not_found');
+          }
+        } else {
+          control('no_connection')
+        }
       });
   }
   else control('no_connection');

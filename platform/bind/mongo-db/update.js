@@ -1,24 +1,36 @@
 const platform = require('../../');
-const instance = require('./instance');
+const db = require('./database');
+let { ObjectId } = require('mongodb');
 
 
 platform.core.node({
-  path: '/firestore/update',
+  path: '/mongo-db/update',
   public: false,
   inputs: ['collection', 'id', 'data'],
   outputs: [],
   controlOutputs: ['done', 'not_found', 'no_connection', 'bad_input'],
 }, (inputs, output, control) => {
-  if (instance) {
+  if (db.connected) {
     try {
-      instance
+      db.instance
         .collection(inputs.collection)
-        .doc(inputs.id)
-        .update(Object.assign({}, inputs.data))
-        .then(() => { control('done'); })
-        .catch(error => { control('not_found'); });
+        .findOneAndUpdate({ _id: ObjectId(inputs.id) }, { $set: inputs.data })
+        .then(modification => {
+          if (modification.ok) {
+            if (modification.value === null) {
+              control('not_found')
+            } else {
+              control('done')
+            }
+          } else {
+            throw modification.lastErrorObject;
+          }
+        })
+        // account for mongodb errors (probably database status)
+        // TODO: please try to reconnect on such occations
+        .catch(error => control('no_connection'));
     }
-    catch(error) {
+    catch (error) {
       control('bad_input');
     }
   }

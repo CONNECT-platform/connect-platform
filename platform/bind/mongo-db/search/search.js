@@ -1,16 +1,16 @@
 const platform = require('../../../');
-const instance = require('../instance');
+const db = require('../database');
 
 
 platform.core.node({
-  path: '/firestore/search',
+  path: '/mongo-db/search',
   public: false,
   inputs: ['collection'],
   outputs: ['query'],
   controlOutputs: ['no_connection'],
 }, (inputs, output, control) => {
-  if (instance) {
-    output('query', instance.collection(inputs.collection));
+  if (db.connected) {
+    output('query', db.instance.collection(inputs.collection).find());
   }
   else control('no_connection');
 });

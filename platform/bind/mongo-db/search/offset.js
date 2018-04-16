@@ -1,16 +1,16 @@
 const platform = require('../../../');
-const instance = require('../instance');
+const db = require('../database');
 
 
 platform.core.node({
-  path: '/firestore/search/offset',
+  path: '/mongo-db/search/offset',
   public: false,
   inputs: ['query', 'offset'],
   outputs: ['offsetted'],
   controlOutputs: ['no_connection'],
 }, (inputs, output, control) => {
-  if (instance) {
-    output('offsetted', inputs.query.offset(inputs.offset));
+  if (db.connected) {
+    output('offsetted', inputs.query.skip(inputs.offset));
   }
   else control('no_connection');
 });
