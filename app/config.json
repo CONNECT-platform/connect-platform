@@ -10,6 +10,10 @@
     "project": "connect-platform-binding-test",
     "keyfile": "secure/firestore.json"
   },
+  "mongo-db": {
+      "URL": "mongodb://localhost:22000",
+      "db": "mydb"
+  },
   "nodes": {
     "native": ["hellow"],
     "module": [
@@ -17,6 +21,7 @@
       "platform/bind/panel",
       "panel-generated",
       "platform/bind/jwt",
+      "platform/bind/mongo-db",
       "platform/bind/firestore"
     ]
   },
