@@ -15,17 +15,17 @@ module.exports.platform = {
       ]
     },
     aliases: {
-    //   '/db/insert': '/firestore/insert',
-    //   '/db/update': '/firestore/update',
-    //   '/db/get': '/firestore/get',
-    //   '/db/delete': '/firestore/delete',
+      '/db/insert': '/mongo-db/insert',
+      '/db/update': '/mongo-db/update',
+      '/db/get': '/mongo-db/get',
+      '/db/delete': '/mongo-db/delete',
 
-    //   '/db/search': '/firestore/search',
-    //   '/db/search/resolve': '/firestore/search/resolve',
-    //   '/db/search/filter': '/firestore/search/filter',
-    //   '/db/search/sort': '/firestore/search/sort',
-    //   '/db/search/limit': '/firestore/search/limit',
-    //   '/db/search/offset': '/firestore/search/offset',
+      '/db/search': '/mongo-db/search',
+      '/db/search/resolve': '/mongo-db/search/resolve',
+      '/db/search/filter': '/mongo-db/search/filter',
+      '/db/search/sort': '/mongo-db/search/sort',
+      '/db/search/limit': '/mongo-db/search/limit',
+      '/db/search/offset': '/mongo-db/search/offset',
     }
   }
 }
