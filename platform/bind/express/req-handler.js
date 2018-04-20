@@ -8,7 +8,7 @@ const reqHandler = factoryOrClass => {
     Object.assign(params, req.query);
 
     core.callable(factoryOrClass)(params).then(result => {
-      if (result.output && result.data) {
+      if (result.output) {
         let r = {};
         r[result.output] = result.data;
         res.status(200).json(r);

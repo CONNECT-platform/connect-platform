@@ -92,8 +92,8 @@ class Node extends Subscribable {
   }
 
   _activate() {
-    if (this.activated)
-      return;
+    //if (this.activated)
+    //  return;
 
     this._activated = true;
     this.publish(NodeEvents.activate);

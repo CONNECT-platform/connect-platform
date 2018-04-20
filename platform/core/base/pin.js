@@ -53,8 +53,8 @@ class Pin extends Subscribable {
   }
 
   _activate(callback) {
-    if (this.activated)
-      return;
+    //if (this.activated)
+    //  return;
 
     this._activated = true;
     if (callback)
