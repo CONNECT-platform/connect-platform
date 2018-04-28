@@ -25,28 +25,44 @@
     <section id="intro" class="full">
       <div>
         <img src="assets/logo.svg" class="logo"/>
+        <div>
+          <pre><code class="bash">
+npm install connect-platform --save
+          </code></pre>
+        </div>
         <div class="small">
-          I hate it that building API micro-services isn't as easy as it should be, specifically
-          as most of the time extremely complex logic or computation isn't involved. I believe that
-          this stems from the wrong tools we use to represent micro-service logic right now,
-          and aim to change that with this project.
+          Building backend services isn't as easy as it should be. It is error-prone,
+          repetitive, and generally not fun.
+          We created <span class="hl">CONNECT platform</span> to change that.
         </div>
         <br>
         <a onclick="scrollToSection($('#idea'))">read on</a>
-        <a href="https://github.com/loreanvictor/connect-platform" target="_blank">
-          view on github
+        <a href="https://medium.com/connect-platform/guides/home" target="_blank">
+          guides
         </a>
       </div>
     </section>
     <section id="idea">
-      <h1>what is the idea?</h1>
+      <h1>how do you want to change that?</h1>
       <div class="small">
-        the main idea is to have a panel for developing microservice APIs that
-        looks like this:
+        with <span class="hl">CONNECT platform</span>, you can do the main logic of your
+        backend service like this:
       </div>
       <br/>
       <div class="video-container">
         <iframe class="video" width="xxx" height="xxx" src="https://www.youtube-nocookie.com/embed/CXmPXbjY6EQ?vq=hd720" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+      </div>
+      <br/>
+      <div class="small">
+        it is a <span class="hl">Node.js</span> package that you install
+        on your project and it simply offers you these tools. you simply mark functions
+        that you want to use as your <span class="hl">building blocks</span>, and you
+        will have them all at your disposal to connect and build into something bigger.
+        install and take a look at
+        <a class="in-text" href="https://medium.com/connect-platform/guides/home" target="_blank">
+          our guides
+        </a>
+        to see for yourself.
       </div>
       <br/>
       <a onclick="scrollToSection($('#intuition'))">hmmm ...</a>
@@ -55,8 +71,7 @@
       <div>
         <h1>cool, but why?</h1>
         <div class="small">
-          I see two main reasons that make development of API micro-services more complicated
-          than what they should be. First one is, that web-service logic is essentially asynchronous,
+          well for starters, web-service logic is essentially asynchronous,
           which results in non-linear execution flows, while we are representing such flows in an
           extremely linear fashion, that is, a sequence of characters.
         </div>
@@ -123,6 +138,11 @@ doA().then(function(outA) {
         <br/>
         <div class="small">
           pretty obvious what we are doing wrong, right?
+          <br/>
+          if you want to read more about this, take a look at
+          <a class="in-text" href="https://medium.com/connect-platform/actually-i-do-not-think-programming-languages-are-the-best-way-to-do-backend-code-ab39948af57c" target="_blank">
+            this article
+          </a>.
         </div>
         <br/>
         <a onclick="scrollToSection($('#seperation'))">i guess so ...</a>
@@ -130,46 +150,55 @@ doA().then(function(outA) {
     </section>
     <section id="seperation">
       <div>
-        <h1>so whats the other reason?</h1>
+        <h1>is that it?</h1>
         <div class="small">
-          for elaborating on the second reason, you should first get familiar
-          with two different kind of logic used for describing products (in terms of programming them mainly):
+          of course not. i mean, it is not just about sync and async code. doing backend code
+          is becoming more and more stale and repetitive and boring by the day, while it should
+          essentially be focusing on the core business logic that you want to do with your service.
+          <br><br>
+          we believe the main reason is that software development is essentially two separate
+          processes mashed into each other in an unholy manner:
 
-          <h1><span class="hl">micrologic</span></h1>
-          which is the kind of logic programmers understand and love. this is low-scope
-          logic, probably not specific to the application domain of the product. imagine a code
-          that sends an email, does a query in database, and greatly differs from
+          <h1><span class="hl">micrologic, i.e. creating building blocks</span></h1>
+          this is what programming languages were created for. to create some building blocks,
+          which are usually more independent from the business logic and hence highly reusable.
+          and,
 
-          <h1><span class="hl">macrologic</span></h1>
+          <h1><span class="hl">macrologic, or building something with those building blocks</span></h1>
           which is the larger-scope logic of the product. think user journey, process analysis,
           or however context a product designer/manager/owner/whatever might like to describe
-          the product. this goes far less into details, as this cares not for example on how
-          an email is sent, but that it does get sent after some specific thing happens.
+          the product. this is far less reusable as it is highly entangled in the product definition
+          and goals itself.
 
-          <br/><br/>
+          <br><br>
 
-          based on my experience, mixing these two is the other key reason that developing
-          backend logic (which is most of the time the main product logic), or product logic in a more
-          general sense, is an expensive and time-consuming task. programmers are comfortable
-          doing <span class="hl">micrologic</span>, but when it comes to <span class="hl">macrologic</span>,
-          it falls upon product managers/designers or people responsible for that kind of thing in team.
-          they need to come up with a description that they cannot test since they cannot implement actually,
-          then they need to communicate that description to developers, subsequently developers need to
-          again describe their understanding of that description to machine language (whatever programming language they are using).
-          it is just then that the whole thing can be tested and iterated upon. miscommunications
-          easily make up for a lot of effort that goes in to this process, and generally it is rather
-          obvious why this is a lazy and time-consuming process.
-
-          <br/><br/>
-
-          so the idea here is to avert that. the <span class="hl">CONNECT platform</span> is not there
-          to replace traditional programming 100%. it is a tool for describing and easily testing
-          <span class="hl">macrologic</span>, so it naturally requires far less technical knowledge
-          than traditional programming and can be operated by people with little to no prior technical knowledge.
-          it also heavily relies on extensibility of native codes, as that is how the <span class="hl">micrologic</span>
-          gets injected and added to the logic.
-
-          <br/><br/>
+          <b>these two processes require different skill sets</b>, technically skilled people excell at doing
+          the former while you require product-manager-ish people to correctly do the latter.
+          <br><br>
+          <b>they also require different mind-sets as well</b>, while creating some building blocks you are not
+          thinking of user and product's flow, you are thinking performance, reusability, etc,
+          yet while you are connecting them together to form a backend service as part of your product's
+          business logic you are not thinking of performance or reusability, you are thinking of what
+          happens to your users and where the data flows in your system.
+          <br><br>
+          <b>they even require different tools</b>, since the building blocks themselves are usually better
+          off done in classic synchronous codes, while the high-level logic of a web service is
+          definitely asynchronous in nature, and as discussed above, programming languages aren't
+          the best tools to do the latter.
+          <br><br>
+          however, in the end of the day, we are now doing them all in one place through programming them.
+          product people aren't as hands-on (as they cannot be with complex codes we have), so although
+          they offer some idea of what is to be implemented, the work is on the shoulder of technical people
+          still. in this light, it is rather obvious why separating these two with a tool like
+          <span class="hl">CONNECT platform</span>
+          and putting people with the correct skills and mindsets in charge of each greatly increases
+          speed and productivity.
+          <br>
+          if you want to read more about this, take a look at
+          <a class="in-text" href="https://medium.com/connect-platform/we-are-doing-software-development-essentially-wrong-7855d75335ab" target="_blank">
+            this article
+          </a>.
+          <br><br>
         </div>
         <a onclick="scrollToSection($('#farewell'))">interesting ...</a>
       </div>
@@ -178,11 +207,22 @@ doA().then(function(outA) {
       <div>
         <h1>interested?</h1>
         <div class="small">
-          this is a really early stage project. I have not tested this in production environment
-          and the platform is currently really feature-empty. of-course, if you still want to
-          give it a test run and/or maybe even contribute, simply do the following:
+          this is a really early stage project. it has yet to be get more and more integrations
+          and feature rich, and it has yet to be truly tested in heavy-load environments.
+          however, if you are interested, you can give it a try:
         </div>
-        <br/>
+        <br>
+        <div>
+          <pre><code class="bash">
+npm install connect-platform --save
+          </code></pre>
+        </div>
+        <br>
+        <div class="small">
+          and/or better yet, you can clone the code and contribute to this project and help
+          reduce the pain of next backend project someone like you and me would need to do:
+        </div>
+        <br>
         <div>
           <pre><code class="bash">
 # clone from git
@@ -209,6 +249,10 @@ npm start
         </div>
         <div class="sticky-contacts">
           <a class="circle sticky-contact"
+            href="https://medium.com/connect-platform" target="_blank">
+            <img src="assets/medium.svg"/>
+          </a>
+          <a class="circle sticky-contact"
             href="https://twitter.com/lorean_victor/" target="_blank">
             <img src="assets/twitter.svg"/>
           </a>
@@ -221,6 +265,7 @@ npm start
             <img src="assets/linkedin.svg"/>
           </a>
         </div>
+        <br><br><br><br>
       </div>
     </section>
   </body>
