@@ -138,6 +138,8 @@ class Node extends Subscribable {
       if (unrecongized)
         unrecongized(_break);
     }
+
+    this.pins.control.reset();
   }
 
   _executeSync() {

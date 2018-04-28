@@ -36,6 +36,20 @@ describe('Node', ()=> {
     n.pins.in.a.receive('stuff.');
   });
 
+  it('should have its control pin reset after activation.', done => {
+    let n = new class extends Node {
+      run(_, __, control) {
+        control('done');
+      }
+    }({inputs: ['a'], controlOutputs: ['done']});
+
+    n.pins.control.subscribe(PinEvents.reset, () => {
+      done();
+    });
+
+    n.pins.in.a.receive('stuff');
+  });
+
   it.skip('should stop run() after ouput is given.', done => {
     let life = 2;
     let n1 = new class extends Node {

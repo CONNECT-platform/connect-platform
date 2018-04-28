@@ -107,7 +107,8 @@ class Composition {
 
   start(inputs, configs) {
     for (let [input, pin] of Object.entries(this._inputs))
-      pin.send(inputs[input]);
+      if (input in inputs)
+        pin.send(inputs[input]);
 
     for (let [config, pin] of Object.entries(this._configs)) {
       let confpath = config.split('\.');
@@ -126,7 +127,8 @@ class Composition {
     }
 
     for (let node of Object.values(this._nodes))
-      node.checkActivate();
+      if (!node.activated)
+        node.checkActivate();
   }
 
   get signature() {

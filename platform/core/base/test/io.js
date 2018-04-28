@@ -30,17 +30,21 @@ describe('InputPin & OutputPin', ()=> {
       o.send('HOLA!');
     });
 
-    it('should only transfer the first time.', () => {
+    it('should transfer multiple times.', () => {
       let i = new InputPin();
       let o1 = new OutputPin().connect(i);
       let o2 = new OutputPin().connect(i);
 
       o1.send('Hellow');
+      o1.send('Hola!');
+
+      assert.equal(i.data, 'Hola!');
+
       o2.send('World');
       o2.send('XXX');
 
-      assert.equal(i.data, 'Hellow');
-      assert.equal(o2.data, 'World');
+      assert.equal(i.data, 'XXX');
+      assert.equal(o2.data, 'XXX');
     });
   });
 
