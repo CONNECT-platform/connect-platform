@@ -169,6 +169,7 @@ class Node extends Subscribable {
         resolve(_break);
       });
     }).then(_break => {
+      this.pins.control.reset();
       this._handleBreak(_break);
     }).catch(error => {
       if (!(error instanceof Break))
