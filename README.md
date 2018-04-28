@@ -19,3 +19,7 @@ https://medium.com/connect-platform/getting-started-with-connect-platform-3d16ea
 for more guides, take a look here:
 
 https://medium.com/connect-platform/guides/home
+
+# how to contribute
+
+take a look [here](CONTRIBUTING.md).
