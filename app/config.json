@@ -18,10 +18,10 @@
     "native": ["hellow"],
     "module": [
       "facts",
+      "platform/bind/utils",
       "platform/bind/panel",
       "panel-generated",
       "platform/bind/jwt",
-      "platform/bind/mongo-db",
       "platform/bind/firestore"
     ]
   },

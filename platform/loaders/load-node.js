@@ -6,7 +6,7 @@ module.exports = (originalPath, searchPaths, callback) => {
   let searchedPaths = [];
 
   if (searchPaths.indexOf('') == -1)
-    searchPaths = [''].concat(searchPaths);
+    searchPaths = searchPaths.concat(['']);
 
   if (searchPaths) {
     for (let searchPath of searchPaths) {
