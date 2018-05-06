@@ -1,5 +1,6 @@
 {
   "port": 4000,
+  "greet": "hellow",
   "panel": {
     "expose": true
   },
