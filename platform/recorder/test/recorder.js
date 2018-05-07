@@ -1,51 +1,40 @@
 const should = require('chai').should();
 
-const fromJSON = require('../../builder/from-json');
-const { Composition } = require('../../builder/composition');
+const { Subscribable } = require('../../core/base/subscribable');
 
-const { Recorder, RecorderEvents } = require('../recorder');
+const { Watcher } = require('../watcher');
+const { Scenario } = require('../scenario');
+const { Recorder } = require('../recorder');
 
 
 describe('Recorder', () => {
-  let json = `{
-    "path": "/hellow-world/",
-    "in": [ "name" ],
-    "out": [ "message" ],
-    "configs": [ "greet" ],
-    "control": [],
-    "nodes": [
-      {
-        "tag": "e0",
-        "in": [ "name", "greet" ],
-        "expr": "greet + ' ' + name"
-      }
-    ],
-    "links": [
-      [{ "in": "name"}, { "e0": { "in": "name" }}],
-      [{ "e0": "result" }, { "out": "message" }],
-      [{ "config": "greet" }, { "e0": { "in": "greet" }}]
-    ]
-  }
-  `;
-
-  let recipe = fromJSON(json);
-  let comp = new Composition();
-  recipe.apply(comp);
-
   it('should record a given scenario in action', done => {
+    class S extends Scenario {
+      constructor() {
+        super();
+        this._subject = new Subscribable();
+        this._events = { a : 'a', b : 'b' };
+        this._watcher = new Watcher(this._events).watch(this._subject);
+      }
+
+      watcher() { return this._watcher; }
+      start() {
+        this._subject.publish(this._events.a);
+        this._subject.publish(this._events.b);
+        this.stop();
+
+        return super.start();
+      }
+    };
+
     let recorder = new Recorder();
 
-    recorder.subscribe(RecorderEvents.finished, () => {
-      recorder.recording.length.should.equal(8);
-      recorder.recording[0].event.tag.should.equal('in');
-      recorder.recording[7].event.tag.should.equal('out');
+    recorder.finished(() => {
+      recorder.recording[0].event.event.should.equal('a');
+      recorder.recording[1].event.event.should.equal('b');
       done();
     });
 
-    recorder.record({
-      composition: comp,
-      inputs : { name : 'Joe' },
-      configs : { greet : 'Hola' },
-    });
+    recorder.record(new S());
   });
 });

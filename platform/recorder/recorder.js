@@ -1,3 +1,4 @@
+const now = require('../util/now');
 const core = require('../core');
 const { Subscribable } = require('../core/base/subscribable');
 
@@ -23,25 +24,27 @@ class Recorder extends Subscribable {
     let start = -1;
     this._recording = [];
 
-    watch(scenario.composition).watched(event => {
-      if (start == -1) start = this._now();
-      let timestamp = this._now() - start;
+    scenario
+      .prepare()
+      .watcher().watched(event => {
+      if (start == -1) start = now();
+      let timestamp = now() - start;
       this._recording.push({
         time : timestamp,
         event : event,
       });
-
-      if (event.tag == 'out')
-        this.publish(RecorderEvents.finished, scenario);
     });
 
-    scenario.composition.start(scenario.inputs, scenario.configs);
+    scenario
+      .stopped(() => this.publish(RecorderEvents.finished))
+      .start();
   }
 
-  _now() {
-    let hrtime = process.hrtime();
-    return hrtime[0] * 1000 + hrtime[1] / 1000000;
+  finished(callback) {
+    this.subscribe(RecorderEvents.finished, callback);
+    return this;
   }
+
 }
 
 module.exports = {

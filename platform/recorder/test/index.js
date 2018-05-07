@@ -5,4 +5,5 @@ describe('recorder', () => {
   require('./watch-node');
   require('./watch-composition');
   require('./recorder');
+  require('./json-scenario');
 })
