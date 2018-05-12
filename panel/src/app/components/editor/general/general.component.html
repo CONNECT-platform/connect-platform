@@ -2,7 +2,7 @@
   <div>
     <span class="access"
           [ngClass]="{'public': model.public, 'internal': !model.public}"
-          (click)="model.public=!model.public">
+          (click)="toggleAccess()">
     {{model.public?"public":"internal"}}
     </span>
     <span class="method"
@@ -11,6 +11,6 @@
     </span>
   </div>
   <div>
-    <input class="path" [(ngModel)]="model.path" type="text"/>
+    <input class="path" [(ngModel)]="model.path" type="text" [readonly]="tester.active"/>
   </div>
 </div>

@@ -1,6 +1,7 @@
 <div class="holder" [ngClass]="{'control': pin.type == pin.types.control, 'shadow': shadow, 'selected': selected}">
   <div class="ace-holder">
     <ace-editor mode="javascript"
+                [readOnly]="readonly"
                 [(text)]="_code"
                 [options]="options"
                 style='min-height:16px;'></ace-editor>

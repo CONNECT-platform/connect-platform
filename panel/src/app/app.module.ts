@@ -17,6 +17,7 @@ import { EditorService } from './services/editor.service';
 import { RegistryService } from './services/registry.service';
 import { BarComponent } from './components/editor/bar/bar.component';
 import { BackendService } from './services/backend.service';
+import { TesterService } from './services/tester.service';
 
 import { PinComponent } from './components/editor/pin/pin.component';
 import { LinkComponent } from './components/editor/link/link.component';
@@ -63,6 +64,6 @@ const routes : Routes = [
   bootstrap: [AppComponent],
   providers: [
     Location,{provide: LocationStrategy, useClass: PathLocationStrategy},
-    BackendService, RegistryService, EditorModelService, EditorService]
+    BackendService, RegistryService, EditorModelService, EditorService, TesterService]
 })
 export class AppModule { }

@@ -12,6 +12,7 @@
             <div class="input">
               <editor-pin [pin]="in.pin"></editor-pin>
               <input type="text"
+                    [readonly]="tester.active"
                     [value]="in.label"
                     (focus)="inputFocus($event)"
                     (blur)="sanitizeInput(in)"
@@ -19,10 +20,10 @@
                     (change)="inputChange(in, $event)">
             </div>
           </ng-container>
-          <editor-adder style="expr" (add)="newInput()"></editor-adder>
+          <editor-adder style="expr" (add)="newInput()" [disabled]="tester.active"></editor-adder>
         </div>
         <div class="expr-code">
-          <editor-code [(code)]="node.code" [pin]="node.result"></editor-code>
+          <editor-code [(code)]="node.code" [pin]="node.result" [readonly]="tester.active"></editor-code>
         </div>
       </div>
     </ng-container>
@@ -30,6 +31,7 @@
     <ng-container *ngIf="type == types.value">
       <div class="inner" #inner>
         <editor-code
+          [readonly]="tester.active"
           [selected]="selected"
           [(code)]="node.code"
           [pin]="node.result"></editor-code>
@@ -44,10 +46,10 @@
         <div #cases class="cases">
           <ng-container *ngFor="let control of node.control.items">
             <div class="case" (focusout)="sanitizeControl(control)">
-              <editor-code [shadow]="false" [(code)]="control.label" [pin]="control.pin"></editor-code>
+              <editor-code [readonly]="tester.active" [shadow]="false" [(code)]="control.label" [pin]="control.pin"></editor-code>
             </div>
           </ng-container>
-          <editor-adder style="switch" (add)="newCase()"></editor-adder>
+          <editor-adder style="switch" (add)="newCase()" [disabled]="tester.active"></editor-adder>
         </div>
       </div>
     </ng-container>
@@ -56,11 +58,12 @@
       <div class="inner" #inner>
         <div class="path">
           <input type="text"
-                (focus)="_suggesting=true"
+                [readonly]="tester.active"
+                (focus)="_suggesting=!tester.active"
                 (focusout)="_suggesting=false"
                 [(ngModel)]="node.path"/>
         </div>
-        <div class="path-suggest" *ngIf="suggestPaths">
+        <div class="path-suggest" *ngIf="suggestPaths && !tester.active">
           <div class="item" *ngFor="let path of suggestPaths" (mousedown)="node.path=path">
             {{ path }}
           </div>

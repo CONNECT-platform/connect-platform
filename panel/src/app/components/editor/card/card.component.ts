@@ -3,6 +3,7 @@ import { Component, OnInit, OnDestroy,
 
 import { EditorService, EditorEvents } from '../../../services/editor.service';
 import { EditorModelService } from '../../../services/editor-model.service';
+import { TesterService } from '../../../services/tester.service';
 import { RegistryService } from '../../../services/registry.service';
 import { Node, NodeEvents } from '../../../models/node.model';
 import { Value } from '../../../models/value.model';
@@ -35,6 +36,7 @@ export class CardComponent implements OnInit, OnDestroy {
   constructor(
     private editor: EditorService,
     private model : EditorModelService,
+    private tester: TesterService,
     private registry : RegistryService,
     ) {}
 

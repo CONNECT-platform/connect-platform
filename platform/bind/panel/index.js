@@ -24,6 +24,7 @@ module.exports.platform = {
         "load-node",
         "delete-node",
         "panel-nodes",
+        "test",
       ],
     },
   },

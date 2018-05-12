@@ -15,6 +15,7 @@ export class AdderComponent implements OnInit {
   states = AdderStates;
   state = AdderStates.initial;
 
+  @Input() disabled: boolean = false;
   @Input() style;
   @Output() add : EventEmitter<void> = new EventEmitter<void>();
 
@@ -24,11 +25,15 @@ export class AdderComponent implements OnInit {
   }
 
   activate() {
+    if (this.disabled) return;
+
     this.state = AdderStates.activate;
     setTimeout(() => this.reset(), 300);
   }
 
   reset() {
+    if (this.disabled) return;
+    
     this.state = AdderStates.reset;
     this.add.emit();
     setTimeout(() => this.state = AdderStates.initial, 300);

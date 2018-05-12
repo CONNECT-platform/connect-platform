@@ -38,6 +38,8 @@ class Recorder extends Subscribable {
     scenario
       .stopped(() => this.publish(RecorderEvents.finished))
       .start();
+
+    return this;
   }
 
   finished(callback) {

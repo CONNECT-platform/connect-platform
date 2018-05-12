@@ -8,12 +8,13 @@
       <ng-container *ngFor="let in of model.in.items">
         <div class="input item">
           <input type="text"
+                [readonly]="tester.active"
                 (blur)="sanitizeInput(in)"
                 [(ngModel)]="in.label"/>
           <editor-pin [pin]="in.pin"></editor-pin>
         </div>
       </ng-container>
-      <editor-adder (add)="newInput()"></editor-adder>
+      <editor-adder (add)="newInput()" [disabled]="tester.active"></editor-adder>
     </div>
 
     <div class="configs pin-list">
@@ -21,17 +22,27 @@
       <ng-container *ngFor="let conf of model.config.items">
         <div class="config item">
           <input type="text"
+                [readonly]="tester.active"
                 (blur)="sanitizeConfig(conf)"
                 [(ngModel)]="conf.label"/>
           <editor-pin [pin]="conf.pin"></editor-pin>
         </div>
       </ng-container>
-      <editor-adder (add)="newConfig()"></editor-adder>
+      <editor-adder (add)="newConfig()" [disabled]="tester.active"></editor-adder>
     </div>
 
-    <div class="action-list bottom main" [ngClass]="{'wd' : model.id}">
-      <div class="button" (click)="save()">Save</div>
+    <div class="action-list bottom main" [ngClass]="{'wd' : model.id && !tester.active}">
+      <div class="button save" [ngClass]="{'hidden': tester.active}"(click)="save()">Save</div>
       <div class="button" routerLink="/">Home</div>
+
+      <div class="mode-toggle-buttons">
+        <div class="button test"
+          (click)="testMode()"
+          [ngClass]="{'active' : !tester.active}">Test</div>
+        <div class="button edit"
+          (click)="editMode()"
+          [ngClass]="{'active': tester.active}">Edit</div>
+      </div>
       <br/><br/>
       <div class="button" (click)="confirmDeletion()">Delete</div>
     </div>
@@ -44,14 +55,20 @@
   </ng-container>
 
   <editor-bar position="right">
-    <div class="main-action-holder">
+    <div class="main-action-holder" [ngClass]="{'hidden': tester.active}">
       <div
         [ngClass]="{'delete': state == states.adding || state == states.selected }"
         (click)="mainAction()"
         class="main-action">+</div>
     </div>
 
-    <div class="action-list add-nodes" [ngClass]="{'active': state == states.adding}">
+    <div class="main-action-holder test" [ngClass]="{'hidden': !tester.active}">
+      <div class="main-action">
+        <span class="material-icons">play_arrow</span>
+      </div>
+    </div>
+
+    <div class="action-list add-nodes" [ngClass]="{'active': state == states.adding && !tester.active}">
       <div class="button value" (click)="newValue()">value</div>
       <div class="button expr" (click)="newExpr()">expression</div>
       <div class="button switch" (click)="newSwitch()">switch</div>
@@ -66,11 +83,12 @@
           <div class="output item">
             <editor-pin [pin]="out.pin"></editor-pin>
             <input type="text"
+                  [readonly]="tester.active"
                   (blur)="sanitizeOutput(out)"
                   [(ngModel)]="out.label"/>
           </div>
         </ng-container>
-        <editor-adder (add)="newOutput()" style="output"></editor-adder>
+        <editor-adder (add)="newOutput()" style="output" [disabled]="tester.active"></editor-adder>
       </div>
 
       <div class="controls outputs pin-list">
@@ -79,11 +97,12 @@
           <div class="control output item">
             <editor-pin [pin]="ctrl.pin" [controlStyle]="true"></editor-pin>
             <input type="text"
+                  [readonly]="tester.active"
                   (blur)="sanitizeControl(ctrl)"
                   [(ngModel)]="ctrl.label"/>
           </div>
         </ng-container>
-        <editor-adder (add)="newControl()" style="control"></editor-adder>
+        <editor-adder (add)="newControl()" style="control" [disabled]="tester.active"></editor-adder>
       </div>
 
     </div>

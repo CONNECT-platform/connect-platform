@@ -14,7 +14,13 @@
   opacity: .25;
   border: 1px solid #FFFFFF;
   border-radius: 32px;
-  transition: opacity .3s, width .3s, margin-top .3s;
+  transform: scale(1);
+  transition: opacity .3s, width .3s, margin-top .3s, transform .3s;
+}
+
+.holder.disabled {
+  opacity: 0;
+  transform: scale(0);
 }
 
 .holder span {

@@ -97,6 +97,21 @@ img.loading.reverse {
   left: 0;
   right: 0;
   height: 112px;
+
+  transform: rotateY(0);
+  transition: transform .5s, opacity .3s;
+}
+
+.main-action-holder.hidden {
+  opacity: 0;
+  transform: rotateY(90deg);
+}
+
+.main-action-holder.test {
+}
+
+.main-action-holder.test.hidden {
+  transform: rotateY(-90deg);
 }
 
 .main-action {
@@ -116,6 +131,10 @@ img.loading.reverse {
   transform: rotate(0deg);
 
   transition: all .3s;
+}
+
+.main-action span {
+  font-size: 72px;
 }
 
 .main-action:hover {
@@ -164,7 +183,7 @@ editor-bar .button {
   cursor: pointer;
   opacity: .5;
 
-  transition: opacity .3s;
+  transition: opacity .3s, transform .5s;
 }
 
 editor-bar .button:hover {
@@ -176,6 +195,49 @@ editor-bar .action-list.bottom {
   bottom: 0;
   left: 0;
   right: 0;
+}
+
+.button.save.hidden {
+  opacity: 0;
+  transform: scaleY(0);
+}
+
+.mode-toggle-buttons {
+  height: 26px;
+  width: 124px;
+  margin: 8px;
+  position: relative;
+}
+
+.mode-toggle-buttons .button {
+  position: absolute;
+  left: -8px;
+  right: 8px;
+  top: -8px;
+}
+
+.mode-toggle-buttons .button.test,
+.mode-toggle-buttons .button.edit {
+  opacity: 0;
+}
+
+.mode-toggle-buttons .button.test.active,
+.mode-toggle-buttons .button.edit.active {
+  transform: rotateX(0);
+  opacity: .5;
+}
+
+.mode-toggle-buttons .button.test.active:hover,
+.mode-toggle-buttons .button.edit.active:hover {
+  opacity: 1;
+}
+
+.mode-toggle-buttons .button.test {
+  transform: rotateX(90deg);
+}
+
+.mode-toggle-buttons .button.edit {
+  transform: rotateX(-90deg);
 }
 
 .overlay-path {

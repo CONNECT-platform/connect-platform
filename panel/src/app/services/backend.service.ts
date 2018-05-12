@@ -14,6 +14,7 @@ export class BackendService {
     save : 'save',
     load : 'load',
     delete : 'delete',
+    test : 'test',
     nodes: 'nodes',
   }
 
@@ -44,6 +45,15 @@ export class BackendService {
 
   load(id) {
     return this.http.get<{node: any}>(this.api + BackendService.apiCalls.load + `/${id}`);
+  }
+
+  test(inputs) {
+    return this.http.post<any>(
+      this.api + BackendService.apiCalls.test,
+      {
+        model : this.model.json,
+        inputs: inputs,
+      });
   }
 
   public get nodes() {

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EditorModelService } from '../../../services/editor-model.service';
+import { TesterService } from '../../../services/tester.service';
 
 
 @Component({
@@ -9,12 +10,23 @@ import { EditorModelService } from '../../../services/editor-model.service';
 })
 export class GeneralComponent implements OnInit {
 
-  constructor(private model: EditorModelService) { }
+  constructor(
+    private model: EditorModelService,
+    private tester: TesterService,
+  ) { }
 
   ngOnInit() {
   }
 
+  toggleAccess() {
+    if (this.tester.active) return;
+
+    this.model.public = !this.model.public;
+  }
+
   nextMethod() {
+    if (this.tester.active) return this.model.method;
+
     if (this.model.method == 'GET') return 'POST';
     if (this.model.method == 'POST') return 'PUT';
     if (this.model.method == 'PUT') return 'DELETE';

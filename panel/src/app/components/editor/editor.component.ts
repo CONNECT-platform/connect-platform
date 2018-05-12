@@ -12,6 +12,7 @@ import { Node } from '../../models/node.model';
 import { RegistryService } from '../../services/registry.service';
 import { EditorService, EditorEvents } from '../../services/editor.service';
 import { EditorModelService } from '../../services/editor-model.service';
+import { TesterService } from '../../services/tester.service';
 import { BackendService } from '../../services/backend.service';
 
 
@@ -55,6 +56,7 @@ export class EditorComponent implements OnInit, OnDestroy {
     private registry : RegistryService,
     private model : EditorModelService,
     private editor: EditorService,
+    private tester: TesterService,
     private backend : BackendService,
     private route : ActivatedRoute,
     private router : Router,
@@ -180,6 +182,14 @@ export class EditorComponent implements OnInit, OnDestroy {
 
   confirmDeletion() {
     this.deleteOverlay.activate();
+  }
+
+  testMode() {
+    this.tester.activate();
+  }
+
+  editMode() {
+    this.tester.deactivate();
   }
 
   delete() {
