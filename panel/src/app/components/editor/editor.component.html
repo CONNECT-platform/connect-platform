@@ -1,5 +1,6 @@
 <div class="container" [@container]="">
-  <img src="assets/logo-backdrop.svg" [ngClass]="{'loading': communicating, 'reverse' : reverting}"/>
+  <img src="assets/logo-backdrop.svg"
+    [ngClass]="{'loading': communicating, 'reverse' : reverting, 'playing': playing}"/>
   <editor-bar position="left">
     <editor-general></editor-general>
 
@@ -63,8 +64,8 @@
     </div>
 
     <div class="main-action-holder test" [ngClass]="{'hidden': !tester.active}">
-      <div class="main-action">
-        <span class="material-icons">play_arrow</span>
+      <div class="main-action" (click)="tester.togglePlayback()">
+        <span class="play-pause" [ngClass]="{'playing': playing}"></span>
       </div>
     </div>
 
@@ -135,4 +136,11 @@
   <overlay-actions>
     <button>Ok</button>
   </overlay-actions>
+</overlay>
+
+<overlay #testInputOverlay>
+  <overlay-title>Test Input Value</overlay-title>
+  <overlay-content>
+
+  </overlay-content>
 </overlay>

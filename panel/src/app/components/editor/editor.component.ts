@@ -51,6 +51,7 @@ export class EditorComponent implements OnInit, OnDestroy {
 
   communicating : boolean = false;
   reverting: boolean = false;
+  playing: boolean = false;
 
   constructor(
     private registry : RegistryService,
@@ -73,6 +74,11 @@ export class EditorComponent implements OnInit, OnDestroy {
       }
       else this.model.reset();
     });
+
+    this.tester.onRecording.subscribe(() => this.communicating = true);
+    this.tester.onRecordingFinished.subscribe(() => this.communicating = false);
+    this.tester.onPlay.subscribe(() => this.playing = true);
+    this.tester.onPause.subscribe(() => this.playing = false);
   }
 
   ngOnDestroy() {

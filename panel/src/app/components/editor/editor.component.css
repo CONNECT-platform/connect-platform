@@ -11,14 +11,30 @@ img {
   left: 50vw;
   margin-left: -512px;
   margin-top: -412px;
+
+  animation:spin 4s linear infinite;
+  animation-play-state: paused;
+  animation-fill-mode: both;
+
+  transition: transform .3s;
 }
 
 img.loading {
   animation:spin 2s ease-in-out infinite;
+  animation-play-state: running;
+  animation-fill-mode: both;
 }
 
 img.loading.reverse {
   animation:spin-reverse 2s ease-in-out infinite;
+  animation-play-state: running;
+  animation-fill-mode: both;
+}
+
+img.playing {
+  animation:spin 4s linear infinite;
+  animation-play-state: running;
+  animation-fill-mode: both;
 }
 
 .pin-list {
@@ -144,6 +160,28 @@ img.loading.reverse {
 .main-action.delete {
   transform: rotate(135deg);
   opacity: 1;
+}
+
+.main-action .play-pause {
+  border: 0;
+  background: transparent;
+  box-sizing: border-box;
+  width: 0;
+  height: 74px;
+
+  border-color: transparent transparent transparent #ffffff;
+  transition: .2s all ease-in-out;
+  cursor: pointer;
+
+  border-style: solid;
+  border-width: 37px 0 37px 60px;
+  transform: scale(0.5) translateX(8px) rotateY(0);
+}
+
+.main-action .play-pause.playing {
+  border-style: double;
+  border-width: 0px 0 0px 60px;
+  transform: scale(0.5) translateX(0) rotateY(180deg);
 }
 
 .action-list {
