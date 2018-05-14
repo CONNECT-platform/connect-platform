@@ -50,6 +50,7 @@ export class TesterService {
     this._active = false;
     this._recording = undefined;
     this._playbackPosition = 0;
+    clearInterval(this._playbackInterval);
     this._onDeactivated.emit();
     return this;
   }
@@ -89,6 +90,8 @@ export class TesterService {
     if (this._state != TesterStates.Playing && this._recording) {
       this._state = TesterStates.Playing;
       this._onPlay.emit(this._playbackPosition);
+      if (this._playbackPosition >= this.duration)
+        this._playbackPosition = 0;
       clearInterval(this._playbackInterval);
       this._playbackInterval = setInterval(() => this.progress(), 10);
     }
@@ -109,10 +112,9 @@ export class TesterService {
   private progress() {
     if (this._playbackPosition >= this.duration) {
       this.pause();
-      this._playbackPosition = 0;
     }
     else {
-      this._playbackPosition += .002;
+      this._playbackPosition += .006;
       this._onProgress.emit(this._playbackPosition);
     }
   }
@@ -120,6 +122,11 @@ export class TesterService {
   public get state() { return this._state; }
   public get active() { return this._active; }
   public get recording() { return this._recording; }
+
+  public get playbackPosition() { return this._playbackPosition; }
+  public set playbackPosition(val) {
+    this._playbackPosition = val;
+  }
 
   public get duration() {
     if (!this.recording) return 0;

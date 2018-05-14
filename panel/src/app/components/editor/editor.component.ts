@@ -53,6 +53,8 @@ export class EditorComponent implements OnInit, OnDestroy {
   reverting: boolean = false;
   playing: boolean = false;
 
+  private subs = [];
+
   constructor(
     private registry : RegistryService,
     private model : EditorModelService,
@@ -75,10 +77,7 @@ export class EditorComponent implements OnInit, OnDestroy {
       else this.model.reset();
     });
 
-    this.tester.onRecording.subscribe(() => this.communicating = true);
-    this.tester.onRecordingFinished.subscribe(() => this.communicating = false);
-    this.tester.onPlay.subscribe(() => this.playing = true);
-    this.tester.onPause.subscribe(() => this.playing = false);
+    this.tester.deactivate();
   }
 
   ngOnDestroy() {
@@ -97,11 +96,18 @@ export class EditorComponent implements OnInit, OnDestroy {
 
     this.editor.subscribe(EditorEvents.select, this.selectHandle);
     this.editor.subscribe(EditorEvents.deselect, this.deselectHandle);
+
+    this.subs.push(this.tester.onRecording.subscribe(() => this.communicating = true));
+    this.subs.push(this.tester.onRecordingFinished.subscribe(() => this.communicating = false));
+    this.subs.push(this.tester.onPlay.subscribe(() => this.playing = true));
+    this.subs.push(this.tester.onPause.subscribe(() => this.playing = false));
   }
 
   private unsubscribe() {
     this.editor.unsubscribe(EditorEvents.select, this.selectHandle);
     this.editor.unsubscribe(EditorEvents.deselect, this.deselectHandle);
+
+    this.subs.forEach(sub => sub.unsubscribe());
   }
 
   mainAction() {

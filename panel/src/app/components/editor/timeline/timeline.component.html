@@ -1,0 +1,15 @@
+<div class="timeline" #holder
+  (mousemove)="updateHoverTime($event)"
+  (click)="tester.playbackPosition=hoverTime"
+  (mousedown)="seek=true"
+  (mouseup)="seek=false"
+  [ngClass]="{'active': tester.active}">
+  <div class="background"></div>
+  <div class="filled" [style.width]="filled*100 + '%'"></div>
+  <div class="timer">
+    {{tester.playbackPosition | number:'.2-2'}}ms
+  </div>
+  <div class="hover-time" [style.left]="hoverTimeLeft + 'px'">
+    {{hoverTime | number:'.2-2'}}ms
+  </div>
+</div>

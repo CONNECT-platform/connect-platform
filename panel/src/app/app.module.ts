@@ -28,6 +28,7 @@ import { AdderComponent } from './components/editor/adder/adder.component';
 import { HomeComponent } from './components/home/home.component';
 import { NodesComponent } from './components/home/nodes/nodes.component';
 import { OverlayComponent } from './components/shared/overlay/overlay.component';
+import { TimelineComponent } from './components/editor/timeline/timeline.component';
 
 
 const routes : Routes = [
@@ -50,6 +51,7 @@ const routes : Routes = [
     HomeComponent,
     NodesComponent,
     OverlayComponent,
+    TimelineComponent,
   ],
   imports: [
     RouterModule.forRoot(routes, { enableTracing: false }),
