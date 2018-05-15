@@ -64,20 +64,18 @@ export class TesterService {
       });
 
       this.backend.test(this._inputs).subscribe(response => {
-        setTimeout(() => {
-          this._onRecordingFinished.emit();
+        this._onRecordingFinished.emit();
 
-          if (response.recording) {
-            this._recording = response.recording;
-            this._onRecorded.emit(response.recording);
-            setTimeout(() => this.play());
-          }
-          else {
-            this._onRecordingFailed.emit(response);
-            this._recording = undefined;
-            this._state = TesterStates.Idle;
-          }
-        }, 2000);
+        if (response.recording) {
+          this._recording = response.recording;
+          this._onRecorded.emit(response.recording);
+          setTimeout(() => this.play());
+        }
+        else {
+          this._onRecordingFailed.emit(response);
+          this._recording = undefined;
+          this._state = TesterStates.Idle;
+        }
       });
     }
     else {
@@ -134,6 +132,13 @@ export class TesterService {
       let recording = this.recording;
       return recording[recording.length - 1].time;
     }
+  }
+
+  public get playbackPercentage() {
+    if (this.duration > 0) {
+      return this.playbackPosition / this.duration;
+    }
+    else return 0;
   }
 
   public get onActivated() { return this._onActivated; }

@@ -1,6 +1,7 @@
 <div class="container" [@container]="">
   <img src="assets/logo-backdrop.svg"
-    [ngClass]="{'loading': communicating, 'reverse' : reverting, 'playing': playing}"/>
+    [ngStyle]="{'animation-delay': '-' + (tester.playbackPercentage * 3) + 's'}"
+    [ngClass]="{'loading': communicating, 'reverse' : reverting, 'tester': tester.active, 'playing': playing}"/>
   <editor-bar position="left">
     <editor-general></editor-general>
 
@@ -108,7 +109,7 @@
 
     </div>
   </editor-bar>
-  
+
   <timeline></timeline>
 </div>
 

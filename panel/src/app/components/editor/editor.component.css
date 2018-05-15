@@ -11,12 +11,18 @@ img {
   left: 50vw;
   margin-left: -512px;
   margin-top: -412px;
+}
 
+img.tester {
   animation:spin 4s linear infinite;
   animation-play-state: paused;
   animation-fill-mode: both;
+}
 
-  transition: transform .3s;
+img.playing {
+  animation:spin 4s linear infinite;
+  animation-play-state: paused;
+  animation-fill-mode: both;
 }
 
 img.loading {
@@ -27,12 +33,6 @@ img.loading {
 
 img.loading.reverse {
   animation:spin-reverse 2s ease-in-out infinite;
-  animation-play-state: running;
-  animation-fill-mode: both;
-}
-
-img.playing {
-  animation:spin 4s linear infinite;
   animation-play-state: running;
   animation-fill-mode: both;
 }
