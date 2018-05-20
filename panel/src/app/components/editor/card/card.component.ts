@@ -84,7 +84,7 @@ export class CardComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     clearInterval(this._interval);
-    this._subs.forEach(sub => sub.subscribe());
+    this._subs.forEach(sub => sub.unsubscribe());
   }
 
   private _setHeight() {

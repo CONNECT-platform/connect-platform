@@ -1,17 +1,18 @@
 .timeline {
   position: fixed;
-  left: 156px;
-  right: 156px;
+  left: 220px;
+  right: 220px;
   bottom: 0px;
-  height: 44px;
-  cursor: pointer;
-  transform: scaleX(0);
+  height: 48px;
+  opacity: 0;
 
-  transition: all .15s ease-in-out;
+  transition: all .5s ease-in-out;
 }
 
 .timeline.active {
-  transform: scaleX(1);
+  opacity: 1;
+  cursor: pointer;
+  transition: all .01s ease-in-out;
 }
 
 .timeline .background {
@@ -20,37 +21,84 @@
   right: 0;
   top: 5px;
   height: 2px;
-  background: white;
-  opacity: .1;
+  background: #424242;
+  border-radius:32px;
+  transform: scaleX(0);
 
   transition: all .15s ease-in-out;
 }
 
+.timeline.active .background {
+  transform: scaleX(1);
+}
+
 .timeline:hover .background {
-  top: 2px;
-  height: 8px;
+  top: 3px;
+  height: 6px;
+  left: -2px;
+  right: -2px;
 }
 
 .timeline .filled {
   position: absolute;
-  background: #76FF03;
-  /*
   background: #448aff;
-  box-shadow: 0 0 2px #448aff;
-  */
+  border-radius: 32px;
   left: 0;
   top: 5px;
   height: 2px;
+
+  transition: top .15s ease-in-out, height .15s ease-in-out, left .15s ease-in-out;
+}
+
+.timeline:hover .filled {
+  top: 3px;
+  height: 6px;
+  left: -2px;
+}
+
+.timeline .handle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  top: -2px;
+  border-radius: 16px;
+  margin-left: -8px;
+  background: #448aff;
+  border: 4px solid #448aff;
+  transform: scale(0.5);
+
+  transition: transform .15s ease-in-out, box-shadow .15s ease-in-out, background .15s ease-in-out;
+}
+
+.timeline:hover .handle {
+  transform: scale(1);
+  background: #ffffff;
+}
+
+.timeline:hover .handle:hover {
+  box-shadow: 0 0 12px #448aff;
 }
 
 .timeline .timer {
   position: absolute;
   font-size: 12px;
-  top: 18px;
-  left: 0px;
-  right: 0px;
+  top: 16px;
+  left: 50%;
+  margin-left: -48px;
+  height: 24px;
+  width: 96px;
+  background: rgba(0, 0, 0, .5);
+  line-height: 24px;
+  border-radius: 24px;
   text-align: center;
-  opacity: .25;
+  color: #448aff;
+
+  transform: translateY(48px);
+  transition: transform .15s ease-in-out;
+}
+
+.timeline.active .timer {
+  transform: translateY(0px);
 }
 
 .timeline .hover-time {

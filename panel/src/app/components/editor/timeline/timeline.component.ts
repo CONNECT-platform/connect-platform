@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, HostListener } from '@angular/core';
 
 import { TesterService } from '../../../services/tester.service';
 
@@ -38,5 +38,22 @@ export class TimelineComponent implements OnInit {
 
     if (this.seek)
       this.tester.playbackPosition = this.hoverTime;
+  }
+
+  @HostListener('document:keyup', ['$event'])
+  keyup(event) {
+    if (event.keyCode == 32 && this.tester.active) this.tester.togglePlayback();
+  }
+
+  @HostListener('document:keydown', ['$event'])
+  keydown(event) {
+    if (event.keyCode == 37 && this.tester.active) {
+      if (event.shiftKey) this.tester.backward(10);
+      else this.tester.backward();
+    }
+    if (event.keyCode == 39 && this.tester.active) {
+      if (event.shiftKey) this.tester.forward(10);
+      else this.tester.forward();
+    }
   }
 }

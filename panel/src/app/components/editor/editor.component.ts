@@ -225,7 +225,7 @@ export class EditorComponent implements OnInit, OnDestroy {
   }
 
   @HostListener('document:keyup', ['$event'])
-  keypress(event) {
+  keyup(event) {
     if (event.keyCode == 27 && this.state == EditorState.adding)
       this.state = EditorState.initial;
   }

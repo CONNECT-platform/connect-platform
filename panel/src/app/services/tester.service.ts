@@ -111,6 +111,14 @@ export class TesterService {
     return this;
   }
 
+  public forward(times: number = 2) {
+    this.playbackPosition += this._DT * times;
+  }
+
+  public backward(times: number = 2) {
+    this.playbackPosition -= this._DT * times;
+  }
+
   private progress() {
     if (this._playbackPosition >= this.duration) {
       this.pause();
@@ -128,6 +136,12 @@ export class TesterService {
   public get playbackPosition() { return this._playbackPosition; }
   public set playbackPosition(val) {
     this._playbackPosition = val;
+    this.normalizePlaybackPosition();
+  }
+
+  public normalizePlaybackPosition() {
+    if (this._playbackPosition >= this.duration) this._playbackPosition = this.duration;
+    if (this._playbackPosition <= 0) this._playbackPosition = 0;
   }
 
   public get duration() {

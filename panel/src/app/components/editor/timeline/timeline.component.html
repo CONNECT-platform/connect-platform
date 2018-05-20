@@ -6,6 +6,7 @@
   [ngClass]="{'active': tester.active}">
   <div class="background"></div>
   <div class="filled" [style.width]="filled*100 + '%'"></div>
+  <div class="handle" [style.left]="filled*100 + '%'"></div>
   <div class="timer">
     {{tester.playbackPosition | number:'.2-2'}}ms
   </div>
