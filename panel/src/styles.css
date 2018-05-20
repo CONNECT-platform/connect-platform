@@ -21,6 +21,10 @@ html, body {
 
 /*** SOME GENERIC STYLES ***/
 
+small {
+  opacity: 0.5;
+}
+
 button {
   display: inline-block;
   width: 128px;

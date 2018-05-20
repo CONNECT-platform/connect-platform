@@ -3,9 +3,10 @@
   width: 156px;
   height: 156px;
   background: #424242;
+  border-radius: 3px;
   cursor: pointer;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.5);
-  transition: box-shadow .3s, transform .3s, height .1s linear;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+  transition: box-shadow .15s, transform .15s, height .1s linear;
 }
 
 .holder.picked {
@@ -14,6 +15,10 @@
 
 .holder.initial {
   transition: none;
+}
+
+.holder:hover {
+  transform: translateY(-4px);
 }
 
 .holder:hover:not(.selected) {

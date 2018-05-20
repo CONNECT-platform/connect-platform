@@ -1,0 +1,25 @@
+.message-box {
+  position: absolute;
+  z-index: 10000000;
+  background: white;
+  color: black;
+  padding: 4px 12px;
+  border-radius: 16px;
+  font-size: 12px;
+  opacity: 0;
+  max-width: 256px;
+
+  transform: scale(0.5) translateY(64px);
+
+  transition: opacity .15s ease-in-out, transform .15s ease-in-out;
+}
+
+.message-box small {
+  font-size: 10px;
+  opacity: 0.5;
+}
+
+.message-box.active {
+  transform: scale(1) translateY(32px);
+  opacity: 1;
+}

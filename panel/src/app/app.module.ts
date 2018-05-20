@@ -18,6 +18,7 @@ import { RegistryService } from './services/registry.service';
 import { BarComponent } from './components/editor/bar/bar.component';
 import { BackendService } from './services/backend.service';
 import { TesterService } from './services/tester.service';
+import { HintService } from './services/hint.service';
 
 import { PinComponent } from './components/editor/pin/pin.component';
 import { LinkComponent } from './components/editor/link/link.component';
@@ -29,6 +30,7 @@ import { HomeComponent } from './components/home/home.component';
 import { NodesComponent } from './components/home/nodes/nodes.component';
 import { OverlayComponent } from './components/shared/overlay/overlay.component';
 import { TimelineComponent } from './components/editor/timeline/timeline.component';
+import { HintmanComponent } from './components/shared/hintman/hintman.component';
 
 
 const routes : Routes = [
@@ -52,6 +54,7 @@ const routes : Routes = [
     NodesComponent,
     OverlayComponent,
     TimelineComponent,
+    HintmanComponent,
   ],
   imports: [
     RouterModule.forRoot(routes, { enableTracing: false }),
@@ -66,6 +69,6 @@ const routes : Routes = [
   bootstrap: [AppComponent],
   providers: [
     Location,{provide: LocationStrategy, useClass: PathLocationStrategy},
-    BackendService, RegistryService, EditorModelService, EditorService, TesterService]
+    BackendService, RegistryService, EditorModelService, EditorService, TesterService, HintService]
 })
 export class AppModule { }

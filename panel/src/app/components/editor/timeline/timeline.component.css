@@ -66,13 +66,29 @@
   background: #448aff;
   border: 4px solid #448aff;
   transform: scale(0.5);
+  opacity: 0;
 
-  transition: transform .15s ease-in-out, box-shadow .15s ease-in-out, background .15s ease-in-out;
+  transition:
+    transform .15s ease-in-out,
+    box-shadow .15s ease-in-out,
+    background .15s ease-in-out,
+     opacity .05s ease-in-out;
+}
+
+.timeline.active .handle {
+
+  transition:
+    transform .15s ease-in-out,
+    box-shadow .15s ease-in-out,
+    background .15s ease-in-out,
+     opacity .5s ease-in-out;
+
+  opacity: 1;
 }
 
 .timeline:hover .handle {
   transform: scale(1);
-  background: #ffffff;
+  background: #424242;
 }
 
 .timeline:hover .handle:hover {

@@ -5,6 +5,7 @@ import { Expr } from '../../../models/expr.model';
 import { Pin } from '../../../models/pin.model';
 import { EditorService } from '../../../services/editor.service';
 import { TesterService } from '../../../services/tester.service';
+import { HintRef, HintService } from '../../../services/hint.service';
 
 
 @Component({
@@ -18,9 +19,12 @@ export class LinkComponent implements OnInit {
   private _lastFromPos = null;
   private _lastToPos = null;
 
+  public hintRef : HintRef;
+
   constructor(
     private editor: EditorService,
     private tester: TesterService,
+    private hint: HintService,
   ) { }
 
   ngOnInit() {
@@ -35,18 +39,51 @@ export class LinkComponent implements OnInit {
     return this.editor.isSelected(this.link) || this.activeInTester;
   }
 
+  public mouseover() {
+    if (this.hintRef) this.hintRef.clear();
+
+    if (this.activeInTester) {
+      let _event;
+      let mind = 10000000000;
+      this.tester.events.filter(event => this._relevantEvent(event))
+        .forEach(event => {
+          let d = Math.abs(event.time - this.tester.playbackPosition);
+          if (d < mind && 'data' in event.event.cascaded.cascaded.cascaded.cascaded) {
+            mind = d;
+            _event = event;
+          }
+        });
+
+      if (_event) {
+        let data = _event.event.cascaded.cascaded.cascaded.cascaded.data;
+        this.hintRef = this.hint.display(
+          `${JSON.stringify(data, null, 2)} <br>`+
+          `<small>type: ${typeof(data)}</small>`);
+      }
+    }
+  }
+
+  public mouseout() {
+    if (this.hintRef) {
+      this.hintRef.clear();
+      this.hintRef = undefined;
+    }
+  }
+
   get activeInTester() {
     if (!this.tester.active) return false;
     if (this.link.from.node) {
-      return this.tester.events.some(event =>
-          event.event.tag == 'node' &&
-          event.event.cascaded.tag == this.link.from.node.tag &&
-          (event.event.cascaded.cascaded.tag == 'out' ||
-          event.event.cascaded.cascaded.tag == 'controlOut') &&
-          event.event.cascaded.cascaded.cascaded.tag == this.link.from.item.label
-        );
+      return this.tester.events.some(event => this._relevantEvent(event));
     }
     else return false;
+  }
+
+  private _relevantEvent(event): boolean {
+    return event.event.tag == 'node' &&
+        event.event.cascaded.tag == this.link.from.node.tag &&
+        (event.event.cascaded.cascaded.tag == 'out' ||
+        event.event.cascaded.cascaded.tag == 'controlOut') &&
+        event.event.cascaded.cascaded.cascaded.tag == this.link.from.item.label;
   }
 
   get fromPos() {
