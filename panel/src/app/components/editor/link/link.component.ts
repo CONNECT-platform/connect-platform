@@ -4,6 +4,7 @@ import { Node } from '../../../models/node.model';
 import { Expr } from '../../../models/expr.model';
 import { Pin } from '../../../models/pin.model';
 import { EditorService } from '../../../services/editor.service';
+import { TesterService } from '../../../services/tester.service';
 
 
 @Component({
@@ -17,7 +18,10 @@ export class LinkComponent implements OnInit {
   private _lastFromPos = null;
   private _lastToPos = null;
 
-  constructor(private editor: EditorService) { }
+  constructor(
+    private editor: EditorService,
+    private tester: TesterService,
+  ) { }
 
   ngOnInit() {
   }
@@ -28,7 +32,21 @@ export class LinkComponent implements OnInit {
   }
 
   public get selected() {
-    return this.editor.isSelected(this.link);
+    return this.editor.isSelected(this.link) || this.activeInTester;
+  }
+
+  get activeInTester() {
+    if (!this.tester.active) return false;
+    if (this.link.from.node) {
+      return this.tester.events.some(event =>
+          event.event.tag == 'node' &&
+          event.event.cascaded.tag == this.link.from.node.tag &&
+          (event.event.cascaded.cascaded.tag == 'out' ||
+          event.event.cascaded.cascaded.tag == 'controlOut') &&
+          event.event.cascaded.cascaded.cascaded.tag == this.link.from.item.label
+        );
+    }
+    else return false;
   }
 
   get fromPos() {

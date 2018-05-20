@@ -33,6 +33,9 @@ export class CardComponent implements OnInit, OnDestroy {
   private _suggesting = null;
   private _interval : any;
 
+  private _recordingEvents = undefined;
+  private _subs = [];
+
   constructor(
     private editor: EditorService,
     private model : EditorModelService,
@@ -67,10 +70,21 @@ export class CardComponent implements OnInit, OnDestroy {
         }
       });
     }
+
+    this._subs.push(this.tester.onRecorded.subscribe(recording => {
+      this._recordingEvents = recording.filter(event =>
+        event.event.tag == 'node' &&
+        event.event.cascaded.tag == this.node.tag &&
+        (event.event.cascaded.cascaded.event == 'activate' ||
+        event.event.cascaded.cascaded.tag == 'out' ||
+        event.event.cascaded.cascaded.tag == 'controlOut')
+      );
+    }));
   }
 
   ngOnDestroy() {
     clearInterval(this._interval);
+    this._subs.forEach(sub => sub.subscribe());
   }
 
   private _setHeight() {
@@ -96,7 +110,22 @@ export class CardComponent implements OnInit, OnDestroy {
   }
 
   public get selected() {
-    return this.editor.isSelected(this.node);
+    return this.editor.isSelected(this.node) || this.activeInTester;
+  }
+
+  public get activeInTester() {
+    if (!this.tester.active || !this._recordingEvents) return false;
+
+    let passed = this._recordingEvents.filter(event => event.time <= this.tester.playbackPosition);
+    if (passed.length > 0 &&
+        passed[passed.length - 1].event.cascaded.cascaded.event == 'activate')
+      return true;
+
+    return this.tester.events.some(event =>
+      event.event.tag == 'node' &&
+      event.event.cascaded.tag == this.node.tag &&
+      event.event.cascaded.cascaded.event == 'activate'
+    );
   }
 
   public get type() {

@@ -13,6 +13,9 @@ export enum TesterStates {
 
 @Injectable()
 export class TesterService {
+  private _DT: number = .006;
+  private _EARange: number = 0.1;
+
   public states = TesterStates;
 
   private _active : boolean = false;
@@ -68,8 +71,9 @@ export class TesterService {
 
         if (response.recording) {
           this._recording = response.recording;
+          console.log(this._recording);
           this._onRecorded.emit(response.recording);
-          setTimeout(() => this.play());
+          this.play();
         }
         else {
           this._onRecordingFailed.emit(response);
@@ -112,7 +116,7 @@ export class TesterService {
       this.pause();
     }
     else {
-      this._playbackPosition += .006;
+      this._playbackPosition += this._DT;
       this._onProgress.emit(this._playbackPosition);
     }
   }
@@ -139,6 +143,16 @@ export class TesterService {
       return this.playbackPosition / this.duration;
     }
     else return 0;
+  }
+
+  public get events() {
+    if (this.recording)
+      return this.recording.filter(
+      event =>
+        event.time >= this._playbackPosition - this._EARange/2
+        && event.time <= this._playbackPosition + this._EARange/2
+      );
+    else return [];
   }
 
   public get onActivated() { return this._onActivated; }
