@@ -1,6 +1,13 @@
-<div class="message-box"
+<div class="message-box hintman"
   [ngClass]="{'active': hint.visible}"
-  [ngStyle]="{'left.px': mousex, 'top.px': mousey}"
-  [innerHTML]="hint.message"
-  >
+  [ngStyle]="{'left.px': mousex, 'top.px': mousey}">
+  <div class="html" *ngIf="hint.current.type == hint.types._HyperText"
+    [innerHTML]="hint.current.message"></div>
+  <div class="code" *ngIf="hint.current.type == hint.types._Code">
+    <ace-editor mode="javascript"
+                [readOnly]="true"
+                [(text)]="hint.current.message"
+                [options]="aceOptions"
+                style='min-height:16px;'></ace-editor>
+  </div>
 </div>

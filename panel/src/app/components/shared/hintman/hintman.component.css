@@ -1,10 +1,11 @@
 .message-box {
   position: absolute;
   z-index: 10000000;
-  background: white;
-  color: black;
+  background: #212121;
+  color: #ffffff;
   padding: 4px 12px;
-  border-radius: 16px;
+  border-radius: 12px;
+  border: 1px solid #ffffff;
   font-size: 12px;
   opacity: 0;
   max-width: 256px;
@@ -22,4 +23,8 @@
 .message-box.active {
   transform: scale(1) translateY(32px);
   opacity: 1;
+}
+
+.message-box .code {
+  width: 156px;
 }

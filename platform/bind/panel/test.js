@@ -26,7 +26,7 @@ platform.core.node({
       let purified = JSON.stringify(recording, (key, value) => {
         if (key == 'subject') return;
         if (typeof value === 'object' && value != null) {
-          if (cache.includes(value)) return;
+          if (cache.includes(value)) return "_referenced earlier_";
           else cache.push(value);
         }
 

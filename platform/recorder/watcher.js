@@ -18,7 +18,8 @@ class Watcher extends Subscribable {
         subject.subscribe(event, data => {
           let _data = data;
           if (typeof(data) === 'object')
-            _data = Object.assign({}, data);
+            if (Array.isArray(data)) _data = data.slice();
+            else _data = Object.assign({}, data);
 
           this.publish(WatcherEvents.watched, {
             event: event,

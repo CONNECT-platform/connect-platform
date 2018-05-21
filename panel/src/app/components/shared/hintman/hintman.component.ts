@@ -12,6 +12,13 @@ export class HintmanComponent implements OnInit {
   public mousex: number;
   public mousey: number;
 
+  aceOptions: any = {
+    showGutter: false,
+    maxLines: Infinity,
+    tabSize: 2,
+    wrap: true,
+  }
+
   constructor(
     private hint: HintService
   ) { }

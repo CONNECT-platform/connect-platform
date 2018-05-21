@@ -56,9 +56,7 @@ export class LinkComponent implements OnInit {
 
       if (_event) {
         let data = _event.event.cascaded.cascaded.cascaded.cascaded.data;
-        this.hintRef = this.hint.display(
-          `${JSON.stringify(data, null, 2)} <br>`+
-          `<small>type: ${typeof(data)}</small>`);
+        this.hintRef = this.hint.display(JSON.stringify(data, null, 2), this.hint.types._Code);
       }
     }
   }
