@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, HostListener } from '@angular/core';
 
+import { EditorService } from '../../../services/editor.service';
 import { TesterService } from '../../../services/tester.service';
 
 
@@ -18,9 +19,18 @@ export class TimelineComponent implements OnInit {
 
   constructor(
     private tester : TesterService,
+    private editor: EditorService,
   ) { }
 
   ngOnInit() {
+  }
+
+  get events() {
+    if (!this.tester.recording) return [];
+    if (this.editor.selectTarget && this.editor.selectTarget.relevantEvent) {
+      return this.tester.recording.filter(event => this.editor.selectTarget.relevantEvent(event));
+    }
+    else return this.tester.recording;
   }
 
   get filled() {

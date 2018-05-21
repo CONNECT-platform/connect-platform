@@ -21,7 +21,7 @@
   right: 0;
   top: 5px;
   height: 2px;
-  background: #424242;
+  background: #616161;
   border-radius:32px;
   transform: scaleX(0);
 
@@ -62,7 +62,7 @@
   height: 8px;
   top: -2px;
   border-radius: 16px;
-  margin-left: -8px;
+  margin-left: -6px;
   background: #448aff;
   border: 4px solid #448aff;
   transform: scale(0.5);
@@ -88,7 +88,7 @@
 
 .timeline:hover .handle {
   transform: scale(1);
-  background: #424242;
+  background: transparent;
 }
 
 .timeline:hover .handle:hover {
@@ -115,6 +115,27 @@
 
 .timeline.active .timer {
   transform: translateY(0px);
+}
+
+.timeline .events .event {
+  position: absolute;
+  top: 3px;
+  height: 6px;
+  width: 4px;
+  margin-left: -2px;
+  border-radius: 4px;
+  background: #616161;
+
+  transition: top .15s ease-in-out, height .15s ease-in-out;
+}
+
+.timeline .events .event.passed {
+  background: #448aff;
+}
+
+.timeline:hover .events .event {
+  top: 1px;
+  height: 10px;
 }
 
 .timeline .hover-time {

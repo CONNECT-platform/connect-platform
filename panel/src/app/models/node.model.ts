@@ -36,6 +36,14 @@ export class Node extends Subscribable {
     this.publish(NodeEvents.attach, this.component);
   }
 
+  public relevantEvent(event): boolean {
+    return event.event.tag == 'node' &&
+         event.event.cascaded.tag == this.tag &&
+         (event.event.cascaded.cascaded.event == 'activate' ||
+         event.event.cascaded.cascaded.tag == 'out' ||
+         event.event.cascaded.cascaded.tag == 'controlOut');
+  }
+
   public get in() { return this._ins; }
   public get out() { return this._outs; }
   public get control() { return this._controls; }

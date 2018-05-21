@@ -21,6 +21,14 @@ export class Link extends Subscribable {
       this._to = pin;
   }
 
+  public relevantEvent(event): boolean {
+    return event.event.tag == 'node' &&
+        event.event.cascaded.tag == this.from.node.tag &&
+        (event.event.cascaded.cascaded.tag == 'out' ||
+        event.event.cascaded.cascaded.tag == 'controlOut') &&
+        event.event.cascaded.cascaded.cascaded.tag == this.from.item.label;
+  }
+
   public compatible(target: Pin | Node): boolean {
     if (this._to != null) return false;
 

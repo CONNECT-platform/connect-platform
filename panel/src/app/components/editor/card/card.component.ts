@@ -72,19 +72,17 @@ export class CardComponent implements OnInit, OnDestroy {
     }
 
     this._subs.push(this.tester.onRecorded.subscribe(recording => {
-      this._recordingEvents = recording.filter(event =>
-        event.event.tag == 'node' &&
-        event.event.cascaded.tag == this.node.tag &&
-        (event.event.cascaded.cascaded.event == 'activate' ||
-        event.event.cascaded.cascaded.tag == 'out' ||
-        event.event.cascaded.cascaded.tag == 'controlOut')
-      );
+      this._recordingEvents = recording.filter(event => this.relevantEvent(event));
     }));
   }
 
   ngOnDestroy() {
     clearInterval(this._interval);
     this._subs.forEach(sub => sub.unsubscribe());
+  }
+
+  public relevantEvent(event) {
+    return this.node.relevantEvent(event);
   }
 
   private _setHeight() {

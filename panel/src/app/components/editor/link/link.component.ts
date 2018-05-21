@@ -36,7 +36,11 @@ export class LinkComponent implements OnInit {
   }
 
   public get selected() {
-    return this.editor.isSelected(this.link) || this.activeInTester;
+    return this.editor.isSelected(this.link);
+  }
+
+  public get active() {
+    return this.selected || this.activeInTester;
   }
 
   public mouseover() {
@@ -45,7 +49,7 @@ export class LinkComponent implements OnInit {
     if (this.activeInTester) {
       let _event;
       let mind = 10000000000;
-      this.tester.events.filter(event => this._relevantEvent(event))
+      this.tester.events.filter(event => this.relevantEvent(event))
         .forEach(event => {
           let d = Math.abs(event.time - this.tester.playbackPosition);
           if (d < mind && 'data' in event.event.cascaded.cascaded.cascaded.cascaded) {
@@ -71,17 +75,13 @@ export class LinkComponent implements OnInit {
   get activeInTester() {
     if (!this.tester.active) return false;
     if (this.link.from.node) {
-      return this.tester.events.some(event => this._relevantEvent(event));
+      return this.tester.events.some(event => this.relevantEvent(event));
     }
     else return false;
   }
 
-  private _relevantEvent(event): boolean {
-    return event.event.tag == 'node' &&
-        event.event.cascaded.tag == this.link.from.node.tag &&
-        (event.event.cascaded.cascaded.tag == 'out' ||
-        event.event.cascaded.cascaded.tag == 'controlOut') &&
-        event.event.cascaded.cascaded.cascaded.tag == this.link.from.item.label;
+  public relevantEvent(event): boolean {
+    return this.link.relevantEvent(event);
   }
 
   get fromPos() {

@@ -6,6 +6,15 @@
   [ngClass]="{'active': tester.active}">
   <div class="background"></div>
   <div class="filled" [style.width]="filled*100 + '%'"></div>
+
+  <div class="events">
+    <div class="event"
+        *ngFor="let event of events"
+        [ngClass]="{'passed': event.time <= tester.playbackPosition}"
+        [style.left]="event.time/tester.duration*100 + '%'"
+        ></div>
+  </div>
+
   <div class="handle" [style.left]="filled*100 + '%'"></div>
   <div class="timer">
     {{tester.playbackPosition | number:'.2-2'}}ms
