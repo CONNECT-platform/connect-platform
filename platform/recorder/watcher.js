@@ -16,9 +16,13 @@ class Watcher extends Subscribable {
     if (this.events) {
       Object.values(this.events).forEach(event => {
         subject.subscribe(event, data => {
+          let _data = data;
+          if (typeof(data) === 'object')
+            _data = Object.assign({}, data);
+
           this.publish(WatcherEvents.watched, {
             event: event,
-            data: data,
+            data: _data,
             subject: subject,
           });
         });
