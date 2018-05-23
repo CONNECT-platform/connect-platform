@@ -23,3 +23,5 @@ https://medium.com/connect-platform/guides/home
 # how to contribute
 
 take a look [here](CONTRIBUTING.md).
+
+[![Build Status](https://travis-ci.org/loreanvictor/connect-platform.svg?branch=master)](https://travis-ci.org/loreanvictor/connect-platform)
