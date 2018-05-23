@@ -1,8 +1,7 @@
 <div class="overlay holder"
-(click)="close()"
 [ngClass]="{'active': active}">
-  <div class="aligner">
-    <div class="inner">
+  <div class="aligner" (click)="checkClose($event)">
+    <div class="inner" #inner>
       <div class="title">
         <ng-content select="overlay-title"></ng-content>
       </div>

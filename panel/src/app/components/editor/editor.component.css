@@ -281,3 +281,15 @@ editor-bar .action-list.bottom {
 .overlay-path {
   color: #00BFA5;
 }
+
+.overlay-input {
+  color: #76FF03;
+}
+
+.overlay-input-editor {
+  background: black;
+  width: calc(100% - 24px);
+  border: 1px solid white;
+  border-radius: 19px;
+  padding: 12px;
+}

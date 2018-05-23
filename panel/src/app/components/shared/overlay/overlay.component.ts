@@ -1,4 +1,6 @@
-import { Component, OnInit, Input, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, ViewChild, ElementRef } from '@angular/core';
+
+import { elementBox } from '../../../util/elem-box';
 
 
 @Component({
@@ -8,6 +10,7 @@ import { Component, OnInit, Input, EventEmitter } from '@angular/core';
 })
 export class OverlayComponent implements OnInit {
 
+  @ViewChild('inner') inner: ElementRef;
   @Input() active : boolean = false;
   private _onActivate : EventEmitter<void> = new EventEmitter<void>();
   private _onClose : EventEmitter<void> = new EventEmitter<void>();
@@ -27,6 +30,14 @@ export class OverlayComponent implements OnInit {
     this.active = false;
     this._onClose.emit();
     return this;
+  }
+
+  public checkClose(event) {
+    let box = elementBox(this.inner.nativeElement);
+
+    if (event.clientX < box.left || event.clientY > box.right ||
+      event.clientY < box.top || event.clientY > box.bottom)
+      this.close();
   }
 
   public get onActivate() { return this._onActivate; }

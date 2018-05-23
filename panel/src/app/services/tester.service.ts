@@ -58,29 +58,46 @@ export class TesterService {
     return this;
   }
 
+  get missingInput(): string | undefined {
+    for(let item of this.model.in.items) {
+      if (!(item.label in this._inputs))
+        return item.label;
+    }
+
+    return undefined;
+  }
+
   public togglePlayback() {
     if (!this._recording) {
       this.pause();
-      this._state = TesterStates.Recording;
-      this._onRecording.emit({
-        inputs: this._inputs,
-      });
+      let missingInput = this.missingInput;
 
-      this.backend.test(this._inputs).subscribe(response => {
-        this._onRecordingFinished.emit();
+      if (!missingInput) {
+        this._state = TesterStates.Recording;
+        this._onRecording.emit({
+          inputs: this._inputs,
+        });
 
-        if (response.recording) {
-          this._recording = response.recording;
-          console.log(this._recording);
-          this._onRecorded.emit(response.recording);
-          this.play();
-        }
-        else {
-          this._onRecordingFailed.emit(response);
-          this._recording = undefined;
-          this._state = TesterStates.Idle;
-        }
-      });
+        this.backend.test(this._inputs).subscribe(response => {
+          this._onRecordingFinished.emit();
+
+          if (response.recording) {
+            this._recording = response.recording;
+            console.log(this._recording);
+            this._onRecorded.emit(response.recording);
+            this.play();
+          }
+          else {
+            this._onRecordingFailed.emit(response);
+            this._recording = undefined;
+            this._state = TesterStates.Idle;
+          }
+        });
+      }
+      else {
+        this._state = TesterStates.Idle;
+        this.onMissingInput.emit(missingInput);
+      }
     }
     else {
       if (this._state == TesterStates.Playing) this.pause();
@@ -167,6 +184,26 @@ export class TesterService {
         && event.time <= this._playbackPosition + this._EARange/2
       );
     else return [];
+  }
+
+  public getInput(label: string) {
+    if (label in this._inputs)
+      return JSON.stringify(this._inputs[label]);
+    else
+      return "";
+  }
+
+  public setInput(label: string, code: string) {
+    try {
+      this._inputs[label] = JSON.parse(code);
+    }
+    catch(err) {
+      this._inputs[label] = code;
+    }
+  }
+
+  public cleanUp() {
+    this._inputs = {};
   }
 
   public get onActivated() { return this._onActivated; }

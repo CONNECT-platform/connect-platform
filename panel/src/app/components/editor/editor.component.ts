@@ -49,9 +49,20 @@ export class EditorComponent implements OnInit, OnDestroy {
   @ViewChild('deleteOverlay') deleteOverlay;
   @ViewChild('deletedOverlay') deletedOverlay;
 
+  @ViewChild('testInputOverlay') testInputOverlay;
+  @ViewChild('testInputEditor') testInputEditor;
+
   communicating : boolean = false;
   reverting: boolean = false;
   playing: boolean = false;
+
+  targetTestInput: string = undefined;
+
+  aceOptions: any = {
+    showGutter: false,
+    maxLines: Infinity,
+    tabSize: 2,
+  }
 
   private subs = [];
 
@@ -78,6 +89,7 @@ export class EditorComponent implements OnInit, OnDestroy {
     });
 
     this.tester.deactivate();
+    this.tester.cleanUp();
   }
 
   ngOnDestroy() {
@@ -101,6 +113,12 @@ export class EditorComponent implements OnInit, OnDestroy {
     this.subs.push(this.tester.onRecordingFinished.subscribe(() => this.communicating = false));
     this.subs.push(this.tester.onPlay.subscribe(() => this.playing = true));
     this.subs.push(this.tester.onPause.subscribe(() => this.playing = false));
+
+    this.subs.push(this.tester.onMissingInput.subscribe(input => {
+      this.targetTestInput = input;
+      this.testInputEditor.getEditor().setValue(this.tester.getInput(this.targetTestInput));
+      this.testInputOverlay.activate();
+    }));
   }
 
   private unsubscribe() {
@@ -200,6 +218,17 @@ export class EditorComponent implements OnInit, OnDestroy {
     this.tester.activate();
   }
 
+  setTestValueAndTest() {
+    if (this.targetTestInput) {
+      this.testInputOverlay.close();
+
+      setTimeout(() => {
+        this.tester.setInput(this.targetTestInput, this.testInputEditor.getEditor().getValue());
+        this.tester.togglePlayback();
+      }, 300);
+    }
+  }
+
   editMode() {
     this.tester.deactivate();
   }
@@ -207,6 +236,8 @@ export class EditorComponent implements OnInit, OnDestroy {
   delete() {
     this.communicating = true;
     this.reverting = true;
+
+    this.deleteOverlay.close();
 
     this.backend.delete().subscribe(response => {
       setTimeout(() => {

@@ -124,7 +124,7 @@
     that depend on it will malfunction and require correction.
   </overlay-content>
   <overlay-actions>
-    <button>Oh Wait ...</button>
+    <button (click)="deleteOverlay.close()">Oh Wait ...</button>
     <button class="danger" (click)="delete()">Delete</button>
   </overlay-actions>
 </overlay>
@@ -137,13 +137,31 @@
     sucssessfully deleted.
   </overlay-content>
   <overlay-actions>
-    <button>Ok</button>
+    <button (click)="deletedOverlay.close()">Ok</button>
   </overlay-actions>
 </overlay>
 
 <overlay #testInputOverlay>
-  <overlay-title>Test Input Value</overlay-title>
+  <overlay-title>
+    test value of
+    <span class="overlay-input">{{targetTestInput}}</span>
+  </overlay-title>
   <overlay-content>
+    add the test value for input <span class="overlay-input">{{targetTestInput}}</span>.
+    you can click on the input to modify this value later.
 
+    <br><br>
+    <div class="overlay-input-editor">
+      <ace-editor #testInputEditor
+                  mode="javascript"
+                  [options]="aceOptions"
+                  style='min-height:16px;'></ace-editor>
+    </div>
   </overlay-content>
+
+  <overlay-actions>
+    <button (click)="setTestValueAndTest()">
+      Test
+    </button>
+  </overlay-actions>
 </overlay>
