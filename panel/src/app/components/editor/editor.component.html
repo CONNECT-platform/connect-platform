@@ -10,6 +10,7 @@
       <ng-container *ngFor="let in of model.in.items">
         <div class="input item">
           <input type="text"
+                (click)="changeTestInput(in.label)"
                 [readonly]="tester.active"
                 (blur)="sanitizeInput(in)"
                 [(ngModel)]="in.label"/>
@@ -110,7 +111,7 @@
     </div>
   </editor-bar>
 
-  <timeline></timeline>
+  <timeline #timeline></timeline>
 </div>
 
 
@@ -160,8 +161,8 @@
   </overlay-content>
 
   <overlay-actions>
-    <button (click)="setTestValueAndTest()">
-      Test
+    <button (click)="setTestValue()">
+      Set Value
     </button>
   </overlay-actions>
 </overlay>

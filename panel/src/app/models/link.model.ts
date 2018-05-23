@@ -1,5 +1,5 @@
 import { Subscribable } from '../util/subscribable';
-import { Pin, PinType } from './pin.model';
+import { Pin, PinType, PinTag } from './pin.model';
 import { Node } from './node.model';
 
 
@@ -22,11 +22,20 @@ export class Link extends Subscribable {
   }
 
   public relevantEvent(event): boolean {
-    return event.event.tag == 'node' &&
+    if (this.from.node)
+      return event.event.tag == 'node' &&
         event.event.cascaded.tag == this.from.node.tag &&
         (event.event.cascaded.cascaded.tag == 'out' ||
         event.event.cascaded.cascaded.tag == 'controlOut') &&
         event.event.cascaded.cascaded.cascaded.tag == this.from.item.label;
+    else {
+      let tag = this.from.tag as PinTag;
+
+      return ((event.event.tag == 'in' && tag == PinTag.input) ||
+              (event.event.tag == 'conf' && tag == PinTag.config))
+            && event.event.cascaded.tag == this.from.item.label
+            ;
+    }
   }
 
   public compatible(target: Pin | Node): boolean {

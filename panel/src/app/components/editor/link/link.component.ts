@@ -47,21 +47,25 @@ export class LinkComponent implements OnInit {
     if (this.hintRef) this.hintRef.clear();
 
     if (this.activeInTester) {
-      let _event;
+      let data;
       let mind = 10000000000;
       this.tester.events.filter(event => this.relevantEvent(event))
         .forEach(event => {
           let d = Math.abs(event.time - this.tester.playbackPosition);
-          if (d < mind && 'data' in event.event.cascaded.cascaded.cascaded.cascaded) {
-            mind = d;
-            _event = event;
+          if (d < mind){
+            if ('data' in event.event.cascaded.cascaded) {
+              mind = d;
+              data = event.event.cascaded.cascaded.data;
+            }
+            else if ('data' in event.event.cascaded.cascaded.cascaded.cascaded) {
+              mind = d;
+              data = event.event.cascaded.cascaded.cascaded.cascaded.data;
+            }
           }
         });
 
-      if (_event) {
-        let data = _event.event.cascaded.cascaded.cascaded.cascaded.data;
+      if (data)
         this.hintRef = this.hint.display(JSON.stringify(data, null, 2), this.hint.types._Code);
-      }
     }
   }
 
@@ -74,10 +78,7 @@ export class LinkComponent implements OnInit {
 
   get activeInTester() {
     if (!this.tester.active) return false;
-    if (this.link.from.node) {
-      return this.tester.events.some(event => this.relevantEvent(event));
-    }
-    else return false;
+    return this.tester.events.some(event => this.relevantEvent(event));
   }
 
   public relevantEvent(event): boolean {

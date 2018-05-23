@@ -20,7 +20,7 @@ platform.core.node({
     return;
   }
 
-  record(inputs.model, inputs, platform.config.core)
+  record(inputs.model, inputs.inputs, platform.config.core)
     .then(recording => {
       let cache = [];
       let purified = JSON.stringify(recording, (key, value) => {

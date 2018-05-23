@@ -52,6 +52,8 @@ export class EditorComponent implements OnInit, OnDestroy {
   @ViewChild('testInputOverlay') testInputOverlay;
   @ViewChild('testInputEditor') testInputEditor;
 
+  @ViewChild('timeline') timeline;
+
   communicating : boolean = false;
   reverting: boolean = false;
   playing: boolean = false;
@@ -115,10 +117,12 @@ export class EditorComponent implements OnInit, OnDestroy {
     this.subs.push(this.tester.onPause.subscribe(() => this.playing = false));
 
     this.subs.push(this.tester.onMissingInput.subscribe(input => {
-      this.targetTestInput = input;
-      this.testInputEditor.getEditor().setValue(this.tester.getInput(this.targetTestInput));
-      this.testInputOverlay.activate();
+      this.changeTestInput(input);
     }));
+
+    this.testInputOverlay.onClose.subscribe(() => {
+      this.timeline.keysEnabled = true;
+    });
   }
 
   private unsubscribe() {
@@ -166,7 +170,6 @@ export class EditorComponent implements OnInit, OnDestroy {
   newCall() { this.newNode(this.model.createNode(Call, this.editor.cursorAbsolute)); }
 
   sanitizeInput(input) {
-    console.log(input.touched);
     if (input.cleared) {
       this.model.removePinLinks(input.pin);
       this.model.in.remove(input);
@@ -218,14 +221,22 @@ export class EditorComponent implements OnInit, OnDestroy {
     this.tester.activate();
   }
 
-  setTestValueAndTest() {
+  setTestValue() {
     if (this.targetTestInput) {
       this.testInputOverlay.close();
 
-      setTimeout(() => {
-        this.tester.setInput(this.targetTestInput, this.testInputEditor.getEditor().getValue());
-        this.tester.togglePlayback();
-      }, 300);
+      this.tester.setInput(this.targetTestInput, this.testInputEditor.getEditor().getValue());
+      this.tester.validateInputs();
+    }
+  }
+
+  changeTestInput(input) {
+    if (this.tester.active) {
+      this.targetTestInput = input;
+      this.testInputEditor.getEditor().setValue(this.tester.getInput(this.targetTestInput));
+      this.testInputOverlay.activate();
+      this.timeline.keysEnabled = false;
+      this.testInputEditor.getEditor().focus();
     }
   }
 

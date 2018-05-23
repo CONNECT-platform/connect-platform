@@ -291,5 +291,5 @@ editor-bar .action-list.bottom {
   width: calc(100% - 24px);
   border: 1px solid white;
   border-radius: 19px;
-  padding: 12px;
+  padding: 8px;
 }

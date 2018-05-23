@@ -67,6 +67,11 @@ export class TesterService {
     return undefined;
   }
 
+  public validateInputs() {
+    let missingInput = this.missingInput;
+    if (missingInput) this.onMissingInput.emit(missingInput);
+  }
+
   public togglePlayback() {
     if (!this._recording) {
       this.pause();
@@ -142,6 +147,7 @@ export class TesterService {
     }
     else {
       this._playbackPosition += this._DT;
+      this.normalizePlaybackPosition();
       this._onProgress.emit(this._playbackPosition);
     }
   }
@@ -200,6 +206,8 @@ export class TesterService {
     catch(err) {
       this._inputs[label] = code;
     }
+
+    this._recording = undefined;
   }
 
   public cleanUp() {

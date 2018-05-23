@@ -14,6 +14,7 @@ export class TimelineComponent implements OnInit {
   public seek: boolean = false;
   public hoverTime: number = 0;
   public hoverTimeLeft: number = 0;
+  public keysEnabled: boolean = true;
 
   @ViewChild('holder') holder : ElementRef;
 
@@ -52,18 +53,20 @@ export class TimelineComponent implements OnInit {
 
   @HostListener('document:keyup', ['$event'])
   keyup(event) {
-    if (event.keyCode == 32 && this.tester.active) this.tester.togglePlayback();
+    if (this.keysEnabled && event.keyCode == 32 && this.tester.active) this.tester.togglePlayback();
   }
 
   @HostListener('document:keydown', ['$event'])
   keydown(event) {
-    if (event.keyCode == 37 && this.tester.active) {
-      if (event.shiftKey) this.tester.backward(10);
-      else this.tester.backward();
-    }
-    if (event.keyCode == 39 && this.tester.active) {
-      if (event.shiftKey) this.tester.forward(10);
-      else this.tester.forward();
+    if (this.keysEnabled) {
+      if (event.keyCode == 37 && this.tester.active) {
+        if (event.shiftKey) this.tester.backward(10);
+        else this.tester.backward();
+      }
+      if (event.keyCode == 39 && this.tester.active) {
+        if (event.shiftKey) this.tester.forward(10);
+        else this.tester.forward();
+      }
     }
   }
 }
