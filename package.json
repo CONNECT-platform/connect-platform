@@ -1,6 +1,6 @@
 {
   "name": "connect-platform",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A platform to build backened code mostly in a visual manner.",
   "keywords": [
     "connect",
@@ -11,6 +11,7 @@
     "low code",
     "no code"
   ],
+  "homepage": "https://loreanvictor.github.io/connect-platform/",
   "repository": {
     "type": "git",
     "url": "https://github.com/loreanvictor/connect-platform.git"
