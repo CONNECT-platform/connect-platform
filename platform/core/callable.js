@@ -34,6 +34,10 @@ const callable = nodeFactoryOrClass => {
         });
       });
 
+      node.subscribe(base.node.NodeEvents.error, error => {
+        reject(error);
+      });
+
       if (Object.entries(node.pins.in).length == 0) {
         node.checkActivate();
       }

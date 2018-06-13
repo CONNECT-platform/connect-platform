@@ -9,6 +9,7 @@ const NodeEvents = {
   activate: 'activate',
   reset: 'reset',
   promised: 'promised',
+  error: 'error',
 }
 
 class Break {}
@@ -154,7 +155,9 @@ class Node extends Subscribable {
         throw _break;
       });
     } catch(_break) {
-      this._handleBreak(_break, error => {throw error;});
+      this._handleBreak(_break, error => {
+        this.error(error);
+      });
     };
   }
 
@@ -173,8 +176,9 @@ class Node extends Subscribable {
     }).then(_break => {
       this._handleBreak(_break);
     }).catch(error => {
-      if (!(error instanceof Break))
-        throw error;
+      if (!(error instanceof Break)) {
+        this.error(error);
+      }
     });
   }
 
@@ -198,6 +202,10 @@ class Node extends Subscribable {
   }
 
   run(inputs, output, control) {}
+
+  error(error) {
+    this.publish(NodeEvents.error, error);
+  }
 
   reset() {
     this._activated = false;

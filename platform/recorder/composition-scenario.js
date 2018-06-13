@@ -23,6 +23,7 @@ class CompositionScenario extends Scenario {
     this.composition.start(this.inputs, this.configs);
     this._watcher.watched(event => {
       if (event.tag == 'out') this.stop();
+      else if (event.tag == 'node' && event.cascaded.cascaded.event == 'error') this.stop();
     });
     return super.start();
   }

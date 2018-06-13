@@ -1,5 +1,7 @@
 const core = require('../core');
 
+const { CompositionEvents } = require('./composition');
+
 
 class Composite extends core.Node {
   constructor(composition, config) {
@@ -21,6 +23,8 @@ class Composite extends core.Node {
           control(key);
         });
     }
+
+    this.composition.subscribe(CompositionEvents.error, error => this.error(error));
 
     this.composition.start(inputs, this._config);
   }

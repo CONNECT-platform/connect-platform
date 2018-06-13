@@ -1,9 +1,17 @@
 const core = require('../core');
+const { Subscribable } = require('../core/base/subscribable');
+
 const { NotFound } = require('./errors');
 
 
-class Composition {
+const CompositionEvents = {
+  error: 'error'
+}
+
+class Composition extends Subscribable {
   constructor() {
+    super();
+
     this._inputs = {};
     this._outputs = {};
     this._controlOuts = {};
@@ -57,28 +65,36 @@ class Composition {
     return this;
   }
 
+  _addNode(tag, node) {
+    this._nodes[tag] = node;
+    node.subscribe(core.events.node.error, error => this.publish(CompositionEvents.error, error));
+  }
+
   addCall(tag, path) {
-    this._nodes[tag] = new core.Call(path);
+    this._addNode(tag, new core.Call(path));
     this._add_dependency(path);
     return this;
   }
 
   addSwitch(tag, cases) {
-    this._nodes[tag] = new core.Switch(cases);
+    this._addNode(tag, new core.Switch(cases));
     return this;
   }
 
   addExpr(tag, ins, expr) {
-    this._nodes[tag] = new core.Expression(expr, ins);
+    this._addNode(tag, new core.Expression(expr, ins));
     return this;
   }
 
   addValue(tag, expr) {
-    this._nodes[tag] = new core.Expression(expr, []);
+    this._addNode(tag, new core.Expression(expr, []));
     return this;
   }
 
   removeNode(tag) {
+    //TODO: must decouple from error subscription of the node as well.
+    //
+
     if (tag in this._nodes) {
       if (this._nodes[tag] instanceof core.Call) {
         this._remove_dependency(this._nodes[tag].path);
@@ -160,4 +176,5 @@ class Composition {
 
 module.exports = {
   Composition: Composition,
+  CompositionEvents: CompositionEvents,
 }
