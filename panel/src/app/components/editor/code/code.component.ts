@@ -9,6 +9,7 @@ import { Pin } from '../../../models/pin.model';
 })
 export class CodeComponent implements OnInit {
   @Input() selected: boolean = false;
+  @Input() error: boolean = false;
   @Input() readonly: boolean = false;
   @Input() code: string = '';
   @Input() shadow: boolean = true;

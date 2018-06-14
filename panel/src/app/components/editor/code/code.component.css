@@ -20,6 +20,11 @@
   box-shadow: 0 0px 0px 1px #40c4ff, 0 0px 32px #0064b7;
 }
 
+.holder.error {
+  border-color: #ff0033;
+  box-shadow: 0 0px 0px 2px #ff0033, 0 0px 24px #ff0033 !important;
+}
+
 .holder.control {
   border-color: #FFC400;
 }

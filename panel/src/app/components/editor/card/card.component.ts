@@ -126,6 +126,23 @@ export class CardComponent implements OnInit, OnDestroy {
     );
   }
 
+  public get errorInTester() {
+    if (!this.tester.active || !this._recordingEvents) return null;
+
+    let passed = this._recordingEvents.filter(event => event.time <= this.tester.playbackPosition);
+    if (passed.length > 0 &&
+        passed[passed.length - 1].event.cascaded.cascaded.event == 'error')
+      return passed[passed.length - 1];
+
+    let candidates = this.tester.events.filter(event =>
+      event.event.tag == 'node' &&
+      event.event.cascaded.tag == this.node.tag &&
+      event.event.cascaded.cascaded.event == 'error'
+    );
+    if (candidates.length > 0) return candidates[0];
+    return null;
+  }
+
   public get type() {
     if (this.node instanceof Value) return CardType.value;
     if (this.node instanceof Expr) return CardType.expr;

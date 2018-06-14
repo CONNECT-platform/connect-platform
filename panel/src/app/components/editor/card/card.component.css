@@ -29,6 +29,10 @@
   box-shadow: 0 0px 0px 2px #40c4ff, 0 0px 32px #0064b7;
 }
 
+.holder.error:not(.value) {
+  box-shadow: 0 0px 0px 4px #ff0033, 0 0px 64px #ff0033;
+}
+
 .holder .inner {
   padding: 12px;
 }

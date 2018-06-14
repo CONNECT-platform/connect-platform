@@ -40,6 +40,7 @@ export class Node extends Subscribable {
     return event.event.tag == 'node' &&
          event.event.cascaded.tag == this.tag &&
          (event.event.cascaded.cascaded.event == 'activate' ||
+         event.event.cascaded.cascaded.event == 'error' ||
          event.event.cascaded.cascaded.tag == 'out' ||
          event.event.cascaded.cascaded.tag == 'controlOut');
   }
