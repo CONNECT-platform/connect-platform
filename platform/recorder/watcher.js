@@ -19,6 +19,14 @@ class Watcher extends Subscribable {
           let _data = data;
           if (typeof(data) === 'object')
             if (Array.isArray(data)) _data = data.slice();
+            else if (data instanceof Error || (
+              data.constructor.name.endsWith('Error') &&
+              data.name && data.stack
+            ))
+              _data = {
+                message: data.message,
+                stack: data.stack,
+              };
             else _data = Object.assign({}, data);
 
           this.publish(WatcherEvents.watched, {

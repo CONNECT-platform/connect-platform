@@ -4,6 +4,8 @@ import { Component, OnInit, OnDestroy,
 import { EditorService, EditorEvents } from '../../../services/editor.service';
 import { EditorModelService } from '../../../services/editor-model.service';
 import { TesterService } from '../../../services/tester.service';
+import { HintRef, HintService } from '../../../services/hint.service';
+
 import { RegistryService } from '../../../services/registry.service';
 import { Node, NodeEvents } from '../../../models/node.model';
 import { Value } from '../../../models/value.model';
@@ -36,11 +38,14 @@ export class CardComponent implements OnInit, OnDestroy {
   private _recordingEvents = undefined;
   private _subs = [];
 
+  public hintRef : HintRef;
+
   constructor(
     private editor: EditorService,
     private model : EditorModelService,
     private tester: TesterService,
     private registry : RegistryService,
+    private hint: HintService,
     ) {}
 
   ngOnInit() {
@@ -141,6 +146,21 @@ export class CardComponent implements OnInit, OnDestroy {
     );
     if (candidates.length > 0) return candidates[0];
     return null;
+  }
+
+  public mouseover() {
+    if (this.hintRef) this.hintRef.clear();
+    let err = this.errorInTester;
+    if (err) {
+      this.hintRef = this.hint.display(err.event.cascaded.cascaded.data.message);
+    }
+  }
+
+  public mouseout() {
+    if (this.hintRef) {
+      this.hintRef.clear();
+      this.hintRef = undefined;
+    }
   }
 
   public get type() {
