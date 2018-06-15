@@ -11,7 +11,7 @@ import { elementBox } from '../../../util/elem-box';
 export class OverlayComponent implements OnInit {
 
   @ViewChild('inner') inner: ElementRef;
-  @Input() active : boolean = false;
+  private _active : boolean = false;
   private _onActivate : EventEmitter<void> = new EventEmitter<void>();
   private _onClose : EventEmitter<void> = new EventEmitter<void>();
 
@@ -20,15 +20,30 @@ export class OverlayComponent implements OnInit {
   ngOnInit() {
   }
 
+  @Input() public get active() {
+    return this._active;
+  }
+
+  public set active(_active: boolean) {
+    if (_active) this.activate();
+    else this.close();
+  }
+
   public activate() {
-    this.active = true;
-    this._onActivate.emit();
+    if (!this._active) {
+      this._active = true;
+      this._onActivate.emit();
+    }
+
     return this;
   }
 
   public close() {
-    this.active = false;
-    this._onClose.emit();
+    if (this._active) {
+      this._active = false;
+      this._onClose.emit();
+    }
+
     return this;
   }
 

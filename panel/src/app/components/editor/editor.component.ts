@@ -51,6 +51,7 @@ export class EditorComponent implements OnInit, OnDestroy {
 
   @ViewChild('testInputOverlay') testInputOverlay;
   @ViewChild('testInputEditor') testInputEditor;
+  @ViewChild('testErrorDetailsOverlay') testErrorDetailsOverlay;
 
   @ViewChild('timeline') timeline;
 
@@ -108,6 +109,8 @@ export class EditorComponent implements OnInit, OnDestroy {
         this.state = EditorState.initial;
     }
 
+
+
     this.editor.subscribe(EditorEvents.select, this.selectHandle);
     this.editor.subscribe(EditorEvents.deselect, this.deselectHandle);
 
@@ -122,6 +125,10 @@ export class EditorComponent implements OnInit, OnDestroy {
 
     this.testInputOverlay.onClose.subscribe(() => {
       this.timeline.keysEnabled = true;
+    });
+
+    this.testErrorDetailsOverlay.onClose.subscribe(() => {
+      this.editor.deselect();
     });
   }
 
@@ -264,6 +271,15 @@ export class EditorComponent implements OnInit, OnDestroy {
       console.log(error);
       setTimeout(() => this.communicating = false, 2000);
     });
+  }
+
+  public get testErrorDetails() {
+    if (this.state == EditorState.selected && this.tester.active &&
+        this.editor.selectTarget instanceof Node) {
+      return this.editor.selectTarget.component.errorInTester;
+    }
+
+    return null;
   }
 
   @HostListener('document:keyup', ['$event'])

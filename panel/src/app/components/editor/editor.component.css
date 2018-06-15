@@ -293,3 +293,12 @@ editor-bar .action-list.bottom {
   border-radius: 19px;
   padding: 8px;
 }
+
+.error-message {
+  margin-bottom: 12px;
+}
+
+.error-stack {
+  color: #ff0033;
+  font-size: 12px;
+}

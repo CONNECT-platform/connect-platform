@@ -166,3 +166,20 @@
     </button>
   </overlay-actions>
 </overlay>
+
+<overlay #testErrorDetailsOverlay [active]="testErrorDetails">
+  <overlay-title>Error</overlay-title>
+  <overlay-content>
+    <div class="error-message" *ngIf="testErrorDetails">
+      {{ testErrorDetails.event.cascaded.cascaded.data.message }}
+    </div>
+    <div class="error-stack" *ngIf="testErrorDetails">
+      {{ testErrorDetails.event.cascaded.cascaded.data.stack }}
+    </div>
+  </overlay-content>
+  <overlay-actions>
+    <button (click)="testErrorDetailsOverlay.close()">
+      Ok
+    </button>
+  </overlay-actions>
+</overlay>
