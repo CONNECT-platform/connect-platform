@@ -82,4 +82,33 @@ describe('registry', () => {
       assert(registry.instance('WZZ') instanceof D);
     });
   });
+
+  describe('mocking:', () => {
+    class Original extends base.node.Node{};
+    class Mocked extends base.node.Node{};
+
+    registry.register({path: '/RTest/mock-test-path'}, Original);
+
+    describe('.mock()', () => {
+      it('should replace a mock object for given path:', () => {
+        registry.mock('/RTest/mock-test-path', Mocked);
+        assert(registry.instance('/RTest/mock-test-path') instanceof Mocked);
+      });
+    });
+
+    describe('.mocked()', () => {
+      it('should verify that a specific path is mocked.', () => {
+        assert(!registry.mocked('/RTest/mock-test-path-2'));
+        assert(registry.mocked('/RTest/mock-test-path'));
+      });
+    });
+
+    describe('.unmock()', () => {
+      it('should remove the mock and return to normal behavior.', () => {
+        registry.unmock('/RTest/mock-test-path');
+        assert(!registry.mocked('/RTest/mock-test-path'));
+        assert(registry.instance('/RTest/mock-test-path') instanceof Original);
+      });
+    });
+  });
 });

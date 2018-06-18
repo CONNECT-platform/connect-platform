@@ -7,11 +7,14 @@ const RegistryEvents = {
   registered: 'registered',
   instantiated: 'instantiated',
   aliased: 'aliased',
+  mocked: 'mocked',
+  unmocked: 'unmocked',
 }
 
 class Registry extends Subscribable {
   constructor() {
     super();
+    this._mocks = {};
     this._paths = {};
     this._aliases = {};
   }
@@ -40,6 +43,13 @@ class Registry extends Subscribable {
 
   instance(path) {
     let resolved = this.resolve(path);
+
+    if (this.mocked(resolved)) {
+      let instantiated = util.buildFromFactoryOrClass(this._mocks[resolved]);
+      this.publish(RegistryEvents.instantiated, instantiated);
+      return instantiated;
+    }
+
     if (this.registered(resolved)) {
       let instantiated = util.buildFromFactoryOrClass(this._paths[resolved].factoryOrClass);
       this.publish(RegistryEvents.instantiated, instantiated);
@@ -70,6 +80,23 @@ class Registry extends Subscribable {
     });
 
     return this;
+  }
+
+  mock(path, factoryOrClass) {
+    this._mocks[path] = factoryOrClass;
+    this.publish(RegistryEvents.mocked, {
+      path: path,
+      factoryOrClass: factoryOrClass,
+    });
+  }
+
+  unmock(path) {
+    delete this._mocks[path];
+    this.publish(RegistryEvents.unmocked, path);
+  }
+
+  mocked(path) {
+    return path in this._mocks;
   }
 
   get registrants() {
