@@ -31,9 +31,20 @@
   font-size: 24px;
 }
 
+.inner .icon {
+  max-width: 30vw;
+  display: block;
+  margin: 0 auto;
+}
+
 .inner .title {
   font-size : 32px;
   margin-bottom: 32px;
+}
+
+.inner .title.centered {
+  text-align: center;
+  margin-bottom: 56px;
 }
 
 .inner .content {

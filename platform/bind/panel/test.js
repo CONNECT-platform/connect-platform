@@ -4,6 +4,8 @@ const platform = require('../../');
 const config = require('./config');
 const record = require('../../recorder');
 
+const purify = require('./purify-recording');
+
 
 platform.core.node({
   path : `${config.path}test`,
@@ -22,18 +24,7 @@ platform.core.node({
 
   record(inputs.model, inputs.inputs, platform.config.core)
     .then(recording => {
-      let cache = [];
-      let purified = JSON.stringify(recording, (key, value) => {
-        if (key == 'subject') return;
-        if (typeof value === 'object' && value != null) {
-          if (cache.includes(value)) return "_referenced earlier_";
-          else cache.push(value);
-        }
-
-        return value;
-      });
-
-      output('recording', JSON.parse(purified));
+      output('recording', purify(recording));
     })
     .catch(error => {
       output('error', error);

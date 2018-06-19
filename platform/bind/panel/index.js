@@ -25,6 +25,7 @@ module.exports.platform = {
         "delete-node",
         "panel-nodes",
         "test",
+        "watch",
       ],
     },
   },

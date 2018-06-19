@@ -15,6 +15,8 @@ export class BackendService {
     load : 'load',
     delete : 'delete',
     test : 'test',
+    watch: 'watch',
+    watchResult: 'watch/result',
     nodes: 'nodes',
   }
 
@@ -54,6 +56,19 @@ export class BackendService {
         model : this.model.json,
         inputs: inputs,
       });
+  }
+
+  watch() {
+    return this.http.post<void>(
+      this.api + BackendService.apiCalls.watch,
+      {
+        model: this.model.json
+      }
+    );
+  }
+
+  watchResult() {
+    return this.http.get<any>(this.api + BackendService.apiCalls.watchResult + `/?path=${this.model.path}`);
   }
 
   public get nodes() {

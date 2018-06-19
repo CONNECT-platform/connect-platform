@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="256px" height="256px" viewBox="0 0 256 256" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46 (44423) - http://www.bohemiancoding.com/sketch -->
+    <title>watching</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="assets" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="watching">
+            <g id="Group" transform="translate(24.000000, 58.000000)">
+                <path d="M176,60 C176,51.163444 168.836556,44 160,44 L160,52 C164.418278,52 168,55.581722 168,60 L176,60 L176,60 Z M16,60 C16,51.163444 23.163444,44 32,44 L32,52 C27.581722,52 24,55.581722 24,60 L16,60 Z M32,44 L160,44 L160,52 L32,52 L32,44 Z M168,60 L176,60 L176,124 L168,124 L168,60 Z" id="Combined-Shape" fill="#FFFFFF"></path>
+                <path d="M176,140 C176,131.163444 168.836556,124 160,124 L160,132 C164.418278,132 168,135.581722 168,140 L176,140 Z M16,140 C16,131.163444 23.163444,124 32,124 L32,132 C27.581722,132 24,135.581722 24,140 L16,140 Z M32,124 L160,124 L160,132 L32,132 L32,124 Z" id="Combined-Shape-Copy-2" fill="#FFFFFF" transform="translate(96.000000, 132.000000) scale(1, -1) translate(-96.000000, -132.000000) "></path>
+                <path d="M48,28 C48,19.163444 55.163444,12 64,12 L64,20 C59.581722,20 56,23.581722 56,28 L48,28 Z" id="Combined-Shape-Copy" fill="#FFFFFF"></path>
+                <path d="M112,16 C112,7.163444 119.163444,0 128,0 L128,8 C123.581722,8 120,11.581722 120,16 L112,16 Z" id="Combined-Shape-Copy-7" fill="#FFFFFF"></path>
+                <path d="M160,16 C160,7.163444 167.163444,0 176,0 L176,8 C171.581722,8 168,11.581722 168,16 L160,16 Z" id="Combined-Shape-Copy-9" fill="#FFFFFF" transform="translate(168.000000, 8.000000) scale(-1, 1) translate(-168.000000, -8.000000) "></path>
+                <path d="M112,32 C112,23.163444 119.163444,16 128,16 L128,24 C123.581722,24 120,27.581722 120,32 L112,32 Z" id="Combined-Shape-Copy-8" fill="#FFFFFF" transform="translate(120.000000, 24.000000) scale(1, -1) translate(-120.000000, -24.000000) "></path>
+                <path d="M160,32 C160,23.163444 167.163444,16 176,16 L176,24 C171.581722,24 168,27.581722 168,32 L160,32 Z" id="Combined-Shape-Copy-10" fill="#FFFFFF" transform="translate(168.000000, 24.000000) scale(-1, -1) translate(-168.000000, -24.000000) "></path>
+                <path d="M0,116 C0,107.163444 7.163444,100 16,100 L16,108 C11.581722,108 8,111.581722 8,116 L-8.8817842e-16,116 Z" id="Combined-Shape-Copy-4" fill="#FFFFFF" transform="translate(8.000000, 108.000000) scale(1, -1) translate(-8.000000, -108.000000) "></path>
+                <path d="M80,116 C80,107.163444 87.163444,100 96,100 L96,108 C91.581722,108 88,111.581722 88,116 L80,116 Z" id="Combined-Shape-Copy-5" fill="#FFFFFF" transform="translate(88.000000, 108.000000) scale(-1, -1) translate(-88.000000, -108.000000) "></path>
+                <path d="M0,84 C0,75.163444 7.163444,68 16,68 L16,76 C11.581722,76 8,79.581722 8,84 L-8.8817842e-16,84 Z" id="Combined-Shape-Copy-3" fill="#FFFFFF"></path>
+                <path d="M80,84 C80,75.163444 87.163444,68 96,68 L96,76 C91.581722,76 88,79.581722 88,84 L80,84 Z" id="Combined-Shape-Copy-6" fill="#FFFFFF" transform="translate(88.000000, 76.000000) scale(-1, 1) translate(-88.000000, -76.000000) "></path>
+                <rect id="Rectangle-4-Copy" fill="#FFFFFF" x="16" y="116" width="8" height="8"></rect>
+                <rect id="Rectangle-4-Copy-2" fill="#FFFFFF" x="16" y="60" width="8" height="8"></rect>
+                <rect id="Rectangle-4-Copy-3" fill="#FFFFFF" x="88" y="84" width="8" height="16"></rect>
+                <rect id="Rectangle-4-Copy-4" fill="#FFFFFF" x="0" y="84" width="8" height="16"></rect>
+                <rect id="Rectangle-5" fill="#FFFFFF" x="16" y="68" width="64" height="8"></rect>
+                <rect id="Rectangle-5-Copy-2" fill="#FFFFFF" x="128" y="0" width="32" height="8"></rect>
+                <rect id="Rectangle-5-Copy-5" fill="#FFFFFF" x="48" y="28" width="8" height="16"></rect>
+                <rect id="Rectangle-5-Copy-4" fill="#FFFFFF" x="64" y="12" width="56" height="8"></rect>
+                <rect id="Rectangle-5-Copy-3" fill="#FFFFFF" x="128" y="24" width="32" height="8"></rect>
+                <rect id="Rectangle-5-Copy" fill="#FFFFFF" x="16" y="108" width="64" height="8"></rect>
+                <rect id="Rectangle-6" fill="#FFFFFF" x="60" y="88" width="16" height="8" rx="4"></rect>
+                <rect id="Rectangle-6-Copy" fill="#FFFFFF" x="40" y="88" width="8" height="8" rx="4"></rect>
+                <path d="M172,74 C182.666667,71.3333333 195,66.6666667 209,60 L209,124 C195,117.333333 182.666667,112.666667 172,110 L172,74 Z" id="Path-2" stroke="#FFFFFF" stroke-width="8"></path>
+            </g>
+        </g>
+    </g>
+</svg>

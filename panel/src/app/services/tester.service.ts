@@ -24,6 +24,7 @@ export class TesterService {
   private _state: TesterStates = TesterStates.Idle;
   private _playbackPosition: number = 0;
   private _playbackInterval: any;
+  private _watchInterval: any;
 
   private _onActivated : EventEmitter<void> = new EventEmitter<void>();
   private _onDeactivated : EventEmitter<void> = new EventEmitter<void>();
@@ -54,6 +55,8 @@ export class TesterService {
     this._recording = undefined;
     this._playbackPosition = 0;
     clearInterval(this._playbackInterval);
+    clearInterval(this._watchInterval);
+    this._watchInterval = undefined;
     this._onDeactivated.emit();
     return this;
   }
@@ -88,7 +91,6 @@ export class TesterService {
 
           if (response.recording) {
             this._recording = response.recording;
-            console.log(this._recording);
             this._onRecorded.emit(response.recording);
             this.play();
           }
@@ -108,6 +110,31 @@ export class TesterService {
       if (this._state == TesterStates.Playing) this.pause();
       else this.play();
     }
+  }
+
+  public watch() {
+    this.deactivate();
+    this.activate();
+
+    this.backend.watch().subscribe(() => {
+      this._watchInterval = setInterval(() => {
+        this.backend.watchResult().subscribe(response => {
+          if (response.recording) {
+            clearInterval(this._watchInterval);
+            this._watchInterval = undefined;
+
+            this._recording = response.recording;
+            this._onRecorded.emit(response.recording);
+            this.play();
+          }
+        });
+      }, 500);
+    });
+  }
+
+  public cancelWatch() {
+    clearInterval(this._watchInterval);
+    this._watchInterval = undefined;
   }
 
   public play() {
@@ -155,6 +182,7 @@ export class TesterService {
   public get state() { return this._state; }
   public get active() { return this._active; }
   public get recording() { return this._recording; }
+  public get watching() { return this._watchInterval != null; }
 
   public get playbackPosition() { return this._playbackPosition; }
   public set playbackPosition(val) {

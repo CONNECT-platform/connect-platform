@@ -2,7 +2,8 @@
 [ngClass]="{'active': active}">
   <div class="aligner" (click)="checkClose($event)">
     <div class="inner" #inner>
-      <div class="title">
+      <img *ngIf="icon" [src]="icon" class="icon"/>
+      <div class="title" [ngClass]="{ centered : icon }">
         <ng-content select="overlay-title"></ng-content>
       </div>
       <div class="content">

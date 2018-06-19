@@ -46,6 +46,8 @@
           (click)="editMode()"
           [ngClass]="{'active': tester.active}">Edit</div>
       </div>
+      <div class="button watch"
+        (click)="tester.watch()">Watch</div>
       <br/><br/>
       <div class="button" (click)="confirmDeletion()">Delete</div>
     </div>
@@ -180,6 +182,27 @@
   <overlay-actions>
     <button (click)="testErrorDetailsOverlay.close()">
       Ok
+    </button>
+  </overlay-actions>
+</overlay>
+
+<overlay #watchingOverlay
+  icon="assets/watching.svg"
+  [active]="tester.watching">
+  <overlay-title>
+    Watching
+    <span class="overlay-path">{{model.path}}</span>
+  </overlay-title>
+  <overlay-content>
+    The next invocation of
+    <span class="overlay-path">{{model.path}}</span> will use
+    this node design and will be recorded. That invocation might come
+    from another node calling this path or, if it is public, if there is
+    an external request to it. Waiting for the invocation ...
+  </overlay-content>
+  <overlay-actions>
+    <button (click)="tester.cancelWatch()">
+      Cancel
     </button>
   </overlay-actions>
 </overlay>

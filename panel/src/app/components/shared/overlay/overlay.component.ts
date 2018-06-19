@@ -10,6 +10,8 @@ import { elementBox } from '../../../util/elem-box';
 })
 export class OverlayComponent implements OnInit {
 
+  @Input() public icon: string;
+
   @ViewChild('inner') inner: ElementRef;
   private _active : boolean = false;
   private _onActivate : EventEmitter<void> = new EventEmitter<void>();
