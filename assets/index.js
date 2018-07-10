@@ -11,9 +11,13 @@ const correct = function() {
     const height = $el.height();
     const wintop = $win.scrollTop();
 
-    if (wintop > top - margin && wintop < top + height - margin)
+    if (wintop > top - margin && wintop < top + height - margin) {
       $target = $el;
+    }
   });
+
+  $('.section').removeClass('active');
+  $target.addClass('active');
 
   if ($target && $target.is('.white')) $('body').addClass('white');
   else $('body').removeClass('white');
