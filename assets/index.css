@@ -55,3 +55,39 @@ body.white .section.white {
   background-position: center;
   background-size: 80vmin;
 }
+
+pre {
+  max-width: 100%;
+}
+
+code.hljs {
+  display: inline-block;
+  background: #212121;
+  padding: 0px 32px;
+  border-radius: 32px;
+  border: 1px solid white;
+  color: #bdbdbd;
+  font-size: 14px;
+  text-align: left;
+  max-width: 80vw;
+}
+
+code.hljs span.hljs-built_in {
+  color: #B2FF59;
+}
+
+code.hljs span.hljs-keyword {
+  color: #2979FF;
+}
+
+code.hljs span.hljs-params {
+  color: #FFC400;
+}
+
+code.hljs span.hljs-number {
+  color: #d500f9;
+}
+
+span.hl {
+  color: #B2FF59;
+}
