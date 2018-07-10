@@ -1,7 +1,7 @@
 const $win = $(window);
 
 const correct = function() {
-  const margin = $win.height() * .5;
+  const margin_default = $win.height() * .5;
   let $target = null;
 
   $('.section').each((_, el) => {
@@ -11,13 +11,20 @@ const correct = function() {
     const height = $el.height();
     const wintop = $win.scrollTop();
 
-    if (wintop > top - margin && wintop < top + height - margin) {
+    let margin = margin_default;
+
+    if ($el.attr('switch-margin')) {
+      let factor = $el.attr('switch-margin');
+      margin = $win.height() * factor;
+    }
+
+    if (wintop > top - margin) {
       $target = $el;
     }
-  });
 
-  $('.section').removeClass('active');
-  $target.addClass('active');
+    if (wintop > top) $el.addClass('active');
+    else $el.removeClass('active');
+  });
 
   if ($target && $target.is('.white')) $('body').addClass('white');
   else $('body').removeClass('white');

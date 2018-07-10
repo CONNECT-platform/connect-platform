@@ -15,7 +15,7 @@
     <link href="assets/index.css" rel="stylesheet">
     <script src="assets/index.js"></script>
   </head>
-  <body>
+  <body class="white">
     <script>
       hljs.initHighlightingOnLoad();
     </script>
@@ -62,10 +62,10 @@ npm install connect-platform --save
         <div class="spacer"></div>
 
         <h2>
-          Visual Backend Development Platform
+          visual backend development platform
         </h2>
         <p>
-          Its 2018, and outlining backend logic is still being done in the same archaic manner
+          its 2018, and outlining backend logic is still being done in the same archaic manner
           that the first unix kernel was developed. As backend developers, we had enough, and decided
           to change that.
         </p>
@@ -98,24 +98,131 @@ npm install connect-platform --save
 
 
     <!-- the youtube video -->
-    <div class="section top">
+    <div class="section minimal" switch-margin=".1">
       <div class="inner full">
         <div class="video">
-          <iframe width="1120" height="730" src="https://www.youtube-nocookie.com/embed/Orjtawd7_EU" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+          <iframe width="1120" height="730" src="https://www.youtube-nocookie.com/embed/Orjtawd7_EU?color=white&rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
         </div>
       </div>
     </div>
 
+    <!-- the other two youtube videos -->
     <div class="section">
-      C
+      <div class="inner">
+
+        <div class="spacer huge"></div>
+
+        <div class="video-n-text">
+          <div class="video">
+            <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/NQ7p-b7EX_I?color=white&rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+          </div>
+          <div class="text">
+            <h2>coding with <b>CONNECT</b> looks like this</h2>
+            <p>
+              you just outline your logic in an intuitive way, and it works. all you need
+              to do is to connect (pun intended) building blocks at your disposal to form your
+              own unique business logic.
+            </p>
+          </div>
+        </div>
+
+        <div class="spacer huge"></div>
+
+        <div class="video-n-text opposite">
+          <div class="video">
+            <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/T-IGc6Z3pYA?color=white&rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+          </div>
+          <div class="text">
+            <h2>testing/debugging with <b>CONNECT</b> looks like this</h2>
+            <p>
+              you can see the flow of the code, all the values being transmitted, and even
+              the precise time each node is consuming to do its task.
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div class="section white">
-      D
+    <!-- micro vs macro -->
+    <div class="section white spatious">
+      <div class="inner">
+        <h1>cool, but why?</h1>
+        <p>
+          because we think the problem stems from the fact that our current development
+          process is essentially two separate processes mashed into each other:
+        </p>
+
+        <div class="spacer huge"></div>
+
+        <div class="two-cols">
+          <div class="col">
+            <img class="pencil" src="assets/micrologic.svg"/>
+            <h2>micrologic</h2>
+            <p>
+              i.e. building blocks that are not specific to your business logic,
+              stuff like authentication, querying a database, etc.
+            </p>
+          </div>
+          <div class="col">
+            <img class="pencil delayed" src="assets/macrologic.svg"/>
+            <h2>macrologic</h2>
+            <p>
+              i.e. composing those building blocks to form a unique business logic.
+            </p>
+          </div>
+        </div>
+
+        <div class="spacer ocean desktop-only"></div>
+        <div class="spacer wide mobile-only"></div>
+
+        <p>
+          <b>CONNECT</b> allows you to separate these two layers, bring your already
+          working building blocks with one-additional line of code and connect them
+          visually to form the macrologic of your product.
+        </p>
+      </div>
     </div>
 
+    <!-- asynchronous flow -->
     <div class="section">
-      D
+      <div class="inner">
+        <h1>not just that ...</h1>
+        <p>
+          but also, backend logic is essentially asynchronous, which means its flow
+          is more of a graph rather than the usual sequence of synchronous logic, and
+          as a result using the same representation (i.e. a chain) would always be sub-optimal.
+        </p>
+        <div class="spacer wide"></div>
+        <p>
+          for example, a simple asynchronous flow like this:
+        </p>
+        <img src="assets/shot2.png" class="shot"/>
+        <p>
+          would be coded like this:
+        </p>
+        <pre><code class="javascript">
+doA().then(function(outA) {
+  Promise.all([
+    new Promise(function(resolve) {
+      doB(outA).then(function(outB) {
+        doD(outB).then(function(outD) {
+          resolve(outD);
+        });
+      });
+    }),
+    new Promise(function(resolve) {
+      doC(outA).then(function(outC) {
+        doE(outC).then(function(outE) {
+          resolve(outE);
+        });
+      });
+    })
+    ]).then(function(values) {
+      doF(values[0], values[1]);
+    });
+});
+        </code></pre>
+      </div>
     </div>
 
   </body>
