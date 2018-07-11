@@ -42,4 +42,6 @@ const correct = function() {
 $win.scroll(correct);
 $win.resize(correct);
 
+setInterval(correct, 800);
+
 $(document).ready(correct);

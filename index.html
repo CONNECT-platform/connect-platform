@@ -225,5 +225,79 @@ doA().then(function(outA) {
       </div>
     </div>
 
+    <!-- how to use -->
+    <div class="section white">
+      <div class="inner">
+        <h1>how could I use CONNECT?</h1>
+        <p>
+          currently, <b>CONNECT platform</b> is an open-source nodejs package, which you
+          can easily install and use on your nodejs projects:
+        </p>
+        <div class="spacer"></div>
+        <pre><code class="bash">
+npm install connect-platform --save
+        </code></pre>
+        <div class="spacer"></div>
+        <p>
+          for more information on how to configure and use <b>CONNECT</b>, take a look
+          at this
+          <a href="https://medium.com/connect-platform/getting-started-with-connect-platform-3d16ea7a3e77" target="_blank">guide</a>.
+        </p>
+
+        <div class="spacer wide"></div>
+
+        <p>
+          we are also working on building a <b>platform as a service (PaaS)</b> for <b>CONNECT platform</b>,
+          so that you would not need to care about deployment and dev ops as well and could just focus
+          on your backend logic. while that is yet to be released, you can check out an immutable demo
+          <a href="https://connect-platform.now.sh/panel/" target="_blank">here</a>.
+        </p>
+      </div>
+    </div>
+
+    <!-- how to contribute -->
+    <div class="section">
+      <div class="inner">
+        <h1>how can I contribute?</h1>
+        <p>
+          the core of <b>CONNECT platform</b> is an open-source project, which means that we would
+          really appreciate it if you would want to take a look at the code and/or even contribute.
+        </p>
+        <div class="spacer"></div>
+        <pre><code class="bash">
+# clone from git
+git clone https://github.com/loreanvictor/connect-platform.git
+
+# go to the directory
+cd connect
+cd platform
+
+# install dependencies
+npm install
+
+# go to panel directory and install its dependencies
+cd panel
+npm install
+
+# build the panel
+npm run angular-build
+
+# go back and start the project
+cd ..
+npm start
+        </code></pre>
+        <div class="spacer"></div>
+        <p>
+          for contribution, please take a look at
+          <a href="https://github.com/loreanvictor/connect-platform/blob/master/CONTRIBUTING.md" target="_blank">this document</a>
+          as well, and get in touch if you have any questions or even if you just want to chat ;)
+        </p>
+      </div>
+    </div>
+
+    <div class="section">
+      <img src="assets/logo.svg"/>
+    </div>
+
   </body>
 </html>
