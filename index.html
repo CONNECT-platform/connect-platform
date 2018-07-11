@@ -15,95 +15,192 @@
     <link href="assets/index.css" rel="stylesheet">
     <script src="assets/index.js"></script>
   </head>
-  <body>
+  <body class="white">
     <script>
       hljs.initHighlightingOnLoad();
     </script>
 
-    <img class="carbon" src="assets/carbon.svg"/>
+    <!-- static background of the website, does not scroll -->
+    <div class="back">
+      <img src="assets/flat.svg"/>
+    </div>
 
-    <section id="intro" class="full">
-      <div>
-        <img src="assets/logo.svg" class="logo"/>
-        <div>
-          <pre><code class="bash">
+    <div class="back white">
+    </div>
+
+    <!-- desktop contact buttons -->
+
+    <div class="contact desktop-only">
+      <a class="button icon" href="https://twitter.com/lorean_victor" target="_blank">
+        <img src="assets/twitter.svg"/>
+      </a>
+      <a class="button icon" href="https://github.com/loreanvictor/connect-platform" target="_blank">
+        <img src="assets/github.svg"/>
+      </a>
+      <a class="button icon" href="https://medium.com/connect-platform" target="_blank">
+        <img src="assets/medium.svg"/>
+      </a>
+      <a class="button icon" href="https://www.linkedin.com/company/connect-platform/" target="_blank">
+        <img src="assets/linkedin.svg"/>
+      </a>
+    </div>
+
+    <!-- sections -->
+
+    <!-- intro section -->
+
+    <div class="section white">
+      <div class="inner">
+        <img src="assets/logo-type-std.svg"/>
+
+        <div class="spacer"></div>
+
+        <pre><code class="bash">
 npm install connect-platform --save
-          </code></pre>
-        </div>
-        <div class="small">
-          Building backend services isn't as easy as it should be. It is error-prone,
-          repetitive, and generally not fun.
-          We created <span class="hl">CONNECT platform</span> to change that.
-        </div>
-        <br>
-        <a onclick="scrollToSection($('#idea'))">read on</a>
-        <a href="https://medium.com/connect-platform/guides/home" target="_blank">
+        </code></pre>
+
+        <div class="spacer"></div>
+
+        <h2>
+          visual backend development platform
+        </h2>
+        <p>
+          its 2018, and outlining backend logic is still being done in the same archaic manner
+          that the first unix kernel was developed. As backend developers, we had enough, and decided
+          to change that.
+        </p>
+
+        <a class="button" href="https://medium.com/connect-platform/guides/home" target="_blank">
           guides
         </a>
-      </div>
-    </section>
-    <section id="idea">
-      <h1>how do you want to change that?</h1>
-      <div class="small">
-        with <span class="hl">CONNECT platform</span>, you can do the main logic of your
-        backend service like this:
-      </div>
-      <br/>
-      <div class="video-container">
-        <iframe class="video" width="xxx" height="xxx" src="https://www.youtube-nocookie.com/embed/CXmPXbjY6EQ?vq=hd720" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-      </div>
-      <br/>
-      <div class="small">
-        it is a <span class="hl">Node.js</span> package that you install
-        on your project and it simply offers you these tools. you simply mark functions
-        that you want to use as your <span class="hl">building blocks</span>, and you
-        will have them all at your disposal to connect and build into something bigger.
-        install and take a look at
-        <a class="in-text" href="https://medium.com/connect-platform/guides/home" target="_blank">
-          our guides
+        <a class="button" href="https://connect-platform.now.sh/panel" target="_blank">
+          demo
         </a>
-        to see for yourself.
+
+        <div class="mobile-only">
+          <a class="button icon" href="https://twitter.com/lorean_victor" target="_blank">
+            <img src="assets/twitter.svg"/>
+          </a>
+          <a class="button icon" href="https://github.com/loreanvictor/connect-platform" target="_blank">
+            <img src="assets/github.svg"/>
+          </a>
+          <a class="button icon" href="https://medium.com/connect-platform" target="_blank">
+            <img src="assets/medium.svg"/>
+          </a>
+          <a class="button icon" href="https://www.linkedin.com/company/connect-platform/" target="_blank">
+            <img src="assets/linkedin.svg"/>
+          </a>
+        </div>
+
+        <div class="spacer"></div>
       </div>
-      <br/>
-      <a onclick="scrollToSection($('#intuition'))">hmmm ...</a>
-    </section>
-    <section id="intuition" class="full">
-      <div>
+    </div>
+
+
+    <!-- the youtube video -->
+    <div class="section minimal" switch-margin=".1">
+      <div class="inner full">
+        <div class="video">
+          <iframe width="1120" height="730" src="https://www.youtube-nocookie.com/embed/Orjtawd7_EU?color=white&rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+
+    <!-- the other two youtube videos -->
+    <div class="section">
+      <div class="inner">
+
+        <div class="spacer huge"></div>
+
+        <div class="video-n-text">
+          <div class="video">
+            <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/NQ7p-b7EX_I?color=white&rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+          </div>
+          <div class="text">
+            <h2>coding with <b>CONNECT</b> looks like this</h2>
+            <p>
+              you just outline your logic in an intuitive way, and it works. all you need
+              to do is to connect (pun intended) building blocks at your disposal to form your
+              own unique business logic.
+            </p>
+          </div>
+        </div>
+
+        <div class="spacer huge"></div>
+
+        <div class="video-n-text opposite">
+          <div class="video">
+            <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/T-IGc6Z3pYA?color=white&rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+          </div>
+          <div class="text">
+            <h2>testing/debugging with <b>CONNECT</b> looks like this</h2>
+            <p>
+              you can see the flow of the code, all the values being transmitted, and even
+              the precise time each node is consuming to do its task.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- micro vs macro -->
+    <div class="section white spatious">
+      <div class="inner">
         <h1>cool, but why?</h1>
-        <div class="small">
-          well for starters, web-service logic is essentially asynchronous,
-          which results in non-linear execution flows, while we are representing such flows in an
-          extremely linear fashion, that is, a sequence of characters.
+        <p>
+          because we think the problem stems from the fact that our current development
+          process is essentially two separate processes mashed into each other:
+        </p>
+
+        <div class="spacer huge"></div>
+
+        <div class="two-cols">
+          <div class="col">
+            <img class="pencil" src="assets/micrologic.svg"/>
+            <h2>micrologic</h2>
+            <p>
+              i.e. building blocks that are not specific to your business logic,
+              stuff like authentication, querying a database, etc.
+            </p>
+          </div>
+          <div class="col">
+            <img class="pencil delayed" src="assets/macrologic.svg"/>
+            <h2>macrologic</h2>
+            <p>
+              i.e. composing those building blocks to form a unique business logic.
+            </p>
+          </div>
         </div>
-        <br/>
-        <div class="small">
-          So, we do this:
-        </div>
-        <div>
-          <pre><code class="javascript">
-doA().then(function(outA) {
-  doB(outA).then(function(outB) {
-    doC(outB);
-  });
-});
-          </code></pre>
-        </div>
-        <div class="small">
-          instead of this:
-        </div>
-        <br/>
+
+        <div class="spacer ocean desktop-only"></div>
+        <div class="spacer wide mobile-only"></div>
+
+        <p>
+          <b>CONNECT</b> allows you to separate these two layers, bring your already
+          working building blocks with one-additional line of code and connect them
+          visually to form the macrologic of your product.
+        </p>
       </div>
-      <a class="img" href="assets/shot1.png" target="_blank">
-        <img src="assets/shot1.png" width="100%"/>
-      </a>
-      <div>
-        <br/>
-        <div class="small">
-          which specifically gets worse when the logical flow really gets
-          non-linear:
-        </div>
-        <div>
-          <pre><code class="javascript">
+    </div>
+
+    <!-- asynchronous flow -->
+    <div class="section">
+      <div class="inner">
+        <h1>not just that ...</h1>
+        <p>
+          but also, backend logic is essentially asynchronous, which means its flow
+          is more of a graph rather than the usual sequence of synchronous logic, and
+          as a result using the same representation (i.e. a chain) would always be sub-optimal.
+        </p>
+        <div class="spacer wide"></div>
+        <p>
+          for example, a simple asynchronous flow like this:
+        </p>
+        <img src="assets/shot2.png" class="shot"/>
+        <p>
+          would be coded like this:
+        </p>
+        <pre><code class="javascript">
 doA().then(function(outA) {
   Promise.all([
     new Promise(function(resolve) {
@@ -120,111 +217,54 @@ doA().then(function(outA) {
         });
       });
     })
-  ]).then(function(values) {
-    doF(values[0], values[1]);
-  });
+    ]).then(function(values) {
+      doF(values[0], values[1]);
+    });
 });
-          </code></pre>
-        </div>
-        <div class="small">
-          compared to this:
-        </div>
-        <br/>
+        </code></pre>
       </div>
-      <a class="img" href="assets/shot2.png" target="_blank">
-        <img src="assets/shot2.png" width="100%"/>
-      </a>
-      <div>
-        <br/>
-        <div class="small">
-          pretty obvious what we are doing wrong, right?
-          <br/>
-          if you want to read more about this, take a look at
-          <a class="in-text" href="https://medium.com/connect-platform/actually-i-do-not-think-programming-languages-are-the-best-way-to-do-backend-code-ab39948af57c" target="_blank">
-            this article
-          </a>.
-        </div>
-        <br/>
-        <a onclick="scrollToSection($('#seperation'))">i guess so ...</a>
-      </div>
-    </section>
-    <section id="seperation">
-      <div>
-        <h1>is that it?</h1>
-        <div class="small">
-          of course not. i mean, it is not just about sync and async code. doing backend code
-          is becoming more and more stale and repetitive and boring by the day, while it should
-          essentially be focusing on the core business logic that you want to do with your service.
-          <br><br>
-          we believe the main reason is that software development is essentially two separate
-          processes mashed into each other in an unholy manner:
+    </div>
 
-          <h1><span class="hl">micrologic, i.e. creating building blocks</span></h1>
-          this is what programming languages were created for. to create some building blocks,
-          which are usually more independent from the business logic and hence highly reusable.
-          and,
-
-          <h1><span class="hl">macrologic, or building something with those building blocks</span></h1>
-          which is the larger-scope logic of the product. think user journey, process analysis,
-          or however context a product designer/manager/owner/whatever might like to describe
-          the product. this is far less reusable as it is highly entangled in the product definition
-          and goals itself.
-
-          <br><br>
-
-          <b>these two processes require different skill sets</b>, technically skilled people excell at doing
-          the former while you require product-manager-ish people to correctly do the latter.
-          <br><br>
-          <b>they also require different mind-sets as well</b>, while creating some building blocks you are not
-          thinking of user and product's flow, you are thinking performance, reusability, etc,
-          yet while you are connecting them together to form a backend service as part of your product's
-          business logic you are not thinking of performance or reusability, you are thinking of what
-          happens to your users and where the data flows in your system.
-          <br><br>
-          <b>they even require different tools</b>, since the building blocks themselves are usually better
-          off done in classic synchronous codes, while the high-level logic of a web service is
-          definitely asynchronous in nature, and as discussed above, programming languages aren't
-          the best tools to do the latter.
-          <br><br>
-          however, in the end of the day, we are now doing them all in one place through programming them.
-          product people aren't as hands-on (as they cannot be with complex codes we have), so although
-          they offer some idea of what is to be implemented, the work is on the shoulder of technical people
-          still. in this light, it is rather obvious why separating these two with a tool like
-          <span class="hl">CONNECT platform</span>
-          and putting people with the correct skills and mindsets in charge of each greatly increases
-          speed and productivity.
-          <br>
-          if you want to read more about this, take a look at
-          <a class="in-text" href="https://medium.com/connect-platform/we-are-doing-software-development-essentially-wrong-7855d75335ab" target="_blank">
-            this article
-          </a>.
-          <br><br>
-        </div>
-        <a onclick="scrollToSection($('#farewell'))">interesting ...</a>
-      </div>
-    </section>
-    <section class="full" id="farewell">
-      <div>
-        <h1>interested?</h1>
-        <div class="small">
-          this is a really early stage project. it has yet to be get more and more integrations
-          and feature rich, and it has yet to be truly tested in heavy-load environments.
-          however, if you are interested, you can give it a try:
-        </div>
-        <br>
-        <div>
-          <pre><code class="bash">
+    <!-- how to use -->
+    <div class="section white">
+      <div class="inner">
+        <h1>how could I use CONNECT?</h1>
+        <p>
+          currently, <b>CONNECT platform</b> is an open-source nodejs package, which you
+          can easily install and use on your nodejs projects:
+        </p>
+        <div class="spacer"></div>
+        <pre><code class="bash">
 npm install connect-platform --save
-          </code></pre>
-        </div>
-        <br>
-        <div class="small">
-          and/or better yet, you can clone the code and contribute to this project and help
-          reduce the pain of next backend project someone like you and me would need to do:
-        </div>
-        <br>
-        <div>
-          <pre><code class="bash">
+        </code></pre>
+        <div class="spacer"></div>
+        <p>
+          for more information on how to configure and use <b>CONNECT</b>, take a look
+          at this
+          <a href="https://medium.com/connect-platform/getting-started-with-connect-platform-3d16ea7a3e77" target="_blank">guide</a>.
+        </p>
+
+        <div class="spacer wide"></div>
+
+        <p>
+          we are also working on building a <b>platform as a service (PaaS)</b> for <b>CONNECT platform</b>,
+          so that you would not need to care about deployment and dev ops as well and could just focus
+          on your backend logic. while that is yet to be released, you can check out an immutable demo
+          <a href="https://connect-platform.now.sh/panel/" target="_blank">here</a>.
+        </p>
+      </div>
+    </div>
+
+    <!-- how to contribute -->
+    <div class="section">
+      <div class="inner">
+        <h1>how can I contribute?</h1>
+        <p>
+          the core of <b>CONNECT platform</b> is an open-source project, which means that we would
+          really appreciate it if you would want to take a look at the code and/or even contribute.
+        </p>
+        <div class="spacer"></div>
+        <pre><code class="bash">
 # clone from git
 git clone https://github.com/loreanvictor/connect-platform.git
 
@@ -245,28 +285,19 @@ npm run angular-build
 # go back and start the project
 cd ..
 npm start
-          </code></pre>
-        </div>
-        <div class="sticky-contacts">
-          <a class="circle sticky-contact"
-            href="https://medium.com/connect-platform" target="_blank">
-            <img src="assets/medium.svg"/>
-          </a>
-          <a class="circle sticky-contact"
-            href="https://twitter.com/lorean_victor/" target="_blank">
-            <img src="assets/twitter.svg"/>
-          </a>
-          <a class="circle sticky-contact"
-              href="https://github.com/loreanvictor/connect-platform" target="_blank">
-            <img src="assets/github.svg"/>
-          </a>
-          <a class="circle sticky-contact"
-            href="https://www.linkedin.com/in/eugeneghanizadeh" target="_blank">
-            <img src="assets/linkedin.svg"/>
-          </a>
-        </div>
-        <br><br><br><br>
+        </code></pre>
+        <div class="spacer"></div>
+        <p>
+          for contribution, please take a look at
+          <a href="https://github.com/loreanvictor/connect-platform/blob/master/CONTRIBUTING.md" target="_blank">this document</a>
+          as well, and get in touch if you have any questions or even if you just want to chat ;)
+        </p>
       </div>
-    </section>
+    </div>
+
+    <div class="section">
+      <img src="assets/logo.svg"/>
+    </div>
+
   </body>
 </html>
