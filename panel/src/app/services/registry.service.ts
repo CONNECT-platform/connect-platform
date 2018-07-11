@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Signature } from '../models/signature.model';
+import { Signature, SignatureHints } from '../models/signature.model';
 import { BackendService } from './backend.service';
 import { EditorModelService } from './editor-model.service';
 
@@ -37,6 +37,10 @@ export class RegistryService {
 
   public signature(path): Signature {
     return this._registry[path];
+  }
+
+  public hints(path): SignatureHints|null {
+    return this._registry[path].hints;
   }
 
   public get allPaths() {

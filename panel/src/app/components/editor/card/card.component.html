@@ -13,7 +13,7 @@
         <div #inputs>
           <ng-container *ngFor="let in of node.in.items">
             <div class="input">
-              <editor-pin [pin]="in.pin"></editor-pin>
+              <editor-pin [pin]="in.pin" (mouseover)="mouseover($event, in)"></editor-pin>
               <input type="text"
                     [readonly]="tester.active"
                     [value]="in.label"
@@ -68,7 +68,9 @@
                 [(ngModel)]="node.path"/>
         </div>
         <div class="path-suggest" *ngIf="suggestPaths && !tester.active">
-          <div class="item" *ngFor="let path of suggestPaths" (mousedown)="node.path=path">
+          <div class="item" *ngFor="let path of suggestPaths"
+            (mouseover)="mouseover($event, undefined, path)"
+            (mousedown)="node.path=path">
             {{ path }}
           </div>
         </div>
@@ -76,8 +78,8 @@
         <div #inputs>
           <ng-container *ngFor="let in of node.in.items">
             <div class="input">
-              <editor-pin [pin]="in.pin"></editor-pin>
-              <span type="text">{{in.label}}</span>
+              <editor-pin [pin]="in.pin" (mouseover)="mouseover($event, in)"></editor-pin>
+              <span type="text" (mouseover)="mouseover($event, in)">{{in.label}}</span>
             </div>
           </ng-container>
         </div>
@@ -85,8 +87,8 @@
         <div #outputs>
           <ng-container *ngFor="let out of node.out.items">
             <div class="output">
-              <span type="text">{{out.label}}</span>
-              <editor-pin [pin]="out.pin"></editor-pin>
+              <span type="text" (mouseover)="mouseover($event, out)">{{out.label}}</span>
+              <editor-pin [pin]="out.pin" (mouseover)="mouseover($event, out)"></editor-pin>
             </div>
           </ng-container>
         </div>
@@ -94,8 +96,8 @@
         <div #controls>
           <ng-container *ngFor="let control of node.control.items">
             <div class="output control">
-              <span type="text">{{control.label}}</span>
-              <editor-pin [pin]="control.pin"></editor-pin>
+              <span type="text" (mouseover)="mouseover($event, control)">{{control.label}}</span>
+              <editor-pin [pin]="control.pin" (mouseover)="mouseover($event, control)"></editor-pin>
             </div>
           </ng-container>
         </div>

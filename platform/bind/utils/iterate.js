@@ -6,7 +6,25 @@ platform.core.node({
   public : false,
   inputs : ['target'],
   outputs : ['step'],
-  controlOutputs : ['finished']
+  controlOutputs : ['finished'],
+  hints: {
+    node: 'iterates on the given list (or other iterable object). '+
+          'pass a list (or other iterables) to the <span class="hl-blue">target</span> input, '+
+          'and pass the result of <span class="hl-blue">step</span> output back to the <span class="hl-blue">target</span> input.'+
+          'make sure to add a control mechanism in that loop, as otherwise it would be an infinite loop.',
+    inputs: {
+      target: 'a list (or other iterable object) for initializing iteration, or '+
+          ' the <span class="hl-blue">step</span> object created by this node for '+
+          'continuation of the iteration.'
+    },
+    outputs: {
+      step: 'a step object holding the state of the iteration. you should pass it back '+
+          'to the <span class="hl-blue">target</span> input of this node for continuation of the iteration.'
+    },
+    controlOutputs: {
+      finished: 'will activate when the iteration is finished.'
+    }
+  }
 }, (inputs, output, control) => {
   if (inputs.target.__iteration_step) {
     if (inputs.target.last)

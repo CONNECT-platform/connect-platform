@@ -66,6 +66,14 @@ button:hover {
   background: #ff1744;
 }
 
+.hl-green {
+  color: #76FF03;
+}
+
+.hl-blue {
+  color: #448aff;
+}
+
 /*** ACE EDITOR OVERRIDES ***/
 
 ace-editor {

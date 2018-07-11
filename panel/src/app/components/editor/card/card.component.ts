@@ -8,6 +8,8 @@ import { HintRef, HintService } from '../../../services/hint.service';
 
 import { RegistryService } from '../../../services/registry.service';
 import { Node, NodeEvents } from '../../../models/node.model';
+import { PinType } from '../../../models/pin.model';
+import { PinListItem } from '../../../models/pin-list.model';
 import { Value } from '../../../models/value.model';
 import { Expr, ExprEvents } from '../../../models/expr.model';
 import { Switch } from '../../../models/switch.model';
@@ -148,11 +150,37 @@ export class CardComponent implements OnInit, OnDestroy {
     return null;
   }
 
-  public mouseover() {
+  public mouseover(event?, target?:PinListItem, path?: string) {
     if (this.hintRef) this.hintRef.clear();
     let err = this.errorInTester;
     if (err) {
       this.hintRef = this.hint.display(err.event.cascaded.cascaded.data.message);
+    }
+    else {
+      if (this.node instanceof Call) {
+        if (path) {
+          event.stopPropagation();
+          let hints = this.registry.hints(path);
+          if (hints && hints.node)
+            this.hintRef = this.hint.display(hints.node);
+        }
+        else {
+          let hints = (this.node as Call).signature.hints;
+          if (hints) {
+            if (!target && hints.node)
+              this.hintRef = this.hint.display(hints.node);
+            else {
+              event.stopPropagation();
+              if (target.pin.type == PinType.input && hints.inputs && hints.inputs[target.label])
+                this.hintRef = this.hint.display(hints.inputs[target.label])
+              else if (target.pin.type == PinType.output && hints.outputs && hints.outputs[target.label])
+                this.hintRef = this.hint.display(hints.outputs[target.label])
+              else if (target.pin.type == PinType.control && hints.controlOutputs && hints.controlOutputs[target.label])
+                this.hintRef = this.hint.display(hints.controlOutputs[target.label]);
+            }
+          }
+        }
+      }
     }
   }
 

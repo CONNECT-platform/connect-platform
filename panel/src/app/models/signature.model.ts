@@ -1,3 +1,10 @@
+export interface SignatureHints {
+  node?: string;
+  inputs?: {[key: string]: string};
+  outputs?: {[key: string]: string};
+  controlOutputs?: {[key: string]: string};
+}
+
 export interface Signature {
   configs?: Array<string>;
   inputs: Array<string>;
@@ -6,4 +13,5 @@ export interface Signature {
   path: string;
   public?: boolean;
   method?: string;
+  hints?: SignatureHints;
 }
