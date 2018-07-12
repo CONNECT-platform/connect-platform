@@ -1,10 +1,10 @@
 const path = require('path');
 
 const platform = require('../../');
-const config = require('./config');
+const config = require('./util/config');
 const record = require('../../recorder');
 
-const purify = require('./purify-recording');
+const purify = require('./util/purify-recording');
 
 
 platform.core.node({

@@ -3,7 +3,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 
 import {FlexLayoutModule} from "@angular/flex-layout";
@@ -19,6 +19,7 @@ import { BarComponent } from './components/editor/bar/bar.component';
 import { BackendService } from './services/backend.service';
 import { TesterService } from './services/tester.service';
 import { HintService } from './services/hint.service';
+import { TokenService } from './services/token.service';
 
 import { PinComponent } from './components/editor/pin/pin.component';
 import { LinkComponent } from './components/editor/link/link.component';
@@ -31,6 +32,8 @@ import { NodesComponent } from './components/home/nodes/nodes.component';
 import { OverlayComponent } from './components/shared/overlay/overlay.component';
 import { TimelineComponent } from './components/editor/timeline/timeline.component';
 import { HintmanComponent } from './components/shared/hintman/hintman.component';
+
+import { TokenInterceptor } from './interceptors/token.interceptor';
 
 
 const routes : Routes = [
@@ -68,7 +71,15 @@ const routes : Routes = [
   schemas:      [ NO_ERRORS_SCHEMA ],
   bootstrap: [AppComponent],
   providers: [
-    Location,{provide: LocationStrategy, useClass: PathLocationStrategy},
-    BackendService, RegistryService, EditorModelService, EditorService, TesterService, HintService]
+    Location, {provide: LocationStrategy, useClass: PathLocationStrategy},
+    {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
+    BackendService,
+    RegistryService,
+    EditorModelService,
+    EditorService,
+    TesterService,
+    HintService,
+    TokenService,
+  ]
 })
 export class AppModule { }

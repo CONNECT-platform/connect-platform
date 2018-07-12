@@ -1,5 +1,5 @@
 const platform = require('../../');
-const config = require('./config');
+const config = require('./util/config');
 
 
 platform.core.node({

@@ -75,3 +75,5 @@ module.exports = _platform;
 module.exports.events = Events;
 module.exports.core = require('./core');
 module.exports.call = require('./tools/native-call');
+
+module.exports.conventions = require('./conventions');

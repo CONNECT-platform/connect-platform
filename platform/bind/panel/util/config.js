@@ -1,5 +1,5 @@
 const path = require('path');
-const platform = require('../../');
+const platform = require('../../../');
 const config = platform.config.get('panel', {});
 
 let directory = null;
@@ -10,6 +10,7 @@ if (platform.config.has('root')) {
 
 module.exports = {
   expose: config.expose || false,
+  secret: config.secret,
   path: config.path || '/panel/',
   directory: directory,
   files : {

@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 const platform = require('../../');
-const config = require('./config');
+const config = require('./util/config');
 const files = require('./util/file-io');
 
 

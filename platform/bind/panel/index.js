@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 
 const platform = require('../../');
-const config = require('./config');
+const config = require('./util/config');
 
 
 platform.subscribe(platform.events.bind, (_, platform) => {

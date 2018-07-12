@@ -66,7 +66,7 @@ export class RegistryService {
             controlOutputs: [],
           }, entry[1].signature);
         });
-        setTimeout(() => this._shouldRefetch = true, 200);
+        setTimeout(() => this._shouldRefetch = true, 500);
       });
     }
   }
