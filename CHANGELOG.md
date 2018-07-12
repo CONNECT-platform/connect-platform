@@ -8,7 +8,8 @@ and we use [Semantic Versioning](http://semver.org/spec/v2.0.0.html), like stric
 ## [Unreleased]
 ### Added
  - timeouts for **Test** and **Watch** features.
- - a new node type for de-structuring.
+ - timeouts generally for nodes?
+ - node documentation (nodes can have documentation so that people can easily use them).
  - code documentation.
 
 ## [0.1.3] - 2018-06-20
