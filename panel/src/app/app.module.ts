@@ -32,12 +32,14 @@ import { NodesComponent } from './components/home/nodes/nodes.component';
 import { OverlayComponent } from './components/shared/overlay/overlay.component';
 import { TimelineComponent } from './components/editor/timeline/timeline.component';
 import { HintmanComponent } from './components/shared/hintman/hintman.component';
+import { AuthComponent } from './components/auth/auth.component';
 
 import { TokenInterceptor } from './interceptors/token.interceptor';
 
 
 const routes : Routes = [
   {path: '', component: HomeComponent},
+  {path: 'auth', component: AuthComponent},
   {path : 'editor', component: EditorComponent},
 ]
 
@@ -58,6 +60,7 @@ const routes : Routes = [
     OverlayComponent,
     TimelineComponent,
     HintmanComponent,
+    AuthComponent,
   ],
   imports: [
     RouterModule.forRoot(routes, { enableTracing: false }),

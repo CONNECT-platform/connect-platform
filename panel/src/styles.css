@@ -21,6 +21,10 @@ html, body {
 
 /*** SOME GENERIC STYLES ***/
 
+h1 {
+  font-weight: 100;
+}
+
 small {
   opacity: 0.5;
 }

@@ -2,11 +2,11 @@ const core = require('../../core');
 const conventions = require('../../conventions');
 
 
-const reqHandler = (signature, factoryOrClass) => {
+const reqHandler = (factoryOrClass, signature) => {
   return (req, res) => {
     let params = {};
 
-    if (signature.inputs)
+    if (signature && signature.inputs)
       for (let input of signature.inputs) {
         let candidate = req.header(input);
         if (candidate || typeof candidate == 'string')

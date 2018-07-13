@@ -1,0 +1,17 @@
+<div class="container">
+  <div class="inner">
+    <img src="assets/auth.svg"/>
+    <br>
+    <h1>Authentication Required</h1>
+    <p>
+      in order to access this instance, you need to have a proper authorization token.
+      you will automatically get a token when using a valid URL, or you can enter your token
+      into the field below.
+    </p>
+    <input type="text" [(ngModel)]="given"/>
+    <br><br>
+    <button (click)="auth()">
+      get me in
+    </button>
+  </div>
+</div>

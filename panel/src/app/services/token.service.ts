@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 
 const _ConnectPanelToken: string = '__connect_panel_token';
 
@@ -6,8 +7,9 @@ const _ConnectPanelToken: string = '__connect_panel_token';
 export class TokenService {
 
   private _token: string = null;
+  private _urlBefore: string = '/';
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   get token(): string {
     if (this._token === null) {
@@ -19,5 +21,28 @@ export class TokenService {
 
   set token(_token: string) {
     this._token = _token;
+    localStorage[_ConnectPanelToken] = _token;
+  }
+
+  request() {
+    let tree = this.router.parseUrl(this.router.url);
+    if (tree.queryParamMap.has('token')) {
+      let token = tree.queryParamMap.get('token');
+      if (token != this.token) {
+        this.token = token;
+        let _url = this.router.url;
+        this.router.navigate(['auth']).then(() => {
+          this.router.navigateByUrl(_url);
+        });
+        return;
+      }
+    }
+
+    this._urlBefore = this.router.url;
+    this.router.navigate(['auth']);
+  }
+
+  goback() {
+    this.router.navigateByUrl(this._urlBefore || '/');
   }
 }
