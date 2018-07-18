@@ -35,12 +35,14 @@ import { HintmanComponent } from './components/shared/hintman/hintman.component'
 import { AuthComponent } from './components/auth/auth.component';
 
 import { TokenInterceptor } from './interceptors/token.interceptor';
+import { ConfigComponent } from './components/home/config/config.component';
 
 
 const routes : Routes = [
-  {path: '', component: HomeComponent},
-  {path: 'auth', component: AuthComponent},
-  {path : 'editor', component: EditorComponent},
+  { path: '',   redirectTo: '/home', pathMatch: 'full' },
+  { path: 'home', component: HomeComponent },
+  { path: 'auth', component: AuthComponent },
+  { path : 'editor', component: EditorComponent },
 ]
 
 @NgModule({
@@ -61,6 +63,7 @@ const routes : Routes = [
     TimelineComponent,
     HintmanComponent,
     AuthComponent,
+    ConfigComponent,
   ],
   imports: [
     RouterModule.forRoot(routes, { enableTracing: false }),
@@ -83,6 +86,10 @@ const routes : Routes = [
     TesterService,
     HintService,
     TokenService,
+  ],
+  entryComponents: [
+    NodesComponent,
+    ConfigComponent,
   ]
 })
 export class AppModule { }

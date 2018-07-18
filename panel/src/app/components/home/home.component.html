@@ -1,11 +1,21 @@
 <div class="holder" [@holder]="">
+  <div class="header">
+    <a class="block" href="https://loreanvictor.github.io/connect-platform/" target="_blank">
+      <img class="logo" src="assets/logo.svg"/>
+    </a>
+  </div>
   <div class="aligner">
     <div class="inner" fxLayout="row" fxLayoutGap="80px" fxLayoutAlign="center">
-      <div class="header" fxFlex="384px">
-        <img class="logo" src="assets/logo.svg"/>
+      <div class="menu" fxFlex="256px">
+        <div class="navs">
+          <div class="nav" (click)="path='nodes'" [ngClass]="{'active': path=='nodes'}">NODES</div>
+          <div class="nav" (click)="path='config'" [ngClass]="{'active': path=='config'}">CONFIG</div>
+          <div class="nav">SECURE</div>
+          <div class="nav">PACKAGES</div>
+        </div>
       </div>
-      <div class="body" fxFlex>
-        <home-nodes></home-nodes>
+      <div class="content" [ngClass]="{'navigating': navigating}" fxFlex>
+        <ng-container *ngComponentOutlet="currentComponent"></ng-container>
       </div>
     </div>
   </div>

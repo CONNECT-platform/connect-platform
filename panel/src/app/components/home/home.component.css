@@ -14,14 +14,69 @@
   width: 80vw;
 }
 
-.header img {
-  max-width: 100%;
+.header {
+  text-align: center;
+  width: 100%;
+  position: absolute;
+  padding: 16px;
+  background: #424242;
 }
 
-.body {
+.header .block {
+  display: inline-block;
+  max-height: 80px;
+}
+
+.header .block img {
+  max-height: 80px;
+}
+
+.inner {
+  max-height: calc(100vh - 192px);
+}
+
+.menu {
+  max-height: calc(100vh - 192px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px dashed #757575;
+}
+
+.menu .navs {
   text-align: left;
-  max-height: 75vh;
+}
+
+.menu .navs .nav {
+  margin: 8px;
+  opacity: 0.5;
+  cursor: pointer;
+  transition: opacity .15s, transform .15s;
+  transform-origin: left;
+}
+
+.menu .navs .nav:hover {
+  transform: translateX(8px) scale(1.1);
+  opacity: 1;
+}
+
+.menu .navs .nav.active {
+  opacity: 1;
+  transform: scale(1.5);
+}
+
+.content {
+  text-align: left;
+  max-height: calc(100vh - 192px);
   overflow: scroll;
+  opacity: 1;
+
+  transition: opacity .15s, transform .15s ease-in-out;
+}
+
+.content.navigating {
+  transform: translateX(96px);
+  opacity: 0;
 }
 
 .server {

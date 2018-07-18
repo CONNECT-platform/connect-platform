@@ -2,7 +2,7 @@
   <div class="title">NODES</div>
   <div class="node-list">
     <div *ngFor="let node of nodes" class="node item"
-          routerLink="editor"
+          routerLink="/editor"
           [queryParams]="{id: node.id}">
       {{ node.path }}
       <div class="extra">
@@ -24,7 +24,7 @@
             (blur)="searching=searchinput.value.length>0"
             type="text"/>
     </div>
-    <div routerLink="editor" class="add action">
+    <div routerLink="/editor" class="add action">
       <span>+</span>
     </div>
   </div>
