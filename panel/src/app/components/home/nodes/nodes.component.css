@@ -59,6 +59,28 @@
   color: #9e9e9e;
 }
 
+.node-list.empty {
+  text-align: center;
+}
+
+.node-list.empty img {
+  opacity: .25;
+  display: block;
+  margin: 0 auto;
+}
+
+.node-list.empty p {
+  font-size: 14px;
+  max-width: 50%;
+  margin: 0 auto;
+  color: rgba(255, 255, 255, .5);
+}
+
+.node-list.empty p span {
+  font-size: 24px;
+  margin: 8px;
+}
+
 .toolbar {
   position: absolute;
   top: 0;

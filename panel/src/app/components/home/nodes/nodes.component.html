@@ -1,6 +1,7 @@
 <div class="holder">
   <div class="title">NODES</div>
-  <div class="node-list">
+
+  <div class="node-list" *ngIf="nodes.length > 0">
     <div *ngFor="let node of nodes" class="node item"
           routerLink="/editor"
           [queryParams]="{id: node.id}">
@@ -15,6 +16,16 @@
       </div>
     </div>
   </div>
+
+  <div class="node-list empty" *ngIf="nodes.length == 0">
+    <img src="assets/empty.svg"/>
+    <br><br>
+    <p>
+      looks so empty here :) <br>
+      press the <span class="hl-green">+</span> button above to create a new node.
+    </p>
+  </div>
+
   <div class="toolbar">
     <div class="search action"
         [ngClass]="{'active': searching}">
