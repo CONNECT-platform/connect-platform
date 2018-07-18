@@ -12,7 +12,6 @@ and we use [Semantic Versioning](http://semver.org/spec/v2.0.0.html), like stric
  - in-panel installation of packages.
    - so also a repo for verified packages.
    - also support for adding any npm package or git repo in general.
- - support for remote file storage.
  - node documentation (nodes can have documentation so that people can easily use them).
  - code documentation.
 
