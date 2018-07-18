@@ -18,5 +18,6 @@ module.exports = {
     index : 'index.js',
     nodedir : 'nodes',
     conf : 'config',
+    platformconf: 'platform-config',
   }
 }

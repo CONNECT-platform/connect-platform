@@ -1,1 +1,50 @@
 <div class="title">CONFIG</div>
+<p>
+  write down your configuration in JSON format here:
+</p>
+<br>
+<div class="ace-holder">
+  <ace-editor mode="javascript"
+              [(text)]="configCode"
+              [options]="options"
+              style='min-height:16px;'></ace-editor>
+</div>
+<div class="buttons">
+  <button (click)="save()">
+    Save
+  </button>
+</div>
+
+<overlay #successOverlay icon="assets/config.svg">
+  <overlay-title>
+    Config Updated!
+  </overlay-title>
+  <overlay-content>
+    project configuration successfully updated. you should now see the effects of these
+    new configurations on your project.
+  </overlay-content>
+  <overlay-actions>
+    <button (click)="successOverlay.close()">
+      Ok
+    </button>
+  </overlay-actions>
+</overlay>
+
+<overlay #errorOverlay>
+  <overlay-title>
+    Syntax Error
+  </overlay-title>
+  <overlay-content>
+    there is an error in the syntax of the configuration you wrote.
+    make sure you completely comply with JSON formatting.
+
+    <div class="error-details">
+      {{ error }}
+    </div>
+  </overlay-content>
+  <overlay-actions>
+    <button (click)="errorOverlay.close()">
+      Got It
+    </button>
+  </overlay-actions>
+</overlay>

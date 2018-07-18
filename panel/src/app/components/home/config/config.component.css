@@ -2,3 +2,20 @@
   font-size: 32px;
   margin-bottom: 56px;
 }
+
+.ace-holder {
+  background: black;
+  padding: 16px;
+  border-radius: 18px;
+  border: 1px solid white;
+}
+
+.buttons {
+  margin-top: 24px;
+  text-align: right;
+}
+
+.error-details {
+  margin: 16px;
+  color: #ff1744;
+}

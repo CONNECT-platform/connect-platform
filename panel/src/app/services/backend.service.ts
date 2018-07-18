@@ -18,6 +18,8 @@ export class BackendService {
     watch: 'watch',
     watchResult: 'watch/result',
     nodes: 'nodes',
+    config: 'config',
+    updateConfig: 'update-config',
   }
 
   constructor(
@@ -69,6 +71,18 @@ export class BackendService {
 
   watchResult() {
     return this.http.get<any>(this.api + BackendService.apiCalls.watchResult + `/?path=${this.model.path}`);
+  }
+
+  fetchConfig() {
+    return this.http.get<any>(this.api + BackendService.apiCalls.config);
+  }
+
+  updateConfig(config) {
+    return this.http.put<any>(
+      this.api + BackendService.apiCalls.updateConfig,
+      {
+        config: config,
+      });
   }
 
   public get nodes() {

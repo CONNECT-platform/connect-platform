@@ -32,6 +32,7 @@ const reqHandler = (factoryOrClass, signature) => {
         if (result.control == conventions.controls._Unauthorized) status = 401;
         if (result.control == conventions.controls._Forbidden) status = 403;
         if (result.control == conventions.controls._NotFound) status = 404;
+        if (result.control == conventions.controls._InternalError) status = 500;
 
         res.status(status).json(result.control);
       }

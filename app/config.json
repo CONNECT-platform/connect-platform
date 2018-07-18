@@ -22,7 +22,6 @@
       "platform/bind/utils",
       "platform/bind/panel",
       "panel-generated",
-      "platform/bind/jwt",
       "platform/bind/firestore"
     ]
   },

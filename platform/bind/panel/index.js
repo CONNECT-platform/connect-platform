@@ -26,6 +26,8 @@ module.exports.platform = {
         "panel-nodes",
         "test",
         "watch",
+        "config/load",
+        "config/save",
       ],
     },
   },
