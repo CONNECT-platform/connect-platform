@@ -62,8 +62,8 @@
   position: absolute;
   top: 32px;
   right: 32px;
-  width: 96px;
-  height: 96px;
+  width: 64px;
+  height: 64px;
   opacity: 0.1;
   cursor: pointer;
   transition: opacity .15s;
