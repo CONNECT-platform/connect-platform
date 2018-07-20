@@ -11,15 +11,29 @@ export class BackendService {
 
   public static apiCalls = {
     registry : 'registry',
+
     save : 'save',
     load : 'load',
     delete : 'delete',
+    nodes: 'nodes',
+
     test : 'test',
     watch: 'watch',
     watchResult: 'watch/result',
-    nodes: 'nodes',
-    config: 'config',
-    updateConfig: 'update-config',
+
+    config: {
+      root: 'config/',
+      save: 'save',
+      load: 'load',
+    },
+
+    vault: {
+      root: 'vault/',
+      list: 'list',
+      put: 'put',
+      get: 'get',
+      delete: 'delete',
+    },
   }
 
   constructor(
@@ -74,15 +88,40 @@ export class BackendService {
   }
 
   fetchConfig() {
-    return this.http.get<any>(this.api + BackendService.apiCalls.config);
+    return this.http.get<any>(this.api + BackendService.apiCalls.config.root
+        + BackendService.apiCalls.config.load);
   }
 
   updateConfig(config) {
     return this.http.put<any>(
-      this.api + BackendService.apiCalls.updateConfig,
+      this.api + BackendService.apiCalls.config.root + BackendService.apiCalls.config.save,
       {
         config: config,
       });
+  }
+
+  vaultList() {
+    return this.http.get<any>(this.api + BackendService.apiCalls.vault.root
+        + BackendService.apiCalls.vault.list);
+  }
+
+  vaultGet(key: string) {
+    return this.http.get<any>(this.api + BackendService.apiCalls.vault.root
+        + BackendService.apiCalls.vault.get + `/?key=${key}`);
+  }
+
+  vaultPut(key: string, content: string) {
+    return this.http.put<any>(
+      this.api + BackendService.apiCalls.vault.root + BackendService.apiCalls.vault.put,
+      {
+        key: key,
+        content: content,
+      });
+  }
+
+  vaultDelete(key: string) {
+    return this.http.delete(this.api + BackendService.apiCalls.vault.root
+        + BackendService.apiCalls.vault.delete + '/' + key);
   }
 
   public get nodes() {

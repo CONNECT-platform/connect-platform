@@ -1,0 +1,88 @@
+<div class="holder">
+  <div class="title">VAULT</div>
+
+  <div class="key-list" *ngIf="!empty">
+    <p>
+      click on any key to modify and/or delete it. to reference each key in config,
+      simply use their path (highlighted like <span class="hl-teal">this</span>).
+    </p>
+    <br><br>
+    <div class="key" *ngFor="let key of keys" (click)="selected=key">
+      <img src="assets/key-filled.svg"/>
+      <div class="info">
+        <span class="name">{{key}}</span>
+        <span class="path hl-teal">{{dir}}{{key}}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="key-list empty" *ngIf="empty">
+    <p>
+      secure keys can be used to connect to other services. usually, you will receive them
+      from some other service provider (for example, firestore), and need to add a key with the content
+      you receive from the provider, and then add the address of the key file to project config
+      to be able to connect to their services.
+      <br>
+      press the <span class="button">+</span> button above to create a new key.
+    </p>
+  </div>
+
+  <div class="toolbar">
+    <div class="search action"
+        [ngClass]="{'active': searching}">
+      <span (click)="toggleSearch()"
+            class="material-icons">search</span>
+      <input #searchinput
+            (blur)="searching=searchinput.value.length>0"
+            type="text"/>
+    </div>
+    <div (click)="addOverlay.activate()" class="add action">
+      <span>+</span>
+    </div>
+  </div>
+</div>
+
+<overlay #addOverlay icon="assets/key.svg">
+  <overlay-title>Add a New Key</overlay-title>
+  <overlay-content>
+    When you add a key with the name <span class="hl-teal">example.key</span>,
+    you will be able to reference it in the project configs via
+    <span class="hl-teal">secure/example.key</span>.
+    <br><br>
+    <input #newkey class="new-key" type="text" placeholder="name of the new key ..."/>
+  </overlay-content>
+  <overlay-actions>
+    <button (click)="addOverlay.close()">Cancel</button>
+    <button (click)="add(newkey.value)">Add</button>
+  </overlay-actions>
+</overlay>
+
+<overlay #editOverlay
+  icon="assets/key.svg"
+  [active]="selected">
+  <overlay-title>Modify Content of <span class="hl-teal">{{selected}}</span></overlay-title>
+  <overlay-content>
+    In most cases you should be pasting the key content provided by the service provider here.
+    <br><br>
+    <textarea #keycontent
+            rows="5"
+            placeholder="paste key content here ...">{{selectedContent}}</textarea>
+  </overlay-content>
+  <overlay-actions>
+    <button *ngIf="_keys && _keys.includes(selected)" (click)="delete()">Delete</button>
+    <button (click)="save(keycontent.value)">Save</button>
+  </overlay-actions>
+</overlay>
+
+<overlay #deleteOverlay [active]="toBeDeleted">
+  <overlay-title>Confirm Deletion</overlay-title>
+    <overlay-content>
+      Are you sure you want to delete key <span class="hl-teal">{{selected}}</span>?
+      once deleted a key cannot be restored. You also need to ensure that no config value
+      is referencing this key, as otherwise it would break.
+    </overlay-content>
+    <overlay-actions>
+      <button (click)="cancelDeletion()">Oh Wait ...</button>
+      <button class="danger" (click)="confirmDeletion()">Delete</button>
+    </overlay-actions>
+</overlay>

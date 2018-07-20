@@ -36,14 +36,11 @@ platform.core.node({
         conf.nodes.json = conf.nodes.json.filter(addr => addr != relativeNodeFile);
         files.json.save(confile, conf);
 
-        let nodefile = path.join(config.directory, relativeNodeFile + '.json');
-        fs.unlink(nodefile, err => {
-          if (err) {
-            console.log(err);
-            control('internal_error');
-          }
-          else control('deleted');
-        });
+        let nodefile = path.join(config.directory, relativeNodeFile);
+
+        files.json.delete(nodefile)
+          .then(() => control('deleted'))
+          .catch(error => control('internal_error'));
       });
     })
     .catch(error => {

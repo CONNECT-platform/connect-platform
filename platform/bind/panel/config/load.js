@@ -7,7 +7,7 @@ const authorize = require('../util/authorize');
 
 
 platform.core.node({
-  path : `${config.path}config`,
+  path : `${config.path}config/load`,
   public : config.expose,
   method : 'GET',
   inputs : ['connect_token'],

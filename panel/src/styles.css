@@ -78,6 +78,10 @@ button:hover {
   color: #448aff;
 }
 
+.hl-teal {
+  color: #00BFA5;
+}
+
 /*** ACE EDITOR OVERRIDES ***/
 
 ace-editor {

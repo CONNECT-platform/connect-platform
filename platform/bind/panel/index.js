@@ -20,14 +20,22 @@ module.exports.platform = {
     nodes: {
       native: [
         "registry-service",
+
         "save-node",
         "load-node",
         "delete-node",
         "panel-nodes",
+
         "test",
         "watch",
+
         "config/load",
         "config/save",
+
+        "vault/list",
+        "vault/put",
+        "vault/get",
+        "vault/delete"
       ],
     },
   },

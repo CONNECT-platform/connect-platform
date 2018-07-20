@@ -54,9 +54,24 @@ const saveJson = (address, json) => {
   });
 }
 
+const _delete = address => {
+  return new Promise((resolve, reject) => {
+    fs.unlink(address, error => {
+      if (error) reject(error);
+      else resolve();
+    })
+  });
+}
+
+const deleteJson = address => {
+  return _delete(address + '.json');
+}
+
 module.exports.load = load;
 module.exports.save = save;
+module.exports.delete = _delete;
 module.exports.json = {
   load : loadJson,
   save : saveJson,
+  delete: deleteJson,
 }

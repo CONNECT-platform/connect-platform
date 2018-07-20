@@ -8,8 +8,8 @@ const node = (signature, func) => {
       super(signature);
     }
 
-    run(inputs, output, control) {
-      func(inputs, output, control);
+    run(inputs, output, control, error) {
+      func(inputs, output, control, error);
     }
   };
 

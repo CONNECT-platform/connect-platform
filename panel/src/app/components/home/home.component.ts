@@ -5,7 +5,15 @@ import { BackendService } from '../../services/backend.service';
 
 import { NodesComponent } from './nodes/nodes.component';
 import { ConfigComponent } from './config/config.component';
+import { VaultComponent } from './vault/vault.component';
+import { PackagesComponent } from './packages/packages.component';
 
+export const HomeComponentMappings = {
+  nodes: NodesComponent,
+  config: ConfigComponent,
+  vault: VaultComponent,
+  packages: PackagesComponent,
+}
 
 @Component({
   selector: 'home',
@@ -42,8 +50,8 @@ export class HomeComponent implements OnInit {
     if (this.navigating) return;
 
     let target = undefined;
-    if (path == 'nodes') target = NodesComponent;
-    if (path == 'config') target = ConfigComponent;
+    if (path in HomeComponentMappings)
+      target = HomeComponentMappings[path];
 
     if (!target || target == this.currentComponent) return;
 
@@ -55,7 +63,7 @@ export class HomeComponent implements OnInit {
   }
 
   get path() {
-    if (this.currentComponent == NodesComponent) return 'nodes';
-    if (this.currentComponent == ConfigComponent) return 'config';
+    let candidates = Object.entries(HomeComponentMappings).filter(entry => entry[1] == this.currentComponent);
+    if (candidates.length > 0) return candidates[0][0];
   }
 }

@@ -10,8 +10,8 @@
         <div class="navs">
           <div class="nav" (click)="path='nodes'" [ngClass]="{'active': path=='nodes'}">NODES</div>
           <div class="nav" (click)="path='config'" [ngClass]="{'active': path=='config'}">CONFIG</div>
-          <div class="nav">SECURE</div>
-          <div class="nav">PACKAGES</div>
+          <div class="nav" (click)="path='vault'" [ngClass]="{'active': path=='vault'}">VAULT</div>
+          <div class="nav" (click)="path='packages'" [ngClass]="{'active': path=='packages'}">PACKAGES</div>
         </div>
       </div>
       <div class="content" [ngClass]="{'navigating': navigating}" fxFlex>

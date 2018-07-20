@@ -7,76 +7,67 @@
   margin-bottom: 56px;
 }
 
-.node-list {
-  max-height: 60vh;
-  overflow: scroll;
-}
-
-.node.item {
-  padding: 16px;
-  text-align: left;
-  border-bottom: 1px dashed #616161;
-  color: #bdbdbd;
-  transition: color .3s;
+.key-list .key {
+  display: inline-block;
   cursor: pointer;
-  outline: none;
+  border-radius: 32px;
+  border: 1px solid rgba(255, 255, 255, .2);
+  padding: 4px;
+  margin: 12px;
+  transition: border-color .15s;
 }
 
-.node.item:last-child {
-  border-bottom: none;
+.key-list .key:hover {
+  border-color: rgba(255, 255, 255, .5);
 }
 
-.node.item:hover {
-  color: #ffffff;
+.key-list .key img {
+  width: 32px;
+  height: 32px;
+  border-radius: 32px;
+  border: 1px solid white;
+  vertical-align: middle;
+  opacity: 0.2;
+
+  transition: opacity .15s;
 }
 
-.node.item .extra {
-  float: right;
+.key-list .key:hover img {
+  opacity: .5;
 }
 
-.node.item .extra .access {
+.key-list .key .info {
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0 8px
+}
+
+.key-list .key .info .name {
+  display: block;
+}
+
+.key-list .key .info .path {
   font-size: 12px;
-  color: #757575;
-  transition: color .3s;
 }
 
-.node.item:hover .extra .access.public {
-  color: #76FF03;
-}
-
-.node.item:hover .extra .access.internal {
-  color: #448aff;
-}
-
-.node.item .extra .method {
-  color: #616161;
-  font-size: 9px;
-  font-weight: 900;
-  transition: color .3s;
-}
-
-.node.item:hover .extra .method {
-  color: #9e9e9e;
-}
-
-.node-list.empty {
+.key-list.empty {
   text-align: center;
 }
 
-.node-list.empty img {
+.key-list.empty img {
   opacity: .25;
   display: block;
   margin: 0 auto;
 }
 
-.node-list.empty p {
+.key-list p {
   font-size: 16px;
   max-width: 75%;
   text-align: left;
   color: rgba(255, 255, 255, .5);
 }
 
-.node-list.empty p span.button {
+.key-list.empty p span.button {
   display: inline-block;
   width: 24px;
   height: 24px;
@@ -151,4 +142,33 @@
   width: 156px;
   top: 6px;
   font-size: 14px;
+}
+
+input.new-key {
+  display: block;
+  width: 100%;
+  height: 32px;
+  border-radius: 19px;
+  border: 1px solid white;
+  background: black;
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 32px;
+  color: #00BFA5;
+  text-align: center;
+  outline: none;
+}
+
+textarea {
+  display: block;
+  width: 100%;
+  outline: none;
+  border-radius: 19px;
+  border: 1px solid white;
+  background: black;
+  font-family: 'PT Mono', monospace;
+  font-size: 12px;
+  color: #00BFA5;
+  outline: none;
+  padding: 12px 8px;
 }

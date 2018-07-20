@@ -36,6 +36,8 @@ import { AuthComponent } from './components/auth/auth.component';
 
 import { TokenInterceptor } from './interceptors/token.interceptor';
 import { ConfigComponent } from './components/home/config/config.component';
+import { PackagesComponent } from './components/home/packages/packages.component';
+import { VaultComponent } from './components/home/vault/vault.component';
 
 
 const routes : Routes = [
@@ -64,6 +66,8 @@ const routes : Routes = [
     HintmanComponent,
     AuthComponent,
     ConfigComponent,
+    VaultComponent,
+    PackagesComponent,
   ],
   imports: [
     RouterModule.forRoot(routes, { enableTracing: false }),
@@ -90,6 +94,8 @@ const routes : Routes = [
   entryComponents: [
     NodesComponent,
     ConfigComponent,
+    VaultComponent,
+    PackagesComponent,
   ]
 })
 export class AppModule { }

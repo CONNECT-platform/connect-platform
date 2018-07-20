@@ -3,9 +3,12 @@ const platform = require('../../../');
 const config = platform.config.get('panel', {});
 
 let directory = null;
+let vault = null;
+let vaultdir = 'secure/';
 
 if (platform.config.has('root')) {
   directory = path.join(platform.config.get('root'), config.directory || 'panel-generated/');
+  vault = path.join(platform.config.get('root'), vaultdir);
 }
 
 module.exports = {
@@ -19,5 +22,8 @@ module.exports = {
     nodedir : 'nodes',
     conf : 'config',
     platformconf: 'platform-config',
-  }
+    vaultlisting: 'vault-listing',
+  },
+  vault: vault,
+  vaultdir: vaultdir,
 }

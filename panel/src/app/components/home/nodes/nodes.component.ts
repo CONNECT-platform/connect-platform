@@ -20,7 +20,6 @@ export class NodesComponent implements OnInit, OnDestroy {
   private _updateInterval;
 
   searching : boolean = false;
-
   @ViewChild('searchinput') searchInput : ElementRef;
 
   constructor(
@@ -49,6 +48,10 @@ export class NodesComponent implements OnInit, OnDestroy {
 
   public get nodes() {
     return this._nodes.filter(n => n.path.indexOf(this.searchInput.nativeElement.value) != -1);
+  }
+
+  public get empty() {
+    return this._nodes.length == 0;
   }
 
   public toggleSearch() {

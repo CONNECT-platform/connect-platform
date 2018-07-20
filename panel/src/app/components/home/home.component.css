@@ -15,28 +15,30 @@
 }
 
 .header {
-  text-align: center;
-  width: 100%;
+  text-align: left;
   position: absolute;
   padding: 16px;
   background: #424242;
+  left: 0;
+  right: 0;
+  top: 0;
 }
 
 .header .block {
   display: inline-block;
-  max-height: 80px;
+  max-height: 48px;
 }
 
 .header .block img {
-  max-height: 80px;
+  max-height: 48px;
 }
 
 .inner {
-  max-height: calc(100vh - 192px);
+  max-height: calc(100vh - 168px);
 }
 
 .menu {
-  max-height: calc(100vh - 192px);
+  max-height: calc(100vh - 168px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -67,7 +69,7 @@
 
 .content {
   text-align: left;
-  max-height: calc(100vh - 192px);
+  max-height: calc(100vh - 168px);
   overflow: scroll;
   opacity: 1;
 

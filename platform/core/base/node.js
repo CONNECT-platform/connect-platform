@@ -153,6 +153,8 @@ class Node extends Subscribable {
       }, control => {
         let _break = new ControlBreak(control);
         throw _break;
+      }, error => {
+        this.error(error);
       });
     } catch(_break) {
       this._handleBreak(_break, error => {
@@ -172,6 +174,9 @@ class Node extends Subscribable {
       control => {
         let _break = new ControlBreak(control);
         resolve(_break);
+      },
+      error => {
+        this.error(error);
       });
     }).then(_break => {
       this._handleBreak(_break);

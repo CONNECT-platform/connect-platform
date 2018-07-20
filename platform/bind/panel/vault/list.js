@@ -7,21 +7,23 @@ const authorize = require('../util/authorize');
 
 
 platform.core.node({
-  path : `${config.path}config/save`,
+  path : `${config.path}vault/list`,
   public : config.expose,
-  method : 'PUT',
-  inputs : ['connect_token', 'config'],
-  controlOutputs: [ 'done',
-    platform.conventions.controls._InternalError,
-    platform.conventions.controls._Unauthorized ],
+  method : 'GET',
+  inputs : ['connect_token'],
+  outputs : ['list'],
+  controlOutputs: [ platform.conventions.controls._Unauthorized ],
 }, (inputs, output, control) => {
   authorize(inputs.connect_token)
     .then(() => {
-      let conffile = path.join(config.directory, config.files.platformconf);
-      files.json.save(conffile, inputs.config).then(() => {
-        control('done');
+      let listingfile = path.join(config.directory, config.files.vaultlisting);
+      files.json.load(listingfile).then(listing => {
+        output('list', listing);
       }).catch(error => {
-        control(platform.conventions.controls._InternalError);
+        output('list', {
+          keys: [],
+          directory: config.vaultdir,
+        });
       });
     })
     .catch(error => {
