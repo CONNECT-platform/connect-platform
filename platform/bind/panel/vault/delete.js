@@ -25,16 +25,12 @@ platform.core.node({
 
         if (list.keys.includes(inputs.key)) {
           list.keys = list.keys.filter(key => key != inputs.key)
-          files.json.save(listingfile, list)
-            .then(() => {
-              let keyfile = path.join(config.vault, inputs.key);
-              files.delete(keyfile)
-                .then(() => {})
-                .catch(() => {});
+          files.json.save(listingfile, list);
 
-              control('done');
-            })
-            .catch(err => error(err));
+          let keyfile = path.join(config.vault, inputs.key);
+          files.delete(keyfile).catch(() => {});
+
+          control('done');
         }
         else control(platform.conventions.controls._NotFound);
       }
