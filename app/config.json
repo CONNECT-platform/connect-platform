@@ -4,9 +4,6 @@
   "panel": {
     "expose": true
   },
-  "jwt": {
-    "secret": "asldjalwdwoadnkasnkzshoqdiwhask"
-  },
   "firestore": {
     "project": "connect-platform-binding-test",
     "keyfile": "secure/firestore.json"

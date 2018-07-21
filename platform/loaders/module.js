@@ -1,5 +1,6 @@
 const path = require('path');
 const load = require('./load-node');
+const external = require('./load-external');
 const core = require('../core');
 
 
@@ -8,7 +9,7 @@ const loaders = {
   json: require('./json'),
 
   module: function(path, searchPaths, config) {
-    load(path, searchPaths, (mod, modPath) => {
+    const callback = (mod, modPath) => {
       if (mod && mod.platform) {
         if (mod.platform.config) {
           loadNodesFromConf(mod.platform.config, [modPath], config);
@@ -20,7 +21,12 @@ const loaders = {
           }
         }
       }
-    });
+    };
+
+    if (typeof path != 'string')
+      external(path, callback);
+    else
+      load(path, searchPaths, callback);
   },
 };
 
