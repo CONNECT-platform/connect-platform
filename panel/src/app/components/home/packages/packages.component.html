@@ -1,1 +1,47 @@
-<div class="title">PACKAGES</div>
+<div class="holder">
+  <div class="title">PACKAGES</div>
+
+  <div class="packages" *ngIf="!empty">
+    <div class="package" *ngFor="let package of packages">
+      <div class="contents">
+        <div>
+          <div class="name">
+            {{package.name}}
+          </div>
+          <div class="source" *ngIf="package.name == package.source">
+            NPM package
+          </div>
+        </div>
+      </div>
+      <div class="actions">
+        <img src="assets/info-filled.svg" (mouseover)="tooltip='info'" (mouseout)="tooltip=''"/>
+        <img src="assets/update-filled.svg" (mouseover)="tooltip='update'" (mouseout)="tooltip=''"/>
+        <img src="assets/close-filled.svg" (mouseover)="tooltip='uninstall'" (mouseout)="tooltip=''"/>
+      </div>
+    </div>
+  </div>
+
+  <div class="packages empty" *ngIf="empty">
+    <p>
+      you can install various packages on <span class="hl-white">CONNECT platform</span>
+      to be able to do more with it. these packages can be new functionality on
+      their own (e.g. json web token) or integrations with other services (e.g. firestore).
+      <br>
+      press the <span class="button">+</span> button above to add a new package.
+    </p>
+  </div>
+
+  <div class="toolbar">
+    <div class="search action"
+        [ngClass]="{'active': searching}">
+      <span (click)="toggleSearch()"
+            class="material-icons">search</span>
+      <input #searchinput
+            (blur)="searching=searchinput.value.length>0"
+            type="text"/>
+    </div>
+    <div (click)="addOverlay.activate()" class="add action">
+      <span>+</span>
+    </div>
+  </div>
+</div>

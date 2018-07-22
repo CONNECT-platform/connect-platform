@@ -1,4 +1,150 @@
+.holder {
+  position: relative;
+}
+
 .title {
   font-size: 32px;
   margin-bottom: 56px;
+}
+
+.packages .package {
+  width: 180px;
+  height: 180px;
+  margin: 12px;
+  border-radius: 3px;
+  padding: 8px;
+  cursor: pointer;
+  display: inline-block;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+
+  transition: transform .15s, box-shadow .15s, background .15s;
+}
+
+.packages .package:hover {
+  transform: translateY(-4px);
+  background: #454545;
+  box-shadow: 0 6px 8px rgba(0,0,0,0.5);
+}
+
+.packages .package .contents {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 148px;
+}
+
+.packages .package .name {
+  font-size: 20px;
+}
+
+.packages .package .source {
+  font-size: 12px;
+  color: #448aff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.packages .package .actions {
+  text-align: right;
+  padding-right: 8px;
+}
+
+.packages .package .actions img {
+  width: 24px;
+  height: 24px;
+  opacity: .5;
+
+  transition: transform .15s, opacity .15s;
+}
+
+.packages .package .actions img:hover {
+  opacity: 1;
+  transform: scale(1.5);
+}
+
+.packages p {
+  font-size: 16px;
+  max-width: 75%;
+  text-align: left;
+  color: rgba(255, 255, 255, .5);
+}
+
+.packages.empty p span.button {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  font-size: 16px;
+  line-height: 24px;
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, .5);
+  text-align: center;
+  margin: 2px;
+  vertical-align: middle;
+}
+
+
+.toolbar {
+  position: absolute;
+  top: 0;
+  right: 8px;
+  text-align: center;
+}
+
+.toolbar .action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  vertical-align: middle;
+  position: relative;
+  width: 32px;
+  height: 32px;
+
+  border: 1px solid white;
+  border-radius: 32px;
+  font-size: 24px;
+  cursor: pointer;
+  opacity: .5;
+
+  transition: all .3s;
+}
+
+.toolbar .action:hover {
+  opacity: 1;
+}
+
+.toolbar .search.action {
+  text-align: right;
+  position: relative;
+}
+
+.toolbar .search.action input {
+  display: none;
+}
+
+.toolbar .search.action span {
+  position: absolute;
+  top: 3px;
+  right: 4px;
+}
+
+.toolbar .search.action.active {
+  width: 192px;
+  opacity: 1;
+}
+
+.toolbar .search.action.active input {
+  display: inline-block;
+  background: none;
+  border: none;
+  outline: none;
+  font-family: inherit;
+  position: absolute;
+  left: 8px;
+  color: white;
+  width: 156px;
+  top: 6px;
+  font-size: 14px;
 }

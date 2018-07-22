@@ -35,7 +35,11 @@ module.exports.platform = {
         "vault/list",
         "vault/put",
         "vault/get",
-        "vault/delete"
+        "vault/delete",
+
+        "packages/list",
+        "packages/install",
+        "packages/uninstall",
       ],
     },
   },

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Location } from '@angular/common';
+import 'rxjs/add/operator/share';
 
 import { EditorModelService } from './editor-model.service';
 
@@ -34,6 +35,11 @@ export class BackendService {
       get: 'get',
       delete: 'delete',
     },
+
+    packages: {
+      root: 'packages/',
+      list: 'list',
+    },
   }
 
   constructor(
@@ -47,22 +53,22 @@ export class BackendService {
   }
 
   fetchRegistry() {
-    return this.http.get<{registry: any}>(this.api + BackendService.apiCalls.registry);
+    return this.http.get<{registry: any}>(this.api + BackendService.apiCalls.registry).share();
   }
 
   save() {
     return this.http.post
       <{ id: string, }>
       (this.api + BackendService.apiCalls.save,
-        { id : this.model.id, signature : this.model.json});
+        { id : this.model.id, signature : this.model.json}).share();
   }
 
   delete() {
-    return this.http.delete(this.api + BackendService.apiCalls.delete + '/' + this.model.id);
+    return this.http.delete(this.api + BackendService.apiCalls.delete + '/' + this.model.id).share();
   }
 
   load(id) {
-    return this.http.get<{node: any}>(this.api + BackendService.apiCalls.load + `/${id}`);
+    return this.http.get<{node: any}>(this.api + BackendService.apiCalls.load + `/${id}`).share();
   }
 
   test(inputs) {
@@ -71,7 +77,7 @@ export class BackendService {
       {
         model : this.model.json,
         inputs: inputs,
-      });
+      }).share();
   }
 
   watch() {
@@ -80,16 +86,16 @@ export class BackendService {
       {
         model: this.model.json
       }
-    );
+    ).share();
   }
 
   watchResult() {
-    return this.http.get<any>(this.api + BackendService.apiCalls.watchResult + `/?path=${this.model.path}`);
+    return this.http.get<any>(this.api + BackendService.apiCalls.watchResult + `/?path=${this.model.path}`).share();
   }
 
   fetchConfig() {
     return this.http.get<any>(this.api + BackendService.apiCalls.config.root
-        + BackendService.apiCalls.config.load);
+        + BackendService.apiCalls.config.load).share();
   }
 
   updateConfig(config) {
@@ -97,17 +103,17 @@ export class BackendService {
       this.api + BackendService.apiCalls.config.root + BackendService.apiCalls.config.save,
       {
         config: config,
-      });
+      }).share();
   }
 
   vaultList() {
     return this.http.get<any>(this.api + BackendService.apiCalls.vault.root
-        + BackendService.apiCalls.vault.list);
+        + BackendService.apiCalls.vault.list).share();
   }
 
   vaultGet(key: string) {
     return this.http.get<any>(this.api + BackendService.apiCalls.vault.root
-        + BackendService.apiCalls.vault.get + `/?key=${key}`);
+        + BackendService.apiCalls.vault.get + `/?key=${key}`).share();
   }
 
   vaultPut(key: string, content: string) {
@@ -116,16 +122,21 @@ export class BackendService {
       {
         key: key,
         content: content,
-      });
+      }).share();
   }
 
   vaultDelete(key: string) {
     return this.http.delete(this.api + BackendService.apiCalls.vault.root
-        + BackendService.apiCalls.vault.delete + '/' + key);
+        + BackendService.apiCalls.vault.delete + '/' + key).share();
+  }
+
+  packagesList() {
+    return this.http.get<any>(this.api + BackendService.apiCalls.packages.root
+        + BackendService.apiCalls.packages.list).share();
   }
 
   public get nodes() {
-    return this.http.get<{nodes : any}>(this.api + BackendService.apiCalls.nodes);
+    return this.http.get<{nodes : any}>(this.api + BackendService.apiCalls.nodes).share();
   }
 
   public get address() {
