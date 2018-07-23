@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy,
+import { Component, OnInit, OnDestroy, AfterViewInit,
     ViewChild, ElementRef, Renderer } from '@angular/core';
 
 import { BackendService } from '../../../services/backend.service';
@@ -10,13 +10,22 @@ import { HintRef, HintService } from '../../../services/hint.service';
   templateUrl: './packages.component.html',
   styleUrls: ['./packages.component.css']
 })
-export class PackagesComponent implements OnInit, OnDestroy {
+export class PackagesComponent implements OnInit, OnDestroy, AfterViewInit {
 
   _packages: { name: string; source: string }[] = [];
 
   _updateInterval: any;
   searching : boolean = false;
   @ViewChild('searchinput') searchInput : ElementRef;
+
+  @ViewChild('installNPMOverlay') installNPMOverlay;
+  @ViewChild('uninstallOverlay') uninstallOverlay;
+  @ViewChild('uninstallingOverlay') uninstallingOverlay;
+  @ViewChild('statusOverlay') statusOverlay;
+
+  uninstallTarget: string;
+  uninstallingTarget: string;
+  packageStatus: any;
 
   private hintRef: HintRef;
 
@@ -29,6 +38,20 @@ export class PackagesComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this._updateInterval = setInterval(() => {}, 200);
     this._update();
+  }
+
+  ngAfterViewInit() {
+    this.uninstallOverlay.onClose.subscribe(() => {
+      this.uninstallTarget = undefined;
+    });
+
+    this.uninstallingOverlay.onClose.subscribe(() => {
+      this.uninstallingTarget = undefined;
+    });
+
+    this.statusOverlay.onClose.subscribe(() => {
+      this.packageStatus = undefined;
+    });
   }
 
   ngOnDestroy() {
@@ -62,6 +85,29 @@ export class PackagesComponent implements OnInit, OnDestroy {
           this.searchInput.nativeElement, 'focus', []);
       }, 10);
     }
+  }
+
+  install(name: string, source: string) {
+    this.backend.installPackage({name, source}).subscribe(() => {
+      this.installNPMOverlay.close();
+      this._update();
+    });
+  }
+
+  uninstall(name: string) {
+    this.uninstallingTarget = name;
+    this.uninstallOverlay.close();
+    this.backend.uninstallPackage(name).subscribe(() => {
+      this.uninstallingOverlay.close();
+      this._update();
+    });
+  }
+
+  status(pkg: {name: string, source: string}) {
+    this.backend.packageStatus(pkg.name).subscribe(response => {
+      if (response.status)
+        this.packageStatus = Object.assign(response.status, pkg);
+    });
   }
 
   _update() {

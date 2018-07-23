@@ -39,6 +39,9 @@ export class BackendService {
     packages: {
       root: 'packages/',
       list: 'list',
+      install: 'install',
+      uninstall: 'uninstall',
+      status: 'status',
     },
   }
 
@@ -133,6 +136,28 @@ export class BackendService {
   packagesList() {
     return this.http.get<any>(this.api + BackendService.apiCalls.packages.root
         + BackendService.apiCalls.packages.list).share();
+  }
+
+  installPackage(pkg: { name: string; source: string }) {
+    return this.http.post<any>(
+      this.api + BackendService.apiCalls.packages.root + BackendService.apiCalls.packages.install,
+      pkg
+    ).share();
+  }
+
+  uninstallPackage(name: string) {
+    return this.http.post<any>(
+      this.api + BackendService.apiCalls.packages.root + BackendService.apiCalls.packages.uninstall,
+      {
+        name: name
+      }
+    ).share();
+  }
+
+  packageStatus(name: string) {
+    return this.http.get<any>(this.api + BackendService.apiCalls.packages.root
+       + BackendService.apiCalls.packages.status + `?name=${name}`
+    ).share();
   }
 
   public get nodes() {

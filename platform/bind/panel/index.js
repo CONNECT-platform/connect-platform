@@ -40,6 +40,7 @@ module.exports.platform = {
         "packages/list",
         "packages/install",
         "packages/uninstall",
+        "packages/status",
       ],
     },
   },

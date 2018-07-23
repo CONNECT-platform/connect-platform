@@ -11,7 +11,7 @@
   width: 180px;
   height: 180px;
   margin: 12px;
-  border-radius: 3px;
+  border-radius: 8px;
   padding: 8px;
   cursor: pointer;
   display: inline-block;
@@ -147,4 +147,27 @@
   width: 156px;
   top: 6px;
   font-size: 14px;
+}
+
+overlay overlay-title .sub {
+  font-size: 14px;
+}
+
+overlay input {
+  display: block;
+  width: calc(100% - 24px);
+  margin: 0 auto;
+  background: black;
+  color: white;
+  border-radius: 19px;
+  border: 1px solid white;
+  height: 38px;
+  font-family: inherit;
+  text-align: center;
+  font-size: 14px;
+  outline: none;
+}
+
+overlay.npm input {
+  color: #448aff;
 }

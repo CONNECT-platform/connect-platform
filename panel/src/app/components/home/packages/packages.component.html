@@ -2,8 +2,14 @@
   <div class="title">PACKAGES</div>
 
   <div class="packages" *ngIf="!empty">
+    <p>
+      packages listed here are not necessarily installed yet, as <span class="hl-white">CONNECT</span>
+      will try to fetch and install all packages in the background. to check if a package is installed
+      or not, click on it to see its details.
+    </p>
+    <br>
     <div class="package" *ngFor="let package of packages">
-      <div class="contents">
+      <div class="contents" (click)="status(package)">
         <div>
           <div class="name">
             {{package.name}}
@@ -14,9 +20,13 @@
         </div>
       </div>
       <div class="actions">
-        <img src="assets/info-filled.svg" (mouseover)="tooltip='info'" (mouseout)="tooltip=''"/>
+        <img src="assets/info-filled.svg"
+          (click)="status(package)"
+          (mouseover)="tooltip='info'" (mouseout)="tooltip=''"/>
         <img src="assets/update-filled.svg" (mouseover)="tooltip='update'" (mouseout)="tooltip=''"/>
-        <img src="assets/close-filled.svg" (mouseover)="tooltip='uninstall'" (mouseout)="tooltip=''"/>
+        <img src="assets/close-filled.svg"
+          (click)="uninstallTarget=package.name"
+          (mouseover)="tooltip='uninstall'" (mouseout)="tooltip=''"/>
       </div>
     </div>
   </div>
@@ -40,8 +50,80 @@
             (blur)="searching=searchinput.value.length>0"
             type="text"/>
     </div>
-    <div (click)="addOverlay.activate()" class="add action">
+    <div (click)="installNPMOverlay.activate()" class="add action">
       <span>+</span>
     </div>
   </div>
 </div>
+
+<overlay #installNPMOverlay
+  class="npm"
+  icon="assets/packages.svg">
+  <overlay-title>
+    Install A New Package
+  </overlay-title>
+  <overlay-content>
+    Enter the name of the NPM package you want to install. Just to be 100% sure,
+    look it up on NPM and copy its name ;)
+    <br><br>
+    <input
+      placeholder="name of the NPM package"
+      type="text"
+      #npmPackageName/>
+  </overlay-content>
+  <overlay-actions>
+    <button (click)="install(npmPackageName.value, npmPackageName.value)">Install</button>
+  </overlay-actions>
+</overlay>
+
+<overlay #uninstallOverlay
+  [active]="uninstallTarget">
+  <overlay-title>Confirm Uninstall</overlay-title>
+  <overlay-content>
+    Are you sure you want to uninstall <span class="hl-blue">{{uninstallTarget}}</span>?
+    You cannot undo this action (although you can again re-install). Nodes
+    dependent on this package will also stop working properly and would need to be updated.
+  </overlay-content>
+  <overlay-actions>
+    <button (click)="uninstallOverlay.close()">Oh Wait ...</button>
+    <button class="danger" (click)="uninstall(uninstallTarget)">Uninstall</button>
+  </overlay-actions>
+</overlay>
+
+<overlay #uninstallingOverlay [active]="uninstallingTarget">
+  <overlay-title>Uninstalling ...</overlay-title>
+  <overlay-content>
+    Please wait while <span class="hl-blue">{{uninstallingTarget}}</span> is removed.
+  </overlay-content>
+</overlay>
+
+<overlay #statusOverlay [active]="packageStatus">
+  <overlay-title>
+    <ng-container *ngIf="packageStatus">
+      <div>{{packageStatus.name}}</div>
+      <div class="hl-blue sub" *ngIf="packageStatus.name==packageStatus.source">NPM package</div>
+    </ng-container>
+  </overlay-title>
+  <overlay-content>
+    <ng-container *ngIf="packageStatus">
+      <ng-container *ngIf="packageStatus.installed">
+        Package successfully installed.
+        <ng-container *ngIf="packageStatus.paths.length > 0">
+          This package allows you to create <b>Call</b>s to these paths:<br><br>
+          <ng-container *ngFor="let path of packageStatus.paths">
+            <span class="hl-teal">{{path}}</span><br/>
+          </ng-container>
+        </ng-container>
+      </ng-container>
+
+      <ng-container *ngIf="!packageStatus.installed">
+        Package not installed yet. Most probably, <span class="hl-white">CONNECT</span>
+        is still trying to install it in the background and it will be installed soon. If not,
+        there is probably something wrong with the package name or the package itself.
+      </ng-container>
+    </ng-container>
+  </overlay-content>
+  <overlay-actions>
+    <button (click)="statusOverlay.close()">Ok</button>
+  </overlay-actions>
+</overlay>

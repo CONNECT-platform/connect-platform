@@ -26,6 +26,7 @@
   "dependencies": {
     "@google-cloud/firestore": "^0.13.1",
     "body-parser": "^1.18.2",
+    "connect-jwt": "0.0.2",
     "cors": "^2.8.4",
     "express": "^4.16.3",
     "jsonwebtoken": "^8.2.1",

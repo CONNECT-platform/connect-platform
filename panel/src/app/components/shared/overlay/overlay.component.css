@@ -50,6 +50,8 @@
 .inner .content {
   font-size: 16px;
   max-width: 30vw;
+  max-height: 40vh;
+  overflow-y: auto;
   margin: 0 auto;
 }
 

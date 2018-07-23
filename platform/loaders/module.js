@@ -9,7 +9,7 @@ const loaders = {
   json: require('./json'),
 
   module: function(path, searchPaths, config) {
-    const callback = (mod, modPath) => {
+    const callback = (mod, modPath, callback) => {
       if (mod && mod.platform) {
         if (mod.platform.config) {
           loadNodesFromConf(mod.platform.config, [modPath], config);
@@ -21,6 +21,8 @@ const loaders = {
           }
         }
       }
+
+      if (callback) callback();
     };
 
     if (typeof path != 'string')

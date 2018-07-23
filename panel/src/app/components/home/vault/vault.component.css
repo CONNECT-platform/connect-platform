@@ -146,7 +146,8 @@
 
 input.new-key {
   display: block;
-  width: 100%;
+  width: calc(100% - 24px);
+  margin: 0 auto;
   height: 32px;
   border-radius: 19px;
   border: 1px solid white;
@@ -161,7 +162,8 @@ input.new-key {
 
 textarea {
   display: block;
-  width: 100%;
+  width: calc(100% - 24px);
+  margin: 0 auto;
   outline: none;
   border-radius: 19px;
   border: 1px solid white;

@@ -15,7 +15,6 @@ platform.core.node({
     platform.conventions.controls._Unauthorized
   ],
 }, (inputs, output, control) => {
-  console.log('--- A ---');
   platform.call(`${config.path}config/load`,
     { connect_token: inputs.connect_token })
     .then(result => {
