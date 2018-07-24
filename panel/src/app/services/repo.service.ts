@@ -28,6 +28,15 @@ export class RepoService {
     });
   }
 
+  public get display(): Observable<any[]> {
+    return Observable.create((observer: Observer<any[]>) => {
+      this.repo.subscribe(repo => {
+        observer.next(repo.packages);
+        observer.complete();
+      })
+    });
+  }
+
   public package(name: string): Observable<any> {
     return Observable.create((observer: Observer<any>) => {
       this.repo.subscribe(repo => {

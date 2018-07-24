@@ -7,7 +7,8 @@
   margin-bottom: 56px;
 }
 
-.packages .package {
+.packages .package,
+.install .package {
   width: 180px;
   height: 180px;
   margin: 12px;
@@ -15,9 +16,17 @@
   padding: 8px;
   cursor: pointer;
   display: inline-block;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+}
 
+.packages .package {
+  box-shadow: 0 1px 3px rgba(0,0,0,0.5);
   transition: transform .15s, box-shadow .15s, background .15s;
+}
+
+.install .package {
+  background: rgba(0, 0, 0, .05);
+  border: 1px solid rgba(255, 255, 255, .1);
+  transition: background .15s, border-color .15s;
 }
 
 .packages .package:hover {
@@ -26,7 +35,13 @@
   box-shadow: 0 6px 8px rgba(0,0,0,0.5);
 }
 
-.packages .package .contents {
+.install .package:hover {
+  background: rgba(0, 0, 0, .5);
+  border-color: rgba(255, 255, 255, .2);
+}
+
+.packages .package .contents,
+.install .package .contents {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -34,11 +49,21 @@
   height: 148px;
 }
 
-.packages .package .name {
+.packages .package .icon,
+.install .package .icon {
+  height: 64px;
+  max-width: 64px;
+  margin: 0 auto;
+  display: block;
+}
+
+.packages .package .name,
+.install .package .name {
   font-size: 20px;
 }
 
-.packages .package .source {
+.packages .package .source,
+.install .package .source {
   font-size: 12px;
   color: #448aff;
   white-space: nowrap;
@@ -49,6 +74,16 @@
 .packages .package .actions {
   text-align: right;
   padding-right: 8px;
+}
+
+.install .package .actions {
+  text-align: center;
+  opacity: .2;
+  transition: opacity .15s;
+}
+
+.install .package:hover .actions {
+  opacity: 1;
 }
 
 .packages .package .actions img {
@@ -176,4 +211,9 @@ overlay input {
 
 overlay.npm input {
   color: #448aff;
+}
+
+overlay.install p {
+  width: 60vw;
+  margin-bottom: 12px;
 }

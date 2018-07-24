@@ -32,7 +32,7 @@
 }
 
 .inner .icon {
-  max-width: 30vw;
+  height: 192px;
   display: block;
   margin: 0 auto;
 }
@@ -58,6 +58,27 @@
 .inner .actions {
   text-align: right;
   padding: 32px 0;
+}
+
+.expansive .inner {
+  width: calc(100vw - 256px);
+}
+
+.expansive .inner .icon {
+  display: inline-block;
+  height: 96px;
+}
+
+.expansive .inner .title {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.expansive .inner .content {
+  max-width: calc(100vw - 256px);
+  width: calc(100vw - 256px);
+  min-height: 40vh;
+  max-height: calc(100vh - 256px);
 }
 
 .close {

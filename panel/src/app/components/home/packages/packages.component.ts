@@ -15,11 +15,13 @@ import { HintRef, HintService } from '../../../services/hint.service';
 export class PackagesComponent implements OnInit, OnDestroy, AfterViewInit {
 
   _packages: { name: string; source: string }[] = [];
+  showcase: any;
 
   _updateInterval: any;
   searching : boolean = false;
   @ViewChild('searchinput') searchInput : ElementRef;
 
+  @ViewChild('installOverlay') installOverlay;
   @ViewChild('installNPMOverlay') installNPMOverlay;
   @ViewChild('uninstallOverlay') uninstallOverlay;
   @ViewChild('uninstallingOverlay') uninstallingOverlay;
@@ -44,6 +46,10 @@ export class PackagesComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngAfterViewInit() {
+    this.installOverlay.onActivate.subscribe(() => {
+
+    });
+
     this.uninstallOverlay.onClose.subscribe(() => {
       this.uninstallTarget = undefined;
     });
@@ -91,10 +97,13 @@ export class PackagesComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   install(name: string, source: string) {
-    this.backend.installPackage({name, source}).subscribe(() => {
-      this.installNPMOverlay.close();
-      this._update();
-    });
+    if (name) {
+      this.backend.installPackage({name, source}).subscribe(() => {
+        this.installNPMOverlay.close();
+        this.installOverlay.close();
+        this._update();
+      });
+    }
   }
 
   uninstall(name: string) {
@@ -102,8 +111,14 @@ export class PackagesComponent implements OnInit, OnDestroy, AfterViewInit {
     this.uninstallOverlay.close();
     this.backend.uninstallPackage(name).subscribe(() => {
       this.uninstallingOverlay.close();
+      this.statusOverlay.close();
+      this.installOverlay.close();
       this._update();
     });
+  }
+
+  installed(name: string) {
+    return this._packages.some(pkg => pkg.name == name);
   }
 
   status(pkg: {name: string, source: string}) {
@@ -115,14 +130,19 @@ export class PackagesComponent implements OnInit, OnDestroy, AfterViewInit {
       this.packageStatus = Object.assign({}, pkg, repo);
       if (status.status)
         this.packageStatus = Object.assign(this.packageStatus, status.status);
-
-      console.log(this.packageStatus);
     });
   }
 
   _update() {
     this.backend.packagesList().subscribe(response => {
-      if (response.list) this._packages = response.list;
+      if (response.list) {
+        this._packages = response.list;
+        this._packages.forEach(pkg => {
+          this.repo.package(pkg.name).subscribe(extra => {
+            Object.assign(pkg, extra, pkg);
+          });
+        });
+      }
     });
   }
 }

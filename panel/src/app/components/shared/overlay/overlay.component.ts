@@ -11,6 +11,7 @@ import { elementBox } from '../../../util/elem-box';
 export class OverlayComponent implements OnInit {
 
   @Input() public icon: string;
+  @Input() public expansive: boolean = false;
 
   @ViewChild('inner') inner: ElementRef;
   private _active : boolean = false;

@@ -11,6 +11,7 @@
     <div class="package" *ngFor="let package of packages">
       <div class="contents" (click)="status(package)">
         <div>
+          <img class="icon" [src]="package.icon?package.icon:'assets/package.svg'"/>
           <div class="name">
             {{package.name}}
           </div>
@@ -50,17 +51,49 @@
             (blur)="searching=searchinput.value.length>0"
             type="text"/>
     </div>
-    <div (click)="installNPMOverlay.activate()" class="add action">
+    <div (click)="installOverlay.activate()" class="add action">
       <span>+</span>
     </div>
   </div>
 </div>
 
-<overlay #installNPMOverlay
-  class="npm"
+<overlay #installOverlay class="install"
+  [expansive]="true"
   icon="assets/packages.svg">
+  <overlay-title>Install a New Package</overlay-title>
+  <overlay-content>
+    <p>
+      If you are looking for a specific NPM package and cannot find it here,
+      do not worry! Simply use the <b>Install from NPM</b> button below to install your
+      package.
+    </p>
+    <div class="package" *ngFor="let package of (repo.display | async)">
+      <div class="contents" (click)="status(package)">
+        <div>
+          <img class="icon" [src]="package.icon?package.icon:'assets/package.svg'"/>
+          <div class="name">
+            {{package.name}}
+          </div>
+          <div class="source" *ngIf="package.name == package.source">
+            NPM package
+          </div>
+        </div>
+      </div>
+      <div class="actions">
+        <button *ngIf="installed(package.name)" (click)="uninstallTarget=package.name">Uninstall</button>
+        <button *ngIf="!installed(package.name)" (click)="install(package.name, package.source)">Install</button>
+      </div>
+    </div>
+  </overlay-content>
+  <overlay-actions>
+    <button (click)="installNPMOverlay.activate()">Install from NPM</button>
+  </overlay-actions>
+</overlay>
+
+<overlay #installNPMOverlay
+  class="npm">
   <overlay-title>
-    Install A New Package
+    Install a NPM Package
   </overlay-title>
   <overlay-content>
     Enter the name of the NPM package you want to install. Just to be 100% sure,
@@ -76,28 +109,9 @@
   </overlay-actions>
 </overlay>
 
-<overlay #uninstallOverlay
-  [active]="uninstallTarget">
-  <overlay-title>Confirm Uninstall</overlay-title>
-  <overlay-content>
-    Are you sure you want to uninstall <span class="hl-blue">{{uninstallTarget}}</span>?
-    You cannot undo this action (although you can again re-install). Nodes
-    dependent on this package will also stop working properly and would need to be updated.
-  </overlay-content>
-  <overlay-actions>
-    <button (click)="uninstallOverlay.close()">Oh Wait ...</button>
-    <button class="danger" (click)="uninstall(uninstallTarget)">Uninstall</button>
-  </overlay-actions>
-</overlay>
-
-<overlay #uninstallingOverlay [active]="uninstallingTarget">
-  <overlay-title>Uninstalling ...</overlay-title>
-  <overlay-content>
-    Please wait while <span class="hl-blue">{{uninstallingTarget}}</span> is removed.
-  </overlay-content>
-</overlay>
-
-<overlay #statusOverlay [active]="packageStatus">
+<overlay #statusOverlay
+  [icon]="(packageStatus && packageStatus.icon)?(packageStatus.icon):'assets/package.svg'"
+  [active]="packageStatus">
   <overlay-title>
     <ng-container *ngIf="packageStatus">
       <div>{{packageStatus.name}}</div>
@@ -121,7 +135,7 @@
         </ng-container>
       </ng-container>
 
-      <ng-container *ngIf="!packageStatus.installed">
+      <ng-container *ngIf="installed(packageStatus.name) && !packageStatus.installed">
         Package not installed yet. Most probably, <span class="hl-white">CONNECT</span>
         is still trying to install it in the background and it will be installed soon. If not,
         there is probably something wrong with the package name or the package itself.
@@ -129,6 +143,29 @@
     </ng-container>
   </overlay-content>
   <overlay-actions>
-    <button (click)="statusOverlay.close()">Ok</button>
+    <button *ngIf="!installed(packageStatus?.name)" (click)="install(packageStatus.name, packageStatus.source)">Install</button>
+    <button *ngIf="installed(packageStatus?.name)" (click)="uninstallTarget=packageStatus.name">Uninstall</button>
+    <button *ngIf="installed(packageStatus?.name)" (click)="statusOverlay.close()">Close</button>
   </overlay-actions>
+</overlay>
+
+<overlay #uninstallOverlay
+  [active]="uninstallTarget">
+  <overlay-title>Confirm Uninstall</overlay-title>
+  <overlay-content>
+    Are you sure you want to uninstall <span class="hl-blue">{{uninstallTarget}}</span>?
+    You cannot undo this action (although you can again re-install). Nodes
+    dependent on this package will also stop working properly and would need to be updated.
+  </overlay-content>
+  <overlay-actions>
+    <button (click)="uninstallOverlay.close()">Oh Wait ...</button>
+    <button class="danger" (click)="uninstall(uninstallTarget)">Uninstall</button>
+  </overlay-actions>
+</overlay>
+
+<overlay #uninstallingOverlay [active]="uninstallingTarget">
+  <overlay-title>Uninstalling ...</overlay-title>
+  <overlay-content>
+    Please wait while <span class="hl-blue">{{uninstallingTarget}}</span> is removed.
+  </overlay-content>
 </overlay>
