@@ -41,6 +41,7 @@ module.exports.platform = {
         "packages/install",
         "packages/uninstall",
         "packages/status",
+        "packages/repo",
       ],
     },
   },

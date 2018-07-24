@@ -107,7 +107,7 @@ button:hover {
   color: #76FF03;
 }
 
-.hl-blue {
+.hl, .hl-blue {
   color: #448aff;
 }
 

@@ -106,12 +106,17 @@
   </overlay-title>
   <overlay-content>
     <ng-container *ngIf="packageStatus">
+      <ng-container *ngIf="packageStatus.description">
+        {{packageStatus.description}}
+        <br><br>
+      </ng-container>
       <ng-container *ngIf="packageStatus.installed">
         Package successfully installed.
-        <ng-container *ngIf="packageStatus.paths.length > 0">
+        <ng-container *ngIf="packageStatus.signatures.length > 0">
           This package allows you to create <b>Call</b>s to these paths:<br><br>
-          <ng-container *ngFor="let path of packageStatus.paths">
-            <span class="hl-teal">{{path}}</span><br/>
+          <ng-container *ngFor="let signature of packageStatus.signatures">
+            <span class="hl-teal">{{signature.path}}</span><br/>
+            <p class="hint" *ngIf="signature.hints && signature.hints.node" [innerHTML]="signature.hints.node"></p>
           </ng-container>
         </ng-container>
       </ng-container>

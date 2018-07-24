@@ -42,6 +42,7 @@ export class BackendService {
       install: 'install',
       uninstall: 'uninstall',
       status: 'status',
+      repo: 'repo',
     },
   }
 
@@ -158,6 +159,11 @@ export class BackendService {
     return this.http.get<any>(this.api + BackendService.apiCalls.packages.root
        + BackendService.apiCalls.packages.status + `?name=${name}`
     ).share();
+  }
+
+  packageRepo() {
+    return this.http.get<any>(this.api + BackendService.apiCalls.packages.root
+        + BackendService.apiCalls.packages.repo).share();
   }
 
   public get nodes() {

@@ -153,6 +153,12 @@ overlay overlay-title .sub {
   font-size: 14px;
 }
 
+overlay p.hint {
+  font-size: 12px;
+  color: rgba(255, 255, 255, .5);
+  margin-bottom: 12px;
+}
+
 overlay input {
   display: block;
   width: calc(100% - 24px);

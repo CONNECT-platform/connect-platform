@@ -20,6 +20,7 @@ import { BackendService } from './services/backend.service';
 import { TesterService } from './services/tester.service';
 import { HintService } from './services/hint.service';
 import { TokenService } from './services/token.service';
+import { RepoService } from './services/repo.service';
 
 import { PinComponent } from './components/editor/pin/pin.component';
 import { LinkComponent } from './components/editor/link/link.component';
@@ -90,6 +91,7 @@ const routes : Routes = [
     TesterService,
     HintService,
     TokenService,
+    RepoService,
   ],
   entryComponents: [
     NodesComponent,

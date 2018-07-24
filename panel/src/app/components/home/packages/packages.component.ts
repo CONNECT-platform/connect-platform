@@ -1,7 +1,9 @@
 import { Component, OnInit, OnDestroy, AfterViewInit,
     ViewChild, ElementRef, Renderer } from '@angular/core';
+import { Observable } from 'rxjs';
 
 import { BackendService } from '../../../services/backend.service';
+import { RepoService } from '../../../services/repo.service';
 import { HintRef, HintService } from '../../../services/hint.service';
 
 
@@ -31,6 +33,7 @@ export class PackagesComponent implements OnInit, OnDestroy, AfterViewInit {
 
   constructor(
     private backend: BackendService,
+    private repo: RepoService,
     private renderer: Renderer,
     private hint: HintService,
   ) { }
@@ -104,9 +107,16 @@ export class PackagesComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   status(pkg: {name: string, source: string}) {
-    this.backend.packageStatus(pkg.name).subscribe(response => {
-      if (response.status)
-        this.packageStatus = Object.assign(response.status, pkg);
+    Observable.zip(
+      this.backend.packageStatus(pkg.name),
+      this.repo.package(pkg.name),
+    )
+    .subscribe(([status, repo]) => {
+      this.packageStatus = Object.assign({}, pkg, repo);
+      if (status.status)
+        this.packageStatus = Object.assign(this.packageStatus, status.status);
+
+      console.log(this.packageStatus);
     });
   }
 

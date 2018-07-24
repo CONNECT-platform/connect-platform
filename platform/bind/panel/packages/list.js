@@ -1,5 +1,3 @@
-const path = require('path');
-
 const platform = require('../../../');
 const config = require('../util/config');
 

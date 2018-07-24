@@ -1,5 +1,3 @@
-const path = require('path');
-
 const platform = require('../../../');
 const external = require('../../../loaders/load-external');
 const config = require('../util/config');
@@ -15,12 +13,12 @@ platform.core.node({
   try {
     require(inputs.name);
 
-    let paths = [];
-    if (inputs.name in external.dependencies) paths = external.dependencies[inputs.name];
+    let signatures = [];
+    if (inputs.name in external.dependencies) signatures = external.dependencies[inputs.name];
 
     output('status', {
       installed: true,
-      paths: paths,
+      signatures: signatures,
     });
   } catch(_) {
     output('status', {

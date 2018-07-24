@@ -5,13 +5,13 @@ const ct = require('../util/color-text');
 
 dependencies = {}
 
-const markdep = (name, path) => {
+const markdep = (name, entry) => {
   if (!(name in dependencies)) dependencies[name] = [];
-  dependencies[name].push(path);
+  dependencies[name].push(entry);
 }
 
 module.exports = (info, callback) => {
-  const regmarker = entry => markdep(info.name, entry.signature.path);
+  const regmarker = entry => markdep(info.name, entry.signature);
   const aliasmarker = entry => markdep(info.name, entry.alias);
   const unsubscribe = () => {
     registry.unsubscribe(registry.events.registered, regmarker);

@@ -25,6 +25,7 @@
   "license": "MIT",
   "dependencies": {
     "@google-cloud/firestore": "^0.13.1",
+    "axios": "^0.18.0",
     "body-parser": "^1.18.2",
     "connect-jwt": "0.0.2",
     "cors": "^2.8.4",

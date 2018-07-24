@@ -1,4 +1,3 @@
-const path = require('path');
 const process = require('child_process');
 
 const ct = require('../../../util/color-text');
