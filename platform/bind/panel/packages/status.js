@@ -13,12 +13,12 @@ platform.core.node({
   try {
     require(inputs.name);
 
-    let signatures = [];
-    if (inputs.name in external.dependencies) signatures = external.dependencies[inputs.name];
+    let provided = [];
+    if (inputs.name in external.dependencies) provided = external.dependencies[inputs.name];
 
     output('status', {
       installed: true,
-      signatures: signatures,
+      provided: provided,
     });
   } catch(_) {
     output('status', {

@@ -126,13 +126,28 @@
       </ng-container>
       <ng-container *ngIf="packageStatus.installed">
         Package successfully installed.
-        <ng-container *ngIf="packageStatus.signatures.length > 0">
+
+        <ng-container *ngIf="packageStatus.provided?.signatures?.length > 0 || packageStatus.provided?.aliases?.length > 0">
           This package allows you to create <b>Call</b>s to these paths:<br><br>
-          <ng-container *ngFor="let signature of packageStatus.signatures">
-            <span class="hl-teal">{{signature.path}}</span><br/>
-            <p class="hint" *ngIf="signature.hints && signature.hints.node" [innerHTML]="signature.hints.node"></p>
-          </ng-container>
+
+          <div class="provided-holder">
+            <div class="provided">
+              <ng-container *ngIf="packageStatus.provided?.signatures?.length > 0">
+                <ng-container *ngFor="let signature of packageStatus.provided.signatures">
+                  <span class="hl-teal">{{signature.path}}</span><br/>
+                  <p class="hint" *ngIf="signature.hints && signature.hints.node" [innerHTML]="signature.hints.node"></p>
+                </ng-container>
+              </ng-container>
+              <ng-container *ngIf="packageStatus.provided?.aliases?.length > 0">
+                <ng-container *ngFor="let alias of packageStatus.provided.aliases">
+                    <span class="hl-teal">{{alias.alias}}</span>
+                    <p class="hint">alias for <span class="hl-teal">{{alias.original}}</span></p>
+                </ng-container>
+              </ng-container>
+            </div>
+          </div>
         </ng-container>
+
       </ng-container>
 
       <ng-container *ngIf="installed(packageStatus.name) && !packageStatus.installed">

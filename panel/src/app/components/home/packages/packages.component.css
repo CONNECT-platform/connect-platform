@@ -188,7 +188,7 @@ overlay overlay-title .sub {
   font-size: 14px;
 }
 
-overlay p.hint {
+overlay .hint {
   font-size: 12px;
   color: rgba(255, 255, 255, .5);
   margin-bottom: 12px;
@@ -216,4 +216,15 @@ overlay.npm input {
 overlay.install p {
   width: 60vw;
   margin-bottom: 12px;
+}
+
+overlay .provided-holder {
+  text-align: center;
+}
+
+overlay .provided {
+  display: inline-block;
+  padding: 0 32px;
+  border-left: 4px solid rgba(255, 255, 255, .2);
+  text-align: left;
 }

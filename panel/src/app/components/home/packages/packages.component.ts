@@ -130,6 +130,8 @@ export class PackagesComponent implements OnInit, OnDestroy, AfterViewInit {
       this.packageStatus = Object.assign({}, pkg, repo);
       if (status.status)
         this.packageStatus = Object.assign(this.packageStatus, status.status);
+
+      console.log(this.packageStatus);
     });
   }
 
