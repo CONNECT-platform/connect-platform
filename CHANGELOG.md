@@ -7,12 +7,20 @@ and we use [Semantic Versioning](http://semver.org/spec/v2.0.0.html), like stric
 
 ## [Unreleased]
 ### Added
+ - support for installing packages from sources other than NPM (namely git).
+### Changed
+ - extracted firestore as a separate independently published package.
+ - extracted mongodb as a separate independently published package.
+
+## [0.2.1]
+### Added
  - optional panel token authentication.
  - in-panel configuration of project.
  - in-panel installation of packages.
-   - also support for adding any npm package or git repo in general.
+  - also support for adding any npm package.
  - node documentation (nodes can have documentation so that people can easily use them).
- - code documentation.
+### Changed
+ - one registry object will be created in case there are multiple versions of platform installed.
 
 ## [0.1.3] - 2018-06-20
 ### Added
@@ -38,7 +46,7 @@ and we use [Semantic Versioning](http://semver.org/spec/v2.0.0.html), like stric
 ### Added
  - readme and [guides on medium](https://medium.com/connect-platform/guides/home)
  - a nice utility node named `#iterate` for iterating over arrays, now that looping is allowed.
-### Changes
+### Changed
  - looping is now allowed.
 
 ## [0.1.0] - ~2018-04-15
