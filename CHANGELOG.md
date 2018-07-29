@@ -12,7 +12,7 @@ and we use [Semantic Versioning](http://semver.org/spec/v2.0.0.html), like stric
  - extracted firestore as a separate independently published package.
  - extracted mongodb as a separate independently published package.
 
-## [0.2.1]
+## [0.2.2]
 ### Added
  - optional panel token authentication.
  - in-panel configuration of project.
