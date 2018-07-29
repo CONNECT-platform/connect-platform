@@ -117,5 +117,15 @@ class Registry extends Subscribable {
   }
 }
 
-module.exports = new Registry();
+//
+// basically, if there is already a registry defined,
+// we should not be redifining it, but rather refering
+// to the same registry. this specifically happens when
+// dependent packages have mismatching platform version
+// from installed platform version.
+//
+if (!global.connect_platform_registry)
+  global.connect_platform_registry = new Registry();
+
+module.exports = global.connect_platform_registry;
 module.exports.events = RegistryEvents;
