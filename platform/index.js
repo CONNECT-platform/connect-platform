@@ -68,9 +68,11 @@ class Platform extends Subscribable {
   }
 }
 
-const _platform = new Platform();
 
-module.exports = _platform;
+if (!global.connect_platform_instance)
+  global.connect_platform_instance = new Platform();
+
+module.exports = global.connect_platform_instance;
 
 module.exports.events = Events;
 module.exports.core = require('./core');
