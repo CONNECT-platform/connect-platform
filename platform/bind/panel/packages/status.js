@@ -1,5 +1,5 @@
 const platform = require('../../../');
-const external = require('../../../loaders/load-external');
+//const external = require('../../../loaders/load-external');
 const config = require('../util/config');
 
 
@@ -14,7 +14,7 @@ platform.core.node({
     require(inputs.name);
 
     let provided = [];
-    if (inputs.name in external.dependencies) provided = external.dependencies[inputs.name];
+    if (inputs.name in global.connect_platform_dependencies) provided = global.connect_platform_dependencies[inputs.name];
 
     output('status', {
       installed: true,

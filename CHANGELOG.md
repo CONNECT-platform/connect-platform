@@ -12,7 +12,7 @@ and we use [Semantic Versioning](http://semver.org/spec/v2.0.0.html), like stric
  - extracted firestore as a separate independently published package.
  - extracted mongodb as a separate independently published package.
 
-## [0.2.2]
+## [0.2.3]
 ### Added
  - optional panel token authentication.
  - in-panel configuration of project.
@@ -21,6 +21,9 @@ and we use [Semantic Versioning](http://semver.org/spec/v2.0.0.html), like stric
  - node documentation (nodes can have documentation so that people can easily use them).
 ### Changed
  - one registry object will be created in case there are multiple versions of platform installed.
+ - one platform instance will be created in case there are multiple versions of platform installed.
+ - one instance of platform dependency map for external packages will be created in case there are
+    multiple versions of platform installed.
 
 ## [0.1.3] - 2018-06-20
 ### Added

@@ -3,10 +3,10 @@ const process = require('child_process');
 const registry = require('../core/registry');
 const ct = require('../util/color-text');
 
-dependencies = {}
+global.connect_platform_dependencies = global.connect_platform_dependencies || {}
 
 const profile = name => {
-  if (!(name in dependencies)) dependencies[name] = {
+  if (!(name in global.connect_platform_dependencies)) global.connect_platform_dependencies[name] = {
     signatures: [],
     aliases: [],
   };
@@ -14,12 +14,12 @@ const profile = name => {
 
 const signature = (name, entry) => {
   profile(name);
-  dependencies[name].signatures.push(entry);
+  global.connect_platform_dependencies[name].signatures.push(entry);
 }
 
 const alias = (name, entry) => {
   profile(name);
-  dependencies[name].aliases.push(entry);
+  global.connect_platform_dependencies[name].aliases.push(entry);
 }
 
 module.exports = (info, callback) => {
@@ -60,5 +60,3 @@ module.exports = (info, callback) => {
     });
   }
 }
-
-module.exports.dependencies = dependencies;
