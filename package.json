@@ -1,6 +1,6 @@
 {
   "name": "connect-platform",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "A platform to build backened code mostly in a visual manner.",
   "keywords": [
     "connect",
@@ -24,7 +24,6 @@
   "author": "Eugene Ghanizadeh Khoub",
   "license": "MIT",
   "dependencies": {
-    "@google-cloud/firestore": "^0.13.1",
     "axios": "^0.18.0",
     "body-parser": "^1.18.2",
     "cors": "^2.8.4",
