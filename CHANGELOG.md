@@ -8,9 +8,11 @@ and we use [Semantic Versioning](http://semver.org/spec/v2.0.0.html), like stric
 ## [Unreleased]
 ### Added
  - support for installing packages from sources other than NPM (namely git).
+ - project names (stored in config)
+ - logout (when logged in via an access token)
+ - external package config docs in config screen
 ### Changed
  - extracted firestore as a separate independently published package.
- - extracted mongodb as a separate independently published package.
 
 ## [0.2.3]
 ### Added
