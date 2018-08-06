@@ -7,12 +7,14 @@ and we use [Semantic Versioning](http://semver.org/spec/v2.0.0.html), like stric
 
 ## [Unreleased]
 ### Added
- - support for installing packages from sources other than NPM (namely git).
+ - support for installing packages from sources other than NPM (namely Git).
  - project names (stored in config)
  - logout (when logged in via an access token)
- - external package config docs in config screen
+ - support for setup documentation on installed external packages.
+ - support for closing panel overlay's using escape key.
 ### Changed
  - extracted firestore as a separate independently published package.
+ - panel now does not allow to create incompatible links.
 
 ## [0.2.3]
 ### Added
