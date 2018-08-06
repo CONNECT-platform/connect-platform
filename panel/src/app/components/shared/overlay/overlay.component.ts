@@ -1,4 +1,5 @@
-import { Component, OnInit, Input, EventEmitter, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, HostListener,
+      EventEmitter, ViewChild, ElementRef } from '@angular/core';
 
 import { elementBox } from '../../../util/elem-box';
 
@@ -60,4 +61,11 @@ export class OverlayComponent implements OnInit {
 
   public get onActivate() { return this._onActivate; }
   public get onClose() { return this._onClose; }
+
+  @HostListener('document:keyup', ['$event'])
+  keypress(event: KeyboardEvent) {
+    if (event.keyCode == 27) {
+      this.close();
+    }
+  }
 }
