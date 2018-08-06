@@ -46,9 +46,9 @@ export class Link extends Subscribable {
       if (pin.node && pin.node == this._from.node) return false;
 
       if (this._from.type == PinType.output)
-        return pin.type == PinType.input;
+        return pin.type == PinType.input && (pin.node != null || pin.tag != PinTag.control);
       if (this._from.type == PinType.control)
-        return (pin.type == PinType.input) && pin.node == null;
+        return (pin.type == PinType.input) && pin.node == null && pin.tag == PinTag.control;
     }
 
     if (target instanceof Node) {
