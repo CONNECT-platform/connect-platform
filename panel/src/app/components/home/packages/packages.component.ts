@@ -33,6 +33,12 @@ export class PackagesComponent implements OnInit, OnDestroy, AfterViewInit {
 
   private hintRef: HintRef;
 
+  options: any = {
+    showGutter: false,
+    maxLines: Infinity,
+    tabSize: 2,
+  }
+
   constructor(
     private backend: BackendService,
     private repo: RepoService,
@@ -41,7 +47,12 @@ export class PackagesComponent implements OnInit, OnDestroy, AfterViewInit {
   ) { }
 
   ngOnInit() {
-    this._updateInterval = setInterval(() => {}, 200);
+    this._updateInterval = setInterval(() => {
+      if (this.packageStatus && this.installed(this.packageStatus.name) &&
+        (!this.packageStatus.installed || !this.packageStatus.provided)) {
+        this.status(this.packageStatus);
+      }
+    }, 200);
     this._update();
   }
 
@@ -74,6 +85,13 @@ export class PackagesComponent implements OnInit, OnDestroy, AfterViewInit {
   get packages() {
     return this._packages.filter(
       pkg => pkg.name.indexOf(this.searchInput.nativeElement.value) != -1);
+  }
+
+  public get sampleConfig(): string {
+    if (this.packageStatus && this.packageStatus.hints && this.packageStatus.hints.sampleConfig)
+      return JSON.stringify(this.packageStatus.hints.sampleConfig, null, 2);
+
+    return "";
   }
 
   public set tooltip(text: string) {

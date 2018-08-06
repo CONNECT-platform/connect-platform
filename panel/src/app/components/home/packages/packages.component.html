@@ -127,6 +127,11 @@
       <ng-container *ngIf="packageStatus.installed">
         Package successfully installed.
 
+        <ng-container *ngIf="packageStatus.hints?.setup">
+          <button (click)="setupHintOverlay.activate()">How to Setup</button>
+          <br>
+        </ng-container>
+
         <ng-container *ngIf="packageStatus.provided?.signatures?.length > 0 || packageStatus.provided?.aliases?.length > 0">
           This package allows you to create <b>Call</b>s to these paths:<br><br>
 
@@ -154,6 +159,10 @@
         Package not installed yet. Most probably, <span class="hl-white">CONNECT</span>
         is still trying to install it in the background and it will be installed soon. If not,
         there is probably something wrong with the package name or the package itself.
+
+        <br>
+        <img src="assets/installing.svg"
+          style="display: block; margin: 0 auto; opacity: 0.25; width: 96px; height: 96px;"/>
       </ng-container>
     </ng-container>
   </overlay-content>
@@ -161,6 +170,31 @@
     <button *ngIf="!installed(packageStatus?.name)" (click)="install(packageStatus.name, packageStatus.source)">Install</button>
     <button *ngIf="installed(packageStatus?.name)" (click)="uninstallTarget=packageStatus.name">Uninstall</button>
     <button *ngIf="installed(packageStatus?.name)" (click)="statusOverlay.close()">Close</button>
+  </overlay-actions>
+</overlay>
+
+<overlay #setupHintOverlay
+  [icon]="(packageStatus && packageStatus.icon)?(packageStatus.icon):'assets/package.svg'">
+  <overlay-title>
+    How to Setup {{packageStatus?.name}}
+  </overlay-title>
+  <overlay-content>
+    <div [innerHTML]="packageStatus?.hints?.setup"></div>
+    <ng-container *ngIf="packageStatus?.hints?.sampleConfig">
+      <br><br>
+      Sample Configuration:
+      <br><br>
+      <div class="ace-holder">
+        <ace-editor mode="javascript"
+                    [text]="sampleConfig"
+                    [readonly]="true"
+                    [options]="options"
+                    style='min-height:16px;'></ace-editor>
+      </div>
+    </ng-container>
+  </overlay-content>
+  <overlay-actions>
+    <button (click)="setupHintOverlay.close()">Got It</button>
   </overlay-actions>
 </overlay>
 

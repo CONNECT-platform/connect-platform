@@ -228,3 +228,10 @@ overlay .provided {
   border-left: 4px solid rgba(255, 255, 255, .2);
   text-align: left;
 }
+
+.ace-holder {
+  background: black;
+  padding: 16px;
+  border-radius: 18px;
+  border: 1px solid white;
+}
