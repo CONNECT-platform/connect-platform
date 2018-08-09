@@ -7,6 +7,7 @@ const core = require('../core');
 const loaders = {
   native: require('./native'),
   json: require('./json'),
+  service: require('./service'),
 
   module: function(path, searchPaths, config) {
     const callback = (mod, modPath, callback) => {

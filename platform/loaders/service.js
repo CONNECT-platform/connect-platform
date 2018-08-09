@@ -1,13 +1,11 @@
 const axios = require('axios');
 const core = require('../core');
+const ct = require('../util/color-text');
 
 
 module.exports = (service) => {
 
-  //TODO: do a properly colored message here.
-  //
-
-  console.log(`loading service ${service.name} on ${service.url}`);
+  console.log(`${ct(ct.blue + ct.bright, 'connecting to service')} ${service.name} ${ct(ct.reverse, `@${service.url}`)}`);
   axios.get(service.url + '/api').then(response => {
     if (response.data) {
       response.data.forEach(signature => {
@@ -72,10 +70,7 @@ module.exports = (service) => {
       })
     }
   }).catch(error => {
-
-    //TODO: do a properly colored message here.
-    //
-
+    console.log(`${ct(ct.red + ct.bright, 'ERROR:: could not connect to')} ${service.name} ${ct(ct.reverse, `@${service.url}`)}`);
     console.log(error);
   });
 }
