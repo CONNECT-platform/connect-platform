@@ -2,6 +2,9 @@ const platform = require('../../');
 const config = require('./util/config');
 
 
+//TODO: make this an authorized node.
+//
+
 platform.core.node({
   path : `${config.path}registry`,
   method : 'GET',

@@ -15,6 +15,7 @@ const gatherPublicRoutes = () => {
 
 const buildRouter = () => {
   let router = Router();
+
   for (let signature of gatherPublicRoutes()) {
     let handler = reqHandler(() => core.registry.instance(signature.path), signature);
     let method = (signature.method)?(signature.method.toLowerCase()):('get');
@@ -29,3 +30,4 @@ const buildRouter = () => {
 }
 
 module.exports = buildRouter;
+module.exports.public = gatherPublicRoutes;

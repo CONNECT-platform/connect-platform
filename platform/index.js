@@ -35,6 +35,7 @@ class Platform extends Subscribable {
                         [this.config.get('root')],
                         this.config.core);
 
+    this.config.get('services', []).forEach(service => loaders.service(service));
     if (this.config.has('aliases')) {
       for (let [alias, path] of Object.entries(this.config.get('aliases'))) {
         core.registry.alias(alias, path);
