@@ -32,8 +32,8 @@ module.exports = (service) => {
           let req;
 
           if (method == 'get') req = axios.get(service.url + path, { params: inputs });
-          if (method == 'post') req = axios.post(service.url + path, { params: inputs });
-          if (method == 'put') req = axios.put(service.url + path, { params: inputs });
+          if (method == 'post') req = axios.post(service.url + path, inputs);
+          if (method == 'put') req = axios.put(service.url + path, inputs);
           if (method == 'delete') req = axios.delete(service.url + path, { params: inputs});
 
           if (!req) {
