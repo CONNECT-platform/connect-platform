@@ -42,30 +42,6 @@
   color: #00BFA5;
 }
 
-overlay input {
-  display: block;
-  width: calc(100% - 24px);
-  margin: 12px auto;
-  height: 32px;
-  border-radius: 19px;
-  border: 1px solid white;
-  background: black;
-  font-family: inherit;
-  font-size: 14px;
-  line-height: 32px;
-  color: #00BFA5;
-  text-align: center;
-  outline: none;
-}
-
-overlay input.gone {
-  display: none;
-}
-
-overlay input.name {
-  color: #ffffff;
-}
-
 .toolbar {
   position: absolute;
   top: 0;
@@ -128,4 +104,45 @@ overlay input.name {
   width: 156px;
   top: 6px;
   font-size: 14px;
+}
+
+overlay input {
+  display: block;
+  width: calc(100% - 24px);
+  margin: 12px auto;
+  height: 32px;
+  border-radius: 19px;
+  border: 1px solid white;
+  background: black;
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 32px;
+  color: #00BFA5;
+  text-align: center;
+  outline: none;
+}
+
+overlay input.gone {
+  display: none;
+}
+
+overlay input.name {
+  color: #ffffff;
+}
+
+overlay .provided-holder {
+  text-align: center;
+}
+
+overlay .provided {
+  display: inline-block;
+  padding: 0 32px;
+  border-left: 4px solid rgba(255, 255, 255, .2);
+  text-align: left;
+}
+
+overlay .hint {
+  font-size: 12px;
+  color: rgba(255, 255, 255, .5);
+  margin-bottom: 12px;
 }

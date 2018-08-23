@@ -2,12 +2,18 @@ const axios = require('axios');
 const core = require('../core');
 const ct = require('../util/color-text');
 
+global.connect_platform_service_dependencies = global.connect_platform_service_dependencies || {};
 
 module.exports = (service) => {
 
   console.log(`${ct(ct.blue + ct.bright, 'connecting to service')} ${service.name} ${ct(ct.reverse, `@${service.url}`)}`);
   axios.get(service.url + '/api').then(response => {
     if (response.data) {
+
+      global.connect_platform_service_dependencies[service.name] = {
+        signatures: []
+      };
+
       response.data.forEach(signature => {
         let sig = Object.assign({}, signature, {
           path: `${service.name}:${signature.path}`,
@@ -18,6 +24,8 @@ module.exports = (service) => {
         sig.outputs.push('#error');
 
         let method = (signature.method)?(signature.method.toLowerCase()):('get');
+
+        global.connect_platform_service_dependencies[service.name].signatures.push(sig);
 
         //TODO: this should be moved to its own separate module.
         //

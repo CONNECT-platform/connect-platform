@@ -46,9 +46,7 @@
       with a call to <span class="hl-blue">name:/x</span>.
     </ng-container>
     <ng-container *ngIf="selected">
-      you can access nodes of this service, for example <span class="hl-blue">/x</span>,
-      with a call to <span class="hl-blue">{{selected.name}}:/x</span>. you can change
-      the url of this service by editing the input below.
+      you can modify the url of this service here:
     </ng-container>
     <br><br>
     <input #namein class="name" type="text"
@@ -57,6 +55,19 @@
     <input #urlin class="url" type="text"
       placeholder="url of the service ..."
       [value]="selected?.url"/>
+    <ng-container *ngIf="selected">
+      <br><br>
+      this service allows you to make calls to following paths:
+      <br><br>
+      <div class="provided-holder">
+        <div class="provided">
+          <ng-container *ngFor="let signature of selectedInfo?.signatures">
+            <span class="hl-teal">{{signature.path}}</span><br/>
+            <p class="hint" *ngIf="signature.hints && signature.hints.node" [innerHTML]="signature.hints.node"></p>
+          </ng-container>
+        </div>
+      </div>
+    </ng-container>
   </overlay-content>
   <overlay-actions>
     <button (click)="save(namein.value, urlin.value)" *ngIf="!selected">Add</button>

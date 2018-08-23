@@ -46,6 +46,7 @@ module.exports.platform = {
         "services/list",
         "services/save",
         "services/remove",
+        "services/info",
       ],
     },
   },

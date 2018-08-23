@@ -50,6 +50,7 @@ export class BackendService {
       list: 'list',
       save: 'save',
       remove: 'remove',
+      info: 'info',
     },
   }
 
@@ -195,6 +196,11 @@ export class BackendService {
         name: name,
       }
     ).share();
+  }
+
+  public serviceInfo(name: string) {
+    return this.http.get<any>(this.api + BackendService.apiCalls.services.root
+        + BackendService.apiCalls.services.info + `?name=${name}`).share();
   }
 
   public get nodes() {

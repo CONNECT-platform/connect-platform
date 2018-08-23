@@ -17,6 +17,7 @@ export class ServicesComponent implements OnInit, OnDestroy, AfterViewInit {
 
   _services: any[];
   selected: any;
+  selectedInfo: any;
   @ViewChild('overlay') overlay;
   @ViewChild('removeOverlay') removeOverlay;
 
@@ -31,6 +32,12 @@ export class ServicesComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngAfterViewInit() {
+    this.overlay.onActivate.subscribe(() => {
+      if (this.selected)
+        this.backend.serviceInfo(this.selected.name).subscribe(response => {
+          if (response.info) this.selectedInfo = response.info;
+        });
+    });
     this.overlay.onClose.subscribe(() => {
       this.selected = undefined;
     });
