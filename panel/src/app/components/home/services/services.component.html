@@ -1,11 +1,13 @@
 <div class="holder">
   <div class="title">SERVICES</div>
 
-  <div class="services">
+  <div class="services" *ngIf="!empty">
     <p>
-      add other <span class="hl-white">CONNECT microservices</span> here to be able to easily use them as if they were
-      local packages. you can also add non-CONNECT microservices, however they need to offer their
-      api specification in the same format CONNECT instances do.
+      click on any service to modify its url, remove it or see the nodes it provides.
+      you can also add non-CONNECT microservices, however they need to offer their
+      api specification in the same format <span class="hl-white">CONNECT</span> instances do.
+      you can read on that specification
+      <a target="_blank" href="https://github.com/CONNECT-platform/connect-platform/blob/master/INTERCONNECTIBILITY.md">here</a>.
     </p>
     <br>
     <div class="service" *ngFor="let service of services" (click)="selected=service">
@@ -13,6 +15,23 @@
       <div class="name"> {{ service.name }} </div>
       <div class="url"> {{ service.url }} </div>
     </div>
+  </div>
+
+  <div class="services empty" *ngIf="empty">
+    <p>
+      you can inter-connect with other <span class="hl-white">CONNECT</span> instances
+      to be able to use their public nodes easily, just by giving them a name and adding
+      their url. for example, you can call node with path <span class="hl-teal">/do-something</span>
+      on an inter-connected service that you've named <span class="hl-white">some-name</span>
+      by making a call to the path <span class="hl-teal">some-name:/do-something</span>.
+      <br>
+      press the <span class="button">+</span> button above to connect another service.
+      <br><br>
+      you can also connect to non-CONNECT based microservices, however they need to specify their
+      api in the same manner as <span class="hl-white">CONNECT</span>-based services do.
+      you can read on that specification
+      <a target="_blank" href="https://github.com/CONNECT-platform/connect-platform/blob/master/INTERCONNECTIBILITY.md">here</a>.
+    </p>
   </div>
 
   <div class="toolbar">
@@ -36,14 +55,15 @@
       Modify Service <span class="hl-blue">{{selected.name}}</span>
     </ng-container>
     <ng-container *ngIf="!selected">
-      Add a Service
+      Connect a Service
     </ng-container>
   </overlay-title>
   <overlay-content>
     <ng-container *ngIf="!selected">
-      you can add a service simply by adding its url and giving it a name.
-      you will be able to access its nodes, for example <span class="hl-blue">/x</span>,
-      with a call to <span class="hl-blue">name:/x</span>.
+      you can connect a service simply by adding its url and giving it a name.
+      you will be able to access its nodes, for example <span class="hl-teal">/do-something</span>,
+      with a call to <span class="hl-teal">some-name:/do-something</span>, assuming that you
+      name it "<span class="hl-white">some-name</span>".
     </ng-container>
     <ng-container *ngIf="selected">
       you can modify the url of this service here:

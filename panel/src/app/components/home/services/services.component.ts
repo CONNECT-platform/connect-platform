@@ -47,6 +47,10 @@ export class ServicesComponent implements OnInit, OnDestroy, AfterViewInit {
     clearInterval(this._updateInterval);
   }
 
+  public get empty() {
+    return !this.services || this.services.length == 0;
+  }
+
   public get services() {
     if (this._services)
       return this._services.filter(
