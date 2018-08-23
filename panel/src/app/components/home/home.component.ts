@@ -7,12 +7,15 @@ import { NodesComponent } from './nodes/nodes.component';
 import { ConfigComponent } from './config/config.component';
 import { VaultComponent } from './vault/vault.component';
 import { PackagesComponent } from './packages/packages.component';
+import { ServicesComponent } from './services/services.component';
+
 
 export const HomeComponentMappings = {
   nodes: NodesComponent,
   config: ConfigComponent,
   vault: VaultComponent,
   packages: PackagesComponent,
+  services: ServicesComponent,
 }
 
 @Component({

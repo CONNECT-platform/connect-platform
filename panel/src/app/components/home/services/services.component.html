@@ -1,0 +1,74 @@
+<div class="holder">
+  <div class="title">SERVICES</div>
+
+  <div class="services">
+    <p>
+      add other <span class="hl-white">CONNECT microservices</span> here to be able to easily use them as if they were
+      local packages. you can also add non-CONNECT microservices, however they need to offer their
+      api specification in the same format CONNECT instances do.
+    </p>
+    <br>
+    <div class="service" *ngFor="let service of services" (click)="selected=service">
+      <img src="assets/services.svg"/>
+      <div class="name"> {{ service.name }} </div>
+      <div class="url"> {{ service.url }} </div>
+    </div>
+  </div>
+
+  <div class="toolbar">
+    <div class="search action"
+        [ngClass]="{'active': searching}">
+      <span (click)="toggleSearch()"
+            class="material-icons">search</span>
+      <input #searchinput
+            (blur)="searching=searchinput.value.length>0"
+            type="text"/>
+    </div>
+    <div (click)="overlay.activate()" class="add action">
+      <span>+</span>
+    </div>
+  </div>
+</div>
+
+<overlay #overlay icon="assets/services.svg" [active]="selected">
+  <overlay-title>
+    <ng-container *ngIf="selected">
+      Modify Service
+    </ng-container>
+    <ng-container *ngIf="!selected">
+      Add a Service
+    </ng-container>
+  </overlay-title>
+  <overlay-content>
+    you can add a service simply by adding its url and giving it a name.
+    if the service is not a CONNECT instance, it should offer its api specification
+    in the same format as CONNECT instances do on its <span class="hl-teal">/api</span>
+    route.
+    <br><br>
+    <input #nameInput class="name" type="text"
+      placeholder="name of the service ..."
+      [value]="selected?.name"/>
+    <input #urlInput class="url" type="text"
+      placeholder="url of the service ..."
+      [value]="selected?.url"/>
+  </overlay-content>
+  <overlay-actions>
+    <button (click)="overlay.close()" *ngIf="!selected">Add</button>
+    <button (click)="removeOverlay.activate()" *ngIf="selected">Remove</button>
+    <button (click)="overlay.close()" *ngIf="selected">Save</button>
+  </overlay-actions>
+</overlay>
+
+<overlay #removeOverlay>
+  <overlay-title>
+    Confirm Removal
+  </overlay-title>
+  <overlay-content>
+    are you sure you want to remove service <span class="hl-teal">{{selected?.name}}</span>?
+    nodes depending on this service will mal-function and would require updating.
+  </overlay-content>
+  <overlay-actions>
+    <button (click)="removeOverlay.close()">Oh Wait ...</button>
+    <button class="danger" (click)="removeOverlay.close()">Remove</button>
+  </overlay-actions>
+</overlay>

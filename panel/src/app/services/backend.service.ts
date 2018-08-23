@@ -44,6 +44,13 @@ export class BackendService {
       status: 'status',
       repo: 'repo',
     },
+
+    services: {
+      root: 'services/',
+      list: 'list',
+      put: 'put',
+      delete: 'delete',
+    },
   }
 
   constructor(
@@ -164,6 +171,11 @@ export class BackendService {
   packageRepo() {
     return this.http.get<any>(this.api + BackendService.apiCalls.packages.root
         + BackendService.apiCalls.packages.repo).share();
+  }
+
+  public get services() {
+    return this.http.get<{list: any[]}>(this.api + BackendService.apiCalls.services.root
+        + BackendService.apiCalls.services.list).share();
   }
 
   public get nodes() {
