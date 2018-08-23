@@ -18,6 +18,7 @@ export class ServicesComponent implements OnInit, OnDestroy, AfterViewInit {
   _services: any[];
   selected: any;
   @ViewChild('overlay') overlay;
+  @ViewChild('removeOverlay') removeOverlay;
 
   constructor(
     private renderer: Renderer,
@@ -47,6 +48,21 @@ export class ServicesComponent implements OnInit, OnDestroy, AfterViewInit {
     else return [];
   }
 
+  public save(name: string, url: string) {
+    this.backend.saveService(name, url).subscribe(response => {
+      this.overlay.close();
+      this._update();
+    });
+  }
+
+  public remove(name: string) {
+    this.backend.removeService(name).subscribe(response => {
+      this.overlay.close();
+      this.removeOverlay.close();
+      this._update();
+    });
+  }
+
   public toggleSearch() {
     if (this.searching) {
       if (!this.searchInput.nativeElement.value) {
@@ -64,7 +80,6 @@ export class ServicesComponent implements OnInit, OnDestroy, AfterViewInit {
 
   _update() {
     this.backend.services.subscribe(response => {
-      console.log(response);
       if (response.list)
         this._services = response.list;
     })

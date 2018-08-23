@@ -44,6 +44,8 @@ module.exports.platform = {
         "packages/repo",
 
         "services/list",
+        "services/save",
+        "services/remove",
       ],
     },
   },

@@ -33,29 +33,35 @@
 <overlay #overlay icon="assets/services.svg" [active]="selected">
   <overlay-title>
     <ng-container *ngIf="selected">
-      Modify Service
+      Modify Service <span class="hl-blue">{{selected.name}}</span>
     </ng-container>
     <ng-container *ngIf="!selected">
       Add a Service
     </ng-container>
   </overlay-title>
   <overlay-content>
-    you can add a service simply by adding its url and giving it a name.
-    if the service is not a CONNECT instance, it should offer its api specification
-    in the same format as CONNECT instances do on its <span class="hl-teal">/api</span>
-    route.
+    <ng-container *ngIf="!selected">
+      you can add a service simply by adding its url and giving it a name.
+      you will be able to access its nodes, for example <span class="hl-blue">/x</span>,
+      with a call to <span class="hl-blue">name:/x</span>.
+    </ng-container>
+    <ng-container *ngIf="selected">
+      you can access nodes of this service, for example <span class="hl-blue">/x</span>,
+      with a call to <span class="hl-blue">{{selected.name}}:/x</span>. you can change
+      the url of this service by editing the input below.
+    </ng-container>
     <br><br>
-    <input #nameInput class="name" type="text"
-      placeholder="name of the service ..."
-      [value]="selected?.name"/>
-    <input #urlInput class="url" type="text"
+    <input #namein class="name" type="text"
+      [ngClass]="{'gone': selected}"
+      placeholder="name of the service ..."/>
+    <input #urlin class="url" type="text"
       placeholder="url of the service ..."
       [value]="selected?.url"/>
   </overlay-content>
   <overlay-actions>
-    <button (click)="overlay.close()" *ngIf="!selected">Add</button>
+    <button (click)="save(namein.value, urlin.value)" *ngIf="!selected">Add</button>
     <button (click)="removeOverlay.activate()" *ngIf="selected">Remove</button>
-    <button (click)="overlay.close()" *ngIf="selected">Save</button>
+    <button (click)="save(selected.name, urlin.value)" *ngIf="selected">Save</button>
   </overlay-actions>
 </overlay>
 
@@ -69,6 +75,6 @@
   </overlay-content>
   <overlay-actions>
     <button (click)="removeOverlay.close()">Oh Wait ...</button>
-    <button class="danger" (click)="removeOverlay.close()">Remove</button>
+    <button class="danger" (click)="remove(selected?.name)">Remove</button>
   </overlay-actions>
 </overlay>

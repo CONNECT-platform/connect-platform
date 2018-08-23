@@ -58,6 +58,10 @@ overlay input {
   outline: none;
 }
 
+overlay input.gone {
+  display: none;
+}
+
 overlay input.name {
   color: #ffffff;
 }

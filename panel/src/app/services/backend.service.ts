@@ -48,8 +48,8 @@ export class BackendService {
     services: {
       root: 'services/',
       list: 'list',
-      put: 'put',
-      delete: 'delete',
+      save: 'save',
+      remove: 'remove',
     },
   }
 
@@ -176,6 +176,25 @@ export class BackendService {
   public get services() {
     return this.http.get<{list: any[]}>(this.api + BackendService.apiCalls.services.root
         + BackendService.apiCalls.services.list).share();
+  }
+
+  public saveService(name: string, url: string) {
+    return this.http.post<any>(
+      this.api + BackendService.apiCalls.services.root + BackendService.apiCalls.services.save,
+      {
+        name: name,
+        url: url,
+      }
+    ).share();
+  }
+
+  public removeService(name: string) {
+    return this.http.post<any>(
+      this.api + BackendService.apiCalls.services.root + BackendService.apiCalls.services.remove,
+      {
+        name: name,
+      }
+    ).share();
   }
 
   public get nodes() {
