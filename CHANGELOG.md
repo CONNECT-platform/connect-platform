@@ -7,6 +7,8 @@ and we use [Semantic Versioning](http://semver.org/spec/v2.0.0.html), like stric
 
 ## [Unreleased]
 ### Added
+ - **InterCONNECT** feature:
+   - you can now inter-CONNECT with other CONNECT-based micro-services. you simply give them a name and add their url and their public nodes will be accessible in your instance.
  - support for installing packages from sources other than NPM (namely Git).
  - project names (stored in config)
  - logout (when logged in via an access token)
