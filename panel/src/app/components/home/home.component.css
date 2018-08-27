@@ -33,6 +33,18 @@
   max-height: 48px;
 }
 
+.header .block.logout {
+  position: absolute;
+  right: 32px;
+  cursor: pointer;
+  opacity: 0.25;
+  transition: opacity .15s;
+}
+
+.header .block.logout:hover {
+  opacity: 1;
+}
+
 .inner {
   max-height: calc(100vh - 168px);
 }

@@ -3,6 +3,7 @@
     <a class="block" href="https://loreanvictor.github.io/connect-platform/" target="_blank">
       <img class="logo" src="assets/logo.svg"/>
     </a>
+    <a class="block button logout" *ngIf="loggedIn" (click)="logout()">Logout</a>
   </div>
   <div class="aligner">
     <div class="inner" fxLayout="row" fxLayoutGap="80px" fxLayoutAlign="center">

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 
 import { BackendService } from '../../services/backend.service';
+import { TokenService } from '../../services/token.service';
 
 import { NodesComponent } from './nodes/nodes.component';
 import { ConfigComponent } from './config/config.component';
@@ -42,11 +43,20 @@ export class HomeComponent implements OnInit {
   navigating: boolean = false;
 
   constructor(
-    private backend: BackendService
+    private backend: BackendService,
+    private token: TokenService,
   ) { }
 
   ngOnInit() {
     this.currentComponent = NodesComponent;
+  }
+
+  get loggedIn(): boolean {
+    return this.token.token && this.token.token.length > 0;
+  }
+
+  logout() {
+    this.token.reset();
   }
 
   set path(path: string) {

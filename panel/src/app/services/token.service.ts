@@ -24,6 +24,13 @@ export class TokenService {
     localStorage[_ConnectPanelToken] = _token;
   }
 
+  reset() {
+    if (this.token !== null) {
+      this.token = null;
+      this.router.navigate(['auth']);
+    }
+  }
+
   request() {
     let tree = this.router.parseUrl(this.router.url);
     if (tree.queryParamMap.has('token')) {
