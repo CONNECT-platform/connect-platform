@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 
 import { BackendService } from '../../services/backend.service';
@@ -37,10 +37,13 @@ export const HomeComponentMappings = {
     ])
   ]
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
 
   currentComponent: any;
   navigating: boolean = false;
+  name: string = 'unnamed project';
+
+  _updateInterval: any;
 
   constructor(
     private backend: BackendService,
@@ -49,6 +52,11 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.currentComponent = NodesComponent;
+    this._updateInterval = setInterval(() => this._update(), 500);
+  }
+
+  ngOnDestroy() {
+    clearInterval(this._updateInterval);
   }
 
   get loggedIn(): boolean {
@@ -78,5 +86,11 @@ export class HomeComponent implements OnInit {
   get path() {
     let candidates = Object.entries(HomeComponentMappings).filter(entry => entry[1] == this.currentComponent);
     if (candidates.length > 0) return candidates[0][0];
+  }
+
+  _update() {
+    this.backend.name.subscribe(response => {
+      if (response.name) this.name = response.name;
+    })
   }
 }

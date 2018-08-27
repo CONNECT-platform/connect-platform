@@ -19,6 +19,7 @@ module.exports.platform = {
   config : {
     nodes: {
       native: [
+        "name",
         "registry-service",
 
         "save-node",

@@ -26,16 +26,25 @@
 
 .header .block {
   display: inline-block;
+  vertical-align: middle;
   max-height: 48px;
+  margin: 0 16px;
 }
 
 .header .block img {
   max-height: 48px;
 }
 
+.header .block.name {
+  border-left: 2px solid rgba(255, 255, 255, .25);
+  padding-left: 32px;
+  color: #bdbdbd;
+}
+
 .header .block.logout {
   position: absolute;
-  right: 32px;
+  right: 16px;
+  top: 24px;
   cursor: pointer;
   opacity: 0.25;
   transition: opacity .15s;

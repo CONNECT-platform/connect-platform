@@ -11,6 +11,7 @@ export class BackendService {
   private api: string = "http://localhost:4000/panel/";
 
   public static apiCalls = {
+    name: 'name',
     registry : 'registry',
 
     save : 'save',
@@ -62,6 +63,10 @@ export class BackendService {
     if (!window['electron']) {
       this.api = window.location.origin + location.prepareExternalUrl('');
     }
+  }
+
+  public get name() {
+    return this.http.get<any>(this.api + BackendService.apiCalls.name).share();
   }
 
   fetchRegistry() {
