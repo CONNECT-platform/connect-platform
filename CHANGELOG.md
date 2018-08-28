@@ -17,7 +17,7 @@ and we use [Semantic Versioning](http://semver.org/spec/v2.0.0.html), like stric
  - more verbose logging when failing to load packages.
  - more robust error handling (less errors now escape the recorder's grasp).
 
-## [0.2.4]
+## [0.2.5] - 2018-08-30
 ### Added
  - **InterCONNECT** feature:
    - you can now inter-CONNECT with other CONNECT-based micro-services. you simply give them a name and add their url and their public nodes will be accessible in your instance.
@@ -31,7 +31,7 @@ and we use [Semantic Versioning](http://semver.org/spec/v2.0.0.html), like stric
  - extracted mongodb as a separate independently published package.
  - panel now does not allow to create incompatible links.
 
-## [0.2.3]
+## [0.2.3] - 2018-07-23
 ### Added
  - optional panel token authentication.
  - in-panel configuration of project.
