@@ -7,6 +7,18 @@ and we use [Semantic Versioning](http://semver.org/spec/v2.0.0.html), like stric
 
 ## [Unreleased]
 ### Added
+ - support for seeing shell logs in test/watch mode.
+ - support for timeouts in test/watch mode.
+ - a new `error` function for native nodes to properly indicate error states.
+ - some more standard keyboard shortcuts:
+   - Ctrl+S (Cmd+S) for saving.
+   - Del (Backspace) for deleting.
+### Changed
+ - more verbose logging when failing to load packages.
+ - more robust error handling (less errors now escape the recorder's grasp).
+
+## [0.2.4]
+### Added
  - **InterCONNECT** feature:
    - you can now inter-CONNECT with other CONNECT-based micro-services. you simply give them a name and add their url and their public nodes will be accessible in your instance.
  - support for installing packages from sources other than NPM (namely Git).
@@ -16,6 +28,7 @@ and we use [Semantic Versioning](http://semver.org/spec/v2.0.0.html), like stric
  - support for closing panel overlay's using escape key.
 ### Changed
  - extracted firestore as a separate independently published package.
+ - extracted mongodb as a separate independently published package.
  - panel now does not allow to create incompatible links.
 
 ## [0.2.3]
