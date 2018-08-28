@@ -86,6 +86,7 @@
     </div>
   </overlay-content>
   <overlay-actions>
+    <button (click)="installCodeOverlay.activate()">Install Custom Code</button>
     <button (click)="installNPMOverlay.activate()">Install from NPM</button>
   </overlay-actions>
 </overlay>
@@ -106,6 +107,40 @@
   </overlay-content>
   <overlay-actions>
     <button (click)="install(npmPackageName.value, npmPackageName.value)">Install</button>
+  </overlay-actions>
+</overlay>
+
+<overlay #installCodeOverlay
+  class="code">
+  <overlay-title>
+    Install Custom Code
+  </overlay-title>
+  <overlay-content>
+    You can install a package from its code accessible via some URL.
+    CONNECT-platform uses NPM to install all packages, so read up on
+    <a class="link" target="_blank" href="https://docs.npmjs.com/cli/install">this document</a>
+    to figure out the proper URL.
+    <br><br>
+    quick hints on URL:<br>
+    - for public github repos, use <span class="hl-teal">"git+<![CDATA[<https clone URL>]]>"</span>.<br>
+    - for private github repos, check
+      <a class="link" target="_blank" href="https://stackoverflow.com/questions/28728665/how-to-use-private-github-repo-as-npm-dependency">
+        this question</a>.<br>
+    - for private gitlab repos, check <a class="link" target="_blank" href="https://stackoverflow.com/questions/22988876/install-npm-module-from-gitlab-private-repository">
+        this question</a>.<br>
+    <br><br>
+    <input
+      placeholder="name of the package"
+      type="text"
+      #customPackageName/>
+      <br>
+    <input placeholder="address of the code"
+      type="text"
+      class="source"
+      #customPackageSource/>
+  </overlay-content>
+  <overlay-actions>
+    <button (click)="install(customPackageName.value, customPackageSource.value)">Install</button>
   </overlay-actions>
 </overlay>
 

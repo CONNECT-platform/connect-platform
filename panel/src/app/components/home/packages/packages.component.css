@@ -209,6 +209,10 @@ overlay input {
   outline: none;
 }
 
+overlay input.source {
+  color: #00BFA5;
+}
+
 overlay.npm input {
   color: #448aff;
 }

@@ -7,7 +7,7 @@
       you can also add non-CONNECT microservices, however they need to offer their
       api specification in the same format <span class="hl-white">CONNECT</span> instances do.
       you can read on that specification
-      <a target="_blank" href="https://github.com/CONNECT-platform/connect-platform/blob/master/INTERCONNECTIBILITY.md">here</a>.
+      <a class="link" target="_blank" href="https://github.com/CONNECT-platform/connect-platform/blob/master/INTERCONNECTIBILITY.md">here</a>.
     </p>
     <br>
     <div class="service" *ngFor="let service of services" (click)="selected=service">
@@ -30,7 +30,7 @@
       you can also connect to non-CONNECT based microservices, however they need to specify their
       api in the same manner as <span class="hl-white">CONNECT</span>-based services do.
       you can read on that specification
-      <a target="_blank" href="https://github.com/CONNECT-platform/connect-platform/blob/master/INTERCONNECTIBILITY.md">here</a>.
+      <a class="link" target="_blank" href="https://github.com/CONNECT-platform/connect-platform/blob/master/INTERCONNECTIBILITY.md">here</a>.
     </p>
   </div>
 
@@ -84,6 +84,10 @@
           <ng-container *ngFor="let signature of selectedInfo?.signatures">
             <span class="hl-teal">{{signature.path}}</span><br/>
             <p class="hint" *ngIf="signature.hints && signature.hints.node" [innerHTML]="signature.hints.node"></p>
+          </ng-container>
+          <ng-container *ngIf="!selectedInfo || !selectedInfo.signatures || selectedInfo?.signatures?.length == 0">
+            the service is either not properly connected or it does not offer any publicly
+            available nodes (or maybe it is not a proper inter-connectible service).
           </ng-container>
         </div>
       </div>

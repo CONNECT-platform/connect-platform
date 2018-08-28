@@ -62,10 +62,15 @@ small {
   opacity: 0.5;
 }
 
+a.link {
+  color: #448aff;
+  text-decoration: none !important;
+}
+
 button {
   display: inline-block;
-  width: 128px;
-  padding: 2px;
+  min-width: 128px;
+  padding: 2px 12px;
   background: none;
   color: white;
   padding-bottom: 3px;

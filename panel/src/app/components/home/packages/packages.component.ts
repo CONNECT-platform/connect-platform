@@ -23,6 +23,7 @@ export class PackagesComponent implements OnInit, OnDestroy, AfterViewInit {
 
   @ViewChild('installOverlay') installOverlay;
   @ViewChild('installNPMOverlay') installNPMOverlay;
+  @ViewChild('installCodeOverlay') installCodeOverlay;
   @ViewChild('uninstallOverlay') uninstallOverlay;
   @ViewChild('uninstallingOverlay') uninstallingOverlay;
   @ViewChild('statusOverlay') statusOverlay;
@@ -118,6 +119,7 @@ export class PackagesComponent implements OnInit, OnDestroy, AfterViewInit {
     if (name) {
       this.backend.installPackage({name, source}).subscribe(() => {
         this.installNPMOverlay.close();
+        this.installCodeOverlay.close();
         this.installOverlay.close();
         this._update();
       });
