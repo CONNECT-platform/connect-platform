@@ -11,10 +11,10 @@
     "low code",
     "no code"
   ],
-  "homepage": "https://loreanvictor.github.io/connect-platform/",
+  "homepage": "https://connect-platform.github.io/connect-platform/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/loreanvictor/connect-platform.git"
+    "url": "https://github.com/CONNECT-platform/connect-platform.git"
   },
   "main": "platform",
   "scripts": {
