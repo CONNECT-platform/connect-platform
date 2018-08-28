@@ -1,6 +1,6 @@
 # Change Log
 
-This is a log of all major changes to [CONNECT platform](https://loreanvictor.github.io/connect-platform/).
+This is a log of all major changes to [CONNECT platform](https://connect-platform.github.io/connect-platform/).
 
 The format is inspired by [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and we use [Semantic Versioning](http://semver.org/spec/v2.0.0.html), like strictly.
