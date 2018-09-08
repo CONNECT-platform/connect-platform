@@ -20,284 +20,83 @@
       hljs.initHighlightingOnLoad();
     </script>
 
-    <!-- static background of the website, does not scroll -->
-    <div class="back">
-      <img src="assets/flat.svg"/>
+    <div class="outer-holder">
+      <div animated behind class="full dark"
+          p0="0.75" x0="100"  y0="0"
+          p1="1"    x1="50"   y1="0"
+          p2="1.75" x2="0"    y2="0"
+          p3="2.5"  x3="0"    y3="0"
+          p4="3"    x4="0"    y4="0"
+          p5="3.5"  x5="0"    y5="0"
+          p6="4"    x6="0"    y6="-100"></div>
+
+      <img backdrop src="assets/logo-backdrop.svg"/>
+
+      <div animated class="full"
+        p0="4.5" x0="-100" y0="0"
+        p1="5" x1="0" y1="0">
+        <img src="assets/flat.svg"/>
+      </div>
+
+      <div animated
+        p0="0"    x0="10" y0="0"
+        p1="1.25" x1="10" y1="-80">
+        <img class="intro-art" src="assets/intro-art.svg"/></div>
     </div>
 
-    <div class="back white">
+    <div class="inner-holder">
     </div>
 
-    <!-- desktop contact buttons -->
-
-    <div class="contact desktop-only">
-      <a class="button icon" href="https://twitter.com/lorean_victor" target="_blank">
-        <img src="assets/twitter.svg"/>
-      </a>
-      <a class="button icon" href="https://github.com/loreanvictor/connect-platform" target="_blank">
-        <img src="assets/github.svg"/>
-      </a>
-      <a class="button icon" href="https://medium.com/connect-platform" target="_blank">
-        <img src="assets/medium.svg"/>
-      </a>
-      <a class="button icon" href="https://www.linkedin.com/company/connect-platform/" target="_blank">
-        <img src="assets/linkedin.svg"/>
-      </a>
-    </div>
-
-    <!-- sections -->
-
-    <!-- intro section -->
-
-    <div class="section white">
-      <div class="inner">
-        <img src="assets/logo-type-std.svg"/>
-
-        <div class="spacer"></div>
-
-        <pre><code class="bash">
-npm install connect-platform
-        </code></pre>
-
-        <div class="spacer"></div>
-
-        <h2>
-          visual backend development platform
-        </h2>
-        <p>
-          its 2018, and outlining backend logic is still being done in the same archaic manner
-          that the first unix kernel was developed. As backend developers, we had enough, and decided
-          to change that.
-        </p>
-
-        <a class="button" href="https://medium.com/connect-platform/guides/home" target="_blank">
-          guides
-        </a>
-        <a class="button" href="https://connect-platform.now.sh/panel" target="_blank">
-          demo
-        </a>
-
-        <div class="mobile-only">
-          <a class="button icon" href="https://twitter.com/lorean_victor" target="_blank">
-            <img src="assets/twitter.svg"/>
-          </a>
-          <a class="button icon" href="https://github.com/loreanvictor/connect-platform" target="_blank">
-            <img src="assets/github.svg"/>
-          </a>
-          <a class="button icon" href="https://medium.com/connect-platform" target="_blank">
-            <img src="assets/medium.svg"/>
-          </a>
-          <a class="button icon" href="https://www.linkedin.com/company/connect-platform/" target="_blank">
-            <img src="assets/linkedin.svg"/>
-          </a>
+    <div class="holder">
+      <section>
+        <div opposite>
+          <h1>Visual Backend Development Framework</h1>
+          <p>
+            Yeah shit and stuff and more shit and fun stuff and also to be noted
+            and not to be forgotten to be really cool.
+          </p>
         </div>
-
-        <div class="spacer"></div>
-      </div>
-    </div>
-
-
-    <!-- the youtube video -->
-    <div class="section minimal" switch-margin=".1">
-      <div class="inner full">
-        <div class="video">
-          <iframe width="1120" height="730" src="https://www.youtube-nocookie.com/embed/Orjtawd7_EU?color=white&rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+      </section>
+      <section>
+        <div>
+          <h1>Cool Title</h1>
+          <p>
+            And some other stuff that says this is a good shit.
+          </p>
         </div>
-      </div>
-    </div>
-
-    <!-- the other two youtube videos -->
-    <div class="section">
-      <div class="inner">
-
-        <div class="spacer huge"></div>
-
-        <div class="video-n-text">
-          <div class="video">
-            <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/NQ7p-b7EX_I?color=white&rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-          </div>
-          <div class="text">
-            <h2>coding with <b>CONNECT</b> looks like this</h2>
-            <p>
-              you just outline your logic in an intuitive way, and it works. all you need
-              to do is to connect (pun intended) building blocks at your disposal to form your
-              own unique business logic.
-            </p>
-          </div>
+      </section>
+      <section dark>
+        <div opposite>
+          <h1>Another Super Cool Reason</h1>
+          <p>
+            This is some other super cool and cool looking reasons as to why you
+            should blindly believe whatever bullshit I say on this page and just
+            obey your master motherfucker.
+          </p>
         </div>
-
-        <div class="spacer huge"></div>
-
-        <div class="video-n-text opposite">
-          <div class="video">
-            <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/T-IGc6Z3pYA?color=white&rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-          </div>
-          <div class="text">
-            <h2>testing/debugging with <b>CONNECT</b> looks like this</h2>
-            <p>
-              you can see the flow of the code, all the values being transmitted, and even
-              the precise time each node is consuming to do its task.
-            </p>
-          </div>
+      </section>
+      <section dark>
+        <div>
+          <h1>And Also We Do This Too!</h1>
+          <p>
+            So basically we are really mind-blowing and cool.
+          </p>
         </div>
-      </div>
+      </section>
+
+      <section></section>
+      <section dark>
+        <div>
+          <h1>Final Remarks</h1>
+          <p>Have any other final remarks, probably put them somewhere like here.</p>
+      </section>
     </div>
 
-    <!-- micro vs macro -->
-    <div class="section white spatious">
-      <div class="inner">
-        <h1>cool, but why?</h1>
-        <p>
-          because we think the problem stems from the fact that our current development
-          process is essentially two separate processes mashed into each other:
-        </p>
-
-        <div class="spacer huge"></div>
-
-        <div class="two-cols">
-          <div class="col">
-            <img class="pencil" src="assets/micrologic.svg"/>
-            <h2>micrologic</h2>
-            <p>
-              i.e. building blocks that are not specific to your business logic,
-              stuff like authentication, querying a database, etc.
-            </p>
-          </div>
-          <div class="col">
-            <img class="pencil delayed" src="assets/macrologic.svg"/>
-            <h2>macrologic</h2>
-            <p>
-              i.e. composing those building blocks to form a unique business logic.
-            </p>
-          </div>
-        </div>
-
-        <div class="spacer ocean desktop-only"></div>
-        <div class="spacer wide mobile-only"></div>
-
-        <p>
-          <b>CONNECT</b> allows you to separate these two layers, bring your already
-          working building blocks with one-additional line of code and connect them
-          visually to form the macrologic of your product.
-        </p>
-      </div>
+    <div menu>
+      <img src="assets/logo-std.svg"/>
+      <a>DOCS</a>
+      <a href="https://github.com/CONNECT-platform/connect-platform/blob/master/index.html" target="_blank">GITHUB</a>
+      <a>NPM</a>
     </div>
-
-    <!-- asynchronous flow -->
-    <div class="section">
-      <div class="inner">
-        <h1>not just that ...</h1>
-        <p>
-          but also, backend logic is essentially asynchronous, which means its flow
-          is more of a graph rather than the usual sequence of synchronous logic, and
-          as a result using the same representation (i.e. a chain) would always be sub-optimal.
-        </p>
-        <div class="spacer wide"></div>
-        <p>
-          for example, a simple asynchronous flow like this:
-        </p>
-        <img src="assets/shot2.png" class="shot"/>
-        <p>
-          would be coded like this:
-        </p>
-        <pre><code class="javascript">
-doA().then(function(outA) {
-  Promise.all([
-    new Promise(function(resolve) {
-      doB(outA).then(function(outB) {
-        doD(outB).then(function(outD) {
-          resolve(outD);
-        });
-      });
-    }),
-    new Promise(function(resolve) {
-      doC(outA).then(function(outC) {
-        doE(outC).then(function(outE) {
-          resolve(outE);
-        });
-      });
-    })
-    ]).then(function(values) {
-      doF(values[0], values[1]);
-    });
-});
-        </code></pre>
-      </div>
-    </div>
-
-    <!-- how to use -->
-    <div class="section white">
-      <div class="inner">
-        <h1>how could I use CONNECT?</h1>
-        <p>
-          currently, <b>CONNECT platform</b> is an open-source nodejs package, which you
-          can easily install and use on your nodejs projects:
-        </p>
-        <div class="spacer"></div>
-        <pre><code class="bash">
-npm install connect-platform --save
-        </code></pre>
-        <div class="spacer"></div>
-        <p>
-          for more information on how to configure and use <b>CONNECT</b>, take a look
-          at this
-          <a href="https://medium.com/connect-platform/getting-started-with-connect-platform-3d16ea7a3e77" target="_blank">guide</a>.
-        </p>
-
-        <div class="spacer wide"></div>
-
-        <p>
-          we are also working on building a <b>platform as a service (PaaS)</b> for <b>CONNECT platform</b>,
-          so that you would not need to care about deployment and dev ops as well and could just focus
-          on your backend logic. while that is yet to be released, you can check out an immutable demo
-          <a href="https://connect-platform.now.sh/panel/" target="_blank">here</a>.
-        </p>
-      </div>
-    </div>
-
-    <!-- how to contribute -->
-    <div class="section">
-      <div class="inner">
-        <h1>how can I contribute?</h1>
-        <p>
-          the core of <b>CONNECT platform</b> is an open-source project, which means that we would
-          really appreciate it if you would want to take a look at the code and/or even contribute.
-        </p>
-        <div class="spacer"></div>
-        <pre><code class="bash">
-# clone from git
-git clone https://github.com/loreanvictor/connect-platform.git
-
-# go to the directory
-cd connect
-cd platform
-
-# install dependencies
-npm install
-
-# go to panel directory and install its dependencies
-cd panel
-npm install
-
-# build the panel
-npm run angular-build
-
-# go back and start the project
-cd ..
-npm start
-        </code></pre>
-        <div class="spacer"></div>
-        <p>
-          for contribution, please take a look at
-          <a href="https://github.com/loreanvictor/connect-platform/blob/master/CONTRIBUTING.md" target="_blank">this document</a>
-          as well, and get in touch if you have any questions or even if you just want to chat ;)
-        </p>
-      </div>
-    </div>
-
-    <div class="section">
-      <img src="assets/logo.svg"/>
-    </div>
-
   </body>
 </html>
