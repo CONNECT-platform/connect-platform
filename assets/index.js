@@ -22,6 +22,7 @@ const prepare = function() {
     $el.data('animations', animations);
   });
 
+  //$holder.scroll(() => setTimeout(animate, 10));
   $holder.scroll(animate);
   animate();
 };
