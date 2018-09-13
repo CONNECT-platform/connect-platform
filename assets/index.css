@@ -156,11 +156,14 @@ section>div[opposite] {
 }
 
 section p.sub {
-  position: absolute;
-  bottom: 32px;
   color: #9e9e9e;
   font-size: 14px;
   max-width: 30vw;
+}
+
+section p.sub.absolute {
+  position: absolute;
+  bottom: 32px;
 }
 
 img[backdrop] {
@@ -263,6 +266,10 @@ div[animated].fourth {
 @keyframes introbox5 {
   from {transform: translate(543.000000px, -10.000000px);}
   to {transform: translate(543.000000px, 10.000000px);}
+}
+
+.deploy-image {
+  width: 17vw;
 }
 
 ::-webkit-scrollbar {

@@ -24,7 +24,7 @@
       <div animated behind class="full dark"
           p0="0.75" x0="100"  y0="0"
           p1="1.6"  x1="50"   y1="0"
-          p2="2.6"  x2="0"    y2="0"
+          p2="2"    x2="0"    y2="0"
           p3="3.8"  x3="0"    y3="0"
           p4="4.3"  x4="0"    y4="-100"></div>
 
@@ -34,6 +34,22 @@
         p0="5.6"   x0="-100" y0="0"
         p1="6"     x1="0" y1="0">
         <img src="assets/flat.svg"/>
+      </div>
+
+      <div animated
+        p0="2" x0="7" y0="150"
+        p1="2.2" x1="7" y1="42"
+        p2="2.85" x2="7" y2="22"
+        p3="3" x3="7" y3="-30">
+        <img class="deploy-image" src="assets/server.svg"/>
+      </div>
+
+      <div animated
+        p0="2" x0="25" y0="150"
+        p1="2.25" x1="25" y1="47"
+        p2="2.80" x2="25" y2="12"
+        p3="3" x3="25" y3="-40">
+        <img class="deploy-image" src="assets/laptop.svg"/>
       </div>
 
       <div animated
@@ -671,7 +687,7 @@
               <button>Start Now</button>
             </div>
           </p>
-          <p class="sub">
+          <p class="sub absolute">
             * The flow of asynchronous logic is a graph and not a sequence, and as a result
             trying to put it on a sequence, for example text-based codes, would inevitably
             result in a tangle of connections and redundant bits.
@@ -681,11 +697,11 @@
       <section>
         <div>
           <br><br><br>
-          <h1>How It Works</h1>
+          <h1>Build, Test & Debug Intuitively</h1>
           <p>
-            This is how coding and debugging with CONNECT platform looks like.
-            The graph representation makes building and testing micro-services much faster,
-            easier, more intuitive and more robust *
+            The visual representation gets rid of the hassle of coding, and even worse debugging,
+            asynchronous text-based codes, and makes it extremely fast* and intuitive. See it in action for
+            yourself.
           </p>
           <br>
           <div animated inplace videostripe
@@ -697,19 +713,34 @@
             <iframe width="480" height="276" src="https://www.youtube-nocookie.com/embed/zv5mmOAf4Gg?color=white&rel=0&showinfo=0&controls=0&mute=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
             <iframe width="480" height="276" src="https://www.youtube-nocookie.com/embed/Orjtawd7_EU?color=white&rel=0&showinfo=0&controls=0&mute=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
           </div>
+          <br>
+          <p class="sub">
+            * Although super-scientific studies remain to be conducted, our initial studies indicate
+            you will become at least 3 times faster.
+          </p>
         </div>
-        <p class="sub">
-          * Although super-scientific studies remain to be conducted, our initial studies indicate
-          you will become at least 3 times faster.
-        </p>
       </section>
       <section dark>
         <div opposite>
-          <h1>Another Super Cool Reason</h1>
+          <h1>Deploy & Scale Seamlessly</h1>
           <p>
-            This is some other super cool and cool looking reasons as to why you
-            should blindly believe whatever bullshit I say on this page and just
-            obey your master motherfucker.
+            Focus on building your micro-services and let CONNECT handle deployment and scaling for you.
+            Your services will be deployed with one click and scaled automatically as they receive
+            higher usage.
+          </p>
+          <br>
+          <p>
+            You can also do deployment on your own. Use our
+            <a href="https://github.com/CONNECT-platform/connect-platform-boilerplate" target="_blank">GitHub boilerplate project</a>
+            or our
+            <a href="https://hub.docker.com/r/loreanvictor/connect-platform/" target="_blank">public docker image</a>
+            to get CONNECT running on any machine. You can even use our
+            <a href="https://www.npmjs.com/package/connect-platform" target="_blank">NPM package</a> to merely attach
+            CONNECT to another project instead of running it separately*
+          </p>
+          <p class="sub absolute">
+            * Well if that other project is an ExpressJS powered service, but I guess it is safe to assume
+            that will get you mostly covered.
           </p>
         </div>
       </section>
@@ -734,7 +765,8 @@
       <img src="assets/logo-std.svg"/>
       <a>Docs</a>
       <a href="https://github.com/CONNECT-platform/connect-platform/blob/master/index.html" target="_blank">GitHub</a>
-      <a>Npm</a>
+      <a href="https://www.npmjs.com/package/connect-platform" target="_blank">Npm</a>
+      <a href="https://hub.docker.com/r/loreanvictor/connect-platform/" target="_blank">Docker</a>
     </div>
   </body>
 </html>
