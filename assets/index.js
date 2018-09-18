@@ -3,23 +3,47 @@ var $holder;
 const prepare = function() {
   $holder = $('.holder');
 
-  $('div[animated]').each((_, el) => {
+  $('[animated]').each((_, el) => {
     const $el = $(el);
     let index = 0;
-    let animations = [];
+    let animation = {
+      keys: [],
+      frames: [],
+    };
+
+    let lastValues = {};
+
+    if ($el.attr('x0')) lastValues.x = $el.attr('x0') * 1;
+    if ($el.attr('y0')) lastValues.y = $el.attr('y0') * 1;
+    if ($el.attr('r0')) lastValues.r = $el.attr('r0') * 1;
+    if ($el.attr('o0')) lastValues.o = $el.attr('o0') * 1;
+    if ($el.attr('do0')) lastValues.do = $el.attr('do0') * 1;
+
+    animation.keys = Object.keys(lastValues);
+
     while (true) {
       if ($el.attr(`p${index}`)) {
-        animations.push({
-          pos: $el.attr(`p${index}`) * 1,
-          x: $el.attr(`x${index}`) * 1,
-          y: $el.attr(`y${index}`) * 1,
-        });
+        let frame = {
+          pos: $el.attr(`p${index}`) * 1
+        };
+
+        for (let key of animation.keys) {
+          if ($el.attr(`${key}${index}`)) {
+            frame[key] = $el.attr(`${key}${index}`) * 1;
+            lastValues[key] = frame[key];
+          }
+          else {
+            frame[key] = lastValues[key];
+          }
+        }
+
+        animation.frames.push(frame);
         index += 1;
       }
       else break;
     }
 
-    $el.data('animations', animations);
+    $el.data('animation', animation);
   });
 
   //$holder.scroll(() => setTimeout(animate, 10));
@@ -30,36 +54,52 @@ const prepare = function() {
 const animate = function() {
   const pos = $holder.scrollTop()/$holder.height();
 
-  $('img[backdrop]').css('transform', `rotate(${pos * 120}deg)`)
-
-  $('div[animated]').each((_, el) => {
+  $('[animated]').each((_, el) => {
     const $el = $(el);
-    const animations = $el.data('animations');
-    const next = animations.filter(entry => entry.pos > pos);
-    const prev = animations.filter(entry => entry.pos <= pos);
+    const animation = $el.data('animation');
+    const next = animation.frames.filter(entry => entry.pos > pos);
+    const prev = animation.frames.filter(entry => entry.pos <= pos);
 
-    let x = 0;
-    let y = 0;
+    let values = {};
+
     if (next.length > 0 && prev.length > 0) {
       let start = prev[prev.length - 1];
       let end = next[0];
 
-      let r = (pos - start.pos)/(end.pos - start.pos);
-      x = r * (end.x - start.x) + start.x;
-      y = r * (end.y - start.y) + start.y;
+      let a = (pos - start.pos)/(end.pos - start.pos);
+
+      for (let key of animation.keys)
+        values[key] = a * (end[key] - start[key]) + start[key];
     }
     else if (next.length > 0) {
-      let fixed = next[0];
-      x = fixed.x;
-      y = fixed.y;
+      values = next[0];
     }
     else if (prev.length > 0) {
-      let fixed = prev[prev.length - 1];
-      x = fixed.x;
-      y = fixed.y;
+      values = prev[prev.length - 1];
     }
 
-    $el.css('transform', `translateX(${x}vw) translateY(${y}vh)`);
+    let animateX = animation.keys.includes('x');
+    let animateY = animation.keys.includes('y');
+    let animateR = animation.keys.includes('r');
+    let animateO = animation.keys.includes('o');
+    let animateDO = animation.keys.includes('do');
+
+    if (animateX || animateY || animateR) {
+      let transformString = '';
+      if (animateX) transformString += ` translateX(${values.x}vw)`;
+      if (animateY) transformString += ` translateY(${values.y}vh)`;
+      if (animateR) transformString += ` rotate(${values.r}deg)`;
+
+      $el.css('transform', transformString);
+    }
+
+    if (animateO) {
+      $el.css('opacity', values.o);
+    }
+
+    if (animateDO) {
+      $el.css('stroke-dashoffset', `${values.do}px`);
+    }
   })
 };
 

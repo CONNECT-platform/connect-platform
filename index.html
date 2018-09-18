@@ -23,38 +23,56 @@
     <div class="outer-holder">
       <div animated behind class="full dark"
           p0="0.75" x0="100"  y0="0"
-          p1="1.6"  x1="50"   y1="0"
-          p2="2"    x2="0"    y2="0"
-          p3="3.8"  x3="0"    y3="0"
-          p4="4.3"  x4="0"    y4="-100"></div>
+          p1="1.6"  x1="50"
+          p2="2"    x2="0"
+          p3="4"
+          p4="5"  x4="0"    y4="-100"></div>
 
-      <img backdrop src="assets/logo-backdrop.svg"/>
+      <img backdrop animated p0="0" p1="10" r0="0" r1="1200" src="assets/logo-backdrop.svg"/>
 
       <div animated class="full"
         p0="5.6"   x0="-100" y0="0"
-        p1="6"     x1="0" y1="0">
+        p1="6"     x1="0">
         <img src="assets/flat.svg"/>
       </div>
 
       <div animated
-        p0="2" x0="7" y0="150"
-        p1="2.2" x1="7" y1="42"
-        p2="2.85" x2="7" y2="22"
-        p3="3" x3="7" y3="-30">
+        p0="2.39" x0="7" y0="35" o0="0"
+        p1="2.4" o1="1"
+        p2="2.6"
+        p3="3.05" o3="0">
+        <img class="deploy-image" src="assets/server-shadow.svg"/>
+      </div>
+
+      <div animated
+        p0="2.2" x0="7" y0="100"
+        p1="2.4" y1="35"
+        p2="2.6" y2="30"
+        p3="2.85" y3="12"
+        p4="3.1" y4="-80">
         <img class="deploy-image" src="assets/server.svg"/>
       </div>
 
       <div animated
-        p0="2" x0="25" y0="150"
-        p1="2.25" x1="25" y1="47"
-        p2="2.80" x2="25" y2="12"
-        p3="3" x3="25" y3="-40">
+        p0="2.39" x0="25" y0="35" o0="0"
+        p1="2.4" o1="1"
+        p2="2.6"
+        p3="2.95" o3="0">
+        <img class="deploy-image" src="assets/laptop-shadow.svg"/>
+      </div>
+
+      <div animated
+        p0="2.3" x0="25" y0="100"
+        p1="2.4" y1="35"
+        p2="2.6" y2="25"
+        p3="2.8" y3="7"
+        p4="3.1" y4="-100">
         <img class="deploy-image" src="assets/laptop.svg"/>
       </div>
 
       <div animated
         p0="0"    x0="5" y0="50"
-        p1="1.8" x1="5" y1="-120">
+        p1="2.5" y1="-120">
         <!--
         <img class="intro-art" src="assets/intro-art.svg"/></div>
       -->
@@ -699,7 +717,7 @@
           <br><br><br>
           <h1>Build, Test & Debug Intuitively</h1>
           <p>
-            The visual representation gets rid of the hassle of coding, and even worse debugging,
+            The visual representation gets rid of the hassle of writing, maintaining and debugging
             asynchronous text-based codes, and makes it extremely fast* and intuitive. See it in action for
             yourself.
           </p>
@@ -746,14 +764,92 @@
       </section>
       <section dark>
         <div>
-          <h1>And Also We Do This Too!</h1>
+          <h1>Add Your Codes Easily</h1>
           <p>
-            So basically we are really mind-blowing and cool.
+            Easily add your own javascript code to the platform and use it in your
+            asynchronous flow graphs. Use packages developed by other people to connect
+            to database, send emails or even manage docker containers *, or add your own
+            codes and packages and maybe even share them with people like you.
           </p>
+          <br>
+          <div buttons>
+            <button>Learn More</button>
+          </div>
+          <p class="sub absolute">
+            * In fact, most of CONNECT platform itself, including the editor API and all of the
+            PaaS services were created using the platform and such packages.
+          </p>
+          <div animated p0="2.7" o0="0" x0="10" p1="3.5" o1="1" x1="0" class="code-holder package-sample">
+           <pre><code class="javascript">
+//
+// get the platform
+//
+const platform = require('connect-platform');
+
+//
+// add a node that outputs hellow to some dude
+//
+platform.node(
+  //
+  // so first the signature of the node.
+  //
+  {
+    path: '/my-package/hellow',
+    public: false,
+    inputs: ['dude'],
+    outputs: ['message'],
+  },
+
+  //
+  // then the functionality.
+  //
+  (inputs, output) => {
+    output('message', `hellow ${inputs.dude}!`);
+  }
+);
+           </code></pre>
+         </div>
         </div>
       </section>
 
-      <section></section>
+      <section>
+        <div opposite>
+          <h1>Connect* Your Microservices Effortlessly<h1>
+          <p class="sub absolute">* Pun indeed intended.</p>
+
+          <div class="interconnections">
+            <?xml version="1.0" encoding="UTF-8"?>
+            <svg width="1024px" height="512px" viewBox="0 0 1024 512" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <!-- Generator: Sketch 46 (44423) - http://www.bohemiancoding.com/sketch -->
+                <title>interconnect</title>
+                <desc>Created with Sketch.</desc>
+                <defs>
+                    <path animated p0="5" do0="2270" p1="5.4" do1="0" d="M769.361836,371 C779.034516,376.257408 784.970429,383.364298 784.970429,391.266008 C784.970429,399.220613 778.954778,406.36972 769.167084,411.637348 L647.45834,473.141231 C637.069153,478.365141 622.819575,481.557673 607.13081,481.557673 C592.036143,481.557673 578.273729,478.602351 568,473.725882 L307.786733,341.180763 C297.420123,335.868699 291,328.51068 291,320.293005 C291,311.864258 297.754161,304.339895 308.593291,299 L389.492831,259.728883 C398.491933,254.820978 403.970429,248.320308 403.970429,241.266008 C403.970429,234.456475 398.86552,228.16282 390.416777,223.31972 L342.142355,196.89598 L343.10402,195.142355 L390.361836,221 C400.034516,226.257408 405.970429,233.364298 405.970429,241.266008 C405.970429,249.220613 399.954778,256.36972 390.167084,261.637348 L308.511996,301.281018 C298.900053,306.247881 293,312.972327 293,320.293005 C293,328.253103 299.975739,335.508265 311.114141,340.565476 L570.328858,472.591559 C580.113572,476.910983 592.992585,479.557673 607.13081,479.557673 C622.931541,479.557673 637.159506,476.251941 647.253157,471 L768.479366,409.736224 C777.486468,404.827461 782.970429,398.323826 782.970429,391.266008 C782.970429,384.46395 777.876721,378.176638 769.444588,373.335675 L688.855062,332.71416 C677.863013,327.366837 671,319.789401 671,311.293005 C671,302.864258 677.754161,295.339895 688.593291,290 L810.442783,228.656891 L811.343109,230.442783 L688.523038,292.275313 C678.904572,297.242732 673,303.969524 673,311.293005 C673,318.858373 679.301059,325.786987 689.488182,330.797105 L769.361836,371 Z" id="path-1"></path>
+                    <mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="520.343109" height="286.415318" fill="white">
+                        <use xlink:href="#path-1"></use>
+                    </mask>
+                    <path animated p0="5" do0="2270" p1="5.4" do1="0" d="M788.440432,363.343882 C803.253359,370.932851 812.339659,381.30442 812.339659,392.645307 C812.339659,403.956621 803.300685,414.303665 788.561373,421.897527 L668.398192,481.951108 C653.254749,489.485213 632.383416,494.171998 609.217175,494.171998 C585.090995,494.171998 563.453852,489.088753 548.183412,481 L289.487137,350.798373 C274.92003,343.218609 266,332.933545 266,321.696901 C266,310.725033 274.504606,300.660428 288.466824,293.135732 L370.326968,250.376253 C374.826991,247.742772 377.571274,244.240727 377.571274,240.324823 C377.571274,236.679167 375.192702,233.392218 371.233235,230.830886 L323.10402,204.142355 L322.142355,205.89598 L367.638926,231.104122 C372.541833,233.487696 375.571274,236.778734 375.571274,240.324823 C375.571274,244.022495 372.277302,247.442845 367,249.846167 L288.224407,291 C273.23866,298.885415 264,309.674335 264,321.696901 C264,333.881051 273.488666,344.798172 288.831744,352.710167 L549.626041,483.977864 C565.099337,491.556354 586.115016,496.171998 609.217175,496.171998 C631.551038,496.171998 651.934891,491.858249 667.246285,484.724074 L789.628421,423.596308 C804.900661,415.68935 814.339659,404.797527 814.339659,392.645307 C814.339659,380.13335 804.333553,368.957517 788.256888,361 L709.705045,320.973586 C704.349695,318.567351 701,315.120548 701,311.391731 C701,307.814498 704.082886,304.496816 709.06196,302.108439 L829.343109,241.442783 L828.442783,239.656891 L705.656891,301.557217 C701.527947,304.256189 699,307.633343 699,311.391731 C699,315.644638 702.236955,319.409388 707.444505,322.103485 L788.440432,363.343882 Z" id="path-3"></path>
+                    <mask id="mask-4" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="565.343109" height="292.029643" fill="white">
+                        <use xlink:href="#path-3"></use>
+                    </mask>
+                    <path animated p0="5" do0="2270" p1="5.4" do1="0" d="M589.618566,463.992689 C594.676039,466.36334 601.359723,467.781077 608.65908,467.781077 C615.835743,467.781077 622.417256,466.410601 627.443188,464.111424 L749.251597,401.971596 C754.385996,399.282103 757.571274,395.543646 757.571274,391.324823 C757.571274,387.271817 754.631463,383.662157 749.847895,381 L669.487456,340.798539 C654.92016,333.218759 646,322.933627 646,311.696901 C646,300.727948 654.500087,290.665777 668.455695,283.141731 L791.343109,221.442783 L790.442783,219.656891 L668.224407,281 C653.23866,288.885415 644,299.674335 644,311.696901 C644,323.881051 653.488666,334.798172 668.831744,342.710167 L749.54675,383.133905 C753.315516,385.394832 755.571274,388.264871 755.571274,391.324823 C755.571274,395.022495 752.277302,398.442845 747,400.846167 L627.230389,462 C622.459566,464.320239 615.913914,465.781077 608.65908,465.781077 C601.469714,465.781077 594.976788,464.346485 590.21736,462.062603 L327.465738,329.840619 C323.432488,327.542058 321,324.569291 321,321.391731 C321,317.814498 324.082886,314.496816 329.06196,312.108439 L410.252852,271.269637 C425.157533,263.39066 434.339659,252.631032 434.339659,240.645307 C434.339659,228.13335 424.333553,216.957517 408.256888,209 L361.10402,183.142355 L360.142355,184.89598 L408.417183,211.31898 C423.241713,218.919563 432.339659,229.297155 432.339659,240.645307 C432.339659,252.250233 422.825339,262.84018 407.402128,270.48328 L325.712337,311.660742 C321.528947,314.254853 319,317.6326 319,321.391731 C319,325.644638 322.236955,329.409388 327.444505,332.103485 L589.618566,463.992689 Z" id="path-5"></path>
+                    <mask id="mask-6" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="472.343109" height="284.638722" fill="white">
+                        <use xlink:href="#path-5"></use>
+                    </mask>
+                </defs>
+                <g id="graphic" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-dasharray="1,1">
+                    <g id="interconnect" stroke="#BDBDBD" stroke-width="4" fill-rule="nonzero">
+                        <use id="connection" mask="url(#mask-2)" xlink:href="#path-1"></use>
+                        <use id="connection" mask="url(#mask-4)" xlink:href="#path-3"></use>
+                        <use id="connection" mask="url(#mask-6)" xlink:href="#path-5"></use>
+                    </g>
+                </g>
+            </svg>
+          </div>
+
+          <img class="interconnect" src="assets/interconnect.svg"/>
+        </div>
+      </section>
       <section dark>
         <div>
           <h1>Final Remarks</h1>
@@ -766,7 +862,8 @@
       <a>Docs</a>
       <a href="https://github.com/CONNECT-platform/connect-platform/blob/master/index.html" target="_blank">GitHub</a>
       <a href="https://www.npmjs.com/package/connect-platform" target="_blank">Npm</a>
-      <a href="https://hub.docker.com/r/loreanvictor/connect-platform/" target="_blank">Docker</a>
+      <span>|</span>
+      <a>Login</a>
     </div>
   </body>
 </html>

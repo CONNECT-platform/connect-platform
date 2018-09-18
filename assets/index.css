@@ -39,6 +39,10 @@ a:hover::after {
   transform: scaleX(1);
 }
 
+p {
+  text-align: justify;
+}
+
 div[buttons] {
   text-align: right;
   margin: 32px;
@@ -61,6 +65,17 @@ button:hover {
   color: #424242;
 }
 
+section[dark] button {
+  background: #f5f5f5;
+  color: #424242;
+  border: 2px solid #f5f5f5;
+}
+
+section[dark] button:hover {
+  background: none;
+  color: #f5f5f5;
+}
+
 div[menu] {
   position: fixed;
   left: 0;
@@ -78,10 +93,16 @@ div[menu] a {
   margin: 12px;
 }
 
-
 div[menu] img {
   width: 48px;
   height: 48px;
+}
+
+div[menu] span {
+  font-size: 32px;
+  margin: 0 16px;
+  vertical-align: middle;
+  opacity: 0.25;
 }
 
 .holder {
@@ -138,7 +159,7 @@ section:not(:last-child) {
 }
 
 section[dark] {
-  color: white;
+  color: #f5f5f5;
 }
 
 section>div {
@@ -178,11 +199,14 @@ img[backdrop] {
   opacity: .5;
 }
 
+[animated] {
+  will-change: transform;
+}
+
 div[animated] {
   position: absolute;
   left: 0;
   top: 0;
-  will-change: transform;
 }
 
 div[animated][inplace] {
@@ -272,6 +296,23 @@ div[animated].fourth {
   width: 17vw;
 }
 
+.interconnect, .interconnections {
+  width: 50vw;
+  position: absolute;
+  left: 0vw;
+  top: calc(50vh-25vw);
+}
+
+.interconnections svg {
+  width: 50vw;
+  height: 25vw;
+}
+
+.interconnections svg path {
+  stroke-dasharray: 2270;
+  /*stroke-dashoffset: 2270;*/
+}
+
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -301,4 +342,68 @@ div[animated].fourth {
 
 ::-webkit-scrollbar-corner {
   background: transparent;
+}
+
+/*
+pre {
+  max-width: 100%;
+}
+*/
+
+.code-holder {
+  background: rgba(0, 0, 0, .25);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.code-holder.package-sample {
+  position: absolute;
+  left: 60vw;
+  width: 35vw;
+  top: 20vh;
+}
+
+code.hljs {
+  background: transparent;
+  padding: 0px 32px;
+  color: #bdbdbd;
+  font-size: 14px;
+  text-align: left;
+  max-width: 80vw;
+}
+
+code.hljs span.hljs-built_in {
+  color: #B2FF59;
+}
+
+code.hljs span.hljs-keyword {
+  color: #2979FF;
+}
+
+code.hljs span.hljs-params {
+  color: #FFC400;
+}
+
+code.hljs span.hljs-number {
+  color: #d500f9;
+}
+
+code.hljs span.hljs-comment {
+  color: #757575;
+}
+
+code.hljs span.hljs-string {
+  color: #23a393;
+}
+
+code.hljs span.hljs-literal {
+  color: #7971ea;
+}
+
+code.hljs span.hljs-attr {
+  color: #40a8c4;
+}
+
+code.hljs span.hljs-subst {
+  color: #aef4a4;
 }
