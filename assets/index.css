@@ -297,20 +297,33 @@ div[animated].fourth {
 }
 
 .interconnect, .interconnections {
-  width: 50vw;
+  width: 45vw;
   position: absolute;
   left: 0vw;
-  top: calc(50vh-25vw);
+  top: calc(50vh - 15vw);
 }
 
 .interconnections svg {
-  width: 50vw;
-  height: 25vw;
+  width: 45vw;
+  height: 22.5vw;
 }
 
 .interconnections svg path {
   stroke-dasharray: 2270;
   /*stroke-dashoffset: 2270;*/
+}
+
+.map {
+  position: absolute;
+  right: 0;
+  bottom: -8px;
+}
+
+body.safari [not-safari],
+body.not-safari [safari-only],
+body.chrome [not-chrome],
+body.not-chrome [chrome-only] {
+  display: none;
 }
 
 ::-webkit-scrollbar {

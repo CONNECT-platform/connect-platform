@@ -105,3 +105,15 @@ const animate = function() {
 
 $(window).resize(animate);
 $(document).ready(prepare);
+
+$(document).ready(() => {
+  let is_opera = !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0;
+  let is_safari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+  let is_chrome = !!window.chrome && !is_opera;
+
+  if (is_safari) $('body').addClass('safari');
+  else $('body').addClass('not-safari');
+
+  if (is_chrome) $('body').addClass('chrome');
+  else $('body').addClass('not-chrome');
+})
