@@ -65,6 +65,10 @@ button:hover {
   color: #424242;
 }
 
+img[hero] {
+  width: 100vw;
+}
+
 section[dark] button {
   background: #f5f5f5;
   color: #424242;
@@ -201,6 +205,7 @@ img[backdrop] {
 
 [animated] {
   will-change: transform;
+  /*transition: transform .01s linear, opacity .01s linear, stroke-dashoffset .01s linear;*/
 }
 
 div[animated] {
@@ -239,6 +244,13 @@ div[animated].half {
 div[animated].fourth {
   width: 100vw;
   height: 25vh;
+}
+
+.intro-art-holder {
+  position: absolute;
+  width: 50vw;
+  left: 1vw;
+  top: calc(50vh - 10vw);
 }
 
 .intro-art {
@@ -313,10 +325,74 @@ div[animated].fourth {
   /*stroke-dashoffset: 2270;*/
 }
 
+.contact a {
+  display: inline-block;
+  padding: 8px;
+  margin: 8px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1px solid #bdbdbd;
+}
+
+.contact a img {
+  width: 24px;
+}
+
+.contact a::after {
+  bottom: -8px;
+}
+
 .map {
   position: absolute;
   right: 0;
   bottom: -8px;
+  height: 100vh;
+}
+
+.map-marker {
+  position: absolute;
+  right: 28.1vh;
+  bottom: 54.8vh;
+  width: 2vh;
+  height: 2vh;
+  top: auto!important;
+  left: auto!important;
+  cursor: pointer;
+}
+
+.map-marker .inner {
+  position: relative;
+  border-radius: 2vh;
+  box-shadow: 0 0 32px #B8E986;
+  width: 2vh;
+  height: 2vh;
+  opacity: 0;
+
+  transition: opacity .3s, transform .3s;
+}
+
+.map-marker:hover .inner {
+  opacity: 1;
+}
+
+.map-marker .inner .msg {
+  position: absolute;
+  color: white;
+  background: rgba(0, 0, 0, 0.5);
+  width: 180px;
+  height: 24px;
+  text-align: center;
+  padding: 4px;
+  border-radius: 4px;
+  font-size: 14px;
+  bottom: -48px;
+  left: -90px;
+}
+
+.flat {
+  background-image: url('./flat.svg');
+  background-size: cover;
 }
 
 body.safari [not-safari],
@@ -357,14 +433,8 @@ body.not-chrome [chrome-only] {
   background: transparent;
 }
 
-/*
-pre {
-  max-width: 100%;
-}
-*/
-
 .code-holder {
-  background: rgba(0, 0, 0, .25);
+  background: rgba(0, 0, 0, .65);
   border-radius: 8px;
   overflow: hidden;
 }
@@ -419,4 +489,75 @@ code.hljs span.hljs-attr {
 
 code.hljs span.hljs-subst {
   color: #aef4a4;
+}
+
+[mobile-only] {
+  display: none!important;
+}
+
+@media screen and (max-width: 600px) {
+  section {
+    margin-bottom: 0 !important;
+  }
+
+  img[hero] {
+    width: calc(100vw - 24px);
+    height: auto;
+  }
+
+  [hero-vid] {
+    position: relative;
+    width: 100%;
+    margin: 8px 0;
+    padding-bottom: 56.25%;
+  }
+
+  [hero-vid] iframe {
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .code-holder {
+    background: rgba(0, 0, 0, .75);
+  }
+
+  section>div {
+    padding: 64px 12px !important;
+    margin-top: 0!important;
+  }
+
+  section:first-child>div {
+    padding-top: 0px !important;
+  }
+
+  section p.sub {
+    max-width: 90vw;
+    position: relative !important;
+    bottom: 0 !important;
+  }
+
+  section[dark] {
+    color: #424242;
+  }
+
+  section[dark] button {
+    background: #424242;
+    color: #f5f5f5;
+    border: 2px solid #424242;
+  }
+
+  [desktop-only] {
+    display: none!important;
+  }
+
+  [mobile-only] {
+    display: block!important;
+  }
+
+  .contact img {
+    filter: invert(1);
+  }
 }

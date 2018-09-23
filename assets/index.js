@@ -51,7 +51,23 @@ const prepare = function() {
   animate();
 };
 
+animateLock = false;
+animateRequested = false;
+
 const animate = function() {
+  if (animateLock) {
+    animateRequested = true;
+    return;
+  }
+  animateLock = true;
+  setTimeout(() => {
+    animateLock = false;
+    if (animateRequested) {
+      animateRequested = false;
+      animate();
+    }
+  }, 1);
+
   const pos = $holder.scrollTop()/$holder.height();
 
   $('[animated]').each((_, el) => {
