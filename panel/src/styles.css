@@ -10,7 +10,10 @@ html, body {
     min-height: 100% !important;
     height: 100%;
     font-family: Futura, 'Nunito', sans-serif;
-    background: #424242;
+    /*background: #424242;*/
+    background-image: linear-gradient(#424242, #313131);
+    background-size: 100vw 100vh;
+    background-attachment: fixed;
     color: white;
 
     -webkit-user-select: none; /* Safari */

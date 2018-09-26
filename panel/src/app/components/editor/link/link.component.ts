@@ -35,6 +35,10 @@ export class LinkComponent implements OnInit {
     else this.editor.select(this.link);
   }
 
+  public get isChrome() {
+    return /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+  }
+
   public get selected() {
     return this.editor.isSelected(this.link);
   }

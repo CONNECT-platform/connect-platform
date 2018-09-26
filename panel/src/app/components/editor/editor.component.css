@@ -14,15 +14,11 @@ img {
 }
 
 img.tester {
-  animation:spin 4s linear infinite;
-  animation-play-state: paused;
-  animation-fill-mode: both;
+  animation: none;
 }
 
 img.playing {
-  animation:spin 4s linear infinite;
-  animation-play-state: paused;
-  animation-fill-mode: both;
+  animation: none;
 }
 
 img.loading {
@@ -106,7 +102,6 @@ img.loading.reverse {
 @keyframes spin-reverse { 100% {transform:rotate(-720deg); } }
 
 .main-action-holder {
-  background: #424242;
   z-index: 1000;
   position: absolute;
   top: 0;

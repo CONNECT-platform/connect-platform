@@ -5,7 +5,7 @@
   (mouseout)="mouseout()"
   >
   <div class="inner">
-    <div class="line"></div>
+    <div class="line" [ngClass]="{'chrome': isChrome}"></div>
     <img src="assets/arrow-head.svg" *ngIf="!isControl"/>
     <img src="assets/arrow-head-control.svg" *ngIf="isControl"/>
   </div>

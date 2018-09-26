@@ -2,7 +2,7 @@
   position: absolute;
   width: 156px;
   height: 156px;
-  background: #424242;
+  background-image: linear-gradient(#424242, #363636);
   border-radius: 3px;
   cursor: pointer;
   box-shadow: 0 1px 3px rgba(0,0,0,0.5);
