@@ -16,7 +16,8 @@ class Expression extends base.node.Node {
   }
 
   run(inputs, output) {
-    output(_Result, this._script.evaluate(inputs));
+    let context = Object.assign({console}, inputs);
+    output(_Result, this._script.evaluate(context));
   }
 }
 
