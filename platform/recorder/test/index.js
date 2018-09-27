@@ -6,4 +6,5 @@ describe('recorder', () => {
   require('./watch-composition');
   require('./recorder');
   require('./json-scenario');
+  require('./console-watcher');
 })

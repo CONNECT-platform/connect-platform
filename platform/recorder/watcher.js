@@ -2,7 +2,6 @@ const { Subscribable } = require('../core/base/subscribable');
 
 
 const WatcherEvents = {
-  bound : 'watching',
   watched : 'watched',
 }
 
@@ -49,9 +48,6 @@ class Watcher extends Subscribable {
   watched(callback) {
     this.subscribe(WatcherEvents.watched, callback);
     return this;
-  }
-
-  bind() {
   }
 
   get events() { return this._events; }
