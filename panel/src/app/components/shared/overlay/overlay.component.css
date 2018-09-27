@@ -1,11 +1,15 @@
 .holder {
   position: fixed;
   top: 0; bottom: 0; left: 0; right: 0;
-  background: rgba(0, 0, 0, .85);
-  backdrop-filter: blur(7px) saturate(200%) brightness(200%);
+  background: rgba(66, 66, 66, .85);
+  backdrop-filter: blur(15px) saturate(200%) contrast(150%) brightness(130%);
   opacity: 0;
   z-index: -10000;
   transition: opacity .3s;
+}
+
+.holder.not-safari {
+  background: rgba(33, 33, 33, .95);
 }
 
 .holder.active {
@@ -41,6 +45,8 @@
 .inner .title {
   font-size : 32px;
   margin-bottom: 32px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid rgba(255, 255, 255, .15);
 }
 
 .inner .title.centered {
@@ -61,6 +67,12 @@
   padding: 32px 0;
 }
 
+.expansive .inner .actions {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, .15);
+}
+
 .expansive .inner {
   width: calc(100vw - 256px);
 }
@@ -73,6 +85,7 @@
 .expansive .inner .title {
   display: inline-block;
   vertical-align: middle;
+  border: none;
 }
 
 .expansive .inner .content {
@@ -88,11 +101,11 @@
   right: 32px;
   width: 64px;
   height: 64px;
-  opacity: 0.1;
+  opacity: 0.25;
   cursor: pointer;
   transition: opacity .15s;
 }
 
 .close:hover {
-  opacity: .25;
+  opacity: .75;
 }

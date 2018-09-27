@@ -24,6 +24,10 @@ export class OverlayComponent implements OnInit {
   ngOnInit() {
   }
 
+  public get isSafari() {
+    return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+  }
+
   @Input() public get active() {
     return this._active;
   }

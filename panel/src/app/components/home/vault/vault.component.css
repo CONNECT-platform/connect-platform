@@ -150,8 +150,8 @@ input.new-key {
   margin: 0 auto;
   height: 32px;
   border-radius: 19px;
-  border: 1px solid white;
-  background: black;
+  border: 1px solid rgba(255, 255, 255, .25);
+  background: rgba(0, 0, 0, .25);
   font-family: inherit;
   font-size: 14px;
   line-height: 32px;
@@ -166,8 +166,8 @@ textarea {
   margin: 0 auto;
   outline: none;
   border-radius: 19px;
-  border: 1px solid white;
-  background: black;
+  border: 1px solid rgba(255, 255, 255, .25);
+  background: rgba(0, 0, 0, .25);
   font-family: 'PT Mono', monospace;
   font-size: 12px;
   color: #00BFA5;

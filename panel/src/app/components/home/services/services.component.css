@@ -125,8 +125,8 @@ overlay input {
   margin: 12px auto;
   height: 32px;
   border-radius: 19px;
-  border: 1px solid white;
-  background: black;
+  border: 1px solid rgba(255, 255, 255, .25);
+  background: rgba(0, 0, 0, .25);
   font-family: inherit;
   font-size: 14px;
   line-height: 32px;

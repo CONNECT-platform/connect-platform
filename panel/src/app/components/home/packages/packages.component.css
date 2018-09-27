@@ -24,8 +24,8 @@
 }
 
 .install .package {
-  background: rgba(0, 0, 0, .05);
-  border: 1px solid rgba(255, 255, 255, .1);
+  background: rgba(0, 0, 0, .15);
+  border: 1px solid rgba(255, 255, 255, .15);
   transition: background .15s, border-color .15s;
 }
 
@@ -36,8 +36,8 @@
 }
 
 .install .package:hover {
-  background: rgba(0, 0, 0, .5);
-  border-color: rgba(255, 255, 255, .2);
+  background: rgba(0, 0, 0, .25);
+  border-color: rgba(255, 255, 255, .25);
 }
 
 .packages .package .contents,
@@ -198,10 +198,10 @@ overlay input {
   display: block;
   width: calc(100% - 24px);
   margin: 0 auto;
-  background: black;
+  background: rgba(0, 0, 0, .25);
   color: white;
   border-radius: 19px;
-  border: 1px solid white;
+  border: 1px solid rgba(255, 255, 255, .25);
   height: 38px;
   font-family: inherit;
   text-align: center;

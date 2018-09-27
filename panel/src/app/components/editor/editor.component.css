@@ -282,9 +282,9 @@ editor-bar .action-list.bottom {
 }
 
 .overlay-input-editor {
-  background: black;
+  background: rgba(0, 0, 0, .25);
   width: calc(100% - 24px);
-  border: 1px solid white;
+  border: 1px solid rgba(255, 255, 255, .25);
   border-radius: 19px;
   padding: 8px;
 }

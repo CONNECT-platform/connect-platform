@@ -1,6 +1,6 @@
 .holder {
-  background-image: linear-gradient(rgba(76, 76, 76, .85), rgba(49, 49, 49, .85));
-  backdrop-filter: blur(7px) saturate(200%) brightness(200%);
+  background-image: linear-gradient(rgba(76, 76, 76, .85), rgba(59, 59, 59, .85));
+  backdrop-filter: blur(15px) saturate(200%) contrast(150%) brightness(200%);
   position: absolute;
   top: 0;
   height: 100vh;

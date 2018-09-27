@@ -1,5 +1,5 @@
 <div class="overlay holder"
-[ngClass]="{'active': active, 'expansive': expansive}">
+[ngClass]="{'active': active, 'expansive': expansive, 'not-safari': !isSafari}">
   <div class="aligner" (click)="checkClose($event)">
     <div class="inner" #inner>
       <img *ngIf="icon" [src]="icon" class="icon"/>
