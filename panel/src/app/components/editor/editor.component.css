@@ -109,6 +109,7 @@ img.loading.reverse {
   right: 0;
   height: 112px;
 
+  will-change: transform;
   transform: rotateY(0);
   transition: transform .5s, opacity .3s;
 }
