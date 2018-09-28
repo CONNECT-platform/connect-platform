@@ -9,9 +9,8 @@ describe('ConsoleWatcher', () => {
     let watcher = new ConsoleWatcher();
 
     watcher.watch(console).watched(event => {
-      event.event.should.equal(ConsoleEvents.logged);
-      event.data.length.should.equal(1);
-      event.data[0].should.equal('a log');
+      event.event.should.equal(ConsoleEvents.log);
+      event.data.should.equal('a log');
 
       watcher.unhook(console);
       done();
@@ -24,8 +23,8 @@ describe('ConsoleWatcher', () => {
     let watcher = new ConsoleWatcher();
 
     watcher.watch(console).watched(event => {
-      event.event.should.equal(ConsoleEvents.erred);
-      event.data[0].should.equal('an error');
+      event.event.should.equal(ConsoleEvents.error);
+      event.data.should.equal('an error');
 
       watcher.unhook(console);
       done();
@@ -37,14 +36,40 @@ describe('ConsoleWatcher', () => {
   it('should watch console warnings.', done => {
     let watcher = new ConsoleWatcher();
     watcher.watch(console).watched(event => {
-      event.event.should.equal(ConsoleEvents.warned);
-      event.data[0].should.equal('a warning');
+      event.event.should.equal(ConsoleEvents.warn);
+      event.data.should.equal('a warning');
 
       watcher.unhook(console);
       done();
     });
 
     console.warn('a warning');
+  });
+
+  it('should watch console debugs.', done => {
+    let watcher = new ConsoleWatcher();
+    watcher.watch(console).watched(event => {
+      event.event.should.equal(ConsoleEvents.debug);
+      event.data.should.equal('a debug');
+
+      watcher.unhook(console);
+      done();
+    });
+
+    console.debug('a debug');
+  });
+
+  it('should watch console infos.', done => {
+    let watcher = new ConsoleWatcher();
+    watcher.watch(console).watched(event => {
+      event.event.should.equal(ConsoleEvents.info);
+      event.data.should.equal('an info');
+
+      watcher.unhook(console);
+      done();
+    });
+
+    console.info('an info');
   });
 
   describe('.unhook()', () => {

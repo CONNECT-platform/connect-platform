@@ -23,3 +23,18 @@
     {{hoverTime | number:'.2-2'}}ms
   </div>
 </div>
+
+<button class="console-toggle"
+  (click)="toggleConsole($event)"
+  [ngClass]="{'enabled': tester.active, 'active': tester.active && consoleActive}">
+  console
+</button>
+
+<div class="console"
+  [ngClass]="{'active': tester.active && consoleActive, 'not-safari': !isSafari}">
+  <div class="entry {{event.event.cascaded.event}}"
+      *ngFor="let event of consoleEvents"
+      (click)="jumpToLog(event, $event)">
+    <pre>{{event.event.cascaded?.data}}</pre>
+  </div>
+</div>

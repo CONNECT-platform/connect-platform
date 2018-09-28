@@ -16,6 +16,8 @@ export class TimelineComponent implements OnInit {
   public hoverTimeLeft: number = 0;
   public keysEnabled: boolean = true;
 
+  public consoleActive: boolean = false;
+
   @ViewChild('holder') holder : ElementRef;
 
   constructor(
@@ -26,12 +28,37 @@ export class TimelineComponent implements OnInit {
   ngOnInit() {
   }
 
+  public get isSafari() {
+    return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+  }
+
+  toggleConsole(event) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    this.consoleActive = !this.consoleActive;
+  }
+
+  jumpToLog(event, ev) {
+    ev.preventDefault();
+    ev.stopPropagation();
+
+    setTimeout(() => this.tester.playbackPosition = event.time, 100);
+    setTimeout(() => this.tester.playbackPosition = event.time, 200);
+    setTimeout(() => this.tester.playbackPosition = event.time, 500);
+  }
+
   get events() {
     if (!this.tester.recording) return [];
     if (this.editor.selectTarget && this.editor.selectTarget.relevantEvent) {
       return this.tester.recording.filter(event => this.editor.selectTarget.relevantEvent(event));
     }
     else return this.tester.recording;
+  }
+
+  get consoleEvents() {
+    if (!this.tester.recording) return [];
+    return this.tester.recording.filter(event => event.event.tag == 'console' && event.time <= this.tester.playbackPosition);
   }
 
   get filled() {

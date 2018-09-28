@@ -5,6 +5,7 @@
   bottom: 0px;
   height: 48px;
   opacity: 0;
+  z-index: 1000;
 
   transition: all .5s ease-in-out;
 }
@@ -157,4 +158,105 @@
 
 .timeline:hover .hover-time {
   transform: scale(1);
+}
+
+.console-toggle {
+  position: absolute;
+  font-size: 12px;
+  bottom: 4px;
+  left: 220px;
+  width: 80px;
+  min-width: auto;
+  z-index: 1000;
+  transform: translateY(48px);
+  transition: transform .15s ease-out, color .15s, background .15s;
+}
+
+.console-toggle.enabled {
+  transform: translateY(0);
+}
+
+.console-toggle.active {
+  background: white;
+  color: black;
+}
+
+.console {
+  position: absolute;
+  width: 360px;
+  padding: 12px;
+  height: 256px;
+  bottom: 52px;
+  left: 220px;
+  overflow: hidden;
+  overflow-y: auto;
+  background-image: linear-gradient(rgba(51, 51, 51, .25), rgba(30, 30, 30, .25));
+  backdrop-filter: blur(20px) saturate(200%) brightness(150%);
+  border-radius: 3px;
+  z-index: 1000;
+
+  transform: scale(0);
+  transform-origin: bottom left;
+
+  transition: transform .15s ease-in, opacity .15s;
+}
+
+.console.not-safari {
+  background-image: linear-gradient(rgba(51, 51, 51, .85), rgba(42, 42, 42, .85));
+}
+
+.console.active {
+  transform: scale(1);
+}
+
+.console .entry {
+  position: relative;
+  padding: 4px;
+  font-size: 12px;
+  margin-left: 16px;
+  margin-top: 2px;
+  margin-bottom: 2px;
+  border-radius: 3px;
+  font-family: 'PT Mono', monospace !important;
+  background: rgba(0, 0, 0, 0);
+  transition: background .15s;
+  cursor: pointer;
+}
+
+.console .entry::before {
+  position: absolute;
+  content: ' ';
+  top: 0;
+  bottom: 0;
+  left: -16px;
+  width: 2px;
+  border: 2px dotted white;
+  opacity: 0.15;
+  transition: border-color .15s, opacity .15s;
+}
+
+.console .entry:hover {
+  background: rgba(0, 0, 0, .25);
+}
+
+.console .entry:hover::before {
+  opacity: .5;
+}
+
+.console .entry.warn {
+  color: #fbd341;
+}
+
+.console .entry.warn:hover::before {
+  border-color: #fbd341;
+  opacity: 1;
+}
+
+.console .entry.error {
+  color: #f73859;
+}
+
+.console .entry.error:hover::before {
+  border-color: #f73859;
+  opacity: 1;
 }
