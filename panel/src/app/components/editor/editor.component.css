@@ -18,7 +18,7 @@ img.tester {
 }
 
 img.playing {
-  animation: none;
+  animation: none !important;
 }
 
 img.loading {
@@ -110,20 +110,21 @@ img.loading.reverse {
   height: 112px;
 
   will-change: transform;
-  transform: rotateY(0);
+  transform: scale(1);
   transition: transform .5s, opacity .3s;
 }
 
 .main-action-holder.hidden {
+  z-index: -1000;
   opacity: 0;
-  transform: rotateY(90deg);
+  transform: scale(0);
 }
 
 .main-action-holder.test {
 }
 
 .main-action-holder.test.hidden {
-  transform: rotateY(-90deg);
+  transform: scale(2);
 }
 
 .main-action {
