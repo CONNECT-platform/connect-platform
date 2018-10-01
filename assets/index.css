@@ -57,7 +57,16 @@ button {
   height: 38px;
   font-size: 16px;
   cursor: pointer;
+  outline: none;
   transition: background .15s, color .15s;
+}
+
+button a {
+  color: inherit !important;
+}
+
+button a::after {
+  display: none !important;
 }
 
 button:hover {
