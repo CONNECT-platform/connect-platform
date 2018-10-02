@@ -4,9 +4,8 @@
 
 Since not all parts of a microservice logic are necessarily async, **CONNECT** facilitates injecting sync pieces of code on the fly. However, since sync code is more computationally focused, it is probably less specific to the business logic of the microservice and more a general algorithm, hence probably the best place for it is at the lowest layers in the architecture. So generally it is advisable to attach sync code in form of `packages`.
 
-https://connect-platform.com
-
-https://medium.com/connect-platform/guides/home
+* https://connect-platform.com
+* https://medium.com/connect-platform/guides/home
 
 ## how to setup
 
