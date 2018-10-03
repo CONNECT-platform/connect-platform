@@ -1,4 +1,5 @@
-# CONNECT platform
+![logo](assets/logo-std.svg)
+# CONNECT platform 
 
 **CONNECT platform**  is a visual backend development platform aiming to speed up development of async logical microservices (like drastically). The core idea is that async logic is inherently a "Graph" and when representation via a "Chain" (i.e. text-based code) is extremely sub-optimal (so yes the "visuality" is not for non-programmers to be able to play around).
 
