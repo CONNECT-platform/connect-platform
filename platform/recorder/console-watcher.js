@@ -28,27 +28,32 @@ class ConsoleWatcher extends Watcher {
     let subject = new Subscribable();
 
     console.log = (...log) => {
-      console._oldlog(...log);
+      if (console.log != console._oldlog)
+        console._oldlog(...log);
       subject.publish(ConsoleEvents.log, util.format(...log));
     }
 
     console.error = (...error) => {
-      console._olderror(...error);
+      if (console.error != console._olderror)
+        console._olderror(...error);
       subject.publish(ConsoleEvents.error, util.format(...error));
     }
 
     console.warn = (...warn) => {
-      console._oldwarn(...warn);
+      if (console.warn != console._oldwarn)
+        console._oldwarn(...warn);
       subject.publish(ConsoleEvents.warn, util.format(...warn));
     }
 
     console.debug = (...debug) => {
-      console._oldwarn(...debug);
+      if (console.debug != console._olddebug)
+        console._olddebug(...debug);
       subject.publish(ConsoleEvents.debug, util.format(...debug));
     }
 
     console.info = (...info) => {
-      console._oldwarn(...info);
+      if (console.info != console._oldinfo)
+        console._oldinfo(...info);
       subject.publish(ConsoleEvents.info, util.format(...info));
     }
 

@@ -194,6 +194,7 @@
   backdrop-filter: blur(20px) saturate(200%) brightness(150%);
   border-radius: 3px;
   z-index: 2004;
+  box-shadow: 0 0 4px rgba(0, 0, 0, .12);
 
   transform: scale(0);
   transform-origin: bottom right;

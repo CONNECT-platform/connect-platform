@@ -209,6 +209,8 @@ class Node extends Subscribable {
   run(inputs, output, control) {}
 
   error(error) {
+    if (typeof error == 'string')
+      error = new Error(error);
     this.publish(NodeEvents.error, error);
   }
 

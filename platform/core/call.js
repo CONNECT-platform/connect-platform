@@ -8,8 +8,8 @@ class Call extends base.node.Node {
     this._path = path;
   }
 
-  run(inputs, output, control) {
-    registry.instance(this._path).run(inputs, output, control);
+  run(inputs, output, control, error) {
+    registry.instance(this._path).run(inputs, output, control, error);
   }
 
   get path() {
