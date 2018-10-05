@@ -15,7 +15,15 @@ module.exports = (originalPath, searchPaths, callback) => {
         let loaded = require(_path);
         if (callback) callback(loaded, _path);
         return loaded;
-      } catch(_){ searchedPaths.push(_path); }
+      } catch(error) {
+        if (error.code == 'MODULE_NOT_FOUND' && `${error}`.indexOf(_path) != -1)
+          searchedPaths.push(_path);
+        else {
+          console.log(ct(ct.red + ct.bright, `ERROR @ ${_path}`));
+          console.log(error);
+          return;
+        }
+      }
     }
   }
 
