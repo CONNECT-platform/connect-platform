@@ -10,10 +10,21 @@ Since not all parts of a microservice logic are necessarily async, **CONNECT** f
 
 ## how to setup
 
-1. easy way with docker: https://github.com/CONNECT-platform/connect-platform-docker
-1. easy way without docker: https://github.com/CONNECT-platform/connect-platform-boilerplate
-1. easy way for developing a package: https://github.com/CONNECT-platform/connect-platform-package-boilerplate
-1. more comprehensive setup: https://medium.com/connect-platform/how-to-setup-connect-platform-d82d49e029ee
+- easy way with docker: 
+  - create a folder, `cd` to it,
+  - run this:
+```bash
+docker run -dit \
+          --name connect-platform \
+          -p 4000:4000 \
+          -v $(pwd)/panel-generated:/app/panel-generated \
+          -v $(pwd)/secure:/app/secure \
+          --env CONNECT_INSTALL_EXTERNAL_PACKAGES=true \
+          loreanvictor/connect-platform
+```
+- easy way without docker: https://github.com/CONNECT-platform/connect-platform-boilerplate
+- easy way for developing a package: https://github.com/CONNECT-platform/connect-platform-package-boilerplate
+- more comprehensive setup: https://medium.com/connect-platform/how-to-setup-connect-platform-d82d49e029ee
 
 # how to contribute
 
