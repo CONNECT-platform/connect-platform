@@ -1,3 +1,4 @@
+![interconnect](assets/interconnect.png)
 # INTER-CONNECTIBILITY
 
 a service is called (in the context of this document) **inter-connectible** if it provides its public API 
