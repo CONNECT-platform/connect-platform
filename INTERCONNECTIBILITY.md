@@ -10,7 +10,20 @@ and hence more human readable format than alternatives at least).
 
 ## location
 
-the public API should be accessible on `/api` sub-path of the root URL of the service. for example, if the service is to be accessible via `https://example.io`, then the API should be accessible via `https://example.io/api`. the term **root URL** here simply means the addresses of all end-points of the API should be sub-paths of this URL, so for example if the root URL of your service is `https://another.example.io/some/arbitrary/sub-path/`, then the api should reside on `https://another.example.io/some/arbitrary/sub-path/api` and the absolute address of all of the end-points should start with `https://another.example.io/some/arbitrary/sub-path/`.
+the public API should be accessible on `/api` sub-path of the root URL of the service. for example, if the service is to be accessible via `https://example.io`, then the API should be accessible via `https://example.io/api`. the term **root URL** here simply means the addresses of all end-points of the API should be sub-paths of this URL, so for example if the root URL of your service is 
+ ```
+ https://another.example.io/some/arbitrary/sub-path/
+ ```
+ 
+then the api should reside on 
+```
+https://another.example.io/some/arbitrary/sub-path/api
+``` 
+
+and the absolute address of all of the end-points should start with 
+```
+https://another.example.io/some/arbitrary/sub-path/
+```
 
 ## format
 
