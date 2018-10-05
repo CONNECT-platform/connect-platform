@@ -44,3 +44,25 @@ this is an example of proper response:
 ```
 
 which means there is an end-point accessible on the root URL of the service, which requires no inputs and provides a JSON object with a key `msg` as an output. more on that in the following section.
+
+### path
+
+each signature object should include a path, which is the path at which the end-point is accessible. the path should be relative to the **root URL** of the service. so for example, for a service located at `https://example.com/stuff/`,
+if the response to get requests to `https://example.com/stuff/api` is like this:
+
+```JSON
+[
+  {
+    "path": "/",
+    "public": true,
+    "outputs": ["msg"]
+   },
+   {
+    "path":"/hellow",
+    "public": true,
+    "outputs": ["greet"],
+   }
+]
+```
+
+then this service should avail two end points on `https://example.com/stuff/` and `https://example.com/stuff/hellow`.
