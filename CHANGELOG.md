@@ -16,6 +16,7 @@ and we use [Semantic Versioning](http://semver.org/spec/v2.0.0.html), like stric
 ### Changed
  - more verbose logging when failing to load packages.
  - more robust error handling (less errors now escape the recorder's grasp).
+ - expressions now have an 'expanded' view to increase coding space within them.
 
 ## [0.2.5] - 2018-08-30
 ### Added
