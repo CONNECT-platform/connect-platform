@@ -342,3 +342,34 @@ example:
   }
 }
 ```
+
+#### `"outputs"` and/or `"controlOutputs"`
+
+similar to [`"inputs"`](#inputs), you can add hints for outputs and/or control outputs, explaining what each output means, etc.
+
+example:
+
+```JSON
+{
+  "path": "/read/:articleId",
+  "method": "get",
+  "inputs": ["token", "articleId"],
+  "outputs": ["full-article", "article-preview"],
+  "controlOutputs": ["not_authorized", "not_found"],
+  "hints": {
+    "node": "loads the specified article for reading.",
+    "inputs": {
+      "token": "the reader's auth token",
+      "articleId": "the id of the article to be loaded"
+    },
+    "outputs": {
+      "full-article": "will contain full article data. only premium readers will get that.",
+      "article-preview": "will contain a preview of the article, for non-premium readers."
+    },
+    "controlOutputs": {
+      "not_authorized": "will be sent when the auth token is corrupt or is missing.",
+      "not_found": "will be sent when no article with given id can be found."
+    }
+  }
+}
+```
