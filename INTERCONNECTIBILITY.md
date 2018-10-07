@@ -302,3 +302,43 @@ all of the following are valid responses:
 not_authorized
 ```
 
+### hints [optional]
+
+can be used as a *hinting* or *documentation* mechanism to outline some hints as to how to use the end-point. should be a JSON object, with some of the following keys:
+
+#### node
+
+should be a human-readable string (or an HTML snippet) generally explaining what this end-point does and how it should be treated.
+
+example:
+
+```JSON
+{
+  "path": "/something",
+  "outputs": ["msg"],
+  "hints": {
+    "node": "a dummy signature that serves merely as an example of how hints work."
+  }
+}
+```
+
+#### inputs
+
+should outline hints on each input, what they generally mean and what they should be, etc. should be a JSON object with its keys being possible inputs of the end-point specified in `inputs` field of the signature itself (see [this section](#inputs-optional). the value for each key should be some human readable text (or HTML snippet) about the corresponding input.
+
+example:
+
+```JSON
+{
+  "path": "/something",
+  "inputs": ["a", "b"],
+  "outputs: ["msg"],
+  "hints": {
+    "node": "does nothing really.",
+    "inputs": {
+      "a": "is a really <b>important</b> piece of input",
+      "b": "it is not that important but still <i>mandatory</i>. should be a number between 37 and 42."
+    }
+  }
+}
+```
