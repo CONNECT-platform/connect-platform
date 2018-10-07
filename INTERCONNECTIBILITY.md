@@ -332,7 +332,7 @@ example:
 {
   "path": "/something",
   "inputs": ["a", "b"],
-  "outputs: ["msg"],
+  "outputs": ["something"],
   "hints": {
     "node": "does nothing really.",
     "inputs": {
