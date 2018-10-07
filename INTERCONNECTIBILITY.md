@@ -10,7 +10,7 @@ and hence more human readable format than alternatives at least).
 
 ## location
 
-the public API should be accessible on `/api` sub-path of the root URL of the service. for example, if the service is to be accessible via `https://example.io`, then the API should be accessible via `https://example.io/api`. the term **root URL** here simply means the addresses of all end-points of the API should be sub-paths of this URL, so for example if the root URL of your service is 
+the public API should be accessible on `/api` sub-path of the root URL of the service. for example, if the service is to be accessible via `https://example.io`, then the API should be  via `https://example.io/api`. the term **root URL** here simply means the addresses of all end-points of the API should be sub-paths of this URL, so for example if the root URL of your service is 
  ```
  https://another.example.io/some/arbitrary/sub-path/
  ```
@@ -18,7 +18,7 @@ the public API should be accessible on `/api` sub-path of the root URL of the se
 then the api should reside on 
 ```
 https://another.example.io/some/arbitrary/sub-path/api
-``` 
+``` accessible
 
 and the absolute address of all of the end-points should start with 
 ```
@@ -81,7 +81,7 @@ end-points can also mark parametric paths. for example, a path marked as `https:
 * `https://example/com/stuff/send/903284-09234/to/null`
 * ...
 
-the parameters in the url should be also included in the `inputs` part of the signature of the end-point. see (inputs)(#inputs) for more information.
+the parameters in the url should be also included in the `inputs` part of the signature of the end-point. see [inputs section](#inputs-optional) for more information.
 
 ### public [optional]
 
@@ -170,7 +170,7 @@ and it should operate assuming `paramA` is set to `X` and `paramB` is set to `Y`
 
 ### outputs [optional if `controlOutputs` is specified]
 
-should outline list of possible main keys for data responses, each indicating the nature of data being transmitted. responses from end-points of interconnectible micro-services should either be in form of a JSON object, including one main key, which should hold the main data, or in form of a control respones in case only a status flag is being responded without any computed data (see [this section](#controloutputs)). for example, the following are all valid data responses:
+should outline list of possible main keys for data responses, each indicating the nature of data being transmitted. responses from end-points of interconnectible micro-services should either be in form of a JSON object, including one main key, which should hold the main data, or in form of a control respones in case only a status flag is being responded without any computed data (see [this section](#controloutputs-optional-if-outputs-is-specified)). for example, the following are all valid data responses:
 
 ```JSON
 {
