@@ -89,7 +89,7 @@ indicates whether this endpoint is to be accessible publicly or not. for endpoin
 
 ### method [optional]
 
-the http method to be used when requesting this endpoint. can be one of `get`, `put`, `post` and `delete`. note that this is just to mark with which method the endpoint should be invoked and is not to be considered part of the identifier of the signature or the endpoint, i.e. there should not be two signatures with the same path and different methods in the same api response.
+the http method to be used when requesting this endpoint. can be one of `get`, `put`, `post` and `delete`. if not provided, `get` will be assumed. note that this is just to mark with which http method the endpoint should be invoked and is not to be considered part of the identifier of the signature or the endpoint, i.e. there should not be two signatures with the same path and different methods in the same api response.
 
 method should also generally be indicative of properties of the endpoint, however these characteristics are recommendations and not part of this specification:
 - `get` endpoints should just read some state. they should not mutate any state and instantly subsequent invokations of them should have the same result. the response usually should be some data.
@@ -138,4 +138,173 @@ example:
 
 this field should contain a list of strings, each marking the name of an input data that the endpoint requires for operation. these should be the required and sufficient inputs, i.e. the endpoint should require all of these inputs to operate and providing all of these inputs should suffice for the endpoint to operate.
 
-these inputs might be provided in various different manners based on the endpoint's method, and the endpoint should extract them from request data accordingly. public nodes (endpoints) on **CONNECT platform** generally search all of the request data (header and body) to extract their required inputs.
+these inputs might be provided in various different manners based on the endpoint's method, and the endpoint should extract them from request data accordingly. public nodes (endpoints) on **CONNECT platform** generally search all of the request data (header and body) to extract their required inputs, including:
+- request headers,
+- request body,
+- route parameters in case of parametric paths,
+- query parameters
+
+however, third-party end-points should merely extract the input data from specific parts of the request data, based on specified method:
+- `get` and `delete` end-points should extract the input data from query parameters,
+- `post` and `put` end-points should extract the input data from request body.
+
+in case of parametric paths, regardless of request method, third-party end-points should extract the data from the route itself and not from aforementioned places. for example, imagine we have an end-point with the following signature:
+
+```JSON
+{
+  "path": "/something/:paramA/",
+  "public": true,
+  "method": "get",
+  "inputs": ["paramA", "paramB"],
+  "outputs": ["out"]
+}
+```
+
+which is part of an api served on `https://example.com/stuff/`. the end-point should operate correctly with a request to the following URL:
+
+```
+https://example.com/stuff/something/X/?paramB=Y
+```
+
+and it should operate assuming `paramA` is set to `X` and `paramB` is set to `Y`.
+
+### outputs [optional if `controlOutputs` is specified]
+
+should outline list of possible main keys for data responses, each indicating the nature of data being transmitted. responses from end-points of interconnectible micro-services should either be in form of a JSON object, including one main key, which should hold the main data, or in form of a control respones in case only a status flag is being responded without any computed data (see [this section](#controloutputs)). for example, the following are all valid data responses:
+
+```JSON
+{
+  "result": 2
+}
+```
+(in which the main key is `result`),
+
+```JSON
+{
+  "auth": {
+    "success": true,
+    "user": {
+      "name": "John Doe",
+      "email": "john@doe.com"
+    },
+    "token": {
+      "value": "asoijdAWDJ90u8da;OIAD",
+      "expiresIn": "3600"
+    }
+  }
+}
+```
+(in which the main key is `auth`)
+
+```JSON
+{
+  "error": {
+    "code": "403",
+    "message": "wrong token provided"
+  }
+}
+```
+(in which the main key is `error`)
+
+in each data response object, exactly one of the keys specified in the `outputs` field of the end-point's signature should appear. the object can bear additional keys but they should not be mandatory for utilizing the response data, i.e. if the recipient party ignores all keys but the main key nothing should break.
+
+for example, for an end-point with the following signature:
+
+```JSON
+{
+  "path": "/",
+  "outputs": ["list", "error"]
+}
+```
+
+the following are valid responses:
+
+```JSON
+{
+  "list": ["A", "B", { "x" : 3 }]
+}
+```
+
+```JSON
+{
+  "error": 500
+}
+```
+
+but the following are not:
+
+```JSON
+["A", "B", {"x": 3}]
+```
+(because the response is not an object)
+
+```JSON
+{
+  "status": 200,
+  "the-list": ["A", "B", { "x": 3 }]
+}
+```
+(because the response object does not contain any of the keys specified in `outputs`)
+
+```JSON
+{
+  "list": [],
+  "error": 500
+}
+```
+(because the response object contains more than one of the keys specified in `outputs`).
+
+### controlOutputs [optional if `outputs` is specified]
+
+in case an end-point does not want to transmit any data, it can opt to respond with a single string specifying the result status. this is specially useful for end-points supposed to perform a specific operation and report the status of the operation, or when the status of a specific state is to be checked. in that case, all such possible strings should be specified in `controlOutputs` key of the signature. for example, the node with the following signature
+
+```JSON
+{
+  "path": "/do-something/",
+  "method": "post",
+  "controlOutputs": ["done", "not_authorized"]
+}
+```
+
+both `done` and `not_authorized` are valid responses, but `internal_error` or `403` are not.
+
+end-points can have both `outputs` and `controlOutputs`, in which case they can respond either with a JSON object containing exactly one of the keys specified in `outputs` or with one of the strings from the specified list of `controlOutputs`. for example, for an end-point with the following signature
+
+```JSON
+{
+  "path": "/read/:articleId",
+  "method": "get",
+  "inputs": ["token", "articleId"],
+  "outputs": ["full-article", "article-preview"],
+  "controlOutputs": ["not_authorized", "not_found"]
+}
+```
+all of the following are valid responses:
+```JSON
+{
+  "full-article": {
+    "title": "Click-bait Title Implying The Author Is Smart And Knows Stuff",
+    "author": {
+      "name": "John Doe",
+      "email": "john@doe.com"
+    },
+    "body": "This is the full text of the article, so that you can read it and enjoy it and what not."
+  }
+}
+```
+```JSON
+{
+  "article-preview": {
+    "title": "Click-bait Title Implying The Author Is Smart And Knows Stuff",
+    "author": {
+      "name": "John Doe",
+      "email": "john@doe.com",
+    },
+    "body": "This is just a preview of the article's text because you are not a paid user."
+  }
+}
+```
+```JSON
+not_authorized
+```
+
