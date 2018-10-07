@@ -88,20 +88,22 @@ export class BackendService {
     return this.http.get<{node: any}>(this.api + BackendService.apiCalls.load + `/${id}`).share();
   }
 
-  test(inputs) {
+  test(inputs, timelimit) {
     return this.http.post<any>(
       this.api + BackendService.apiCalls.test,
       {
         model : this.model.json,
         inputs: inputs,
+        timelimit: timelimit,
       }).share();
   }
 
-  watch() {
+  watch(timelimit) {
     return this.http.post<void>(
       this.api + BackendService.apiCalls.watch,
       {
-        model: this.model.json
+        model: this.model.json,
+        timelimit: timelimit,
       }
     ).share();
   }

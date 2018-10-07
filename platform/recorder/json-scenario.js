@@ -5,8 +5,8 @@ const { CompositionScenario } = require('./composition-scenario');
 
 
 class JSONScenario extends CompositionScenario {
-  constructor(json, inputs, configs) {
-    super(undefined, inputs, configs);
+  constructor(json, inputs, configs, timelimit) {
+    super(undefined, inputs, configs, timelimit);
     this.recipe = fromJSON(json);
   }
 

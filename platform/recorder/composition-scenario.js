@@ -1,10 +1,10 @@
 const watch = require('./watch');
-const { Scenario } = require('./scenario');
+const { TimedScenario } = require('./timed-scenario');
 
 
-class CompositionScenario extends Scenario {
-  constructor(composition, inputs, configs) {
-    super();
+class CompositionScenario extends TimedScenario {
+  constructor(composition, inputs, configs, timelimit) {
+    super(timelimit);
     this.composition = composition;
     this.inputs = inputs;
     this.configs = configs;

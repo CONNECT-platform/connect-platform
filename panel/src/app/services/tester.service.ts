@@ -21,6 +21,7 @@ export class TesterService {
   private _active : boolean = false;
   private _recording: any = undefined;
   private _inputs: any = {};
+  private _timelimit: number = 2000;
   private _state: TesterStates = TesterStates.Idle;
   private _playbackPosition: number = 0;
   private _playbackInterval: any;
@@ -86,7 +87,7 @@ export class TesterService {
           inputs: this._inputs,
         });
 
-        this.backend.test(this._inputs).subscribe(response => {
+        this.backend.test(this._inputs, this.timelimit).subscribe(response => {
           this._onRecordingFinished.emit();
 
           if (response.recording) {
@@ -116,7 +117,7 @@ export class TesterService {
     this.deactivate();
     this.activate();
 
-    this.backend.watch().subscribe(() => {
+    this.backend.watch(this.timelimit).subscribe(() => {
       this._watchInterval = setInterval(() => {
         this.backend.watchResult().subscribe(response => {
           if (response.recording) {
@@ -179,6 +180,12 @@ export class TesterService {
     }
   }
 
+  public get timelimit() { return this._timelimit; }
+  public set timelimit(val: number) {
+    this._timelimit = val;
+    this._recording = undefined;
+  }
+
   public get state() { return this._state; }
   public get active() { return this._active; }
   public get recording() { return this._recording; }
@@ -196,7 +203,7 @@ export class TesterService {
   }
 
   public get duration() {
-    if (!this.recording) return 0;
+    if (!this.recording || this.recording.length < 1) return 0;
     else {
       let recording = this.recording;
       return recording[recording.length - 1].time;
@@ -240,6 +247,7 @@ export class TesterService {
 
   public cleanUp() {
     this._inputs = {};
+    this._timelimit = 2000;
   }
 
   public get onActivated() { return this._onActivated; }

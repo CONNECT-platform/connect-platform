@@ -13,12 +13,13 @@ platform.core.node({
   path : `${config.path}watch`,
   public : config.expose,
   method : 'POST',
-  inputs : ['model'],
+  inputs : ['model', 'timelimit'],
   controlOutputs : ['done', 'no_path'],
 }, (inputs, output, control) => {
   if (!inputs.model.path) control('no_path');
   else {
     let model = inputs.model;
+    let timelimit = inputs.timelimit;
     delete watchlist[model.path];
 
     platform.core.registry.mock(model.path, class extends platform.core.Node {
@@ -32,7 +33,7 @@ platform.core.node({
 
       run(inputs, output, control) {
         platform.core.registry.unmock(model.path);
-        record(model, inputs, platform.config.core)
+        record(model, inputs, platform.config.core, timelimit)
           .then(recording => {
             watchlist[model.path] = recording;
 

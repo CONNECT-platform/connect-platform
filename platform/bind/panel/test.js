@@ -11,7 +11,7 @@ platform.core.node({
   path : `${config.path}test`,
   public : config.expose,
   method : 'POST',
-  inputs : ['model', 'inputs'],
+  inputs : ['model', 'inputs', 'timelimit'],
   outputs : ['recording', 'error'],
   controlOutputs : ['wrong_input'],
 }, (inputs, output, control) => {
@@ -22,7 +22,7 @@ platform.core.node({
     return;
   }
 
-  record(inputs.model, inputs.inputs, platform.config.core)
+  record(inputs.model, inputs.inputs, platform.config.core, inputs.timelimit)
     .then(recording => {
       output('recording', purify(recording));
     })

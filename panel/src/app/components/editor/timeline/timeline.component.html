@@ -38,3 +38,28 @@
     <pre>{{event.event.cascaded?.data}}</pre>
   </div>
 </div>
+
+<button class="timelimit"
+  [ngClass]="{'enabled': tester.active}"
+  (click)="timelimitOverlay.activate()">
+  time limit
+</button>
+
+<overlay #timelimitOverlay
+  icon="assets/timer.svg">
+  <overlay-title>
+    Time Limit
+  </overlay-title>
+  <overlay-content>
+    Set the time limit for executing the node, in milliseconds. If the node
+    does not finish in that time-span, only up until that point in time will
+    be recorded.
+    <br><br>
+    <input [(ngModel)]="tester.timelimit" type="text" placeholder="time limit in milliseconds ..."/>
+  </overlay-content>
+  <overlay-actions>
+    <button (click)="timelimitOverlay.close()">
+      Done
+    </button>
+  </overlay-actions>
+</overlay>

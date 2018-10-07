@@ -160,7 +160,7 @@
   transform: scale(1);
 }
 
-.console-toggle {
+.console-toggle, .timelimit {
   position: absolute;
   font-size: 12px;
   bottom: 4px;
@@ -172,7 +172,13 @@
   transition: transform .15s ease-out, color .15s, background .15s;
 }
 
-.console-toggle.enabled {
+.timelimit {
+  right: auto;
+  left: 220px;
+}
+
+.console-toggle.enabled,
+.timelimit.enabled {
   transform: translateY(0);
 }
 
@@ -260,4 +266,18 @@
 .console .entry.error:hover::before {
   border-color: #f73859;
   opacity: 1;
+}
+
+overlay input {
+  background: rgba(0, 0, 0, .25);
+  width: calc(100% - 24px);
+  border: 1px solid rgba(255, 255, 255, .25);
+  border-radius: 19px;
+  padding: 8px;
+  outline: none;
+  font-family: inherit;
+  font-weight: bold;
+  font-size: 14px;
+  text-align: center;
+  color: #448aff;
 }
