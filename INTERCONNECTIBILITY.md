@@ -47,7 +47,7 @@ which means there is an end-point accessible on the root URL of the service, whi
 
 in the following sections, optional and mandatory fields of each signature objects will be outlined, alongside the behaviour or characteristics of the respective endpoint they should be indicative of.
 
-### path
+### `"path"`
 
 each signature object should include a path, which is the path at which the end-point is accessible. the path should be relative to the **root URL** of the service. so for example, for a service located at `https://example.com/stuff/`,
 if the response to get requests to `https://example.com/stuff/api` is like this:
@@ -83,11 +83,11 @@ end-points can also mark parametric paths. for example, a path marked as `https:
 
 the parameters in the url should be also included in the `inputs` part of the signature of the end-point. see [inputs section](#inputs-optional) for more information.
 
-### public [optional]
+### `"public"` [optional]
 
 indicates whether this endpoint is to be accessible publicly or not. for endpoints exposed to the public this field usually does have a `true` value, so it is entirely optional.
 
-### method [optional]
+### `"method"` [optional]
 
 the http method to be used when requesting this endpoint. can be one of `get`, `put`, `post` and `delete`. if not provided, `get` will be assumed. note that this is just to mark with which http method the endpoint should be invoked and is not to be considered part of the identifier of the signature or the endpoint, i.e. there should not be two signatures with the same path and different methods in the same api response.
 
@@ -134,7 +134,7 @@ example:
 ]
 ```
 
-### inputs [optional]
+### `"inputs"` [optional]
 
 this field should contain a list of strings, each marking the name of an input data that the endpoint requires for operation. these should be the required and sufficient inputs, i.e. the endpoint should require all of these inputs to operate and providing all of these inputs should suffice for the endpoint to operate.
 
@@ -162,7 +162,7 @@ https://example.com/stuff/something/X/?paramB=Y
 
 and it should operate assuming `paramA` is set to `X` and `paramB` is set to `Y`.
 
-### outputs [optional if `controlOutputs` is specified]
+### `"outputs"` [optional if `"controlOutputs"` is specified]
 
 should outline list of possible main keys for data responses, each indicating the nature of data being transmitted. responses from end-points of interconnectible micro-services should either be in form of a JSON object, including one main key, which should hold the main data, or in form of a control respones in case only a status flag is being responded without any computed data (see [this section](#controloutputs-optional-if-outputs-is-specified)). for example, the following are all valid data responses:
 
@@ -248,7 +248,7 @@ but the following are not:
 ```
 (because the response object contains more than one of the keys specified in `outputs`).
 
-### controlOutputs [optional if `outputs` is specified]
+### `"controlOutputs"` [optional if `"outputs"` is specified]
 
 in case an end-point does not want to transmit any data, it can opt to respond with a single string specifying the result status. this is specially useful for end-points supposed to perform a specific operation and report the status of the operation, or when the status of a specific state is to be checked. in that case, all such possible strings should be specified in `controlOutputs` key of the signature. for example, the node with the following signature
 
@@ -302,11 +302,11 @@ all of the following are valid responses:
 not_authorized
 ```
 
-### hints [optional]
+### `"hints"` [optional]
 
 can be used as a *hinting* or *documentation* mechanism to outline some hints as to how to use the end-point. should be a JSON object, with some of the following keys:
 
-#### node
+#### `"node"`
 
 should be a human-readable string (or an HTML snippet) generally explaining what this end-point does and how it should be treated.
 
@@ -322,7 +322,7 @@ example:
 }
 ```
 
-#### inputs
+#### `"inputs"`
 
 should outline hints on each input, what they generally mean and what they should be, etc. should be a JSON object with its keys being possible inputs of the end-point specified in `inputs` field of the signature itself (see [this section](#inputs-optional). the value for each key should be some human readable text (or HTML snippet) about the corresponding input.
 
