@@ -15,10 +15,10 @@ the public API should be accessible on `/api` sub-path of the root URL of the se
  https://another.example.io/some/arbitrary/sub-path/
  ```
  
-then the api should reside on 
+then the api should be accessible on
 ```
 https://another.example.io/some/arbitrary/sub-path/api
-``` accessible
+``` 
 
 and the absolute address of all of the end-points should start with 
 ```
