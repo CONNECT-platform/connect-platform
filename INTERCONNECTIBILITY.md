@@ -138,13 +138,7 @@ example:
 
 this field should contain a list of strings, each marking the name of an input data that the endpoint requires for operation. these should be the required and sufficient inputs, i.e. the endpoint should require all of these inputs to operate and providing all of these inputs should suffice for the endpoint to operate.
 
-these inputs might be provided in various different manners based on the endpoint's method, and the endpoint should extract them from request data accordingly. public nodes (endpoints) on **CONNECT platform** generally search all of the request data (header and body) to extract their required inputs, including:
-- request headers,
-- request body,
-- route parameters in case of parametric paths,
-- query parameters
-
-however, third-party end-points should merely extract the input data from specific parts of the request data, based on specified method:
+these inputs might be provided in various different manners based on the endpoint's method, and the endpoint should extract them from request data accordingly:
 - `get` and `delete` end-points should extract the input data from query parameters,
 - `post` and `put` end-points should extract the input data from request body.
 
