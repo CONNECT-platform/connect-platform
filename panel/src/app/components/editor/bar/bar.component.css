@@ -1,12 +1,16 @@
 .holder {
-  background-image: linear-gradient(rgba(76, 76, 76, .85), rgba(59, 59, 59, .85));
-  backdrop-filter: blur(15px) saturate(200%) contrast(150%) brightness(200%);
+  background-image: linear-gradient(rgba(76, 76, 76, .25), rgba(59, 59, 59, .25));
+  backdrop-filter: blur(20px) saturate(200%) brightness(150%);
   position: absolute;
   top: 0;
   height: 100vh;
   width: 156px;
   z-index: 1000;
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+.holder.not-safari {
+  background-image: linear-gradient(rgba(76, 76, 76, .85), rgba(59, 59, 59, .85));
 }
 
 .holder.left {

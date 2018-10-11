@@ -16,6 +16,7 @@ platform.core.node({
     setTimeout(() => reject(), 1);
   }).then(() => output('msg', 'Hellow World!'))
     .catch(() => {
+      //throw new Error('some error happend');
       error(new Error('some error happend'));
     });
 });

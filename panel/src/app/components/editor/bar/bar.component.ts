@@ -14,4 +14,7 @@ export class BarComponent implements OnInit {
   ngOnInit() {
   }
 
+  public get isSafari() {
+    return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+  }
 }

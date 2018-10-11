@@ -1,8 +1,8 @@
 .holder {
   position: fixed;
   top: 0; bottom: 0; left: 0; right: 0;
-  background: rgba(66, 66, 66, .85);
-  backdrop-filter: blur(15px) saturate(200%) contrast(150%) brightness(130%);
+  background: rgba(66, 66, 66, .45);
+  backdrop-filter: blur(30px) saturate(200%) brightness(150%);
   opacity: 0;
   z-index: -10000;
   transition: opacity .3s;
