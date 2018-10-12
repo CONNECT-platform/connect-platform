@@ -48,6 +48,13 @@ class Platform extends Subscribable {
   listen(port) {
     return new Promise(resolve => {
       this.bind();
+
+      //
+      // this little bit here ensures that unhandled promise rejection
+      // will not cause a problem and will be reporter properly.
+      //
+      process.on('unhandledRejection', r => console.error(r));
+      
       let server = this.app.listen(port, () => {
         resolve(server);
       });
@@ -68,7 +75,6 @@ class Platform extends Subscribable {
     return this;
   }
 }
-
 
 if (!global.connect_platform_instance)
   global.connect_platform_instance = new Platform();

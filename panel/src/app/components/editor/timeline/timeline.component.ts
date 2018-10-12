@@ -17,6 +17,7 @@ export class TimelineComponent implements OnInit {
   public keysEnabled: boolean = true;
 
   public consoleActive: boolean = false;
+  public consoleExpanded: boolean = false;
 
   @ViewChild('holder') holder : ElementRef;
 

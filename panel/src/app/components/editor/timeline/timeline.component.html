@@ -31,12 +31,13 @@
 </button>
 
 <div class="console"
-  [ngClass]="{'active': tester.active && consoleActive, 'not-safari': !isSafari}">
+  [ngClass]="{'active': tester.active && consoleActive, 'expanded': consoleExpanded, 'not-safari': !isSafari}">
   <div class="entry {{event.event.cascaded.event}}"
       *ngFor="let event of consoleEvents"
       (click)="jumpToLog(event, $event)">
     <pre>{{event.event.cascaded?.data}}</pre>
   </div>
+  <div class="size-toggle" [ngClass]="{'expand': !consoleExpanded, 'collapse': consoleExpanded}" (click)="consoleExpanded=!consoleExpanded"></div>
 </div>
 
 <button class="timelimit"

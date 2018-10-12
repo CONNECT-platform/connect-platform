@@ -208,6 +208,42 @@
   transition: transform .15s ease-in, opacity .15s;
 }
 
+.console.expanded {
+  width: 640px;
+  height: 512px;
+}
+
+.console .size-toggle {
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background-size: 24px 24px;
+  background-position: center;
+  cursor: pointer;
+  opacity: 0.25;
+  transition: opacity .15s, transform .15s;
+}
+
+.console .size-toggle.collapse {
+  background-image: url('../../../../assets/collapse.svg');
+}
+
+.console .size-toggle.collapse:hover {
+  opacity: .75;
+  transform: scale(0.8);
+}
+
+.console .size-toggle.expand {
+  background-image: url('../../../../assets/expand.svg');
+}
+
+.console .size-toggle.expand:hover {
+  opacity: .75;
+  transform: scale(1.2);
+}
+
 .console.not-safari {
   background-image: linear-gradient(rgba(51, 51, 51, .85), rgba(42, 42, 42, .85));
 }
@@ -269,7 +305,9 @@
 }
 
 .console .entry pre {
-  white-space: normal;
+  white-space: pre;
+  word-break: break-all;
+  overflow-x: auto;
 }
 
 overlay input {
