@@ -287,4 +287,17 @@ export class EditorComponent implements OnInit, OnDestroy {
     if (event.keyCode == 27 && this.state == EditorState.adding)
       this.state = EditorState.initial;
   }
+
+  @HostListener('document:keydown', ['$event'])
+  keydown(event) {
+    let charChode = String.fromCharCode(event.which).toLowerCase();
+    if ((event.metaKey || event.ctrlKey) && charChode == 's') {
+      event.preventDefault();
+      this.save();
+    }
+
+    if (event.key === 'Delete' && this.state == EditorState.selected) {
+      this.mainAction();
+    }
+  }
 }
