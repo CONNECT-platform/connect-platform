@@ -1,6 +1,4 @@
 # How to Contribute to CONNECT platform
 
-* the most important contribution you can make is integrating stuff into platform. take a look at [/platform/bind](/platform/bind)
-... that contains similar integrations. the idea of method of shipping integrations currently is to ship the most essential
-... integrations within the core package and to ship other integrations in form of separate node packages.
-* also the code is still young, so take a look around and see what you can do.
+* the most important contribution you can make is integrating stuff into the platform. take a look at [this repo](https://github.com/CONNECT-platform/connect-platform-package-boilerplate) for easily developing integrations for **CONNECt platform**. if you want your integrations to appear in the main repo, create a pull-request to [this](https://github.com/CONNECT-platform/connect-repo).
+* also checkout the code itself, setup micro-services with it, give us feedback at any time by creating issues or do improvements on your own and create pull-requests.
