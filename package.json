@@ -1,6 +1,6 @@
 {
   "name": "connect-platform",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "description": "A platform to build backened code mostly in a visual manner.",
   "keywords": [
     "connect",
@@ -11,7 +11,7 @@
     "low code",
     "no code"
   ],
-  "homepage": "https://connect-platform.github.io/connect-platform/",
+  "homepage": "https://connect-platform.com",
   "repository": {
     "type": "git",
     "url": "https://github.com/CONNECT-platform/connect-platform.git"

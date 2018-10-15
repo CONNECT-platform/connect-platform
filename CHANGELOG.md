@@ -1,11 +1,16 @@
 # Change Log
 
-This is a log of all major changes to [CONNECT platform](https://connect-platform.github.io/connect-platform/).
+This is a log of all major changes to [CONNECT platform](https://connect-platform.com).
 
 The format is inspired by [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and we use [Semantic Versioning](http://semver.org/spec/v2.0.0.html), like strictly.
 
 ## [Unreleased]
+### Added
+ - support for optional inputs.
+ - support for input type checking.
+
+## [0.2.6] - 2018-10-15
 ### Added
  - support for seeing shell logs in test/watch mode.
  - support for timeouts in test/watch mode.
