@@ -9,6 +9,8 @@ and we use [Semantic Versioning](http://semver.org/spec/v2.0.0.html), like stric
 ### Added
  - support for optional inputs.
  - support for input type checking.
+### Changed
+ - values also now have an 'expanded' view to increase coding space within them.
 
 ## [0.2.6] - 2018-10-15
 ### Added
