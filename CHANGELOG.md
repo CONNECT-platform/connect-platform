@@ -8,9 +8,12 @@ and we use [Semantic Versioning](http://semver.org/spec/v2.0.0.html), like stric
 ## [Unreleased]
 ### Added
  - support for optional inputs.
- - support for input type checking.
+ - buttons for seeking to next and previous events on the timeline.
 ### Changed
  - values also now have an 'expanded' view to increase coding space within them.
+ - the timeline now moves much faster at empty areas. same for manually seeking.
+ - the big-seek function (shift + left | right) will now seek to the next event.
+ - using the cursor to visually seek on the timeline will snap to event points.
 
 ## [0.2.6] - 2018-10-15
 ### Added
