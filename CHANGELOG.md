@@ -15,6 +15,7 @@ and we use [Semantic Versioning](http://semver.org/spec/v2.0.0.html), like stric
  - the timeline now moves much faster at empty areas. same for manually seeking.
  - the big-seek function (shift + left | right) will now seek to the next event.
  - using the cursor to visually seek on the timeline will snap to event points.
+ - the interconnect now by default assumes `http://` as protocol if it's not provided with one.
 
 ## [0.2.6] - 2018-10-15
 ### Added
