@@ -10,6 +10,7 @@ and we use [Semantic Versioning](http://semver.org/spec/v2.0.0.html), like stric
  - support for optional inputs.
  - buttons for seeking to next and previous events on the timeline.
  - you can now see the source of a non-NPM package.
+ - you can now mark public nodes from being excluded from interconnectible registry.
 ### Changed
  - values also now have an 'expanded' view to increase coding space within them.
  - the timeline now moves much faster at empty areas. same for manually seeking.
