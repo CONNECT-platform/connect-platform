@@ -5,6 +5,8 @@ This is a log of all major changes to [CONNECT platform](https://connect-platfor
 The format is inspired by [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and we use [Semantic Versioning](http://semver.org/spec/v2.0.0.html), like strictly.
 
+**NOTE**: there is not an entry for every version. Some versions included super minor changes, and as a result were excluded from this change log. For a really detailed history of changes, please checkout the commit history of the project.
+
 ## [Unreleased]
 ### Added
  - support for optional inputs.
