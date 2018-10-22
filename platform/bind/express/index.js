@@ -12,7 +12,7 @@ module.exports = (app, config) => {
     let timeout = config.get('instance_auto_sleep');
     let kill = () => {
       console.log('Killing instance due to inactivity');
-      process.exit(0);
+      process.exit(1);
     };
     let timer = setTimeout(kill, timeout);
     app.use((req, res, next) => {
