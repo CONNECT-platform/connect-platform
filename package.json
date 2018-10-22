@@ -18,7 +18,7 @@
   },
   "main": "platform",
   "scripts": {
-    "start": "NODE_PATH=. DEVELOPMENT=true nodemon app",
+    "start": "NODE_PATH=. DEVELOPMENT=true node run",
     "test": "mocha --exit"
   },
   "author": "Eugene Ghanizadeh Khoub",
