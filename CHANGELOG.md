@@ -5,10 +5,22 @@ This is a log of all major changes to [CONNECT platform](https://connect-platfor
 The format is inspired by [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and we use [Semantic Versioning](http://semver.org/spec/v2.0.0.html), like strictly.
 
+**NOTE**: there is not an entry for every version. Some versions included super minor changes, and as a result were excluded from this change log. For a really detailed history of changes, please checkout the commit history of the project.
+
 ## [Unreleased]
 ### Added
  - support for optional inputs.
- - support for input type checking.
+ - buttons for seeking to next and previous events on the timeline.
+ - you can now see the source of a non-NPM package.
+ - you can now mark public nodes from being excluded from interconnectible registry.
+### Changed
+ - values also now have an 'expanded' view to increase coding space within them.
+ - the interconnect now by default assumes `http://` as protocol if it's not provided with one.
+ - panel's save node now also requires proper `connect_token` header to function.
+ - improvements to debugger's timeline:
+   - the timeline now moves much faster at empty areas. same for manually seeking.
+   - the big-seek function (shift + left | right) will now seek to the next event.
+   - using the cursor to visually seek on the timeline will snap to event points.
 
 ## [0.2.6] - 2018-10-15
 ### Added
