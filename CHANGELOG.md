@@ -11,7 +11,7 @@ and we use [Semantic Versioning](http://semver.org/spec/v2.0.0.html), like stric
 ### Added
  - buttons for seeking to next and previous events on the timeline.
  - you can now see the source of a non-NPM package.
- - you can now mark public nodes from being excluded from interconnectible registry.
+ - you can now mark public nodes for being excluded from interconnectible registry.
 ### Changed
  - exapnded value/expression functionality:
    - if you write a function inside a value/expr which takes no arguments, the function will be executed and its result will be the output of the expression (so no more need for self-enclosing functions).
