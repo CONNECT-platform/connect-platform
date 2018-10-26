@@ -15,9 +15,15 @@ class Expression extends base.node.Node {
     //this._sync = true;
   }
 
-  run(inputs, output) {
-    let context = Object.assign({console}, inputs);
-    output(_Result, this._script.evaluate(context));
+  run(inputs, output, _, error) {
+    let context = Object.assign({console, error, require}, inputs);
+    let res = this._script.evaluate(context);
+    if (typeof res === 'function') {
+      if (res.length == 0) output(_Result, res());
+      else if (res.length == 1) res(val => output(_Result, val));
+      else output(_Result, res);
+    }
+    else output(_Result, res);
   }
 }
 

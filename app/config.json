@@ -23,6 +23,5 @@
   },
   "aliases": {
     "/eightf" : "/8fact"
-  },
-  "instance_auto_sleep": 300000
+  }
  }
