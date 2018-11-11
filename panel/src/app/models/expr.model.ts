@@ -10,7 +10,6 @@ export class Expr extends Node {
   public static Result: string = 'result';
 
   private _code: string;
-  private _expanded: boolean = false;
 
   constructor(tag: string, box: Box) {
     super(tag, box);
@@ -21,18 +20,6 @@ export class Expr extends Node {
   public get code() { return this._getCode(); }
   public set code(code) {
     this._setCode(code);
-  }
-
-  public get expanded(): boolean { return this._expanded; }
-
-  public expand() {
-    this.box.width = 288;
-    this._expanded = true;
-  }
-
-  public collapse() {
-    this.box.width = 172;
-    this._expanded = false;
   }
 
   protected toJson() {

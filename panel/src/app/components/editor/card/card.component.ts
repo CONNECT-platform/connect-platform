@@ -237,6 +237,13 @@ export class CardComponent implements OnInit, OnDestroy {
     else return null;
   }
 
+  public expand() {
+    if (this.node instanceof Expr) {
+      this.editor.expanded = this.node;
+      console.log(this.editor.expanded.code);
+    }
+  }
+
   newCase() {
     if (this.type == CardType.switch) {
       (this.node as Switch).cases.add('');

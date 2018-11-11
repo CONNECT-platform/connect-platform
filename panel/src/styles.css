@@ -131,7 +131,7 @@ button:hover {
 
 ace-editor {
   font-family: 'PT Mono', monospace !important;
-  font-size: 12px !important;
+  font-size: 13px !important;
   font-weight: bold !important;
   background-color: rgba(0, 0, 0, 0) !important;
 }
@@ -166,7 +166,7 @@ ace-editor .ace_operator {
 
 ace-editor .ace_identifier,
 ace-editor .ace_support {
-  color: #D500F9 !important;
+  color: #E0E0E0 !important;
 }
 
 ace-editor .ace_numeric {

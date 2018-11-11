@@ -206,3 +206,16 @@
     </button>
   </overlay-actions>
 </overlay>
+
+<overlay #codeOverlay
+  [expansive]="true"
+  [active]="editor.expanded">
+  <overlay-content>
+    <ace-editor *ngIf="editor.expanded"
+                mode="javascript"
+                [readOnly]="tester.active"
+                [(text)]="editor.expanded.code"
+                [options]="aceOptions"
+                style='min-height:16px;'></ace-editor>
+  </overlay-content>
+</overlay>

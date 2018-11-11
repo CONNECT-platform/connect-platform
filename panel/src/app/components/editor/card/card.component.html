@@ -28,7 +28,7 @@
         <div class="expr-code">
           <editor-code [(code)]="node.code" [pin]="node.result" [readonly]="tester.active"></editor-code>
         </div>
-        <div class="size-toggle" [ngClass]="{'expand': !node.expanded, 'collapse': node.expanded}" (click)="node.expanded?node.collapse():node.expand()"></div>
+        <div class="size-toggle" (click)="expand()"></div>
       </div>
     </ng-container>
 
@@ -40,6 +40,7 @@
           [error]="errorInTester != null"
           [(code)]="node.code"
           [pin]="node.result"></editor-code>
+        <div class="size-toggle value" (click)="expand()"></div>
       </div>
     </ng-container>
 

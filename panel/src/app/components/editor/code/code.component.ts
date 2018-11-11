@@ -18,7 +18,7 @@ export class CodeComponent implements OnInit {
 
   options: any = {
     showGutter: false,
-    maxLines: Infinity,
+    maxLines: 12,
     tabSize: 2,
   }
 

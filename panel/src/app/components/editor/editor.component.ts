@@ -53,6 +53,8 @@ export class EditorComponent implements OnInit, OnDestroy {
   @ViewChild('testInputEditor') testInputEditor;
   @ViewChild('testErrorDetailsOverlay') testErrorDetailsOverlay;
 
+  @ViewChild('codeOverlay') codeOverlay;
+
   @ViewChild('timeline') timeline;
 
   communicating : boolean = false;
@@ -64,6 +66,7 @@ export class EditorComponent implements OnInit, OnDestroy {
   aceOptions: any = {
     showGutter: false,
     maxLines: Infinity,
+    showPrintMargin: false,
     tabSize: 2,
   }
 
@@ -129,6 +132,10 @@ export class EditorComponent implements OnInit, OnDestroy {
 
     this.testErrorDetailsOverlay.onClose.subscribe(() => {
       this.editor.deselect();
+    });
+
+    this.codeOverlay.onClose.subscribe(() => {
+      this.editor.expanded = undefined;
     });
   }
 

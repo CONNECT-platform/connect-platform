@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { Subscribable } from '../util/subscribable';
 import { EditorModelService } from './editor-model.service';
+import { Expr } from '../models/expr.model';
 import { Link } from '../models/link.model';
 import { Pin, PinType } from '../models/pin.model';
 
@@ -23,6 +24,8 @@ export class EditorService extends Subscribable {
 
   private pickedTime = null;
   private freeLink: Link = null;
+
+  public expanded: Expr;
 
   constructor(private model : EditorModelService) {
     super();
