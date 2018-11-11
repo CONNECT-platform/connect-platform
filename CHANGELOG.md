@@ -9,12 +9,17 @@ and we use [Semantic Versioning](http://semver.org/spec/v2.0.0.html), like stric
 
 ## [Unreleased]
 ### Added
- - support for optional inputs.
  - buttons for seeking to next and previous events on the timeline.
  - you can now see the source of a non-NPM package.
- - you can now mark public nodes from being excluded from interconnectible registry.
+ - you can now mark public nodes for being excluded from interconnectible registry.
 ### Changed
- - values also now have an 'expanded' view to increase coding space within them.
+ - exapnded value/expression functionality:
+   - if you write a function inside a value/expr which takes no arguments, the function will be executed and its result will be the output of the expression (so no more need for self-enclosing functions).
+   - if you write a function with exactly one argument inside a value/expr, the function will be executed with the argument passed being a callback function for returning the value of the expression. this is to enable inline async coding in JS in a node.
+   - the node's `error` function alongside the nodejs `require` function are now passed to expr/value execution context.
+ - 'expanded' mode update:
+   - 'expanded' mode on expressions now opens a full page editor.
+   - values now also have an 'expanded' mode.
  - the interconnect now by default assumes `http://` as protocol if it's not provided with one.
  - panel's save node now also requires proper `connect_token` header to function.
  - improvements to debugger's timeline:
