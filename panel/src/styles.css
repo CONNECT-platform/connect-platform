@@ -136,12 +136,35 @@ ace-editor {
   background-color: rgba(0, 0, 0, 0) !important;
 }
 
+ace-editor .ace_gutter {
+  margin-left: -16px;
+  padding-right: 8px;
+  border-right: 1px dashed rgba(255, 255, 255, .25);
+  background: none !important;
+  color: rgba(255, 255, 255, .25) !important;
+  opacity: 0.5;
+  transition: opacity .15s;
+}
+
+ace-editor .ace_gutter:hover {
+  opacity: 1;
+}
+
+ace-editor .ace_gutter-active-line {
+  border-right: 2px solid #448aff;
+}
+
 ace-editor .ace_marker-layer .ace_active-line {
-  background-color: rgba(0, 0, 0, 0) !important;
+  background-color: rgba(0, 0, 0, 0.1) !important;
 }
 
 ace-editor .ace_marker-layer .ace_selection {
   background: rgba(255, 255, 255, .1) !important;
+}
+
+ace-editor .ace_marker-layer .ace_bracket {
+  margin: 1px 0 0 1px;
+  background: rgba(255, 255, 255, .15);
 }
 
 ace-editor .ace_keyword {

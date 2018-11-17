@@ -70,6 +70,13 @@ export class EditorComponent implements OnInit, OnDestroy {
     tabSize: 2,
   }
 
+  aceExpandedOptions: any = {
+    showGutter: true,
+    maxLines: Infinity,
+    showPrintMargin: false,
+    tabSize: 2,
+  }
+
   private subs = [];
 
   constructor(
