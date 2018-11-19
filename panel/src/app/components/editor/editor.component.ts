@@ -119,8 +119,6 @@ export class EditorComponent implements OnInit, OnDestroy {
         this.state = EditorState.initial;
     }
 
-
-
     this.editor.subscribe(EditorEvents.select, this.selectHandle);
     this.editor.subscribe(EditorEvents.deselect, this.deselectHandle);
 
@@ -129,12 +127,20 @@ export class EditorComponent implements OnInit, OnDestroy {
     this.subs.push(this.tester.onPlay.subscribe(() => this.playing = true));
     this.subs.push(this.tester.onPause.subscribe(() => this.playing = false));
 
+    let tryPlayback = false;
+
     this.subs.push(this.tester.onMissingInput.subscribe(input => {
+      tryPlayback = true;
       this.changeTestInput(input);
     }));
 
     this.testInputOverlay.onClose.subscribe(() => {
       this.timeline.keysEnabled = true;
+
+      if (tryPlayback) {
+        tryPlayback = false;
+        setTimeout(() => this.tester.togglePlayback(), 200);
+      }
     });
 
     this.testErrorDetailsOverlay.onClose.subscribe(() => {
