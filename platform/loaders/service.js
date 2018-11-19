@@ -6,6 +6,9 @@ global.connect_platform_service_dependencies = global.connect_platform_service_d
 
 module.exports = (service) => {
 
+  if (service.url.indexOf('://') == -1)
+    service.url = 'http://' + service.url;
+
   console.log(`${ct(ct.blue + ct.bright, 'connecting to service')} ${service.name} ${ct(ct.reverse, `@${service.url}`)}`);
   axios.get(service.url + '/api').then(response => {
     if (response.data) {
