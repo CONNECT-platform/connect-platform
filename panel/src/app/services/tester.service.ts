@@ -43,7 +43,7 @@ export class TesterService {
   constructor(
     private model : EditorModelService,
     private backend : BackendService,
-  ) { }
+  ) {}
 
   public activate() {
     this._active = true;

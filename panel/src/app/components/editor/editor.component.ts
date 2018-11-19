@@ -254,6 +254,7 @@ export class EditorComponent implements OnInit, OnDestroy {
 
       this.tester.setInput(this.targetTestInput, this.testInputEditor.getEditor().getValue());
       this.tester.validateInputs();
+      this.targetTestInput = undefined;
     }
   }
 
