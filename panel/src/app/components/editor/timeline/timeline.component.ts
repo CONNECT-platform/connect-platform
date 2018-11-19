@@ -79,6 +79,22 @@ export class TimelineComponent implements OnInit {
       this.tester.playbackPosition = this.hoverTime;
   }
 
+  jumpToNextEvent() {
+    let candidates = this.events.filter(event => event.time >this.tester.playbackPosition);
+    if (candidates.length)
+      this.tester.playbackPosition = candidates[0].time;
+    else
+      this.tester.playbackPosition = this.tester.duration;
+  }
+
+  jumpToPrevEvent() {
+    let candidates = this.events.filter(event => event.time < this.tester.playbackPosition);
+    if (candidates.length)
+      this.tester.playbackPosition = candidates[candidates.length - 1].time;
+    else
+      this.tester.playbackPosition = 0;
+  }
+
   @HostListener('document:keyup', ['$event'])
   keyup(event) {
     if (this.keysEnabled && event.keyCode == 32 && this.tester.active) this.tester.togglePlayback();
@@ -88,11 +104,11 @@ export class TimelineComponent implements OnInit {
   keydown(event) {
     if (this.keysEnabled) {
       if (event.keyCode == 37 && this.tester.active) {
-        if (event.shiftKey) this.tester.backward(10);
+        if (event.shiftKey) this.jumpToPrevEvent();
         else this.tester.backward();
       }
       if (event.keyCode == 39 && this.tester.active) {
-        if (event.shiftKey) this.tester.forward(10);
+        if (event.shiftKey) this.jumpToNextEvent();
         else this.tester.forward();
       }
     }

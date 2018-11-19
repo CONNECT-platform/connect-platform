@@ -22,15 +22,11 @@ platform.core.node({
     return;
   }
 
-  console.log('---------- A ----------');
-
   record(inputs.model, inputs.inputs, platform.config.core, inputs.timelimit, context)
     .then(recording => {
-      console.log('---------- B ----------');
       output('recording', purify(recording));
     })
     .catch(error => {
-      console.log('---------- C ----------');
       console.log(error);
       output('error', error);
     });
