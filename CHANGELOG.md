@@ -22,10 +22,8 @@ and we use [Semantic Versioning](http://semver.org/spec/v2.0.0.html), like stric
    - values now also have an 'expanded' mode.
  - the interconnect now by default assumes `http://` as protocol if it's not provided with one.
  - panel's save node now also requires proper `connect_token` header to function.
- - improvements to debugger's timeline:
-   - the timeline now moves much faster at empty areas. same for manually seeking.
-   - the big-seek function (shift + left | right) will now seek to the next event.
-   - using the cursor to visually seek on the timeline will snap to event points.
+ - the shift + left|right shortcut on the debugger's timeline jumps to previous/next events.
+ - fixed a bug in which you needed to press the "play" button twice if the node required inputs for testing.
 
 ## [0.2.6] - 2018-10-15
 ### Added
