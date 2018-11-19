@@ -10,6 +10,7 @@ platform.core.node({
   path : `${config.path}nodes`,
   method : 'GET',
   public: config.expose,
+  interconnectible: false,
   inputs: ['connect_token'],
   outputs : ['nodes'],
   controlOutputs: [platform.conventions.controls._Unauthorized],

@@ -10,6 +10,7 @@ platform.core.node({
   path : `${config.path}config/save`,
   public : config.expose,
   method : 'PUT',
+  interconnectible: false,
   inputs : ['connect_token', 'config'],
   controlOutputs: [ 'done',
     platform.conventions.controls._InternalError,

@@ -6,6 +6,7 @@ platform.core.node({
   path : `${config.path}services/save`,
   public : config.expose,
   method : 'POST',
+  interconnectible: false,
   inputs : ['name', 'url', 'connect_token'],
   outputs : [],
   controlOutputs: [ 'done', platform.conventions.controls._Unauthorized ],

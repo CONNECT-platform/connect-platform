@@ -13,6 +13,7 @@ platform.core.node({
   path : `${config.path}watch`,
   public : config.expose,
   method : 'POST',
+  interconnectible: false,
   inputs : ['model', 'timelimit'],
   controlOutputs : ['done', 'no_path'],
 }, (inputs, output, control) => {
@@ -63,6 +64,7 @@ platform.core.node({
   path : `${config.path}watch/result`,
   public : config.expose,
   method : 'GET',
+  interconnectible: false,
   inputs : ['path'],
   outputs: ['recording'],
   controlOutputs : ['not_watched'],

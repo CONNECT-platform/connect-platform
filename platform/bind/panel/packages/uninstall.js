@@ -10,6 +10,7 @@ platform.core.node({
   path : `${config.path}packages/uninstall`,
   public : config.expose,
   method : 'POST',
+  interconnectible: false,
   inputs : ['connect_token', 'name'],
   controlOutputs: [
     'done',

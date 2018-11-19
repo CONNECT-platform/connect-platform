@@ -9,6 +9,7 @@ platform.core.node({
   path : `${config.path}vault/get`,
   public : config.expose,
   method : 'GET',
+  interconnectible: false,
   inputs : ['key', 'connect_token'],
   outputs: ['content'],
   controlOutputs: [

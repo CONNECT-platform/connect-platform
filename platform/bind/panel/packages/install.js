@@ -6,6 +6,7 @@ platform.core.node({
   path : `${config.path}packages/install`,
   public : config.expose,
   method : 'POST',
+  interconnectible: false,
   inputs : ['connect_token', 'name', 'source'],
   controlOutputs: [
     'done',

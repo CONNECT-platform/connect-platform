@@ -7,6 +7,7 @@ platform.core.node({
   path : `${config.path}packages/status`,
   public : config.expose,
   method : 'GET',
+  interconnectible: false,
   inputs : ['name'],
   outputs : ['status']
 }, (inputs, output, control) => {

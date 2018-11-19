@@ -9,6 +9,7 @@ const files = require('./util/file-io');
 platform.core.node({
   path : `${config.path}delete/:id`,
   public : config.expose,
+  interconnectible: false,
   method : 'DELETE',
   inputs : ['id'],
   controlOutputs : ['deleted', 'no_directory_set', 'internal_error'],

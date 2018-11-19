@@ -11,6 +11,7 @@ platform.core.node({
   path : `${config.path}test`,
   public : config.expose,
   method : 'POST',
+  interconnectible: false,
   inputs : ['model', 'inputs', 'timelimit'],
   outputs : ['recording', 'error'],
   controlOutputs : ['wrong_input'],

@@ -10,6 +10,7 @@ platform.core.node({
   path : `${config.path}packages/repo`,
   public : config.expose,
   method : 'GET',
+  interconnectible: false,
   outputs : ['repo'],
 }, (inputs, output, control, error) => {
   axios.get(_Gateway)

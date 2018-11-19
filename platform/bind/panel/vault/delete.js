@@ -9,6 +9,7 @@ platform.core.node({
   path : `${config.path}vault/delete/:key`,
   public : config.expose,
   method : 'DELETE',
+  interconnectible: false,
   inputs : ['key', 'connect_token'],
   controlOutputs: [ 'done',
     platform.conventions.controls._NotFound,

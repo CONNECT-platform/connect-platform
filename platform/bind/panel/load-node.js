@@ -9,6 +9,7 @@ const authorize = require('./util/authorize');
 platform.core.node({
   path : `${config.path}load/:id`,
   public : config.expose,
+  interconnectible: false,
   method : 'GET',
   inputs : ['id', 'connect_token'],
   outputs : ['node'],

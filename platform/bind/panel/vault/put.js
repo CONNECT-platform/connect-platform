@@ -9,6 +9,7 @@ platform.core.node({
   path : `${config.path}vault/put`,
   public : config.expose,
   method : 'PUT',
+  interconnectible: false,
   inputs : ['key', 'content', 'connect_token'],
   controlOutputs: [ 'done', platform.conventions.controls._Unauthorized ],
 }, (inputs, output, control, error) => {

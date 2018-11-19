@@ -10,6 +10,7 @@ platform.core.node({
   path : `${config.path}vault/list`,
   public : config.expose,
   method : 'GET',
+  interconnectible: false,
   inputs : ['connect_token'],
   outputs : ['list'],
   controlOutputs: [ platform.conventions.controls._Unauthorized ],

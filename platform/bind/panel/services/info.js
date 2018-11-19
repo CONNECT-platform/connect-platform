@@ -7,6 +7,7 @@ platform.core.node({
   path : `${config.path}services/info`,
   public : config.expose,
   method : 'GET',
+  interconnectible: false,
   inputs : ['name', 'connect_token'],
   outputs : ['info'],
   controlOutputs: [
