@@ -118,6 +118,45 @@
   transform: translateY(0px);
 }
 
+.timeline .bwd, .timeline .fwd {
+  position: absolute;
+  display: inline-block;
+  top: 16px;
+  opacity: 0.25;
+  cursor: pointer;
+  width: 32px;
+  text-align: center;
+  transform: translateY(48px);
+
+  transition: opacity .15s, transform .15s;
+}
+
+.timeline.active .fwd,
+.timeline.active .bwd {
+  transform: translateY(0px);
+}
+
+.timeline .fwd {
+  left: calc(50% + 64px);
+}
+
+.timeline .fwd:hover {
+  transform: translateX(4px);
+}
+
+.timeline .bwd {
+  left: calc(50% - 64px - 32px);
+}
+
+.timeline .bwd:hover {
+  transform: translateX(-4px);
+}
+
+.timeline .bwd:hover,
+.timeline .fwd:hover {
+  opacity: 1;
+}
+
 .timeline .events .event {
   position: absolute;
   top: 3px;

@@ -79,7 +79,14 @@ export class TimelineComponent implements OnInit {
       this.tester.playbackPosition = this.hoverTime;
   }
 
-  jumpToNextEvent() {
+  jumpToNextEvent($ev?) {
+    if ($ev) {
+      $ev.preventDefault();
+      $ev.stopPropagation();
+    }
+
+    this.tester.pause();
+
     let candidates = this.events.filter(event => event.time >this.tester.playbackPosition);
     if (candidates.length)
       this.tester.playbackPosition = candidates[0].time;
@@ -87,7 +94,14 @@ export class TimelineComponent implements OnInit {
       this.tester.playbackPosition = this.tester.duration;
   }
 
-  jumpToPrevEvent() {
+  jumpToPrevEvent($ev?) {
+    if ($ev) {
+      $ev.preventDefault();
+      $ev.stopPropagation();
+    }
+
+    this.tester.pause();
+
     let candidates = this.events.filter(event => event.time < this.tester.playbackPosition);
     if (candidates.length)
       this.tester.playbackPosition = candidates[candidates.length - 1].time;

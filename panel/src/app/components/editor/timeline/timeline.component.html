@@ -16,8 +16,14 @@
   </div>
 
   <div class="handle" [style.left]="filled*100 + '%'"></div>
+  <div class="bwd">
+    <span (click)="jumpToPrevEvent($event)" class="material-icons">fast_rewind</span>
+  </div>
   <div class="timer">
     {{tester.playbackPosition | number:'.2-2'}}ms
+  </div>
+  <div class="fwd">
+    <span (click)="jumpToNextEvent($event)" class="material-icons">fast_forward</span>
   </div>
   <div class="hover-time" [style.left]="hoverTimeLeft + 'px'">
     {{hoverTime | number:'.2-2'}}ms
