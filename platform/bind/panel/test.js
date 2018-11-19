@@ -14,7 +14,7 @@ platform.core.node({
   inputs : ['model', 'inputs', 'timelimit'],
   outputs : ['recording', 'error'],
   controlOutputs : ['wrong_input'],
-}, (inputs, output, control) => {
+}, (inputs, output, control, _, context) => {
 
   let provided = Object.keys(inputs.inputs);
   if (inputs.model.in.some(input => !provided.includes(input))) {
@@ -22,11 +22,16 @@ platform.core.node({
     return;
   }
 
-  record(inputs.model, inputs.inputs, platform.config.core, inputs.timelimit)
+  console.log('---------- A ----------');
+
+  record(inputs.model, inputs.inputs, platform.config.core, inputs.timelimit, context)
     .then(recording => {
+      console.log('---------- B ----------');
       output('recording', purify(recording));
     })
     .catch(error => {
+      console.log('---------- C ----------');
+      console.log(error);
       output('error', error);
     });
 });

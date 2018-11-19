@@ -33,7 +33,7 @@ platform.core.node({
 
       run(inputs, output, control) {
         platform.core.registry.unmock(model.path);
-        record(model, inputs, platform.config.core, timelimit)
+        record(model, inputs, platform.config.core, timelimit, this.context)
           .then(recording => {
             watchlist[model.path] = recording;
 

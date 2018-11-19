@@ -17,7 +17,7 @@ const reqHandler = (factoryOrClass, signature) => {
     Object.assign(params, req.params);
     Object.assign(params, req.query);
 
-    core.callable(factoryOrClass)(params).then(result => {
+    core.callable(factoryOrClass, {req, res})(params).then(result => {
       if (result.output) {
         let r = {};
         r[result.output] = result.data;

@@ -4,8 +4,8 @@ const base = require('../core/base');
 
 //TODO: also there are some issues with error handling here.
 //
-const nativeCall = (path, inputs, callback, error) => new Promise((resolve, reject) => {
-    core.callable(() => new core.Call(path))(inputs).then(result => {
+const nativeCall = (path, inputs, callback, error, context) => new Promise((resolve, reject) => {
+    core.callable(() => new core.Call(path), context)(inputs).then(result => {
       if (callback) try {
         callback(result);
       } catch(err) {

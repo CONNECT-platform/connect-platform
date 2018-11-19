@@ -9,7 +9,9 @@ class Call extends base.node.Node {
   }
 
   run(inputs, output, control, error) {
-    registry.instance(this._path).run(inputs, output, control, error);
+    registry.instance(this._path)
+      .bind(this.context)
+      .run(inputs, output, control, error);
   }
 
   get path() {

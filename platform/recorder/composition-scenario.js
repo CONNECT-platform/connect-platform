@@ -8,14 +8,22 @@ class CompositionScenario extends TimedScenario {
     this.composition = composition;
     this.inputs = inputs;
     this.configs = configs;
+
+    this.context = undefined;
   }
 
   watcher() {
     return this._watcher;
   }
 
+  bind(context) {
+    this.context = context;
+    return this;
+  }
+
   prepare() {
     this._watcher = watch(this.composition);
+    if (this.context) this.composition.bind(this.context);
     return super.prepare();
   }
 

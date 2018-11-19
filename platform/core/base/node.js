@@ -48,6 +48,8 @@ class Node extends Subscribable {
       ._bindExecute()
       ;
 
+    this._context = {};
+
     this._sync = false;
   }
 
@@ -206,7 +208,14 @@ class Node extends Subscribable {
     return this;
   }
 
-  run(inputs, output, control) {}
+  run(inputs, output, control, error) {}
+
+  bind(context) {
+    this._context = context;
+    return this;
+  }
+
+  get context() { return this._context; }
 
   error(error) {
     if (typeof error == 'string')

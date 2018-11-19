@@ -16,7 +16,7 @@ class Expression extends base.node.Node {
   }
 
   run(inputs, output, _, error) {
-    let context = Object.assign({console, error, require}, inputs);
+    let context = Object.assign({console, error, require, context: this.context}, inputs);
     let res = this._script.evaluate(context);
     if (typeof res === 'function') {
       if (res.length == 0) output(_Result, res());

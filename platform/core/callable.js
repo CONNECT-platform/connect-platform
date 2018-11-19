@@ -3,11 +3,13 @@ const util = require('../util');
 const { InputMissing } = require('./errors');
 
 
-const callable = nodeFactoryOrClass => {
+const callable = (nodeFactoryOrClass, context) => {
   return inputs => {
     inputs = inputs || {};
     return new Promise((resolve, reject) => {
       let node = util.buildFromFactoryOrClass(nodeFactoryOrClass);
+
+      if (context) node.bind(context);
 
       for (let [output, pin] of Object.entries(node.pins.out)) {
         pin.subscribe(base.io.IOPinEvents.send, data => {

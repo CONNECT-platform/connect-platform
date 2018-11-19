@@ -12,6 +12,11 @@ class Composite extends core.Node {
 
   get composition() { return this._composition; }
 
+  bind(context) {
+    this.composition.bind(context);
+    return super.bind(context);;
+  }
+
   run(inputs, output, control) {
     for (let [key, pin] of Object.entries(this.composition.outputs)) {
       if (pin instanceof core.pins.InputPin)

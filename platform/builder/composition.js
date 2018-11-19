@@ -20,6 +20,8 @@ class Composition extends Subscribable {
     this._call_dependencies = [];
     this._nodes = {};
 
+    this._context = {};
+
     this.meta = {};
   }
 
@@ -65,8 +67,15 @@ class Composition extends Subscribable {
     return this;
   }
 
+  bind(context) {
+    this._context = context;
+    Object.values(this._nodes).forEach(node => node.bind(context));
+    return this;
+  }
+
   _addNode(tag, node) {
     this._nodes[tag] = node;
+    node.bind(this._context);
     node.subscribe(core.events.node.error, error => this.publish(CompositionEvents.error, error));
   }
 

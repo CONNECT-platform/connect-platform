@@ -9,7 +9,7 @@ const node = (signature, func) => {
     }
 
     run(inputs, output, control, error) {
-      func(inputs, output, control, error);
+      func(inputs, output, control, error, this.context);
     }
   };
 
