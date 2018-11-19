@@ -9,6 +9,10 @@ and we use [Semantic Versioning](http://semver.org/spec/v2.0.0.html), like stric
 
 ## [Unreleased]
 ### Added
+ - shared context:
+   - now there is an shared object between all nodes on the call chain of the response to the same web request.
+   - the object is called `context` and is referencable either as a new class member `context` on `Node` subclasses, as a fifth function parameter on native nodes defined using the `node` function, or with the name `context` in values and expressions.
+   - the `context` object also carries the express request and response objects in form of `context.req` and `context.res`.
  - buttons for seeking to next and previous events on the timeline.
  - you can now mark public nodes for being excluded from interconnectible registry.
 ### Changed
