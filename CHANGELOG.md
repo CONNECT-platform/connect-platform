@@ -10,7 +10,6 @@ and we use [Semantic Versioning](http://semver.org/spec/v2.0.0.html), like stric
 ## [Unreleased]
 ### Added
  - buttons for seeking to next and previous events on the timeline.
- - you can now see the source of a non-NPM package.
  - you can now mark public nodes for being excluded from interconnectible registry.
 ### Changed
  - exapnded value/expression functionality:
