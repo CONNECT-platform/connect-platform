@@ -7,7 +7,7 @@ and we use [Semantic Versioning](http://semver.org/spec/v2.0.0.html), like stric
 
 **NOTE**: there is not an entry for every version. Some versions included super minor changes, and as a result were excluded from this change log. For a really detailed history of changes, please checkout the commit history of the project.
 
-## [Unreleased]
+## [0.2.10] - 2018-11-20
 ### Added
  - shared context:
    - now there is an shared object between all nodes on the call chain of the response to the same web request.
