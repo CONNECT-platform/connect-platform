@@ -28,6 +28,14 @@ class Registry extends Subscribable {
 
       this._paths[signature.path] = entry;
       this.publish(RegistryEvents.registered, entry);
+
+      if (signature.path in this._aliases)
+        delete this._aliases[signature.path];
+
+      if (signature.path.endsWith('/'))
+        this.alias(signature.path.substr(0, signature.path.length - 1), signature.path);
+      else
+        this.alias(signature.path + '/', signature.path);
     }
 
     return this;

@@ -1,4 +1,5 @@
 import { Node } from './node.model';
+import { Pin } from './pin.model';
 import { Box } from './box.model';
 import { Signature } from './signature.model';
 
@@ -22,6 +23,18 @@ export class Call extends Node {
   public set path(path : string) {
     this._path = path;
     this.publish(CallEvents.pathChange, path);
+  }
+
+  public adopt(signature: Signature, removeCallback?: (pin:Pin) => void) {
+    if (!this.signature)
+      this.signature = signature;
+    else {
+      this.publish(CallEvents.signatureChange, signature);
+      this._signature = signature;
+      this.in.adopt(signature.inputs, removeCallback);
+      this.out.adopt(signature.outputs, removeCallback);
+      this.control.adopt(signature.controlOutputs, removeCallback);
+    }
   }
 
   protected toJson() {

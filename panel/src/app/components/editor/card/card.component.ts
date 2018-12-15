@@ -9,7 +9,7 @@ import { HintRef, HintService } from '../../../services/hint.service';
 import { RegistryService } from '../../../services/registry.service';
 import { BackendService } from '../../../services/backend.service';
 import { Node, NodeEvents } from '../../../models/node.model';
-import { PinType } from '../../../models/pin.model';
+import { Pin, PinType } from '../../../models/pin.model';
 import { PinListItem } from '../../../models/pin-list.model';
 import { Value } from '../../../models/value.model';
 import { Expr, ExprEvents } from '../../../models/expr.model';
@@ -65,11 +65,13 @@ export class CardComponent implements OnInit, OnDestroy {
       }
 
       call.subscribe(CallEvents.pathChange, path => {
-        this.model.removeNodeLinks(call);
         if (this.registry.isRegistered(path)) {
-          call.signature = this.registry.signature(path);
+          call.adopt(this.registry.signature(path), (pin: Pin) => {
+            this.model.removePinLinks(pin);
+          });
         }
         else {
+          this.model.removeNodeLinks(call);
           call.signature = {
             path: path,
             inputs: [],
@@ -243,6 +245,7 @@ export class CardComponent implements OnInit, OnDestroy {
     if (this._suggesting)
       return this.registry.allPaths
             .filter(path => path.startsWith(call.path))
+            .filter(path => !path.endsWith('/'))
             .slice(0, 8);
     else return null;
   }
