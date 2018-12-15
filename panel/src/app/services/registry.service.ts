@@ -22,13 +22,17 @@ export class RegistryService {
     },
   };
 
+  private _nodesCache : any = {};
+
   private _shouldRefetch: boolean = true;
+  private _shouldRefetchNodes: boolean = true;
 
   constructor(
     private backend: BackendService,
     private model: EditorModelService
   ) {
     this._refetch();
+    this._refetchNodes();
   }
 
   public isRegistered(path): boolean {
@@ -45,6 +49,11 @@ export class RegistryService {
 
   public get allPaths() {
     return Object.keys(this._registry);
+  }
+
+  public get nodes() {
+    this._refetchNodes();
+    return this._nodesCache;
   }
 
   private get _registry() {
@@ -68,6 +77,18 @@ export class RegistryService {
         });
         setTimeout(() => this._shouldRefetch = true, 500);
       });
+    }
+  }
+
+  private _refetchNodes() {
+    if (this._shouldRefetchNodes) {
+      this._shouldRefetchNodes = false;
+      this.backend.nodes.subscribe(response => {
+        if (response.nodes) {
+          this._nodesCache = response.nodes;
+        }
+      });
+      setTimeout(() => this._shouldRefetchNodes = true, 1000);
     }
   }
 }

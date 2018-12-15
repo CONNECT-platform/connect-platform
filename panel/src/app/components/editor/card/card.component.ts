@@ -7,6 +7,7 @@ import { TesterService } from '../../../services/tester.service';
 import { HintRef, HintService } from '../../../services/hint.service';
 
 import { RegistryService } from '../../../services/registry.service';
+import { BackendService } from '../../../services/backend.service';
 import { Node, NodeEvents } from '../../../models/node.model';
 import { PinType } from '../../../models/pin.model';
 import { PinListItem } from '../../../models/pin-list.model';
@@ -39,6 +40,7 @@ export class CardComponent implements OnInit, OnDestroy {
 
   private _recordingEvents = undefined;
   private _subs = [];
+  private _lastPickTime;
 
   public hintRef : HintRef;
 
@@ -103,6 +105,14 @@ export class CardComponent implements OnInit, OnDestroy {
   public pick(event) {
     event.node = this.node;
     this.editor.pickEvent(event);
+
+    if (this._lastPickTime &&
+        (Date.now() - this._lastPickTime) < 200 &&
+        this.node instanceof Call &&
+        (this.node as Call).path in this.registry.nodes) {
+      window.open(`/panel/editor?id=${this.registry.nodes[(this.node as Call).path]}`, '_blank');
+    }
+    this._lastPickTime = Date.now();
   }
 
   public unpick() {
