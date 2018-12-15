@@ -16,44 +16,57 @@ const ConsoleEvents = {
 class ConsoleWatcher extends Watcher {
   constructor() {
     super(ConsoleEvents);
+    this.watching = [];
+  }
+
+  find(console) {
+    return this.watching.find(entry => entry.console == console);
+  }
+
+  hook(console) {
+    if (!this.find(console)) {
+      let entry = {
+        console: console,
+        log: console.log,
+        error: console.error,
+        warn: console.warn,
+        debug: console.debug,
+        info: console.info,
+      };
+
+      this.watching.push(entry);
+      return entry;
+    }
   }
 
   watch(console) {
-    console._oldlog = console.log;
-    console._olderror = console.error;
-    console._oldwarn = console.warn;
-    console._olddebug = console.debug;
-    console._oldinfo = console.info;
+    let entry = this.hook(console);
+    if (!entry) return;
 
     let subject = new Subscribable();
 
     console.log = (...log) => {
-      if (console.log != console._oldlog)
-        console._oldlog(...log);
+      entry.log.apply(console, log);
       subject.publish(ConsoleEvents.log, util.format(...log));
     }
 
     console.error = (...error) => {
-      if (console.error != console._olderror)
-        console._olderror(...error);
+      entry.error.apply(console, error);
       subject.publish(ConsoleEvents.error, util.format(...error));
     }
 
     console.warn = (...warn) => {
-      if (console.warn != console._oldwarn)
-        console._oldwarn(...warn);
+      entry.warn.apply(console, warn);
       subject.publish(ConsoleEvents.warn, util.format(...warn));
     }
 
     console.debug = (...debug) => {
-      if (console.debug != console._olddebug)
-        console._olddebug(...debug);
+      entry.debug.apply(console, debug);
       subject.publish(ConsoleEvents.debug, util.format(...debug));
     }
 
     console.info = (...info) => {
-      if (console.info != console._oldinfo)
-        console._oldinfo(...info);
+      entry.debug.apply(console, info);
       subject.publish(ConsoleEvents.info, util.format(...info));
     }
 
@@ -61,11 +74,16 @@ class ConsoleWatcher extends Watcher {
   }
 
   unhook(console) {
-    console.log = console._oldlog || console.log;
-    console.error = console._olderror || console.error;
-    console.warn = console._oldwarn || console.warn;
-    console.debug = console._olddebug || console.debug;
-    console.info = console._oldinfo || console.info;
+    let entry = this.find(console);
+    if (!entry) return;
+
+    console.log = entry.log;
+    console.error = entry.error;
+    console.warn = entry.warn;
+    console.debug = entry.debug;
+    console.info = entry.info;
+
+    this.watching = this.watching.filter(entry => entry.console != console);
 
     return this;
   }

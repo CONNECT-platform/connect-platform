@@ -87,4 +87,20 @@ describe('ConsoleWatcher', () => {
       watched.should.be.false;
     });
   });
+
+  it('should work properly on an already watched console', done => {
+    let watcherA = new ConsoleWatcher();
+    let watcherB = new ConsoleWatcher();
+
+    watcherA.watch(console).watched(event => {
+      watcherA.unhook(console);
+    });
+
+    watcherB.watch(console).watched(event => {
+      watcherB.unhook(console);
+      done();
+    });
+
+    console.log('some log');
+  });
 });
