@@ -7,6 +7,22 @@ and we use [Semantic Versioning](http://semver.org/spec/v2.0.0.html), like stric
 
 **NOTE**: there is not an entry for every version. Some versions included super minor changes, and as a result were excluded from this change log. For a really detailed history of changes, please checkout the commit history of the project.
 
+## [Unreleased]
+### Added
+ - diving: 
+   - double click on calls to other nodes made with the panel would open the new node in another tab.
+   - this only works for nodes created with the panel.
+ - import/export
+ - config script
+### Changed
+ - fixed a bug related to watching multiple nodes at the same time.
+ - changed the shortcut for next and prev events on test/watch mode from `Shift+Left|Right` to `Left|Right`.
+ - made the platform completely trailing slash agnostic:
+   - for each node with a trailing slash, an alias without will be registered automatically.
+   - for each node without a trailing slash, an alias with will be registered automatically.
+   - the panel by default drops the one with the trailing slash.
+   - you can currently override this behaviour by mapping the alias to another node. this is however not recommended and the ability to do so might be removed in near future.
+
 ## [0.2.10] - 2018-11-20
 ### Added
  - shared context:
