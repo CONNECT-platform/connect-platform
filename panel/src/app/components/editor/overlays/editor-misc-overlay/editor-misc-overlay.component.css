@@ -1,0 +1,52 @@
+.section {
+  border-bottom: 1px solid rgba(255, 255, 255, .15);
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+}
+
+.section .buttons {
+  text-align: right;
+}
+
+.file-upload {
+  cursor: pointer;
+  display: inline-flex;
+  vertical-align: middle;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  width: 192px;
+  height: 96px;
+  border-radius: 8px;
+  border: 2px dashed rgba(255, 255, 255, .5);
+  position: relative;
+  overflow: hidden;
+
+  transition: border-color .15s, background-color .15s;
+}
+
+.file-upload span {
+  opacity: 0.5;
+  font-size: 14px;
+  margin: 12px;
+}
+
+.file-upload input {
+  cursor: pointer;
+  opacity: 0;
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.file-upload:hover {
+  background: rgba(255, 255, 255, .05);
+}
+
+.file-upload.dragOver {
+  background: rgba(255, 255, 255, .15);
+  border-color: #ffffff;
+}

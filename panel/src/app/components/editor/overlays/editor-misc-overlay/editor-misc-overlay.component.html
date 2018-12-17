@@ -1,0 +1,27 @@
+<overlay #overlay>
+  <overlay-title>Miscellaneous</overlay-title>
+  <overlay-content>
+    <div class="section">
+      <h1>Export</h1>
+      <p>Export this node in JSON format. You can import this JSON format in other CONNECT platform instances.</p>
+      <br>
+      <div class="buttons">
+        <button (click)="export()">Export</button>
+      </div>
+    </div>
+
+    <div class="section">
+      <h1>Import</h1>
+      <p>Import from a JSON file of an exported node. This will override the contents of your node.</p>
+      <div class="buttons">
+        <div class="file-upload" [ngClass]="{'dragOver': dragOver}">
+          <span>Drop a file here or click to choose it</span>
+          <input type="file" class="upload" accept=".json"
+            (change)="import($event)"
+            (dragenter)="dragOver=true"
+            (dragleave)="dragOver=false"/>
+        </div>
+      </div>
+    </div>
+  </overlay-content>
+</overlay>

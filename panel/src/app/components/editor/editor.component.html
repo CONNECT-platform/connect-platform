@@ -48,6 +48,8 @@
       </div>
       <div class="button watch"
         (click)="tester.watch()">Watch</div>
+      <div class="button misc"
+        (click)="miscOverlay.activate()">Misc</div>
       <br/><br/>
       <div class="button" (click)="confirmDeletion()">Delete</div>
     </div>
@@ -219,3 +221,5 @@
                 style='min-height:16px;'></ace-editor>
   </overlay-content>
 </overlay>
+
+<editor-misc-overlay #miscOverlay></editor-misc-overlay>
