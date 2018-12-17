@@ -12,7 +12,9 @@ and we use [Semantic Versioning](http://semver.org/spec/v2.0.0.html), like stric
  - diving: 
    - double click on calls to other nodes made with the panel would open the new node in another tab.
    - this only works for nodes created with the panel.
- - import/export
+ - import/export:
+   - you can now export each node to a json file (left-hand menu in editor, misc -> export).
+   - you can now import the exported node json files in the editor.
  - config script
 ### Changed
  - fixed a bug related to watching multiple nodes at the same time.
