@@ -18,7 +18,6 @@ and we use [Semantic Versioning](http://semver.org/spec/v2.0.0.html), like stric
  - multiselect:
    - now you can pick multiple nodes/links and move them around using `<Shift>` key.
    - now you can delete multple nodes/links.
-   - now you can copy a bunch of nodes (also works in single selection, although a bit pointless).
  - config script
 ### Changed
  - fixed a bug related to watching multiple nodes at the same time.
