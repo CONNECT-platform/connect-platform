@@ -15,6 +15,10 @@ and we use [Semantic Versioning](http://semver.org/spec/v2.0.0.html), like stric
  - import/export:
    - you can now export each node to a json file (left-hand menu in editor, misc -> export).
    - you can now import the exported node json files in the editor.
+ - multiselect:
+   - now you can pick multiple nodes/links and move them around using `<Shift>` key.
+   - now you can delete multple nodes/links.
+   - now you can copy a bunch of nodes (also works in single selection, although a bit pointless).
  - config script
 ### Changed
  - fixed a bug related to watching multiple nodes at the same time.
