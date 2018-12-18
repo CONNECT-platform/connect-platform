@@ -104,17 +104,31 @@ export class Box extends Subscribable {
     return center;
   }
 
-  public pick(_anchor): Box {
+  public pick(_anchor, ref?): Box {
     this._anchor = _anchor;
-    this.publish(BoxEvents.anchor, _anchor);
+    this.publish(BoxEvents.anchor, this._anchor);
     return this;
   }
 
-  public move(_pos): Box {
-    this.left = _pos.left - this.anchor.left;
-    this.top = _pos.top - this.anchor.top;
+  public move(_pos, relative: boolean = false) {
+    let _ogleft = this.left;
+    let _ogtop = this.top;
+
+    if (!relative) {
+      this.left = _pos.left - this.anchor.left;
+      this.top = _pos.top - this.anchor.top;
+    }
+    else {
+      this.left += _pos.left;
+      this.top += _pos.top;
+    }
+
     this.publish(BoxEvents.move, {left: this.left, top: this.top});
-    return this;
+
+    return {
+      left: this.left - _ogleft,
+      top: this.top - _ogtop,
+    };
   }
 
   public get json() {

@@ -30,9 +30,10 @@ export class LinkComponent implements OnInit {
   ngOnInit() {
   }
 
-  select() {
-    if (this.selected) this.editor.deselect();
-    else this.editor.select(this.link);
+  select(event) {
+    let multi = event.shiftKey && !this.tester.active;
+    if (this.selected && !multi) this.editor.deselect();
+    else this.editor.select(this.link, multi);
   }
 
   public get isChrome() {

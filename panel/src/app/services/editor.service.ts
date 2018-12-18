@@ -20,7 +20,7 @@ export class EditorService extends Subscribable {
   private mouseY : number;
   private paneScroll : number = 0;
   private picked: any = null;
-  private selected: any = null;
+  private selected: any[] = [];
 
   private pickedTime = null;
   private freeLink: Link = null;
@@ -39,9 +39,15 @@ export class EditorService extends Subscribable {
 
     if (this.picked) {
       if (this.picked.target.box) {
-        this.picked.target.box.pick(this.picked.anchor).move({
+        let d = this.picked.target.box.pick(this.picked.anchor).move({
           left: this.mouseX,
           top: this.mouseY,
+        });
+
+        this.selected.forEach(item => {
+          if (item && item.box && item != this.picked.target) {
+            item.box.pick(this.picked.anchor, this.picked.target.box).move(d, true);
+          }
         });
       }
     }
@@ -56,9 +62,6 @@ export class EditorService extends Subscribable {
 
   public pickEvent(event: any) {
     if (this.picked) return;
-
-    let updatePickTime = !this.isSelected(event.node);
-    this.deselect();
 
     if (event.node) {
       if (this.freeLink && this.freeLink.compatible(event.node)) {
@@ -87,8 +90,7 @@ export class EditorService extends Subscribable {
         }
       }
 
-      if (updatePickTime)
-        this.pickedTime = Date.now();
+      this.pickedTime = Date.now();
       this.publish(EditorEvents.pick, this.picked);
     }
 
@@ -109,10 +111,10 @@ export class EditorService extends Subscribable {
     }
   }
 
-  public unpickEvent() {
+  public unpickEvent(multi: boolean = false) {
     if (this.picked) {
       if (Date.now() - this.pickedTime < 200) {
-        this.select(this.picked.target);
+        this.select(this.picked.target, multi);
       }
 
       this.publish(EditorEvents.unpick, this.picked);
@@ -120,17 +122,34 @@ export class EditorService extends Subscribable {
     }
   }
 
-  public select(target: any) {
-    if (target != this.selected) this.deselect();
-
-    this.selected = target;
-    this.publish(EditorEvents.select, this.selected);
+  public select(target: any, multiselect: boolean = false) {
+    if (!this.isSelected(target)) {
+      if (!multiselect)
+        this.deselect();
+      this.selected.push(target);
+      this.publish(EditorEvents.select, target);
+    }
+    else {
+      if (multiselect)
+        this.deselect(target);
+      else
+        this.deselect();
+    }
   }
 
-  public deselect() {
+  public deselect(target?) {
     if (this.selected) {
-      this.publish(EditorEvents.deselect, this.selected);
-      this.selected = null;
+      if (!target) {
+        let _selected = this.selected;
+        this.selected = [];
+        _selected.forEach(item => {
+          this.publish(EditorEvents.deselect, item);
+        });
+      }
+      else {
+        this.selected = this.selected.filter(item => item != target);
+        this.publish(EditorEvents.deselect, target);
+      }
     }
   }
 
@@ -139,10 +158,17 @@ export class EditorService extends Subscribable {
   }
 
   public isSelected(obj) {
-    return this.selected && obj == this.selected;
+    return this.selected && this.selected.includes(obj);
   }
 
   get selectTarget() {
+    //
+    //TODO: update this.
+    //
+    return this.selected[0];
+  }
+
+  get selectTargets() {
     return this.selected;
   }
 

@@ -117,9 +117,9 @@ export class CardComponent implements OnInit, OnDestroy {
     this._lastPickTime = Date.now();
   }
 
-  public unpick() {
+  public unpick(event) {
     if (this.picked)
-      this.editor.unpickEvent();
+      this.editor.unpickEvent(event.shiftKey && !this.tester.active);
   }
 
   public get picked() {

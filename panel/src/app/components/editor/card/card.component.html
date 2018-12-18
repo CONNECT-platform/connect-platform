@@ -6,7 +6,7 @@
     (mouseover)="mouseover()"
     (mouseout)="mouseout()"
     (mousedown)="pick($event)"
-    (mouseup)="unpick()">
+    (mouseup)="unpick($event)">
 
     <ng-container *ngIf="type == types.expr">
       <div class="inner" #inner>

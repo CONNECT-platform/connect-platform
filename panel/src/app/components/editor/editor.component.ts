@@ -115,8 +115,10 @@ export class EditorComponent implements OnInit, OnDestroy {
     };
 
     this.deselectHandle = () => {
-      if (this.state == EditorState.selected)
+      if (this.state == EditorState.selected) {
+        if (this.editor.selectTargets.length == 0)
         this.state = EditorState.initial;
+      }
     }
 
     this.editor.subscribe(EditorEvents.select, this.selectHandle);
@@ -163,16 +165,15 @@ export class EditorComponent implements OnInit, OnDestroy {
     if (this.state == EditorState.initial) this.state = EditorState.adding;
     else if (this.state == EditorState.adding) this.state = EditorState.initial;
     else if (this.state == EditorState.selected) {
-      if (this.editor.selectTarget instanceof Link) {
-        this.model.removeLink(this.editor.selectTarget);
-        this.editor.deselect();
-        this.state = EditorState.initial;
-      }
-      else if (this.editor.selectTarget instanceof Node) {
-        this.model.removeNode(this.editor.selectTarget);
-        this.editor.deselect();
-        this.state = EditorState.initial;
-      }
+      this.editor.selectTargets.forEach(target => {
+        if (target instanceof Link)
+          this.model.removeLink(target);
+        else if (target instanceof Node)
+          this.model.removeNode(target);
+      });
+
+      this.editor.deselect();
+      this.state = EditorState.initial;
     }
   }
 
@@ -245,6 +246,7 @@ export class EditorComponent implements OnInit, OnDestroy {
   }
 
   testMode() {
+    this.editor.deselect();
     this.tester.activate();
   }
 
