@@ -29,3 +29,27 @@ platform.core.node({
       control(platform.conventions.controls._Unauthorized);
     });
 });
+
+platform.core.node({
+  path : `${config.path}config/prod/save`,
+  public : config.expose,
+  method : 'PUT',
+  interconnectible: false,
+  inputs : ['connect_token', 'config'],
+  controlOutputs: [ 'done',
+    platform.conventions.controls._InternalError,
+    platform.conventions.controls._Unauthorized ],
+}, (inputs, output, control) => {
+  authorize(inputs.connect_token)
+    .then(() => {
+      let conffile = path.join(config.directory, config.files.platformprodconf);
+      files.json.save(conffile, inputs.config).then(() => {
+        control('done');
+      }).catch(error => {
+        control(platform.conventions.controls._InternalError);
+      });
+    })
+    .catch(error => {
+      control(platform.conventions.controls._Unauthorized);
+    });
+});

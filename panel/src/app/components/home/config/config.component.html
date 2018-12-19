@@ -10,10 +10,35 @@
               style='min-height:16px;'></ace-editor>
 </div>
 <div class="buttons">
+  <button (click)="prodOverlay.activate()">
+    Production
+  </button>
   <button (click)="save()">
     Save
   </button>
 </div>
+
+<overlay #prodOverlay>
+  <overlay-title>
+    Production Config
+  </overlay-title>
+  <overlay-content>
+    this config will be used on top of your default configuration in production instances and will
+    override already existing config values.
+    <br><br>
+    <div class="ace-holder">
+      <ace-editor mode="javascript"
+                  [(text)]="prodConf"
+                  [options]="options"
+                  style='min-height:16px;'></ace-editor>
+    </div>
+  </overlay-content>
+  <overlay-actions>
+    <button (click)="saveProd()">
+      Save
+    </button>
+  </overlay-actions>
+</overlay>
 
 <overlay #successOverlay icon="assets/config.svg">
   <overlay-title>

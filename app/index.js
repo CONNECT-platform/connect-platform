@@ -11,6 +11,13 @@ try {
   platform.configure(panelconf);
 } catch(err) {}
 
+try {
+  if (process.env.CONNECT_PRODUCTION_MODE) {
+    let prodconf = require('./panel-generated/platform-config.prod');
+    platform.configure(prodconf);
+  }
+} catch(err) {}
+
 platform.start()
   .then(server => {
     console.log(`running on http://${server.address().address}` +

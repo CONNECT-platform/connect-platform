@@ -20,6 +20,7 @@ export class ConfigComponent implements OnInit {
   }
 
   _configCode = "{\n}";
+  _prodConfCode = "{\n}";
   error : any;
 
   constructor(private backend: BackendService) {}
@@ -27,6 +28,10 @@ export class ConfigComponent implements OnInit {
   ngOnInit() {
     this.backend.fetchConfig().subscribe(response => {
       this._configCode = JSON.stringify(response.config, null, 2);
+    });
+
+    this.backend.fetchProdConf().subscribe(response => {
+      this._prodConfCode = JSON.stringify(response.config, null, 2);
     });
   }
 
@@ -38,9 +43,30 @@ export class ConfigComponent implements OnInit {
     this._configCode = code || "{\n}";
   }
 
+  get prodConf() {
+    return this._prodConfCode;
+  }
+
+  set prodConf(code: string) {
+    this._prodConfCode = code || "{\n}";
+  }
+
   save() {
     try {
       this.backend.updateConfig(JSON.parse(this._configCode)).subscribe(response => {
+        if (response == 'done')
+          this.successOverlay.activate();
+      });
+    }
+    catch(error) {
+      this.error = error;
+      this.errorOverlay.activate();
+    }
+  }
+
+  saveProd() {
+    try {
+      this.backend.updateProdConf(JSON.parse(this._prodConfCode)).subscribe(response => {
         if (response == 'done')
           this.successOverlay.activate();
       });

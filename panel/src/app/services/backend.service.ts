@@ -26,7 +26,9 @@ export class BackendService {
     config: {
       root: 'config/',
       save: 'save',
+      saveProd: 'prod/save',
       load: 'load',
+      loadProd: 'prod/load'
     },
 
     vault: {
@@ -117,9 +119,22 @@ export class BackendService {
         + BackendService.apiCalls.config.load).share();
   }
 
+  fetchProdConf() {
+    return this.http.get<any>(this.api + BackendService.apiCalls.config.root
+        + BackendService.apiCalls.config.loadProd).share();
+  }
+
   updateConfig(config) {
     return this.http.put<any>(
       this.api + BackendService.apiCalls.config.root + BackendService.apiCalls.config.save,
+      {
+        config: config,
+      }).share();
+  }
+
+  updateProdConf(config) {
+    return this.http.put<any>(
+      this.api + BackendService.apiCalls.config.root + BackendService.apiCalls.config.saveProd,
       {
         config: config,
       }).share();

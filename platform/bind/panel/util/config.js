@@ -22,6 +22,7 @@ module.exports = {
     nodedir : 'nodes',
     conf : 'config',
     platformconf: 'platform-config',
+    platformprodconf: 'platform-config.prod',
     vaultlisting: 'vault-listing',
   },
   vault: vault,
