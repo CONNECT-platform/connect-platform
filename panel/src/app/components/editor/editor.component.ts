@@ -46,6 +46,8 @@ export class EditorComponent implements OnInit, OnDestroy {
   private selectHandle;
   private deselectHandle;
 
+  private tryPlayback = false;
+
   @ViewChild('deleteOverlay') deleteOverlay;
   @ViewChild('deletedOverlay') deletedOverlay;
 
@@ -129,20 +131,13 @@ export class EditorComponent implements OnInit, OnDestroy {
     this.subs.push(this.tester.onPlay.subscribe(() => this.playing = true));
     this.subs.push(this.tester.onPause.subscribe(() => this.playing = false));
 
-    let tryPlayback = false;
-
     this.subs.push(this.tester.onMissingInput.subscribe(input => {
-      tryPlayback = true;
+      this.tryPlayback = true;
       this.changeTestInput(input);
     }));
 
     this.testInputOverlay.onClose.subscribe(() => {
       this.timeline.keysEnabled = true;
-
-      if (tryPlayback) {
-        tryPlayback = false;
-        setTimeout(() => this.tester.togglePlayback(), 200);
-      }
     });
 
     this.testErrorDetailsOverlay.onClose.subscribe(() => {
@@ -257,6 +252,11 @@ export class EditorComponent implements OnInit, OnDestroy {
       this.tester.setInput(this.targetTestInput, this.testInputEditor.getEditor().getValue());
       this.tester.validateInputs();
       this.targetTestInput = undefined;
+
+      if (this.tryPlayback) {
+        this.tryPlayback = false;
+        setTimeout(() => this.tester.togglePlayback(), 200);
+      }
     }
   }
 
