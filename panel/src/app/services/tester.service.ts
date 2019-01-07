@@ -13,7 +13,7 @@ export enum TesterStates {
 
 @Injectable()
 export class TesterService {
-  private _DT: number = .006;
+  private _DT: number = .01;
   private _EARange: number = 0.1;
 
   public states = TesterStates;
@@ -174,7 +174,7 @@ export class TesterService {
       this.pause();
     }
     else {
-      this._playbackPosition += this._DT;
+      this._playbackPosition += Math.max(this._DT, this.duration / 500);
       this.normalizePlaybackPosition();
       this._onProgress.emit(this._playbackPosition);
     }

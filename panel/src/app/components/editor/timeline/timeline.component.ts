@@ -118,12 +118,14 @@ export class TimelineComponent implements OnInit {
   keydown(event) {
     if (this.keysEnabled) {
       if (event.keyCode == 37 && this.tester.active) {
-        if (event.shiftKey) this.jumpToPrevEvent();
-        else this.tester.backward();
+        this.jumpToPrevEvent();
+        event.preventDefault();
+        event.stopPropagation();
       }
       if (event.keyCode == 39 && this.tester.active) {
-        if (event.shiftKey) this.jumpToNextEvent();
-        else this.tester.forward();
+        this.jumpToNextEvent();
+        event.preventDefault();
+        event.stopPropagation();
       }
     }
   }

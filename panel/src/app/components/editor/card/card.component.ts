@@ -127,7 +127,7 @@ export class CardComponent implements OnInit, OnDestroy {
   }
 
   public get selected() {
-    return this.editor.isSelected(this.node) || this.activeInTester;
+    return this.editor.isSelected(this.node);
   }
 
   public get activeInTester() {

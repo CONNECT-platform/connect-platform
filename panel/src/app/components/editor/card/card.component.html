@@ -1,5 +1,5 @@
 <div class="holder"
-    [ngClass]="{'initial': _newBorn, 'picked': picked, 'selected': selected,
+    [ngClass]="{'initial': _newBorn, 'picked': picked, 'selected': selected, 'active': activeInTester,
                 'error': errorInTester != null,
                 'expr': type==types.expr, 'value': type==types.value, 'switch': type==types.switch, 'call':type==types.call}"
     [ngStyle]="{'left.px': node.box.left, 'top.px': node.box.top, 'width.px': node.box.width, 'height.px': node.box.height}"

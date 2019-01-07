@@ -91,19 +91,25 @@ export class LinkComponent implements OnInit {
   }
 
   get fromPos() {
+    /*
     if (!this._lastFromPos) {
       this._lastFromPos = this._fromPos;
-      setTimeout(() => this._lastFromPos = null, 25);
+      setTimeout(() => this._lastFromPos = null, 2);
     }
     return this._lastFromPos;
+    */
+    return this._fromPos;
   }
 
   get toPos() {
+    /*
     if (!this._lastToPos) {
       this._lastToPos = this._toPos;
-      setTimeout(() => this._lastToPos = null, 25);
+      setTimeout(() => this._lastToPos = null, 2);
     }
     return this._lastToPos;
+    */
+    return this._toPos;
   }
 
   private get _fromPos() {
@@ -164,7 +170,9 @@ export class LinkComponent implements OnInit {
     let dt = (from.top - to.top);
     let angle = Math.atan2(dt, dl) * 180 / Math.PI + 180;
 
-    return `rotate(${angle}deg)`;
+    let transform = `rotate(${angle}deg)`;
+    if (this.activeInTester) return transform + ' scaleY(1.5)';
+    else return transform;
   }
 
   get inPane() {

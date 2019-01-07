@@ -34,30 +34,34 @@ export class EditorService extends Subscribable {
   get paneScrollAmount() { return this.paneScroll; }
 
   public mouseMoveEvent(event: any) {
-    this.mouseX = event.clientX + this.paneScroll;
-    this.mouseY = event.clientY;
+    requestAnimationFrame(() => {
+      this.mouseX = event.clientX + this.paneScroll;
+      this.mouseY = event.clientY;
+      
+      if (this.picked) {
+        if (this.picked.target.box) {
+          let d = this.picked.target.box.pick(this.picked.anchor).move({
+            left: this.mouseX,
+            top: this.mouseY,
+          });
 
-    if (this.picked) {
-      if (this.picked.target.box) {
-        let d = this.picked.target.box.pick(this.picked.anchor).move({
-          left: this.mouseX,
-          top: this.mouseY,
-        });
-
-        this.selected.forEach(item => {
-          if (item && item.box && item != this.picked.target) {
-            item.box.pick(this.picked.anchor, this.picked.target.box).move(d, true);
-          }
-        });
+          this.selected.forEach(item => {
+            if (item && item.box && item != this.picked.target) {
+              item.box.pick(this.picked.anchor, this.picked.target.box).move(d, true);
+            }
+          });
+        }
       }
-    }
 
-    this.publish(EditorEvents.mousemove, {x : this.mouseX, y: this.mouseY});
+      this.publish(EditorEvents.mousemove, {x : this.mouseX, y: this.mouseY});
+    });
   }
 
   public paneScrollEvent(event: any) {
-    this.paneScroll = event.srcElement.scrollLeft;
-    this.publish(EditorEvents.paneScroll, this.paneScroll);
+    requestAnimationFrame(() => {
+      this.paneScroll = event.srcElement.scrollLeft;
+      this.publish(EditorEvents.paneScroll, this.paneScroll);
+    });
   }
 
   public pickEvent(event: any) {

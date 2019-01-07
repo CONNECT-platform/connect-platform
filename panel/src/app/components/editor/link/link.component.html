@@ -1,4 +1,4 @@
-<div class="holder" [ngClass]="{'in-pane': inPane, 'control': isControl, 'selected': active }"
+<div class="holder" [ngClass]="{'in-pane': inPane, 'control': isControl, 'selected': selected, 'active': activeInTester }"
   [ngStyle]="{'left.px': fromPos.left, 'top.px': fromPos.top, 'width.px': linkWidth, 'transform': linkTransform}"
   (click)="select($event)"
   (mouseover)="mouseover()"
