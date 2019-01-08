@@ -1,9 +1,14 @@
-import { Node } from './node.model';
+import { Node, NodeJson } from './node.model';
 import { Box } from './box.model';
 
 
 export enum ExprEvents {
   codeChange,
+}
+
+export interface ExprJson extends NodeJson {
+  expr: string;
+  in?: string[];
 }
 
 export class Expr extends Node {
@@ -22,7 +27,7 @@ export class Expr extends Node {
     this._setCode(code);
   }
 
-  protected toJson() {
+  protected toJson(): ExprJson {
     if (this.in.items.length > 0)
       return Object.assign(super.toJson(), {
         in : this.in.items.map(i => i.label),
@@ -49,7 +54,7 @@ export class Expr extends Node {
     return expr;
   }
 
-  public static fromJson(json) {
+  public static fromJson(json: ExprJson) {
     let expr = new Expr(json.tag, Box.fromJson(json.box));
     expr.code = json.expr;
     for (let i of json.in) {
@@ -57,5 +62,10 @@ export class Expr extends Node {
     }
 
     return expr;
+  }
+
+  public is(type: string): boolean {
+    if (type === 'expr') return true;
+    else return super.is(type);
   }
 }

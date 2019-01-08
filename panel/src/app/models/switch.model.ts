@@ -1,6 +1,10 @@
-import { Node } from './node.model';
+import { Node, NodeJson } from './node.model';
 import { Box } from './box.model';
 
+
+export interface SwitchJson extends NodeJson {
+  cases?: string[];
+}
 
 export class Switch extends Node {
   public static _Target = 'target';
@@ -13,7 +17,7 @@ export class Switch extends Node {
   public get target() { return this.in.get(Switch._Target); }
   public get cases() { return this.control; }
 
-  protected toJson() {
+  protected toJson(): SwitchJson {
     return Object.assign(super.toJson(), {
       cases : this.cases.items.map(i => i.label),
     });
@@ -26,12 +30,17 @@ export class Switch extends Node {
     return sw;
   }
 
-  public static fromJson(json) {
+  public static fromJson(json: SwitchJson) {
     let sw = new Switch(json.tag, Box.fromJson(json.box));
     for (let c of json.cases) {
       sw.cases.add(c);
     }
 
     return sw;
+  }
+
+  public is(type: string): boolean {
+    if (type === 'switch') return true;
+    else return super.is(type);
   }
 }

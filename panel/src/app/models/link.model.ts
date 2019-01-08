@@ -1,7 +1,8 @@
 import { Subscribable } from '../util/subscribable';
 import { Pin, PinType, PinTag } from './pin.model';
-import { Node } from './node.model';
+import { Node, NodeJson } from './node.model';
 
+export type LinkJson = [any, NodeJson | any];
 
 export class Link extends Subscribable {
   private _from: Pin;
@@ -58,7 +59,7 @@ export class Link extends Subscribable {
     return false;
   }
 
-  public get json() {
+  public get json(): LinkJson {
     return [this.from.json,
             (this.to instanceof Node)?
             (this.to.tag):(this.to.json)];

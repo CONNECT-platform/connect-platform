@@ -1,6 +1,6 @@
-import { Subscribable } from '../util/subscribable';
+import { AbstractNode } from './abstract-node.model';
 import { PinList } from './pin-list.model';
-import { Box } from './box.model';
+import { Box, BoxJson } from './box.model';
 import { Pin, PinType } from './pin.model';
 
 
@@ -8,9 +8,13 @@ export enum NodeEvents {
   attach,
 }
 
-export class Node extends Subscribable {
+export interface NodeJson {
+  tag: string;
+  box: BoxJson;
+}
+
+export class Node extends AbstractNode {
   private _component: any;
-  private _tag: string;
 
   private _ins: PinList;
   private _outs: PinList;
@@ -18,8 +22,7 @@ export class Node extends Subscribable {
   private _box: Box;
 
   constructor(tag: string, box: Box) {
-    super();
-    this._tag = tag;
+    super(tag);
     this._box = box;
 
     this._ins = new PinList(() => new Pin(PinType.input, this));
@@ -27,7 +30,6 @@ export class Node extends Subscribable {
     this._controls = new PinList(() => new Pin(PinType.control, this));
   }
 
-  public get tag() { return this._tag; }
   public get box() { return this._box; }
 
   public get component() { return this._component; }
@@ -49,11 +51,13 @@ export class Node extends Subscribable {
   public get out() { return this._outs; }
   public get control() { return this._controls; }
 
-  public get json() {
+  public get json(): NodeJson {
     return this.toJson();
   }
 
-  protected toJson() {
+  public is(type: string): boolean { return false; }
+
+  protected toJson(): NodeJson {
     return {
       tag : this.tag,
       box : this.box.json,

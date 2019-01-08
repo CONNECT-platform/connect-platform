@@ -64,7 +64,7 @@
   <editor-bar position="right">
     <div class="main-action-holder" [ngClass]="{'hidden': tester.active}">
       <div
-        [ngClass]="{'delete': state == states.adding || state == states.selected }"
+        [ngClass]="{'cancel': state == states.adding || state == states.selected }"
         (click)="mainAction()"
         class="main-action">+</div>
     </div>
@@ -75,11 +75,26 @@
       </div>
     </div>
 
-    <div class="action-list add-nodes" [ngClass]="{'active': state == states.adding && !tester.active}">
+    <div class="action-list right-bar add-nodes" [ngClass]="{'active': state == states.adding && !tester.active}">
       <div class="button value" (click)="newValue()">value</div>
       <div class="button expr" (click)="newExpr()">expression</div>
       <div class="button switch" (click)="newSwitch()">switch</div>
       <div class="button call" (click)="newCall()">call</div>
+    </div>
+
+    <div class="action-list right-bar copy-nodes"
+      [ngClass]="{'active': state == states.selected && !tester.active}">
+      <div class="button copy" [ngClass]="{'disabled': !editor.canCopy}" (click)="editor.copySelected()">Copy</div>
+      <div class="button cut" [ngClass]="{'disabled': !editor.canCopy}" (click)="editor.cutSelected()">Cut</div>
+      <br>
+      <div class="button delete" (click)="editor.removeSelected()">Remove</div>
+    </div>
+
+    <div class="action-list right-bar paste-nodes"
+      [ngClass]="{'active': state == states.initial &&
+                  editor.canPaste && !tester.active}">
+      <div class="button paste" (click)="editor.paste(registry)">Paste</div>
+      <div class="button clear-clipboard" (click)="editor.clearClipboard()">Clear</div>
     </div>
 
     <div class="out-pins">

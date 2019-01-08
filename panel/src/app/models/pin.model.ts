@@ -1,8 +1,5 @@
 import { Subscribable } from '../util/subscribable';
-import { Node } from './node.model';
-import { Switch } from './switch.model';
-import { Expr } from './expr.model';
-import { Value } from './value.model';
+import { AbstractNode } from './abstract-node.model';
 import { PinListItem } from './pin-list.model';
 
 
@@ -21,17 +18,17 @@ export enum PinEvents {
 export class Pin extends Subscribable {
   public types = PinType;
 
-  private _node: Node;
+  private _node: AbstractNode;
   private _type: PinType;
   private _tag: PinTag;
   private _item: PinListItem;
   private _component: any;
 
-  constructor(type: PinType, nodeOrTag?: Node | PinTag) {
+  constructor(type: PinType, nodeOrTag?: AbstractNode | PinTag) {
     super();
     this._type = type;
 
-    if (nodeOrTag instanceof Node)
+    if (nodeOrTag instanceof AbstractNode)
       this._node = nodeOrTag;
     else
       this._tag = nodeOrTag;
@@ -59,7 +56,7 @@ export class Pin extends Subscribable {
       let res = {};
       res[this.node.tag] = {};
 
-      if (this.node instanceof Switch) {
+      if (this.node.is('switch')) {
         if (this.type == PinType.input) {
           res[this.node.tag] = this.item.label;
           return res;
@@ -71,12 +68,12 @@ export class Pin extends Subscribable {
         }
       }
 
-      if (this.node instanceof Value) {
+      if (this.node.is('value')) {
         res[this.node.tag] = this.item.label;
         return res;
       }
 
-      if (this.node instanceof Expr && this.type == PinType.output) {
+      if (this.node.is('expr') && this.type == PinType.output) {
         res[this.node.tag] = this.item.label;
         return res;
       }

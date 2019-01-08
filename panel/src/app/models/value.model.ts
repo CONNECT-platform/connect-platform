@@ -1,4 +1,4 @@
-import { Expr } from './expr.model';
+import { Expr, ExprJson } from './expr.model';
 import { Box } from './box.model';
 
 
@@ -20,9 +20,14 @@ export class Value extends Expr {
     return value;
   }
 
-  public static fromJson(json) {
+  public static fromJson(json: ExprJson) {
     let value = new Value(json.tag, Box.fromJson(json.box));
     value.code = json.expr;
     return value;
+  }
+
+  public is(type: string): boolean {
+    if (type === 'value') return true;
+    else return super.is(type);
   }
 }

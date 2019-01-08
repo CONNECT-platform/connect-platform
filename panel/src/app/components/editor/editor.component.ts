@@ -160,13 +160,6 @@ export class EditorComponent implements OnInit, OnDestroy {
     if (this.state == EditorState.initial) this.state = EditorState.adding;
     else if (this.state == EditorState.adding) this.state = EditorState.initial;
     else if (this.state == EditorState.selected) {
-      this.editor.selectTargets.forEach(target => {
-        if (target instanceof Link)
-          this.model.removeLink(target);
-        else if (target instanceof Node)
-          this.model.removeNode(target);
-      });
-
       this.editor.deselect();
       this.state = EditorState.initial;
     }
@@ -313,14 +306,29 @@ export class EditorComponent implements OnInit, OnDestroy {
 
   @HostListener('document:keydown', ['$event'])
   keydown(event) {
-    let charChode = String.fromCharCode(event.which).toLowerCase();
-    if ((event.metaKey || event.ctrlKey) && charChode == 's') {
+    let charCode = String.fromCharCode(event.which).toLowerCase();
+    if ((event.metaKey || event.ctrlKey) && charCode == 's') {
       event.preventDefault();
       this.save();
     }
 
+    if ((event.metaKey || event.ctrlKey) && charCode == 'c') {
+      event.preventDefault();
+      this.editor.copySelected();
+    }
+
+    if ((event.metaKey || event.ctrlKey) && charCode == 'x') {
+      event.preventDefault();
+      this.editor.cutSelected();
+    }
+
+    if ((event.metaKey || event.ctrlKey) && charCode == 'v') {
+      event.preventDefault();
+      this.editor.paste(this.registry);
+    }
+
     if (event.key === 'Delete' && this.state == EditorState.selected) {
-      this.mainAction();
+      this.editor.removeSelected();
     }
   }
 }

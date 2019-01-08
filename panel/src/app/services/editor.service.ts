@@ -2,9 +2,11 @@ import { Injectable } from '@angular/core';
 
 import { Subscribable } from '../util/subscribable';
 import { EditorModelService } from './editor-model.service';
+import { Node } from '../models/node.model';
 import { Expr } from '../models/expr.model';
 import { Link } from '../models/link.model';
 import { Pin, PinType } from '../models/pin.model';
+import { SubGraph, SubGraphJson } from '../models/subgraph.model';
 
 
 export enum EditorEvents {
@@ -16,6 +18,8 @@ export enum EditorEvents {
 
 @Injectable()
 export class EditorService extends Subscribable {
+  private _lsclipboardKey = 'nodesCopy';
+
   private mouseX : number;
   private mouseY : number;
   private paneScroll : number = 0;
@@ -37,7 +41,7 @@ export class EditorService extends Subscribable {
     requestAnimationFrame(() => {
       this.mouseX = event.clientX + this.paneScroll;
       this.mouseY = event.clientY;
-      
+
       if (this.picked) {
         if (this.picked.target.box) {
           let d = this.picked.target.box.pick(this.picked.anchor).move({
@@ -165,10 +169,57 @@ export class EditorService extends Subscribable {
     return this.selected && this.selected.includes(obj);
   }
 
+  public copySelected() {
+    if (!this.canCopy) return;
+
+    let subGraph: SubGraph = this.selectedSubGraph;
+    let json: SubGraphJson = {
+      nodes: subGraph.nodes.map(n => n.json),
+      links: subGraph.links.map(l => l.json),
+    };
+
+    localStorage[this._lsclipboardKey] = JSON.stringify(json);
+  }
+
+  public cutSelected() {
+    if (!this.canCopy) return;
+
+    this.copySelected();
+    this.removeSelected();
+  }
+
+  public paste(registry) {
+    if (this.canPaste) {
+      let json: SubGraphJson = JSON.parse(localStorage[this._lsclipboardKey]);
+      let pasted: SubGraph = this.model.addSubGraphFromJson(json, registry);
+      this.deselect();
+
+      for (let node of pasted.nodes)
+        this.select(node, true);
+
+      if (pasted.nodes.length > 0)
+        this.pickEvent({
+          node: pasted.nodes[0]
+        });
+
+      this.clearClipboard();
+    }
+  }
+
+  public clearClipboard() {
+    delete localStorage[this._lsclipboardKey];
+  }
+
+  public removeSelected() {
+    for (let target of this.selectTargets) {
+      if (target instanceof Node) this.model.removeNode(target);
+      if (target instanceof Link) this.model.removeLink(target);
+    }
+
+    this.deselect();
+  }
+
   get selectTarget() {
-    //
-    //TODO: update this.
-    //
     return this.selected[0];
   }
 
@@ -188,6 +239,30 @@ export class EditorService extends Subscribable {
       left: this.mouseX - this.paneScroll,
       top: this.mouseY,
     }
+  }
+
+  get selectedSubGraph(): SubGraph {
+    let nodes: Node[] = this.selectTargets.filter(target => target instanceof Node);
+    let links: Link[] = this.model.links.filter(link =>
+      nodes.includes(link.from.node as Node) &&
+      (
+        (link.to instanceof Node && nodes.includes(link.to)) ||
+        (link.to instanceof Pin && nodes.includes(link.to.node as Node))
+      )
+    );
+
+    return {
+      nodes: nodes,
+      links: links,
+    };
+  }
+
+  get canCopy(): boolean {
+    return this.selectTargets && this.selectTargets.find(target => target instanceof Node);
+  }
+
+  get canPaste(): boolean {
+    return localStorage[this._lsclipboardKey];
   }
 
   public releaseFreeLink() {

@@ -1,4 +1,4 @@
-import { Node } from './node.model';
+import { Node, NodeJson } from './node.model';
 import { Pin } from './pin.model';
 import { Box } from './box.model';
 import { Signature } from './signature.model';
@@ -6,6 +6,10 @@ import { Signature } from './signature.model';
 
 export enum CallEvents {
   signatureChange, pathChange,
+}
+
+export interface CallJson extends NodeJson {
+  path: string;
 }
 
 export class Call extends Node {
@@ -37,7 +41,7 @@ export class Call extends Node {
     }
   }
 
-  protected toJson() {
+  protected toJson(): CallJson {
     return Object.assign(super.toJson(), {
       path : this.path,
     });
@@ -65,10 +69,15 @@ export class Call extends Node {
     return call;
   }
 
-  public static fromJson(json) {
+  public static fromJson(json: CallJson) {
     let call = new Call(json.tag, Box.fromJson(json.box));
     call.path = json.path;
 
     return call;
+  }
+
+  public is(type: string): boolean {
+    if (type === 'call') return true;
+    else return super.is(type);
   }
 }

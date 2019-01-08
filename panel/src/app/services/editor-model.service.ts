@@ -5,10 +5,11 @@ import { Call } from '../models/call.model';
 import { Expr } from '../models/expr.model';
 import { Switch } from '../models/switch.model';
 import { Value } from '../models/value.model';
-import { Link } from '../models/link.model';
+import { Link, LinkJson } from '../models/link.model';
 import { Pin, PinType, PinTag } from '../models/pin.model';
 import { PinList, PinListEvents } from '../models/pin-list.model';
 import { Signature } from '../models/signature.model';
+import { SubGraph, SubGraphJson, updateSubgraphTags } from '../models/subgraph.model';
 
 
 export enum EditorModelEvents {
@@ -123,23 +124,37 @@ export class EditorModelService extends Subscribable {
 
   public createNode(nodeClass, position) : Node {
     let _builder : (tag:string, left:number, top:number) => Node;
-    let _prefix : string;
 
-    if (nodeClass == Call) { _builder = Call.emptyCall, _prefix = 'c'; }
-    if (nodeClass == Expr) { _builder = Expr.emptyExpr, _prefix = 'e'; }
-    if (nodeClass == Value) { _builder = Value.emptyValue, _prefix = 'v'; }
-    if (nodeClass == Switch) { _builder = Switch.emptySwitch, _prefix = 's'; }
+    if (nodeClass == Call) _builder = Call.emptyCall;
+    if (nodeClass == Expr) _builder = Expr.emptyExpr;
+    if (nodeClass == Value) _builder = Value.emptyValue;
+    if (nodeClass == Switch) _builder = Switch.emptySwitch;
+
+    let _tag = this.nodeTag(nodeClass);
+    return _builder(_tag, position.left, position.top);
+  }
+
+  public nodeTag(nodeClass, extras?: string[]): string {
+    let _prefix: string;
+
+    if (nodeClass == Call) _prefix = 'c';
+    if (nodeClass == Expr) _prefix = 'e';
+    if (nodeClass == Value) _prefix = 'v';
+    if (nodeClass == Switch) _prefix = 's';
 
     let _index = 0;
     let _tag : string;
+    let _taken = this._nodes.map(n => n.tag);
+    if (extras) _taken = _taken.concat(extras);
+
     while(true) {
       _tag = `${_prefix}${_index}`;
-      if (this._nodes.filter(n => n.tag == _tag).length == 0)
+      if (!_taken.includes(_tag))
         break;
       _index++;
     }
 
-    return _builder(_tag, position.left, position.top);
+    return _tag;
   }
 
   public addNode(node: Node): EditorModelService {
@@ -189,6 +204,36 @@ export class EditorModelService extends Subscribable {
     });
 
     return this;
+  }
+
+  public addSubGraph(subGraph: SubGraph): EditorModelService {
+    for (let node of subGraph.nodes) this.addNode(node);
+    for (let link of subGraph.links) this.addLink(link);
+
+    return this;
+  }
+
+  public addSubGraphFromJson(json: SubGraphJson, registry): SubGraph {
+    let tagMap: {[old:string]: string} = {};
+
+    for (let node of json.nodes) {
+      let nodeClass = this.nodeClassFromJson(node);
+      let tag = this.nodeTag(nodeClass, Object.values(tagMap));
+
+      tagMap[node.tag] = tag;
+    }
+
+    updateSubgraphTags(json, tagMap);
+
+    let subGraph: SubGraph = {
+      nodes: [],
+      links: [],
+    }
+
+    for (let node of json.nodes) subGraph.nodes.push(this.addNodeFromJson(node, registry));
+    for (let link of json.links) subGraph.links.push(this.addLinkFromJson(link));
+
+    return subGraph;
   }
 
   private _buildPins() {
@@ -251,39 +296,63 @@ export class EditorModelService extends Subscribable {
     this._nodes = [];
     this._links = [];
 
-    for (let _node of json.nodes) {
-      if (_node.expr) {
-        if (_node.in) {
-          this.addNode(Expr.fromJson(_node));
-        }
-        else {
-          this.addNode(Value.fromJson(_node));
-        }
-      }
-      else if (_node.cases) {
-        this.addNode(Switch.fromJson(_node));
-      }
-      else if (_node.path) {
-        let c = Call.fromJson(_node);
-        if (registry.isRegistered(c.path))
-          c.signature = registry.signature(c.path);
-        this.addNode(c);
-      }
-    }
+    for (let _node of json.nodes)
+      this.addNodeFromJson(_node, registry);
 
-    for (let _link of json.links) {
-      let _from = this._findPin(_link[0]) as Pin;
-      let _to = this._findPin(_link[1]);
-      if (_from && _to) {
-        this.addLink(new Link(_from, _to));
-      }
-      else {
-        console.log('NOT FOUND');
-        console.log(_link);
-      }
-    }
+    for (let _link of json.links)
+      this.addLinkFromJson(_link);
 
     return this;
+  }
+
+  public nodeClassFromJson(json) {
+    if (json.expr) {
+      if (json.in) return Expr;
+      else return Value;
+    }
+    else if (json.cases) return Switch;
+    else if (json.path) return Call;
+  }
+
+  public addNodeFromJson(json, registry) : Node {
+    let nodeClass = this.nodeClassFromJson(json);
+
+    if (nodeClass == Expr) {
+      let e = Expr.fromJson(json);
+      this.addNode(e);
+      return e;
+    }
+    else if (nodeClass == Value) {
+      let v = Value.fromJson(json);
+      this.addNode(v);
+      return v;
+    }
+    else if (nodeClass == Switch) {
+      let s = Switch.fromJson(json);
+      this.addNode(s);
+      return s;
+    }
+    else if (nodeClass == Call) {
+      let c = Call.fromJson(json);
+      if (registry.isRegistered(c.path))
+        c.signature = registry.signature(c.path);
+      this.addNode(c);
+      return c;
+    }
+  }
+
+  public addLinkFromJson(json: LinkJson) : Link {
+    let _from = this._findPin(json[0]) as Pin;
+    let _to = this._findPin(json[1]);
+    if (_from && _to) {
+      let l = new Link(_from, _to);
+      this.addLink(l);
+      return l;
+    }
+    else {
+      console.log('NOT FOUND');
+      console.log(json);
+    }
   }
 
   private _findPin(json) : Node | Pin {

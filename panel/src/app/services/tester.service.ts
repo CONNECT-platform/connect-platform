@@ -77,6 +77,7 @@ export class TesterService {
   }
 
   public togglePlayback() {
+    if (!this.active) return;
     if (!this._recording) {
       this.pause();
       let missingInput = this.missingInput;

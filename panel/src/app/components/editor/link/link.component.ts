@@ -91,25 +91,19 @@ export class LinkComponent implements OnInit {
   }
 
   get fromPos() {
-    /*
     if (!this._lastFromPos) {
       this._lastFromPos = this._fromPos;
-      setTimeout(() => this._lastFromPos = null, 2);
+      setTimeout(() => this._lastFromPos = null);
     }
     return this._lastFromPos;
-    */
-    return this._fromPos;
   }
 
   get toPos() {
-    /*
     if (!this._lastToPos) {
       this._lastToPos = this._toPos;
-      setTimeout(() => this._lastToPos = null, 2);
+      setTimeout(() => this._lastToPos = null);
     }
     return this._lastToPos;
-    */
-    return this._toPos;
   }
 
   private get _fromPos() {

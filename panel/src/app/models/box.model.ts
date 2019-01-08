@@ -6,6 +6,13 @@ export enum BoxEvents {
   anchor, move
 }
 
+export interface BoxJson {
+  left: number;
+  right: number;
+  top: number;
+  bottom: number;
+}
+
 export class Box extends Subscribable {
   private _left: number;
   private _top: number;
@@ -131,7 +138,7 @@ export class Box extends Subscribable {
     };
   }
 
-  public get json() {
+  public get json(): BoxJson {
     return {
       left : this.left,
       right : this.right,
@@ -145,7 +152,7 @@ export class Box extends Subscribable {
     return new Box(_box.left, _box.top, _box.right - _box.left, _box.bottom - _box.top);
   }
 
-  public static fromJson(json) {
+  public static fromJson(json: BoxJson) {
     return new Box(json.left, json.top, json.right - json.left, json.bottom - json.top);
   }
 }

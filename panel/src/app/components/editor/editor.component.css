@@ -154,7 +154,7 @@ img.loading.reverse {
   opacity: 1;
 }
 
-.main-action.delete {
+.main-action.cancel {
   transform: rotate(135deg);
   opacity: 1;
 }
@@ -195,7 +195,9 @@ img.loading.reverse {
   transform: translateY(0px);
 }
 
-.add-nodes {
+.action-list.right-bar {
+  position: absolute;
+  width: 100%;
   z-index: 10;
   transform: translateY(-50%);
   opacity: 0;
@@ -203,7 +205,7 @@ img.loading.reverse {
   transition: transform .3s, opacity .3s;
 }
 
-.add-nodes.active {
+.action-list.right-bar.active {
   transform: translateY(104px);
   opacity: 1;
 }
@@ -223,6 +225,11 @@ editor-bar .button {
 
 editor-bar .button:hover {
   opacity: 1;
+}
+
+editor-bar .button.disabled {
+  opacity: .2;
+  cursor: no-drop;
 }
 
 editor-bar .action-list.bottom {
