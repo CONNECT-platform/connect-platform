@@ -18,10 +18,14 @@ and we use [Semantic Versioning](http://semver.org/spec/v2.0.0.html), like stric
  - multiselect:
    - now you can pick multiple nodes/links and move them around using `<Shift>` key.
    - now you can delete multple nodes/links.
- - config script
+ - config:
+  - now you can set `production` config, which will be stored in a separate file and can be utilized in production environment only.
+  - you can now write a configuration script, which is a Javscript snippet that will get executed at instance startup.
 ### Changed
  - fixed a bug related to watching multiple nodes at the same time.
  - changed the shortcut for next and prev events on test/watch mode from `Shift+Left|Right` to `Left|Right`.
+ - differentiated the way nodes and links while selected vs while they are active (in test mode).
+ - optimized the renderer to get smoother animations with better frame rates.
  - made the platform completely trailing slash agnostic:
    - for each node with a trailing slash, an alias without will be registered automatically.
    - for each node without a trailing slash, an alias with will be registered automatically.
