@@ -1,6 +1,8 @@
 import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
 import { Pin } from '../../../models/pin.model';
 
+import { EditorService } from '../../../services/editor.service';
+
 
 @Component({
   selector: 'editor-code',
@@ -22,7 +24,7 @@ export class CodeComponent implements OnInit {
     tabSize: 2,
   }
 
-  constructor() { }
+  constructor(private editor: EditorService) { }
 
   ngOnInit() {
   }
@@ -31,5 +33,10 @@ export class CodeComponent implements OnInit {
   set _code(code: string) {
     this.code = code;
     this.codeChange.emit(code);
+  }
+
+  focused(event) {
+    this.editor.deselect();
+    event.stopPropagation();
   }
 }

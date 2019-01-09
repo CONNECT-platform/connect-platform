@@ -312,17 +312,17 @@ export class EditorComponent implements OnInit, OnDestroy {
       this.save();
     }
 
-    if ((event.metaKey || event.ctrlKey) && charCode == 'c') {
+    if ((event.metaKey || event.ctrlKey) && charCode == 'c' && this.state == EditorState.selected) {
       event.preventDefault();
       this.editor.copySelected();
     }
 
-    if ((event.metaKey || event.ctrlKey) && charCode == 'x') {
+    if ((event.metaKey || event.ctrlKey) && charCode == 'x' && this.state == EditorState.selected) {
       event.preventDefault();
       this.editor.cutSelected();
     }
 
-    if ((event.metaKey || event.ctrlKey) && charCode == 'v') {
+    if ((event.metaKey || event.ctrlKey) && charCode == 'v' && this.editor.canPaste) {
       event.preventDefault();
       this.editor.paste(this.registry);
     }

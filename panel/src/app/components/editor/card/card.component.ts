@@ -255,8 +255,8 @@ export class CardComponent implements OnInit, OnDestroy {
 
   public expand() {
     if (this.node instanceof Expr) {
+      this.editor.deselect();
       this.editor.expanded = this.node;
-      console.log(this.editor.expanded.code);
     }
   }
 
@@ -284,6 +284,11 @@ export class CardComponent implements OnInit, OnDestroy {
       this.model.removePinLinks(control.pin);
       this.node.control.remove(control);
     }
+  }
+
+  subfocus(event) {
+    this.editor.deselect();
+    event.stopPropagation();
   }
 
   @HostListener('document:keyup', ['$event'])

@@ -20,6 +20,7 @@
               <input type="text"
                     [readonly]="tester.active"
                     [value]="in.label"
+                    (mousedown)="subfocus($event)"
                     (focus)="inputFocus($event)"
                     (blur)="sanitizeInput(in)"
                     (keyup)="inputChange(in, $event)"
@@ -68,6 +69,7 @@
         <div class="path">
           <input type="text"
                 [readonly]="tester.active"
+                (mousedown)="subfocus($event)"
                 (focus)="_suggesting=!tester.active"
                 (focusout)="_suggesting=false"
                 [(ngModel)]="node.path"/>

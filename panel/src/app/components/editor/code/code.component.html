@@ -1,4 +1,6 @@
-<div class="holder" [ngClass]="{'control': pin.type == pin.types.control, 'shadow': shadow, 'selected': selected, 'error': error}">
+<div class="holder"
+  (mousedown)="focused($event)"
+  [ngClass]="{'control': pin.type == pin.types.control, 'shadow': shadow, 'selected': selected, 'error': error}">
   <div class="ace-holder">
     <ace-editor mode="javascript"
                 [readOnly]="readonly"
