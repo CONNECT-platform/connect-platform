@@ -16,14 +16,15 @@ and we use [Semantic Versioning](http://semver.org/spec/v2.0.0.html), like stric
    - you can now export each node to a json file (left-hand menu in editor, misc -> export).
    - you can now import the exported node json files in the editor.
  - multiselect:
-   - now you can pick multiple nodes/links and move them around using `<Shift>` key.
+   - now you can pick multiple nodes/links and move them around using `Shift` key or by drag-selecting.
    - now you can delete multple nodes/links.
+   - now you can copy/cut/paste a selected subgraph, also into other open tabs, both using UI buttons and standard `Ctrl|CMD + C|X|V` shortcuts.
  - config:
-  - now you can set `production` config, which will be stored in a separate file and can be utilized in production environment only.
-  - you can now write a configuration script, which is a Javscript snippet that will get executed at instance startup.
+   - now you can set `production` config, which will be stored in a separate file and can be utilized in production environment only.
+   - you can now write a configuration script, which is a Javscript snippet that will get executed at instance startup.
 ### Changed
  - fixed a bug related to watching multiple nodes at the same time.
- - changed the shortcut for next and prev events on test/watch mode from `Shift+Left|Right` to `Left|Right`.
+ - changed the shortcut for next and prev events on test/watch mode from `Shift + Left|Right` to `Left|Right`.
  - differentiated the way nodes and links while selected vs while they are active (in test mode).
  - optimized the renderer to get smoother animations with better frame rates.
  - made the platform completely trailing slash agnostic:
