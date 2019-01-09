@@ -16,8 +16,11 @@ and we use [Semantic Versioning](http://semver.org/spec/v2.0.0.html), like stric
    - you can now export each node to a json file (left-hand menu in editor, misc -> export).
    - you can now import the exported node json files in the editor.
  - multiselect:
-   - now you can pick multiple nodes/links and move them around using `Shift` key or by drag-selecting.
+   - now you can pick multiple nodes/links and move them around using `Shift` key.
+   - you can deselect a few items from your selection using `Ctlr | CMD` key.
+   - you can also select multiple items at once by drag-selecting (also add a handful while holding `Shift` key or remove a few holding `Ctrl | CMD` key).
    - now you can delete multple nodes/links.
+   - now you can also highlight the events of multiple nodes/links in test mode by selecting them.
    - now you can copy/cut/paste a selected subgraph, also into other open tabs, both using UI buttons and standard `Ctrl|CMD + C|X|V` shortcuts.
  - config:
    - now you can set `production` config, which will be stored in a separate file and can be utilized in production environment only.
