@@ -31,9 +31,11 @@ export class LinkComponent implements OnInit {
   }
 
   select(event) {
-    let multi = event.shiftKey && !this.tester.active;
-    if (this.selected && !multi) this.editor.deselect();
-    else this.editor.select(this.link, multi);
+    let multi = event.shiftKey;
+    let removal = event.ctrlKey || event.metaKey;
+
+    if (this.selected && !multi && !removal) this.editor.deselect();
+    else this.editor.select(this.link, multi, removal);
   }
 
   public get isChrome() {

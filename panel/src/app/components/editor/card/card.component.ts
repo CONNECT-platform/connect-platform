@@ -44,6 +44,9 @@ export class CardComponent implements OnInit, OnDestroy {
 
   public hintRef : HintRef;
 
+  public selectionCandidate: boolean = false;
+  public deselectionCandidate: boolean = false;
+
   constructor(
     private editor: EditorService,
     private model : EditorModelService,
@@ -119,7 +122,7 @@ export class CardComponent implements OnInit, OnDestroy {
 
   public unpick(event) {
     if (this.picked)
-      this.editor.unpickEvent(event.shiftKey && !this.tester.active);
+      this.editor.unpickEvent(event.shiftKey, event.ctrlKey || event.metaKey);
   }
 
   public get picked() {

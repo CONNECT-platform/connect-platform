@@ -1,0 +1,40 @@
+.selector-label {
+  position: absolute;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  opacity: 0;
+  color: #616161;
+  transform-origin: center;
+  font-size: 12px;
+  width: 300px;
+  height: 60px;
+  margin-left: -150px;
+  margin-top: -30px;
+  transform: translateX(-1000px);
+
+  transition: opacity .3s;
+}
+
+.selector-label.active {
+  opacity: 1;
+}
+
+.selector-box {
+  background: #000000;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  transform-origin: left top;
+  opacity: 0;
+
+  transition: opacity .5s;
+}
+
+.selector-box.active {
+  opacity: .25;
+}

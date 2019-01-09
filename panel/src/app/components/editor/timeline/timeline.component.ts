@@ -51,8 +51,12 @@ export class TimelineComponent implements OnInit {
 
   get events() {
     if (!this.tester.recording) return [];
-    if (this.editor.selectTarget && this.editor.selectTarget.relevantEvent) {
-      return this.tester.recording.filter(event => this.editor.selectTarget.relevantEvent(event));
+    if (this.editor.selectTargets && this.editor.selectTargets.length > 0) {
+      return this.tester.recording.filter(
+        event => this.editor.selectTargets.some(
+          target => target.relevantEvent && target.relevantEvent(event)
+        )
+      );
     }
     else return this.tester.recording;
   }
@@ -118,12 +122,18 @@ export class TimelineComponent implements OnInit {
   keydown(event) {
     if (this.keysEnabled) {
       if (event.keyCode == 37 && this.tester.active) {
-        this.jumpToPrevEvent();
+        if (event.shiftKey)
+          this.tester.backward();
+        else
+          this.jumpToPrevEvent();
         event.preventDefault();
         event.stopPropagation();
       }
       if (event.keyCode == 39 && this.tester.active) {
-        this.jumpToNextEvent();
+        if (event.shiftKey)
+          this.tester.forward();
+        else
+          this.jumpToNextEvent();
         event.preventDefault();
         event.stopPropagation();
       }

@@ -119,10 +119,10 @@ export class EditorService extends Subscribable {
     }
   }
 
-  public unpickEvent(multi: boolean = false) {
+  public unpickEvent(multi: boolean = false, removal: boolean = false) {
     if (this.picked) {
       if (Date.now() - this.pickedTime < 200) {
-        this.select(this.picked.target, multi);
+        this.select(this.picked.target, multi, removal);
       }
 
       this.publish(EditorEvents.unpick, this.picked);
@@ -130,15 +130,18 @@ export class EditorService extends Subscribable {
     }
   }
 
-  public select(target: any, multiselect: boolean = false) {
+  public select(target: any, multiselect: boolean = false, removal: boolean = false) {
     if (!this.isSelected(target)) {
-      if (!multiselect)
+      if (!multiselect && !removal)
         this.deselect();
-      this.selected.push(target);
+
+      if (!removal)
+        this.selected.push(target);
+        
       this.publish(EditorEvents.select, target);
     }
     else {
-      if (multiselect)
+      if (multiselect || removal)
         this.deselect(target);
       else
         this.deselect();
@@ -161,8 +164,10 @@ export class EditorService extends Subscribable {
     }
   }
 
-  public isPicked(obj) {
-    return this.picked && obj == this.picked.target;
+  public isPicked(obj?) {
+    if (obj)
+      return this.picked && obj == this.picked.target;
+    else return this.picked;
   }
 
   public isSelected(obj) {

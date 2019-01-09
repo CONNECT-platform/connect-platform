@@ -41,6 +41,7 @@ import { PackagesComponent } from './components/home/packages/packages.component
 import { VaultComponent } from './components/home/vault/vault.component';
 import { ServicesComponent } from './components/home/services/services.component';
 import { EditorMiscOverlayComponent } from './components/editor/overlays/editor-misc-overlay/editor-misc-overlay.component';
+import { SelectorComponent } from './components/editor/pane/selector/selector.component';
 
 
 const routes : Routes = [
@@ -73,6 +74,7 @@ const routes : Routes = [
     PackagesComponent,
     ServicesComponent,
     EditorMiscOverlayComponent,
+    SelectorComponent,
   ],
   imports: [
     RouterModule.forRoot(routes, { enableTracing: false }),

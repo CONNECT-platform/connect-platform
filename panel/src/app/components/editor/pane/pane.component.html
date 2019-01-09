@@ -1,8 +1,12 @@
 <div class="outer" (scroll)="scrollEvent($event)">
   <div class="inner"
+    (mousedown)="mouseDownEvent($event)"
     (mousemove)="mouseMoveEvent($event)"
-    (mouseup)="mouseUpEvent()">
+    (mouseup)="mouseUpEvent($event)">
     <div class="backdrop" (click)="editor.deselect()"></div>
+
+    <editor-selector></editor-selector>
+
     <ng-container *ngFor="let node of model.nodes">
       <editor-card [node]="node"></editor-card>
     </ng-container>

@@ -42,33 +42,15 @@ export class Box extends Subscribable {
     }
   }
 
-  public get centerLeft() {
-    return {
-      left: this.left,
-      top: this.center.top,
-    }
-  }
+  public get centerLeft() { return { left: this.left, top: this.center.top, } }
+  public get centerRight() { return { left: this.right, top: this.center.top, } }
+  public get centerTop() { return { top: this.top, left: this.center.left, } }
+  public get centerBottom() { return { top: this.bottom, left: this.center.left, } }
 
-  public get centerRight() {
-    return {
-      left: this.right,
-      top: this.center.top,
-    }
-  }
-
-  public get centerTop() {
-    return {
-      top: this.top,
-      left: this.center.left,
-    }
-  }
-
-  public get centerBottom() {
-    return {
-      top: this.bottom,
-      left: this.center.left,
-    }
-  }
+  public get topLeft() { return { left: this.left, top: this.top } }
+  public get topRight() { return { left: this.right, top: this.top } }
+  public get bottomLeft() { return { left: this.left, top: this.bottom } }
+  public get bottomRight() { return { left: this.right, top: this.bottom } }
 
   public set left(_left) { this._left = _left; }
   public set top(_top) { this._top = _top; }
@@ -109,6 +91,16 @@ export class Box extends Subscribable {
     }
 
     return center;
+  }
+
+  public includes(point: { top: number, left: number }) {
+    return this.top <= point.top && this.bottom >= point.top &&
+          this.left <= point.left && this.right >= point.left;
+  }
+
+  public collides(box: Box) {
+    return this.left <= box.right && this.right >= box.left &&
+            this.top <= box.bottom && this.bottom >= box.top;
   }
 
   public pick(_anchor, ref?): Box {
