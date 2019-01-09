@@ -20,8 +20,8 @@ and we use [Semantic Versioning](http://semver.org/spec/v2.0.0.html), like stric
    - now you can delete multple nodes/links.
    - now you can copy/cut/paste a selected subgraph, also into other open tabs, both using UI buttons and standard `<Ctrl|CMD>+C/X/V` shortcuts.
  - config:
-  - now you can set `production` config, which will be stored in a separate file and can be utilized in production environment only.
-  - you can now write a configuration script, which is a Javscript snippet that will get executed at instance startup.
+   - now you can set `production` config, which will be stored in a separate file and can be utilized in production environment only.
+   - you can now write a configuration script, which is a Javscript snippet that will get executed at instance startup.
 ### Changed
  - fixed a bug related to watching multiple nodes at the same time.
  - changed the shortcut for next and prev events on test/watch mode from `Shift+Left|Right` to `Left|Right`.
