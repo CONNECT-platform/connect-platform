@@ -17,6 +17,7 @@ export class OverlayComponent implements OnInit {
   @ViewChild('inner') inner: ElementRef;
   private _active : boolean = false;
   private _onActivate : EventEmitter<void> = new EventEmitter<void>();
+  private _onActivated: EventEmitter<void> = new EventEmitter<void>();
   private _onClose : EventEmitter<void> = new EventEmitter<void>();
 
   constructor() { }
@@ -41,6 +42,10 @@ export class OverlayComponent implements OnInit {
     if (!this._active) {
       this._active = true;
       this._onActivate.emit();
+
+      setTimeout(() => {
+        this._onActivated.emit();
+      });
     }
 
     return this;
@@ -64,6 +69,7 @@ export class OverlayComponent implements OnInit {
   }
 
   public get onActivate() { return this._onActivate; }
+  public get onActivated() { return this._onActivated; }
   public get onClose() { return this._onClose; }
 
   @HostListener('document:keyup', ['$event'])

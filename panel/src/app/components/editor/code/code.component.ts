@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { Pin } from '../../../models/pin.model';
 
 import { EditorService } from '../../../services/editor.service';
@@ -10,6 +10,8 @@ import { EditorService } from '../../../services/editor.service';
   styleUrls: ['./code.component.css']
 })
 export class CodeComponent implements OnInit {
+  @ViewChild('ace') ace;
+
   @Input() selected: boolean = false;
   @Input() error: boolean = false;
   @Input() readonly: boolean = false;
@@ -27,6 +29,8 @@ export class CodeComponent implements OnInit {
   constructor(private editor: EditorService) { }
 
   ngOnInit() {
+    if (!this.code)
+      this.ace.getEditor().focus();
   }
 
   get _code() { return this.code; }

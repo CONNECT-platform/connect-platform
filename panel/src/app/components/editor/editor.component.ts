@@ -56,6 +56,7 @@ export class EditorComponent implements OnInit, OnDestroy {
   @ViewChild('testErrorDetailsOverlay') testErrorDetailsOverlay;
 
   @ViewChild('codeOverlay') codeOverlay;
+  @ViewChild('codeOverlayEditor') codeOverlayEditor;
 
   @ViewChild('timeline') timeline;
 
@@ -142,6 +143,10 @@ export class EditorComponent implements OnInit, OnDestroy {
 
     this.testErrorDetailsOverlay.onClose.subscribe(() => {
       this.editor.deselect();
+    });
+
+    this.codeOverlay.onActivated.subscribe(() => {
+      this.codeOverlayEditor.getEditor().focus();
     });
 
     this.codeOverlay.onClose.subscribe(() => {

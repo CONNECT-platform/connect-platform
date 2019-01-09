@@ -18,6 +18,7 @@
             <div class="input">
               <editor-pin [pin]="in.pin" (mouseover)="mouseover($event, in)"></editor-pin>
               <input type="text"
+                    [autofocus]="!in.label"
                     [readonly]="tester.active"
                     [value]="in.label"
                     (mousedown)="subfocus($event)"
@@ -68,6 +69,7 @@
       <div class="inner" #inner>
         <div class="path">
           <input type="text"
+                [autofocus]="!node.path"
                 [readonly]="tester.active"
                 (mousedown)="subfocus($event)"
                 (focus)="_suggesting=!tester.active"

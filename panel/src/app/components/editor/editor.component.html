@@ -10,6 +10,7 @@
       <ng-container *ngFor="let in of model.in.items">
         <div class="input item">
           <input type="text"
+                [autofocus]="!in.label"
                 (click)="changeTestInput(in.label)"
                 [readonly]="tester.active"
                 (blur)="sanitizeInput(in)"
@@ -25,6 +26,7 @@
       <ng-container *ngFor="let conf of model.config.items">
         <div class="config item">
           <input type="text"
+                [autofocus]="!conf.label"
                 [readonly]="tester.active"
                 (blur)="sanitizeConfig(conf)"
                 [(ngModel)]="conf.label"/>
@@ -105,6 +107,7 @@
           <div class="output item">
             <editor-pin [pin]="out.pin"></editor-pin>
             <input type="text"
+                  [autofocus]="!out.label"
                   [readonly]="tester.active"
                   (blur)="sanitizeOutput(out)"
                   [(ngModel)]="out.label"/>
@@ -119,6 +122,7 @@
           <div class="control output item">
             <editor-pin [pin]="ctrl.pin" [controlStyle]="true"></editor-pin>
             <input type="text"
+                  [autofocus]="!ctrl.label"
                   [readonly]="tester.active"
                   (blur)="sanitizeControl(ctrl)"
                   [(ngModel)]="ctrl.label"/>
@@ -228,7 +232,8 @@
   [expansive]="true"
   [active]="editor.expanded">
   <overlay-content>
-    <ace-editor *ngIf="editor.expanded"
+    <ace-editor #codeOverlayEditor
+                *ngIf="editor.expanded"
                 mode="javascript"
                 [readOnly]="tester.active"
                 [(text)]="editor.expanded.code"
