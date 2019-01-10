@@ -24,7 +24,7 @@ export class Switch extends Node {
   }
 
   public static emptySwitch(tag: string, left: number, top: number): Switch {
-    let sw = new Switch(tag, new Box(left, top, 144, 32));
+    let sw = new Switch(tag, new Box(left || 256, top || 256, 144, 32));
     sw.cases.add('true');
     sw.cases.add('false');
     return sw;

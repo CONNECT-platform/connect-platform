@@ -15,7 +15,7 @@ export class Value extends Expr {
   public get code() { return this._getCode(); }
 
   public static emptyValue(tag: string, left: number, top: number): Value {
-    let value = new Value(tag, new Box(left, top, 172, 32));
+    let value = new Value(tag, new Box(left || 256, top || 256, 172, 32));
     value.code = '//something ...';
     return value;
   }

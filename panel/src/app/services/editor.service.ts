@@ -4,6 +4,7 @@ import { Subscribable } from '../util/subscribable';
 import { EditorModelService } from './editor-model.service';
 import { Node } from '../models/node.model';
 import { Expr } from '../models/expr.model';
+import { Switch } from '../models/switch.model';
 import { Link } from '../models/link.model';
 import { Pin, PinType } from '../models/pin.model';
 import { SubGraph, SubGraphJson } from '../models/subgraph.model';
@@ -113,6 +114,13 @@ export class EditorService extends Subscribable {
       else {
         if (this.freeLink.compatible(event.pin)) {
           this.freeLink.to = event.pin;
+
+          if (this.freeLink.from.item.label && !event.pin.item.label &&
+              (!this.freeLink.from.node || !(this.freeLink.from.node instanceof Switch)))
+            event.pin.item.label = this.smartName(this.freeLink.from.item.label);
+          else if (!this.freeLink.from.item.label && event.pin.item.label)
+            this.freeLink.from.item.label = this.smartName(event.pin.item.label);
+
           this.freeLink = null;
         }
       }
@@ -137,7 +145,7 @@ export class EditorService extends Subscribable {
 
       if (!removal)
         this.selected.push(target);
-        
+
       this.publish(EditorEvents.select, target);
     }
     else {
@@ -275,5 +283,12 @@ export class EditorService extends Subscribable {
       this.model.removeLink(this.freeLink);
       this.freeLink = null;
     }
+  }
+
+  private smartName(source: string): string {
+    let res = source;
+    if (/^\d.*/.test(res)) res = '_' + res;
+    res = res.replace(/\!|\@|\.|\:|\%|\&|\*|\(|\)|\s|\?|\<|\>|\-|\=|\+|\/|\\|\`|\~/g, '_');
+    return res;
   }
 }

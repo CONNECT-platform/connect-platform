@@ -58,7 +58,7 @@ export class Call extends Node {
   }
 
   public static emptyCall(tag: string, left: number, top: number): Call {
-    let call = new Call(tag, new Box(left, top, 242, 32));
+    let call = new Call(tag, new Box(left || 256, top || 256, 242, 32));
     call.path = '/path-to-node/';
     call.signature = {
       path: '/path-to-node/',

@@ -49,7 +49,7 @@ export class Expr extends Node {
   }
 
   public static emptyExpr(tag: string, left: number, top: number): Expr {
-    let expr = new Expr(tag, new Box(left, top, 172, 32));
+    let expr = new Expr(tag, new Box(left || 256, top || 256, 172, 32));
     expr.code = '//something...';
     return expr;
   }

@@ -25,15 +25,15 @@ export class AdderComponent implements OnInit {
   }
 
   activate() {
-    if (this.disabled) return;
+    if (this.disabled || this.state !== AdderStates.initial) return;
 
     this.state = AdderStates.activate;
     setTimeout(() => this.reset(), 300);
   }
 
   reset() {
-    if (this.disabled) return;
-    
+    if (this.disabled || this.state !== AdderStates.activate) return;
+
     this.state = AdderStates.reset;
     this.add.emit();
     setTimeout(() => this.state = AdderStates.initial, 300);
