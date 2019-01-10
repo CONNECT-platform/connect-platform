@@ -27,8 +27,10 @@ export class BackendService {
       root: 'config/',
       save: 'save',
       saveProd: 'prod/save',
+      saveScript: 'script/save',
       load: 'load',
-      loadProd: 'prod/load'
+      loadProd: 'prod/load',
+      loadScript: 'script/load',
     },
 
     vault: {
@@ -124,6 +126,11 @@ export class BackendService {
         + BackendService.apiCalls.config.loadProd).share();
   }
 
+  fetchConfScript() {
+    return this.http.get<any>(this.api + BackendService.apiCalls.config.root
+        + BackendService.apiCalls.config.loadScript).share();
+  }
+
   updateConfig(config) {
     return this.http.put<any>(
       this.api + BackendService.apiCalls.config.root + BackendService.apiCalls.config.save,
@@ -137,6 +144,14 @@ export class BackendService {
       this.api + BackendService.apiCalls.config.root + BackendService.apiCalls.config.saveProd,
       {
         config: config,
+      }).share();
+  }
+
+  updateConfScript(script) {
+    return this.http.put<any>(
+      this.api + BackendService.apiCalls.config.root + BackendService.apiCalls.config.saveScript,
+      {
+        script: script,
       }).share();
   }
 

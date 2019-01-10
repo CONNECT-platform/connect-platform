@@ -12,6 +12,10 @@ try {
 } catch(err) {}
 
 try {
+  require('./panel-generated/platform-config.script');
+} catch(err) {}
+
+try {
   if (process.env.CONNECT_PRODUCTION_MODE) {
     let prodconf = require('./panel-generated/platform-config.prod');
     platform.configure(prodconf);

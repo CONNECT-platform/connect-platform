@@ -127,6 +127,12 @@ button:hover {
   color: #FFFFFF;
 }
 
+.horizontal-spacer {
+  display: inline-block;
+  width: 64px;
+  height: 4px;
+}
+
 /*** ACE EDITOR OVERRIDES ***/
 
 ace-editor {

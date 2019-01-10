@@ -10,9 +10,13 @@
               style='min-height:16px;'></ace-editor>
 </div>
 <div class="buttons">
-  <button (click)="prodOverlay.activate()">
-    Production
+  <button (click)="scriptOverlay.activate()">
+    script
   </button>
+  <button (click)="prodOverlay.activate()">
+    production
+  </button>
+  <div class="horizontal-spacer"></div>
   <button (click)="save()">
     Save
   </button>
@@ -35,6 +39,28 @@
   </overlay-content>
   <overlay-actions>
     <button (click)="saveProd()">
+      Save
+    </button>
+  </overlay-actions>
+</overlay>
+
+<overlay #scriptOverlay>
+  <overlay-title>
+    Config Script
+  </overlay-title>
+  <overlay-content>
+    this script will be executed at instance startup. you can utilize it to configure
+    the platform based on environment variables, or put more complex objects into the config.
+    <br><br>
+    <div class="ace-holder">
+      <ace-editor mode="javascript"
+                  [(text)]="confScript"
+                  [options]="options"
+                  style='min-height:96px;'></ace-editor>
+    </div>
+  </overlay-content>
+  <overlay-actions>
+    <button (click)="saveScript()">
       Save
     </button>
   </overlay-actions>

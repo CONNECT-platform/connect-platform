@@ -23,6 +23,7 @@ module.exports = {
     conf : 'config',
     platformconf: 'platform-config',
     platformprodconf: 'platform-config.prod',
+    platformconfscript: 'platform-config.script.js',
     vaultlisting: 'vault-listing',
   },
   vault: vault,

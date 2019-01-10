@@ -51,3 +51,26 @@ platform.core.node({
       control(platform.conventions.controls._Unauthorized);
     });
 });
+
+platform.core.node({
+  path : `${config.path}config/script/load`,
+  public : config.expose,
+  method : 'GET',
+  interconnectible: false,
+  inputs : ['connect_token'],
+  outputs : ['script'],
+  controlOutputs: [ platform.conventions.controls._Unauthorized ],
+}, (inputs, output, control) => {
+  authorize(inputs.connect_token)
+    .then(() => {
+      let conffile = path.join(config.directory, config.files.platformconfscript);
+      files.load(conffile).then(script => {
+        output('script', script);
+      }).catch(error => {
+        output('script', '');
+      });
+    })
+    .catch(error => {
+      control(platform.conventions.controls._Unauthorized);
+    });
+});
