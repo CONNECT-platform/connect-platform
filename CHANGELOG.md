@@ -7,7 +7,7 @@ and we use [Semantic Versioning](http://semver.org/spec/v2.0.0.html), like stric
 
 **NOTE**: there is not an entry for every version. Some versions included super minor changes, and as a result were excluded from this change log. For a really detailed history of changes, please checkout the commit history of the project.
 
-## [Unreleased]
+## [0.2.12] - 2019-01-10
 ### Added
  - diving: 
    - double click on calls to other nodes made with the panel would open the new node in another tab.
