@@ -46,7 +46,7 @@ import { AutofocusDirective } from './directives/autofocus.directive';
 
 
 const routes : Routes = [
-  { path: '',   redirectTo: '/home', pathMatch: 'full' },
+  { path: '',  component: HomeComponent },
   { path: 'home', component: HomeComponent },
   { path: 'auth', component: AuthComponent },
   { path : 'editor', component: EditorComponent },

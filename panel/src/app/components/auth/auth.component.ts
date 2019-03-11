@@ -13,7 +13,7 @@ export class AuthComponent implements OnInit {
   private given: string;
 
   constructor(
-    private token: TokenService
+    public token: TokenService
   ) { }
 
   ngOnInit() {

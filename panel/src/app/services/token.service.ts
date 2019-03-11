@@ -25,28 +25,35 @@ export class TokenService {
   }
 
   reset() {
-    if (this.token !== null) {
-      this.token = null;
+    if (this.token !== '') {
+      this.token = '';
       this.router.navigate(['auth']);
     }
   }
 
-  request() {
+  request() {;
     let tree = this.router.parseUrl(this.router.url);
     if (tree.queryParamMap.has('token')) {
       let token = tree.queryParamMap.get('token');
       if (token != this.token) {
         this.token = token;
+
         let _url = this.router.url;
+        if (_url == '/auth') _url = '/';
+
         this.router.navigate(['auth']).then(() => {
-          this.router.navigateByUrl(_url);
+          setTimeout(() => {
+            this.router.navigateByUrl(_url);
+          }, 2000);
         });
         return;
       }
     }
 
-    this._urlBefore = this.router.url;
-    this.router.navigate(['auth']);
+    if (this.router.url != '/auth') {
+      this._urlBefore = this.router.url;
+      this.router.navigate(['auth'], { preserveQueryParams: true });
+    }
   }
 
   goback() {

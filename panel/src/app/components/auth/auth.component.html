@@ -2,16 +2,25 @@
   <div class="inner">
     <img src="assets/auth.svg"/>
     <br>
-    <h1>Authentication Required</h1>
-    <p>
-      in order to access this instance, you need to have a proper authorization token.
-      you will automatically get a token when using a valid URL, or you can enter your token
-      into the field below.
-    </p>
-    <input type="text" [(ngModel)]="given"/>
-    <br><br>
-    <button (click)="auth()">
-      Get Me In
-    </button>
+    <ng-container *ngIf="!token.token || token.token == 'null'">
+      <h1>Authentication Required</h1>
+      <p>
+        in order to access this instance, you need to have a proper authorization token.
+        you will automatically get a token when using a valid URL, or you can enter your token
+        into the field below.
+      </p>
+      <input type="text" [(ngModel)]="given"/>
+      <br><br>
+      <button (click)="auth()">
+        Get Me In
+      </button>
+    </ng-container>
+    <ng-container *ngIf="token.token && token.token != 'null'">
+      <h1>Authenticating ...</h1>
+      <p>
+        We are verifying your access to your panel. You will be redirected to your instance shortly.
+      </p>
+      <input type="text" value="{{token.token}}"/>
+    </ng-container>
   </div>
 </div>
