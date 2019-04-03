@@ -28,5 +28,5 @@ when you are done with your package, do not forget to [submit a pull request to 
 this comes without saying, but as with any other open-source project, it is really appreciated if you could [checkout the currently open issues](https://github.com/CONNECT-platform/connect-platform/issues) and create according pull requests, or add issues of your own.
 
 <p align="center">  
-  <img src="assets/carbon-light.svg?sanitize=true" width="288px"/>
+  <img src="assets/carbon-light.svg?sanitize=true" width="512px"/>
 </p>
