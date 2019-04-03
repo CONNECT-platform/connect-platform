@@ -1,7 +1,3 @@
-<p align="center">  
-  <img src="assets/carbon-light.svg?sanitize=true" width="288px"/>
-</p>
-
 # how to contribute to CONNECT platform
 
 there are multiple ways to contribute to CONNECT platform, but before that, if you are not familiar with it, please [checkout our website](https://connect-platform.com) and the [readme file](README.md) first. you might want to [read this](https://medium.com/connect-platform/the-problem-of-async-programming-and-a-crazy-idea-for-solving-it-cf368a9ea949) to form a more clear idea of the intention behind the project, and it is highly recommended to to checkout [our guides](https://medium.com/connect-platform/guides/home) and [try the platform](https://deskfront.connect-platform.com/), if you haven't already.
