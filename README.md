@@ -27,7 +27,7 @@ docker run -dit \
 - easy way for developing a package: https://github.com/CONNECT-platform/connect-platform-package-boilerplate
 - more comprehensive setup: https://medium.com/connect-platform/how-to-setup-connect-platform-d82d49e029ee
 
-# how to contribute
+## how to contribute
 
 take a look [here](CONTRIBUTING.md).
 
