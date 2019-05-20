@@ -25,10 +25,10 @@
   "license": "MIT",
   "dependencies": {
     "axios": "^0.18.0",
-    "body-parser": "^1.18.3",
-    "cors": "^2.8.4",
-    "express": "^4.16.4",
-    "jsonwebtoken": "^8.3.0",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.0",
+    "jsonwebtoken": "^8.5.1",
     "mkdirp": "^0.5.1"
   },
   "devDependencies": {
