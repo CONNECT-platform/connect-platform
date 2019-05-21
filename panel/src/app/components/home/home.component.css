@@ -17,6 +17,9 @@
 .header {
   text-align: left;
   position: absolute;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   padding: 16px;
   left: 0;
   right: 0;
@@ -24,8 +27,6 @@
 }
 
 .header .block {
-  display: inline-block;
-  vertical-align: middle;
   max-height: 48px;
   margin: 0 16px;
 }
@@ -35,21 +36,25 @@
 }
 
 .header .block.name {
-  border-left: 2px solid rgba(255, 255, 255, .25);
-  padding-left: 32px;
+  flex-grow: 1;
   color: #bdbdbd;
 }
 
-.header .block.logout {
-  position: absolute;
-  right: 16px;
-  top: 24px;
+.header .block.button {
+  color: white;
   cursor: pointer;
-  opacity: 0.25;
+  opacity: 0.5;
   transition: opacity .15s;
 }
 
-.header .block.logout:hover {
+.header .divider {
+  width: 2px;
+  height: 24px;
+  background: #757575;
+  margin: 0 16px;
+}
+
+.header .block.button:hover {
   opacity: 1;
 }
 

@@ -98,6 +98,10 @@ button:hover {
   opacity: 1;
 }
 
+a.button {
+  text-decoration: none;
+}
+
 .overlay .inner button {
   opacity: 1;
 }

@@ -1,9 +1,12 @@
 <div class="holder" [@holder]="">
   <div class="header">
-    <a class="block" href="https://loreanvictor.github.io/connect-platform/" target="_blank">
+    <a class="block" href="https://connect-platform.com" target="_blank">
       <img class="logo" src="assets/logo.svg"/>
     </a>
+    <div class="divider"></div>
     <div class="block name">{{name}}</div>
+    <a class="block button docs" href="https://medium.com/connect-platform/guides/home" target="_blank">Guides & Docs</a>
+    <div class="divider" *ngIf="loggedIn"></div>
     <a class="block button logout" *ngIf="loggedIn" (click)="logout()">Logout</a>
   </div>
   <div class="aligner">
