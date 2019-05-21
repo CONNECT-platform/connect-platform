@@ -1,7 +1,7 @@
 <div class="holder">
   <div class="title">NODES</div>
 
-  <div class="node-list" *ngIf="!empty && false">
+  <div class="node-list" *ngIf="!empty">
     <div *ngFor="let node of nodes" class="node item"
           routerLink="/editor"
           [queryParams]="{id: node.id}">
@@ -17,7 +17,7 @@
     </div>
   </div>
 
-  <div class="node-list empty" *ngIf="empty || true">
+  <div class="node-list empty" *ngIf="empty">
     <p>
       nodes are logical endpoints of your project. they can be either
       <span class="hl-green">public</span>, which means they are accessible via requests
