@@ -10,5 +10,15 @@
     <ng-container *ngFor="let node of model.nodes">
       <editor-card [node]="node"></editor-card>
     </ng-container>
+
+    <div class="empty" *ngIf="model.nodes.length == 0">
+      <div>
+        <p>
+          New to CONNECT platform? Read our guides and documents to find out
+          what you can do with it and how.
+        </p>
+        <a class="button full" href="https://medium.com/connect-platform/guides/home" target="_blank">Check Out The Guides</a>
+      </div>
+    </div>
   </div>
 </div>

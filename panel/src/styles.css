@@ -70,7 +70,7 @@ a.link {
   text-decoration: none !important;
 }
 
-button {
+button, a.full.button {
   display: inline-block;
   min-width: 128px;
   padding: 2px 12px;
@@ -89,12 +89,12 @@ button {
   transition: opacity .1s, background .1s, color .1s;
 }
 
-button.danger {
+button.danger, a.full.button.danger {
   color: #ff1744;
   border-color: #ff1744;
 }
 
-button:hover {
+button:hover, a.full.button:hover {
   opacity: 1;
 }
 

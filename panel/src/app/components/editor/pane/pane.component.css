@@ -25,3 +25,23 @@
   right: 0;
   bottom: 0;
 }
+
+.empty {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.empty>div {
+  max-width: 30vw;
+  text-align: center;
+}
+
+.empty>div>p {
+  opacity: .5;
+  margin-bottom: 24px;
+}

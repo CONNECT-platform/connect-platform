@@ -1,7 +1,7 @@
 <div class="holder">
   <div class="title">NODES</div>
 
-  <div class="node-list" *ngIf="!empty">
+  <div class="node-list" *ngIf="!empty && false">
     <div *ngFor="let node of nodes" class="node item"
           routerLink="/editor"
           [queryParams]="{id: node.id}">
@@ -17,15 +17,16 @@
     </div>
   </div>
 
-  <div class="node-list empty" *ngIf="empty">
+  <div class="node-list empty" *ngIf="empty || true">
     <p>
-      nodes are blocks of logic on your project. they can be either
+      nodes are logical endpoints of your project. they can be either
       <span class="hl-green">public</span>, which means they are accessible via requests
       from outside world, or can be <span class="hl-blue">internal</span>, which
       means they can only be called from other nodes of this project.
-      <br>
-      press the <span class="button">+</span> button above to create a new node.
     </p>
+    <br>
+    <a class="button full" href="https://medium.com/connect-platform/guides/home" target="_blank">Check Out The Guides</a>
+    <button routerLink="/editor">Add a New Node</button>
   </div>
 
   <div class="toolbar">
