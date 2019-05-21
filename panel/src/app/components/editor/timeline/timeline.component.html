@@ -42,6 +42,8 @@
       *ngFor="let event of consoleEvents"
       (click)="jumpToLog(event, $event)">
     <pre>{{event.event.cascaded?.data}}</pre>
+    <img class="copy" src="assets/copy.svg" (click)="
+      clipboard.copy(event.event.cascaded?.data, $event)"/>
   </div>
   <div class="size-toggle" [ngClass]="{'expand': !consoleExpanded, 'collapse': consoleExpanded}" (click)="consoleExpanded=!consoleExpanded"></div>
 </div>

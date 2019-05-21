@@ -5,7 +5,7 @@
   "main": "main.js",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng build --watch",
     "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",

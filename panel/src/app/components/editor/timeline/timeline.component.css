@@ -229,7 +229,8 @@
 .console {
   position: absolute;
   width: 360px;
-  padding: 12px;
+  padding: 8px;
+  padding-top: 32px;
   height: 256px;
   bottom: 52px;
   right: 220px;
@@ -310,7 +311,7 @@
   content: ' ';
   top: 0;
   bottom: 0;
-  left: -16px;
+  left: -14px;
   width: 2px;
   border: 2px dotted white;
   opacity: 0.15;
@@ -347,6 +348,25 @@
   white-space: pre;
   word-break: break-all;
   overflow-x: auto;
+}
+
+.console .entry .copy {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  right: 2px;
+  top: 1px;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity .15s;
+}
+
+.console .entry:hover .copy {
+  opacity: .5;
+}
+
+.console .entry .copy:hover {
+  opacity: 1;
 }
 
 overlay input {

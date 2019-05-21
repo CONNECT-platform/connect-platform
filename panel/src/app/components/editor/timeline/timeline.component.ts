@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef, HostListener } from '@angular
 
 import { EditorService } from '../../../services/editor.service';
 import { TesterService } from '../../../services/tester.service';
+import { ClipboardService } from '../../../services/clipboard.service';
 
 
 @Component({
@@ -24,6 +25,7 @@ export class TimelineComponent implements OnInit {
   constructor(
     private tester : TesterService,
     private editor: EditorService,
+    private clipboard: ClipboardService,
   ) { }
 
   ngOnInit() {
