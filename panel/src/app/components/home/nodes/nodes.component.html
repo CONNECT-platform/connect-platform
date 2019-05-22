@@ -2,19 +2,8 @@
   <div class="title">NODES</div>
 
   <div class="node-list" *ngIf="!empty">
-    <div *ngFor="let node of nodes" class="node item"
-          routerLink="/editor"
-          [queryParams]="{id: node.id}">
-      {{ node.path }}
-      <div class="extra">
-        <span class="access" [ngClass]="{'public': node.public, 'internal' : !node.public}">
-          {{node.public?'public':'internal'}}
-        </span>
-        <span class="method">
-          {{node.method}}
-        </span>
-      </div>
-    </div>
+    <nodelist-entry *ngFor="let entry of entries"
+      [entry]="entry" [query]="searchinput.value"></nodelist-entry>
   </div>
 
   <div class="node-list empty" *ngIf="empty">

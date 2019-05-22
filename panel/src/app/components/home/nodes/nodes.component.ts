@@ -17,6 +17,8 @@ export class NodesComponent implements OnInit, OnDestroy {
     public?: boolean;
     method?: string}> = [];
 
+  private _entries: any[];
+
   private _updateInterval;
 
   searching : boolean = false;
@@ -36,6 +38,7 @@ export class NodesComponent implements OnInit, OnDestroy {
             id: entry[1],
           }
         });
+      this._entries = this.folderize(this.nodes);
     });
 
     this._update();
@@ -48,6 +51,39 @@ export class NodesComponent implements OnInit, OnDestroy {
 
   public get nodes() {
     return this._nodes.filter(n => n.path.indexOf(this.searchInput.nativeElement.value) != -1);
+  }
+
+  public get entries() {
+    return this._entries;
+  }
+
+  private folderize(nodelist, initialpath='') {
+    if (initialpath.endsWith('/'))
+      initialpath = initialpath.substr(0, initialpath.length - 1);
+
+    let anchor = initialpath.split('/').length;
+    let subfolders: {[key: string]:any[]} = {};
+
+    nodelist.forEach(node => {
+      let path = node.path.split('/');
+      let subfolder = '';
+      if (path.length > anchor) subfolder = path[anchor];
+      if (!(subfolder in subfolders)) subfolders[subfolder] = [];
+      subfolders[subfolder].push(node);
+    });
+
+    return Object.entries(subfolders).map(([path, entries]) => {
+      if (entries.length == 1)
+        return {
+          folder: false,
+          content: entries[0]
+        };
+      else return {
+        folder: true,
+        path: initialpath + '/' + path,
+        content: this.folderize(entries, initialpath + '/' + path)
+      }
+    });
   }
 
   public get empty() {

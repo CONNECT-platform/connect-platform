@@ -1,0 +1,31 @@
+<div *ngIf="!entry.folder" class="entry node"
+      [ngClass]="{'matching': matching, 'last': last}"
+      routerLink="/editor"
+      [queryParams]="{id: entry.content.id}">
+  <span class="prepath">{{ prepath }}</span>
+  <span class="postpath">{{ postpath }}</span>
+  <div class="extra">
+    <span class="access" [ngClass]="{'public': entry.content.public, 'internal' : !entry.content.public}">
+      {{entry.content.public?'public':'internal'}}
+    </span>
+    <span class="method">
+      {{entry.content.method}}
+    </span>
+  </div>
+</div>
+
+<div *ngIf="entry.folder" class="entry folder"
+  [ngClass]="{'matching': matching, 'expanded': expanded}">
+  <div class="title" (click)="expanded = !expanded">
+    <div>
+      <span class="prepath">{{ prepath }}</span>
+      <span class="postpath">{{ postpath }}</span>
+    </div>
+    <img src="assets/folder.svg"/>
+  </div>
+  <div class="sub" *ngIf="expanded">
+    <nodelist-entry
+      *ngFor="let e of entry.content"
+      [entry]="e" [query]="query" [prepath]="entry.path"></nodelist-entry>
+  </div>
+</div>
