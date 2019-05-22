@@ -7,6 +7,14 @@ and we use [Semantic Versioning](http://semver.org/spec/v2.0.0.html), like stric
 
 **NOTE**: there is not an entry for every version. Some versions included super minor changes, and as a result were excluded from this change log. For a really detailed history of changes, please checkout the commit history of the project.
 
+## [0.2.14] - 2019-05-22
+### Added:
+ - copy button on each console entry (so you can easily copy each line).
+ - messages guiding people to the guides, alongside a button for that to home header.
+### Changed:
+ - nodes are now organized in folders when they start with the same path.
+ - fixed a bug on authentication.
+
 ## [0.2.12] - 2019-01-10
 ### Added
  - diving: 
