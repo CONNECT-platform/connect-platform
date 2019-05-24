@@ -13,6 +13,8 @@ export class OverlayComponent implements OnInit {
 
   @Input() public icon: string;
   @Input() public expansive: boolean = false;
+  @Input() public title: boolean = true;
+  @Input() public actions: boolean = true;
 
   @ViewChild('inner') inner: ElementRef;
   private _active : boolean = false;

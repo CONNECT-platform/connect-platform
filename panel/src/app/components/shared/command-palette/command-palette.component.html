@@ -1,0 +1,35 @@
+<overlay #overlay [actions]="false" [expansive]="true" [title]="false">
+  <overlay-content>
+    <div class="contents">
+      <div class="grid">
+        <div class="col">
+          <ng-container *ngFor="let cmd of list; let i = index">
+            <div class="command" *ngIf="i%3==0"
+              [ngClass]="{'complex': cmd.length > 1}">
+              <div class="key">{{ cmd }}</div>
+              <div class="name">{{ current[cmd].name }}</div>
+            </div>
+          </ng-container>
+        </div>
+        <div class="col">
+          <ng-container *ngFor="let cmd of list; let i = index">
+            <div class="command" *ngIf="i%3==1"
+              [ngClass]="{'complex': cmd.length > 1}">
+              <div class="key">{{ cmd }}</div>
+              <div class="name">{{ current[cmd].name }}</div>
+            </div>
+          </ng-container>
+        </div>
+        <div class="col">
+          <ng-container *ngFor="let cmd of list; let i = index">
+            <div class="command" *ngIf="i%3==2"
+              [ngClass]="{'complex': cmd.length > 1}">
+              <div class="key">{{ cmd }}</div>
+              <div class="name">{{ current[cmd].name }}</div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </overlay-content>
+</overlay>

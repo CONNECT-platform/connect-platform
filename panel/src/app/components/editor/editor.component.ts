@@ -59,6 +59,7 @@ export class EditorComponent implements OnInit, OnDestroy {
   @ViewChild('codeOverlayEditor') codeOverlayEditor;
 
   @ViewChild('timeline') timeline;
+  @ViewChild('commandPalette') commandPalette;
 
   communicating : boolean = false;
   reverting: boolean = false;
@@ -334,6 +335,38 @@ export class EditorComponent implements OnInit, OnDestroy {
 
     if (event.key === 'Delete' && this.state == EditorState.selected) {
       this.editor.removeSelected();
+    }
+  }
+
+  get paletteCommands() {
+    if (this.tester.active) {
+      return {
+        'e': {name: 'Edit', callback: () => this.editMode() },
+        'w': {name: 'Watch', callback: () => this.tester.watch() },
+        'c': {name: 'Console', callback: () => {
+          this.timeline.consoleActive = !this.timeline.consoleActive;
+          this.timeline.consoleExpanded = true;
+        }}
+      }
+    }
+    else {
+      return {
+        'i': {
+          name: 'Insert',
+          children: {
+            'e': {name: 'Insert Expression', callback: () => this.newExpr() },
+            'v': {name: 'Insert Value', callback: () => this.newValue() },
+            's': {name: 'Insert Switch', callback: () => this.newSwitch() },
+            'c': {name: 'Insert Call', callback: () => this.newCall() },
+            'i': {name: 'New Input', callback: () => this.newInput() },
+            'o': {name: 'New Output', callback: () => this.newOutput() },
+            'l': {name: 'New Config', callback: () => this.newConfig() },
+            'k': {name: 'New Output', callback: () => this.newControl() },
+          }
+        },
+        't': {name: 'Test', callback: () => this.testMode() },
+        'w': {name: 'Watch', callback: () => this.tester.watch() }
+      }
     }
   }
 }

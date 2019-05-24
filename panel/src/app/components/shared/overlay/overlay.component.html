@@ -3,13 +3,13 @@
   <div class="aligner" (click)="checkClose($event)">
     <div class="inner" #inner>
       <img *ngIf="icon" [src]="icon" class="icon"/>
-      <div class="title" [ngClass]="{ centered : icon }">
+      <div class="title" *ngIf="title" [ngClass]="{ centered : icon }">
         <ng-content select="overlay-title"></ng-content>
       </div>
       <div class="content">
         <ng-content select="overlay-content"></ng-content>
       </div>
-      <div class="actions">
+      <div class="actions" *ngIf="actions">
         <ng-content select="overlay-actions"></ng-content>
       </div>
     </div>

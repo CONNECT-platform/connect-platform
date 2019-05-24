@@ -1,0 +1,45 @@
+.contents {
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: calc(100vh - 256px);
+  margin: 0 auto;
+  padding: 0 256px;
+}
+
+.grid {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+}
+
+.col {
+  flex-grow: 1;
+}
+
+.command {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-align: left;
+}
+
+.command .key {
+  min-width: 16px;
+  height: 48px;
+  text-align: center;
+  border-radius: 5px;
+  font-size: 24px;
+  line-height: 44px;
+  margin: 16px;
+  padding: 0 16px;
+  background: #424242;
+  box-shadow: 0 1px 3px black;
+}
+
+.command.complex .key {
+  font-size: 18px;
+  line-height: 48px;
+  padding: 0 32px;
+}

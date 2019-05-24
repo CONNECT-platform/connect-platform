@@ -45,6 +45,7 @@ import { EditorMiscOverlayComponent } from './components/editor/overlays/editor-
 import { SelectorComponent } from './components/editor/pane/selector/selector.component';
 import { AutofocusDirective } from './directives/autofocus.directive';
 import { NodelistEntryComponent } from './components/home/nodes/nodelist-entry/nodelist-entry.component';
+import { CommandPaletteComponent } from './components/shared/command-palette/command-palette.component';
 
 
 const routes : Routes = [
@@ -80,6 +81,7 @@ const routes : Routes = [
     SelectorComponent,
     AutofocusDirective,
     NodelistEntryComponent,
+    CommandPaletteComponent,
   ],
   imports: [
     RouterModule.forRoot(routes, { enableTracing: false }),
