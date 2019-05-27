@@ -110,16 +110,25 @@ export class EditorService extends Subscribable {
             this.freeLink = new Link(event.pin, null);
             this.model.addLink(this.freeLink);
         }
+        else if (event.pin.type == PinType.input) {
+          this.freeLink = new Link(null, event.pin);
+          this.model.addLink(this.freeLink);
+        }
       }
       else {
         if (this.freeLink.compatible(event.pin)) {
-          this.freeLink.to = event.pin;
+          if (!this.freeLink.to) {
+            this.freeLink.to = event.pin;
 
-          if (this.freeLink.from.item.label && !event.pin.item.label &&
-              (!this.freeLink.from.node || !(this.freeLink.from.node instanceof Switch)))
-            event.pin.item.label = this.smartName(this.freeLink.from.item.label);
-          else if (!this.freeLink.from.item.label && event.pin.item.label)
-            this.freeLink.from.item.label = this.smartName(event.pin.item.label);
+            if (this.freeLink.from.item.label && !event.pin.item.label &&
+                (!this.freeLink.from.node || !(this.freeLink.from.node instanceof Switch)))
+              event.pin.item.label = this.smartName(this.freeLink.from.item.label);
+            else if (!this.freeLink.from.item.label && event.pin.item.label)
+              this.freeLink.from.item.label = this.smartName(event.pin.item.label);
+          }
+          else if (!this.freeLink.from) {
+            this.freeLink.from = event.pin;
+          }
 
           this.freeLink = null;
         }
