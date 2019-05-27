@@ -57,6 +57,27 @@ img.loading.reverse {
   position: relative;
 }
 
+.pin-list .item .remove {
+  position: absolute;
+  right: 22px;
+  left: auto;
+  top: 50%;
+  margin: 0;
+  margin-top: -10px;
+  width: 20px;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity .15s;
+}
+
+.pin-list .item:hover .remove {
+  opacity: .5;
+}
+
+.pin-list .item:hover .remove:hover {
+  opacity: 1;
+}
+
 .pin-list .item editor-pin {
   position: absolute;
   right: 6px;
@@ -83,6 +104,11 @@ img.loading.reverse {
 .pin-list .item.output editor-pin {
   right: auto;
   left: 6px;
+}
+
+.pin-list .item.output .remove {
+  right: auto;
+  left: 20px;
 }
 
 .pin-list .item.control {

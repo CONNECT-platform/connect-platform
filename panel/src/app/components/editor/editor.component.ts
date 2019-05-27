@@ -198,11 +198,21 @@ export class EditorComponent implements OnInit, OnDestroy {
     }
   }
 
+  removeInput(input) {
+    this.model.removePinLinks(input.pin);
+    this.model.in.remove(input);
+  }
+
   sanitizeConfig(config) {
     if (config.cleared) {
       this.model.removePinLinks(config.pin);
       this.model.config.remove(config);
     }
+  }
+
+  removeConfig(config) {
+    this.model.removePinLinks(config.pin);
+    this.model.config.remove(config);
   }
 
   sanitizeOutput(out) {
@@ -212,11 +222,21 @@ export class EditorComponent implements OnInit, OnDestroy {
     }
   }
 
+  removeOutput(out) {
+    this.model.removePinLinks(out.pin);
+    this.model.out.remove(out);
+  }
+
   sanitizeControl(control) {
     if (control.cleared) {
       this.model.removePinLinks(control.pin);
       this.model.control.remove(control);
     }
+  }
+
+  removeControl(control) {
+    this.model.removePinLinks(control.pin);
+    this.model.control.remove(control);    
   }
 
   save() {
