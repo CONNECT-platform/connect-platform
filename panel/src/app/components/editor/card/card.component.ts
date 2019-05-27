@@ -279,11 +279,21 @@ export class CardComponent implements OnInit, OnDestroy {
     }
   }
 
+  removeInput(input) {
+    this.model.removePinLinks(input.pin);
+    this.node.in.remove(input);
+  }
+
   sanitizeControl(control) {
     if (control.cleared) {
       this.model.removePinLinks(control.pin);
       this.node.control.remove(control);
     }
+  }
+
+  removeControl(control) {
+    this.model.removePinLinks(control.pin);
+    this.node.control.remove(control);
   }
 
   subfocus(event) {

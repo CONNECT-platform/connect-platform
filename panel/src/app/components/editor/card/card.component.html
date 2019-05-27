@@ -17,6 +17,7 @@
           <ng-container *ngFor="let in of node.in.items">
             <div class="input">
               <editor-pin [pin]="in.pin" (mouseover)="mouseover($event, in)"></editor-pin>
+              <img class="remove" src="assets/close.svg" (click)="removeInput(in)"/>
               <input type="text"
                     [autofocus]="!in.label"
                     [readonly]="tester.active"
@@ -57,7 +58,12 @@
         <div #cases class="cases">
           <ng-container *ngFor="let control of node.control.items">
             <div class="case" (focusout)="sanitizeControl(control)">
-              <editor-code [readonly]="tester.active" [shadow]="false" [(code)]="control.label" [pin]="control.pin"></editor-code>
+              <editor-code
+                [readonly]="tester.active"
+                [shadow]="false"
+                [(code)]="control.label"
+                [pin]="control.pin"></editor-code>
+              <img class="remove" src="assets/close.svg" (click)="removeControl(control)"/>
             </div>
           </ng-container>
           <editor-adder style="switch" (add)="newCase()" [disabled]="tester.active"></editor-adder>
