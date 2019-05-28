@@ -87,6 +87,8 @@ export class CommandPaletteComponent implements OnInit {
 
     if (this.overlay.active) {
       if (event.key in this.current) {
+        event.stopPropagation();
+        event.preventDefault();
         this.exec(this.current[event.key]);
       }
     }
