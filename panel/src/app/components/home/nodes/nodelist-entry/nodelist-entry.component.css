@@ -13,6 +13,7 @@
 
 .entry .prepath {
   color: #616161;
+  margin-right: -4px;
 }
 
 .entry.last {
