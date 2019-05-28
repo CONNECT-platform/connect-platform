@@ -16,7 +16,7 @@
 
 <div *ngIf="entry.folder" class="entry folder"
   [ngClass]="{'matching': matching, 'expanded': expanded}">
-  <div class="title" (click)="expanded = !expanded">
+  <div class="title" (click)="toggle()">
     <div>
       <span class="prepath">{{ prepath }}</span>
       <span class="postpath">{{ postpath }}</span>
