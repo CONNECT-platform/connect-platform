@@ -34,6 +34,11 @@ export class PinComponent implements OnInit {
     if (event && this.pin) {
       event.preventDefault();
       event.stopPropagation();
+
+      if (this.pin.node && this.editor.isPicked(this.pin.node)) {
+        this.editor.unpickEvent();
+        this.heatup();
+      }
     }
 
     if (!this.cooldown) {
@@ -42,7 +47,11 @@ export class PinComponent implements OnInit {
           pin: this.pin
         });
 
-      this.cooldown = setTimeout(() => this.cooldown = undefined, 100);
+      this.heatup();
     }
+  }
+
+  heatup() {
+    this.cooldown = setTimeout(() => this.cooldown = undefined, 200);
   }
 }
