@@ -12,6 +12,7 @@ and we use [Semantic Versioning](http://semver.org/spec/v2.0.0.html), like stric
  - command palette: now you can do a lot of stuff with keyboard only using the command palette, accessible via `CMD|Ctrl + Enter` hotkey.
    - you can also directly access the "Insert" command palette using `CMD|Ctrl + I` hotkey.
  - drag interaction for connecting pins (alongside the usual click-to-begin,click-to-end).
+ - added remove buttons to inputs, configs, outputs, control outputs, etc. for easier deletion.
 ### Changed:
  - removed the restriction of connecting pins that allowed only starting from output or control pins.
 
