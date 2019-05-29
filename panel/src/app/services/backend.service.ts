@@ -57,6 +57,8 @@ export class BackendService {
       remove: 'remove',
       info: 'info',
     },
+
+    shellUrl: 'shell-url',
   }
 
   constructor(
@@ -246,5 +248,9 @@ export class BackendService {
 
   public get address() {
     return this.api;
+  }
+
+  public get shellUrl() {
+    return this.http.get<any>(this.api + BackendService.apiCalls.shellUrl).share();
   }
 }

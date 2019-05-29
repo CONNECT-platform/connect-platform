@@ -48,6 +48,8 @@ module.exports.platform = {
         "services/save",
         "services/remove",
         "services/info",
+
+        "shell-url",
       ],
     },
   },
