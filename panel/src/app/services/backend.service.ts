@@ -59,6 +59,7 @@ export class BackendService {
     },
 
     shellUrl: 'shell-url',
+    version: 'version',
   }
 
   constructor(
@@ -252,5 +253,9 @@ export class BackendService {
 
   public get shellUrl() {
     return this.http.get<any>(this.api + BackendService.apiCalls.shellUrl).share();
+  }
+
+  public get version() {
+    return this.http.get<any>(this.api + BackendService.apiCalls.version).share();
   }
 }

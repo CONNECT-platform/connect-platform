@@ -50,6 +50,7 @@ module.exports.platform = {
         "services/info",
 
         "shell-url",
+        "version",
       ],
     },
   },

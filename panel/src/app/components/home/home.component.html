@@ -29,4 +29,9 @@
   </div>
 </div>
 
-<div class="server">connected to {{backend.address}}</div>
+<div class="server">
+  connected to {{backend.address}}
+  <a *ngIf="version" class="version link"
+    href="https://github.com/CONNECT-platform/connect-platform/blob/master/CHANGELOG.md"
+    target="_blank">platform version {{version}}</a>
+</div>

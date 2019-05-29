@@ -45,6 +45,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   _updateInterval: any;
   shellUrl: string = undefined;
+  version: string = undefined;
 
   constructor(
     private backend: BackendService,
@@ -98,5 +99,9 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.backend.shellUrl.subscribe(response => {
       this.shellUrl = window.location.origin + response.url;
     }, err => this.shellUrl = undefined);
+
+    this.backend.version.subscribe(response => {
+      if (response.version) this.version = response.version;
+    });
   }
 }

@@ -108,8 +108,18 @@
 
 .server {
   font-size: 10px;
-  opacity: .3;
   position: absolute;
   right: 16px;
   bottom: 16px;
+  color: #757575;
+}
+
+.server .version {
+  margin-left: 24px;
+  color: #757575;
+  transition: color .15s;
+}
+
+.server .version:hover {
+  color: #448aff;
 }
