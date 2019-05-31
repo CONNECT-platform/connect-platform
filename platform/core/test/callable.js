@@ -59,4 +59,20 @@ describe('callable()', ()=> {
       done();
     });
   });
+
+  it('should not throw an error for missing optional inputs.', done => {
+    class N extends base.node.Node {
+      constructor(){super({inputs: ['a'], optionalInputs: ['b', 'c'], outputs: ['a']});}
+
+      run(i, o) {
+        assert(i.a == 2);
+        assert(i.c == 3);
+        o('a', 'cool');
+      }
+    }
+
+    let f = callable(N);
+    f({a: 2, c: 3})
+      .then(() => done());
+  });
 });

@@ -94,6 +94,17 @@ describe('Node', ()=> {
 
       assert(n.pins.in.a instanceof InputPin);
       assert(n.pins.in.b instanceof InputPin);
+      assert(!n.pins.in.a.optional);
+    });
+
+    it('should generate optional input pins from signature.', () => {
+      let n = new Node({
+        optionalInputs: ['a', 'b'],
+      });
+
+      assert(n.pins.in.a instanceof InputPin);
+      assert(n.pins.in.b instanceof InputPin);
+      assert(n.pins.in.a.optional);
     });
 
     it('should generate output pins from signature.', ()=> {
@@ -123,13 +134,24 @@ describe('Node', ()=> {
 
   describe('.activated', ()=> {
     it('should be true when all inputs are activated.', ()=> {
-      let n = new Node({inputs: ['a', 'b']});
+      let n = new Node({inputs: ['a', 'b'], optionalInputs: ['c']});
 
       assert(!n.activated);
 
       n.pins.in.a.receive(2);
       n.pins.in.b.receive(3);
 
+      assert(n.activated);
+    });
+
+    it('should not be true when bound optional inputs are not activated.', () => {
+      let n = new Node({inputs: ['a'], optionalInputs: ['b', 'c']});
+      new OutputPin().connect(n.pins.in.b);
+
+      n.pins.in.a.receive(2);
+      assert(!n.activated);
+
+      n.pins.in.b.receive(3);
       assert(n.activated);
     });
 
@@ -209,9 +231,18 @@ describe('Node', ()=> {
       assert(!n2.activated);
 
       let n3 = new Node();
-      let c = new ControllerPin().connect(n3.pins.control);
+      new ControllerPin().connect(n3.pins.control);
       n3.checkActivate();
       assert(!n3.activated);
+
+      let n4 = new Node({optionalInputs: ['a']});
+      n4.checkActivate();
+      assert(n4.activated);
+
+      let n5 = new Node({optionalInputs: ['a']});
+      new OutputPin().connect(n5.pins.in.a);
+      n5.checkActivate();
+      assert(!n5.activated);
     });
 
     it('should result in node\'s running as well.', done => {

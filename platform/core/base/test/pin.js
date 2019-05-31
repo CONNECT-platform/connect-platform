@@ -37,4 +37,20 @@ describe('Pin', ()=> {
       a.reset();
     });
   });
+
+  describe('.bound', () => {
+    it('should be true if the pin has any connections.', () => {
+      let a = new Pin();
+      let b = new Pin();
+
+      a.connect(b);
+
+      assert(a.bound);
+    });
+
+    it('should be false if the pin does not have any connections.', () => {
+      let a = new Pin();
+      assert(!a.bound);
+    });
+  });
 });

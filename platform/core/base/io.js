@@ -8,9 +8,10 @@ const IOPinEvents = {
 }
 
 class InputPin extends Pin {
-  constructor() {
+  constructor(optional) {
     super();
     this._data = undefined;
+    this._optional = optional || false;
   }
 
   checkConnection(pin) {
@@ -30,6 +31,7 @@ class InputPin extends Pin {
   }
 
   get data() { return this._data; }
+  get optional() { return this._optional; }
 
   reset() {
     this._data = undefined;
