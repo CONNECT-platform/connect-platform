@@ -7,6 +7,15 @@ and we use [Semantic Versioning](http://semver.org/spec/v2.0.0.html), like stric
 
 **NOTE**: there is not an entry for every version. Some versions included super minor changes, and as a result were excluded from this change log. For a really detailed history of changes, please checkout the commit history of the project.
 
+## [0.2.17] - 2019-05-30
+### Added:
+ - remote shell access: now you can access a remote shell of the system the platform is running on via web. 
+   - this needs to be enabled either via the panel `"remote-shell": { "enabled": true }` or by the environment variable `CONNECT_REMOTE_SHELL_ENABLED=true`.
+   - this requires _ttyd_ to be installed on the system.
+   - this is mostly intended for the docker image and containers running based on that image, as in other environments the user already has access to a shell. this is configured on the default docker image and is enabled by default, though it can be turned off via aforementioned configuration.
+### Changed:
+ - fixed a bug that made adding switches impossible.
+
 ## [0.2.15] - 2019-05-27
 ### Added:
  - command palette: now you can do a lot of stuff with keyboard only using the command palette, accessible via `CMD|Ctrl + Enter` hotkey.

@@ -21,6 +21,7 @@ docker run -dit \
           -v $(pwd)/panel-generated:/app/panel-generated \
           -v $(pwd)/secure:/app/secure \
           --env CONNECT_INSTALL_EXTERNAL_PACKAGES=true \
+          --env CONNECT_REMOTE_SHELL_ENABLED=true \
           loreanvictor/connect-platform
 ```
 - easy way without docker: https://github.com/CONNECT-platform/connect-platform-boilerplate
