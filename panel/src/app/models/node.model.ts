@@ -17,6 +17,7 @@ export class Node extends AbstractNode {
   private _component: any;
 
   private _ins: PinList;
+  private _optins: PinList;
   private _outs: PinList;
   private _controls: PinList;
   private _box: Box;
@@ -26,6 +27,7 @@ export class Node extends AbstractNode {
     this._box = box;
 
     this._ins = new PinList(() => new Pin(PinType.input, this));
+    this._optins = new PinList(() => new Pin(PinType.input, this));
     this._outs = new PinList(() => new Pin(PinType.output, this));
     this._controls = new PinList(() => new Pin(PinType.control, this));
   }
@@ -48,6 +50,7 @@ export class Node extends AbstractNode {
   }
 
   public get in() { return this._ins; }
+  public get optin() { return this._optins; }
   public get out() { return this._outs; }
   public get control() { return this._controls; }
 

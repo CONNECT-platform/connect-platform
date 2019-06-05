@@ -1,5 +1,6 @@
 import { Node, NodeJson } from './node.model';
 import { Pin } from './pin.model';
+import { PinListItem } from './pin-list.model';
 import { Box } from './box.model';
 import { Signature } from './signature.model';
 
@@ -36,6 +37,7 @@ export class Call extends Node {
       this.publish(CallEvents.signatureChange, signature);
       this._signature = signature;
       this.in.adopt(signature.inputs, removeCallback);
+      this.optin.adopt(signature.optionalInputs, removeCallback);
       this.out.adopt(signature.outputs, removeCallback);
       this.control.adopt(signature.controlOutputs, removeCallback);
     }
@@ -51,6 +53,8 @@ export class Call extends Node {
     super.reset();
     if (this.signature) {
       this.signature.inputs.forEach(input => this.in.add(input));
+      if (this.signature.optionalInputs)
+        this.signature.optionalInputs.forEach(oi => this.optin.add(oi));
       this.signature.outputs.forEach(output => this.out.add(output));
       if (this.signature.controlOutputs)
         this.signature.controlOutputs.forEach(control => this.control.add(control));

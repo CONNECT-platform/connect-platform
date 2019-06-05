@@ -78,6 +78,17 @@
   font-size: 13px;
 }
 
+.input.optional span,
+.input.optional editor-pin {
+  opacity: .5;
+}
+
+.input span {
+  max-width: calc(100% - 48px);
+  display: inline-block;
+  vertical-align: top;
+}
+
 .input .remove {
   position: absolute;
   width: 16px;
@@ -197,6 +208,10 @@
   background: #212121;
 }
 
+.add-more.disabled {
+  opacity: 0;
+}
+
 .path-suggest {
   position: absolute;
   left: 16px;
@@ -217,4 +232,49 @@
 
 .path-suggest .item:hover {
   color: #00BFA5;
+}
+
+.inactive-optins {
+  position: relative;
+  margin-top: 12px;
+  width: 32px;
+  padding-bottom: 8px;
+}
+
+.inactive-optins .optin-list {
+  position: absolute;
+  background: red;
+  margin-top: 8px;
+  z-index: 1000;
+  width: 156px;
+  opacity: 0;
+  transform: scale(0);
+  transform-origin: top left;
+  transition: opacity .15s, transform .15s;
+  border-radius: 3px;
+  background-color: #424242;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, .12);
+  overflow: hidden;
+}
+
+.inactive-optins:hover .optin-list {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.inactive-optins .optin-list .inactive-optin {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 13px;
+  transition: background .15s;
+  padding: 8px;
+}
+
+.inactive-optins .optin-list .inactive-optin:hover {
+  background: rgba(255, 255, 255, .25);
+}
+
+.inactive-optins .optin-list .inactive-optin:not(:last-child) {
+  border-bottom: 1px dashed #616161;
 }

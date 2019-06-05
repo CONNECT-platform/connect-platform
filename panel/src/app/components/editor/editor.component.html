@@ -15,7 +15,7 @@
                 [readonly]="tester.active"
                 (blur)="sanitizeInput(in)"
                 [(ngModel)]="in.label"/>
-          <img class="remove" src="assets/close.svg" (click)="removeInput(in)"/>
+          <img class="remove" src="assets/close.svg" (click)="removeInput(in)" *ngIf="!tester.active"/>
           <editor-pin [pin]="in.pin"></editor-pin>
         </div>
       </ng-container>
@@ -31,7 +31,7 @@
                 [readonly]="tester.active"
                 (blur)="sanitizeConfig(conf)"
                 [(ngModel)]="conf.label"/>
-          <img class="remove" src="assets/close.svg" (click)="removeConfig(conf)"/>
+          <img class="remove" src="assets/close.svg" (click)="removeConfig(conf)" *ngIf="!tester.active"/>
           <editor-pin [pin]="conf.pin"></editor-pin>
         </div>
       </ng-container>
@@ -108,7 +108,7 @@
         <ng-container *ngFor="let out of model.out.items">
           <div class="output item">
             <editor-pin [pin]="out.pin"></editor-pin>
-            <img class="remove" src="assets/close.svg" (click)="removeOutput(out)"/>
+            <img class="remove" src="assets/close.svg" (click)="removeOutput(out)" *ngIf="!tester.active"/>
             <input type="text"
                   [autofocus]="!out.label"
                   [readonly]="tester.active"
@@ -124,7 +124,7 @@
         <ng-container *ngFor="let ctrl of model.control.items">
           <div class="control output item">
             <editor-pin [pin]="ctrl.pin" [controlStyle]="true"></editor-pin>
-            <img class="remove" src="assets/close.svg" (click)="removeControl(ctrl)"/>
+            <img class="remove" src="assets/close.svg" (click)="removeControl(ctrl)" *ngIf="!tester.active"/>
             <input type="text"
                   [autofocus]="!ctrl.label"
                   [readonly]="tester.active"

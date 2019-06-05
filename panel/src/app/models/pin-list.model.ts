@@ -82,6 +82,8 @@ export class PinList extends Subscribable {
   }
 
   public adopt(list: Array<string>, removeCallback?: (pin: Pin) => void): PinList {
+    if (!list) return this;
+    
     let removals: Array<PinListItem> = [];
 
     this.items.forEach(item => {

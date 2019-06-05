@@ -13,11 +13,13 @@ export enum PinTag {
 
 export enum PinEvents {
   attach,
+  activate,
 }
 
 export class Pin extends Subscribable {
   public types = PinType;
   public tags = PinTag;
+  public active: boolean = false;
 
   private _node: AbstractNode;
   private _type: PinType;
@@ -39,6 +41,11 @@ export class Pin extends Subscribable {
   public set component(comp) {
     this._component = comp;
     this.publish(PinEvents.attach, comp);
+  }
+
+  public activate() {
+    this.active = true;
+    this.publish(PinEvents.activate);
   }
 
   public get item() { return this._item; }

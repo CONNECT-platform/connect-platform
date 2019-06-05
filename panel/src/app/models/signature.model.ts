@@ -8,6 +8,7 @@ export interface SignatureHints {
 export interface Signature {
   configs?: Array<string>;
   inputs: Array<string>;
+  optionalInputs?: Array<string>;
   outputs: Array<string>;
   controlOutputs?: Array<string>;
   path: string;
