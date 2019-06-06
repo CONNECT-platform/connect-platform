@@ -7,7 +7,9 @@
     <div class="block name">{{name}}</div>
     <a class="block button shell" href="{{shellUrl}}" *ngIf="shellUrl" target="_blank">Shell</a>
     <div class="divider" *ngIf="shellUrl"></div>
-    <a class="block button docs" href="https://medium.com/connect-platform/guides/home" target="_blank">Guides & Docs</a>
+    <a class="block button docs"
+        href="https://medium.com/connect-platform/connect-101-hellow-world-dee3e7c9720d"
+        target="_blank">Guides & Docs</a>
     <div class="divider" *ngIf="loggedIn"></div>
     <a class="block button logout" *ngIf="loggedIn" (click)="logout()">Logout</a>
   </div>
