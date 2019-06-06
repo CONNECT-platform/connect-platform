@@ -80,10 +80,10 @@
     </div>
 
     <div class="action-list right-bar add-nodes" [ngClass]="{'active': state == states.adding && !tester.active}">
-      <div class="button value" (click)="newValue()">value</div>
-      <div class="button expr" (click)="newExpr()">expression</div>
-      <div class="button switch" (click)="newSwitch()">switch</div>
-      <div class="button call" (click)="newCall()">call</div>
+      <div class="button value" (mousedown)="newValue()">value</div>
+      <div class="button expr" (mousedown)="newExpr()">expression</div>
+      <div class="button switch" (mousedown)="newSwitch()">switch</div>
+      <div class="button call" (mousedown)="newCall()">call</div>
     </div>
 
     <div class="action-list right-bar copy-nodes"
