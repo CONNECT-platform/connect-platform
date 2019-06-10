@@ -127,6 +127,14 @@ a.button {
   color: #00BFA5;
 }
 
+.hl-red {
+  color: #ff1744;
+}
+
+.hl-gray {
+  color: #757575;
+}
+
 .hl-white {
   color: #FFFFFF;
 }
