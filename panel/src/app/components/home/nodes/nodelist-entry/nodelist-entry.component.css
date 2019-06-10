@@ -83,9 +83,24 @@
 .folder .title>img {
   width: 24px;
   opacity: .35;
-  transition: opacity .15s;
+  transition: opacity .15s, transform .3s;
 }
 
 .folder:hover>.title>img {
   opacity: 1;
+}
+
+.folder .title .arrow {
+  opacity: .15;
+  width: 12px;
+  height: 12px;
+  margin: 8px;
+}
+
+.folder.expanded>.title>.arrow {
+  transform: rotate(90deg);
+}
+
+.folder:hover>.title>.arrow {
+  opacity: .3;
 }
