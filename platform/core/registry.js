@@ -26,7 +26,11 @@ class Registry extends Subscribable {
         factoryOrClass: factoryOrClass,
       };
 
-      this._paths[signature.path] = entry;
+      signature.path = signature.path.endsWith('/') ?
+          signature.path.substr(0, signature.path.length - 1) :
+          signature.path; // make sure the key is consistant
+
+      this._paths[signature.path + signature.method || ''] = entry;
       this.publish(RegistryEvents.registered, entry);
 
       if (signature.path in this._aliases)
@@ -43,14 +47,16 @@ class Registry extends Subscribable {
 
   signature(path) {
     let resolved = this.resolve(path);
-    if (this.registered(resolved))
+    let resolvedIndex = this.registered(resolved);
+    
+    if (resolvedIndex)
       return this._paths[resolved].signature;
 
     throw new UnregisteredPath(path);
   }
 
-  instance(path) {
-    let resolved = this.resolve(path);
+  instance(path, method) {
+    let resolved = this.resolve(path+ (method || ''));
 
     if (this.mocked(resolved)) {
       let instantiated = util.buildFromFactoryOrClass(this._mocks[resolved]);
@@ -58,7 +64,8 @@ class Registry extends Subscribable {
       return instantiated;
     }
 
-    if (this.registered(resolved)) {
+    let resolvedIndex = this.registered(resolved);
+    if (resolvedIndex) {
       let instantiated = util.buildFromFactoryOrClass(this._paths[resolved].factoryOrClass);
       this.publish(RegistryEvents.instantiated, instantiated);
       return instantiated;
@@ -69,7 +76,22 @@ class Registry extends Subscribable {
 
   registered(path) {
     let resolved = this.resolve(path);
-    return resolved in this._paths;
+
+    if(resolved in this._paths) return resolved;
+    
+    let resolvedGET = resolved + "GET";
+    if(resolvedGET in this._paths) return resolvedGET;
+
+    let resolvedPOST = resolved + "POST";
+    if(resolvedPOST in this._paths) return resolvedPOST;
+
+    let resolvedPUT = resolved + "PUT";
+    if(resolvedPUT in this._paths) return resolvedPUT;
+
+    let resolvedDELETE = resolved + "DELETE";
+    if(resolvedDELETE in this._paths) return resolvedDELETE;
+
+    return false;
   }
 
   resolve(path) {
