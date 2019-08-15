@@ -346,6 +346,9 @@ export class EditorModelService extends Subscribable {
     let _to = this._findPin(json[1]);
     if (_from && _to) {
       let l = new Link(_from, _to);
+      if (_to instanceof Pin)
+        _to.activate();
+
       this.addLink(l);
       return l;
     }
@@ -387,7 +390,7 @@ export class EditorModelService extends Subscribable {
         else {
           let _vv = Object.entries(_v[1])[0];
           if (_vv[0] == 'in') {
-            return _n.in.get(_vv[1]);
+            return _n.in.get(_vv[1]) || _n.optin.get(_vv[1]);
           }
           else if (_vv[0] == 'case') {
             return (_n as Switch).cases.get(_vv[1]);

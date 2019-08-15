@@ -17,6 +17,7 @@
           <ng-container *ngFor="let in of node.in.items">
             <div class="input">
               <editor-pin [pin]="in.pin" (mouseover)="mouseover($event, in)"></editor-pin>
+              <img class="remove" src="assets/close.svg" (click)="removeInput(in)" *ngIf="!tester.active"/>
               <input type="text"
                     [autofocus]="!in.label"
                     [readonly]="tester.active"
@@ -57,7 +58,12 @@
         <div #cases class="cases">
           <ng-container *ngFor="let control of node.control.items">
             <div class="case" (focusout)="sanitizeControl(control)">
-              <editor-code [readonly]="tester.active" [shadow]="false" [(code)]="control.label" [pin]="control.pin"></editor-code>
+              <editor-code
+                [readonly]="tester.active"
+                [shadow]="false"
+                [(code)]="control.label"
+                [pin]="control.pin"></editor-code>
+              <img class="remove" src="assets/close.svg" (click)="removeControl(control)" *ngIf="!tester.active"/>
             </div>
           </ng-container>
           <editor-adder style="switch" (add)="newCase()" [disabled]="tester.active"></editor-adder>
@@ -91,6 +97,26 @@
               <span type="text" (mouseover)="mouseover($event, in)">{{in.label}}</span>
             </div>
           </ng-container>
+        </div>
+
+        <div #optins *ngIf="node.optin.items.length > 0" class="optins">
+          <ng-container *ngFor="let in of node.optin.items">
+            <div class="input optional" *ngIf="in.pin.active">
+              <editor-pin [pin]="in.pin" (mouseover)="mouseover($event, in)"></editor-pin>
+              <img class="remove" src="assets/close.svg" (click)="removeOptional(in)" *ngIf="!tester.active"/>
+              <span type="text" (mouseover)="mouseover($event, in)">{{in.label}}</span>
+            </div>
+          </ng-container>
+          <div class="inactive-optins">
+            <div class="add-more button" [ngClass]="{'disabled': tester.active}">+</div>
+            <div class="optin-list" *ngIf="!tester.active">
+              <ng-container *ngFor="let in of node.optin.items">
+                <div class="inactive-optin"
+                  (click)="in.pin.activate()"
+                  *ngIf="!in.pin.active">{{in.label}}</div>
+              </ng-container>
+            </div>
+          </div>
         </div>
 
         <div #outputs>

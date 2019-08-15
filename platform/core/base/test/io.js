@@ -85,3 +85,19 @@ describe('InputPin & OutputPin', ()=> {
     });
   });
 });
+
+describe('InputPin', () => {
+  describe('.optional', () => {
+    it('should be the value passed to the constructor.', () => {
+      let i1 = new InputPin(false);
+      let i2 = new InputPin(true);
+
+      assert(!i1.optional);
+      assert(i2.optional);
+    });
+
+    it('should by default be false', () => {
+      assert(new InputPin().optional === false);
+    })
+  });
+});

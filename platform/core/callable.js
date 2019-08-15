@@ -44,11 +44,18 @@ const callable = (nodeFactoryOrClass, context) => {
         node.checkActivate();
       }
       else {
-        for (let [input, pin] of Object.entries(node.pins.in)) {
-          if (!(input in inputs))
-            throw new InputMissing(input, inputs);
+        for (let [input, pin] of Object.entries(node.pins.in).filter(([_, pin]) => pin.optional)) {
+          if (input in inputs) {
+            node.pins.in[input].receive(inputs[input]);
+          }
+        }
 
-          node.pins.in[input].receive(inputs[input]);
+        for (let [input, pin] of Object.entries(node.pins.in).filter(([_, pin]) => !pin.optional)) {
+          if (input in inputs) {
+            node.pins.in[input].receive(inputs[input]);
+          }
+          else
+            throw new InputMissing(input, inputs);
         }
       }
     });

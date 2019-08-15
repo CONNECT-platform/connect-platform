@@ -27,7 +27,7 @@ platform.core.node({
   }
 }, (inputs, output, control) => {
   if (inputs.target.__iteration_step) {
-    if (inputs.target.last)
+    if (inputs.target.last || inputs.target.index >= inputs.target.target.length - 1)
       control('finished');
     else {
       inputs.target.index++;
@@ -44,7 +44,7 @@ platform.core.node({
         index: 0,
         target: inputs.target,
         first: true,
-        last: false,
+        last: inputs.target.length == 1,
         item: inputs.target[0],
       });
     }

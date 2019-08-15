@@ -59,6 +59,11 @@ class Node extends Subscribable {
         this._pins.in[input] = new InputPin();
     }
 
+    if (this.signature.optionalInputs) {
+      for (let input of this.signature.optionalInputs)
+        this._pins.in[input] = new InputPin(true);
+    }
+
     return this;
   }
 
@@ -114,8 +119,13 @@ class Node extends Subscribable {
 
   _prepareInputs() {
     let inputs = {};
-    for (let [input, pin] of Object.entries(this.pins.in))
-      inputs[input] = pin.data;
+    for (let [input, pin] of Object.entries(this.pins.in)) {
+      if (pin.optional) {
+        if (pin.activated) inputs[input] = pin.data;
+      }
+      else
+        inputs[input] = pin.data;
+    }
 
     return inputs;
   }
@@ -195,10 +205,11 @@ class Node extends Subscribable {
 
   get canActivate() {
     for (let pin of Object.values(this.pins.in))
-      if (!pin.activated) return false;
+      if (!pin.activated && (!pin.optional || pin.bound))
+        return false;
 
     return this.pins.control.activated ||
-        this.pins.control.connections.length == 0;
+        !this.pins.control.bound;
   }
 
   checkActivate() {

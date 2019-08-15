@@ -1,4 +1,5 @@
 const expressBind = require('./bind/express');
+const shellBind = require('./bind/shell');
 const loaders = require('./loaders');
 const core = require('./core');
 const util = require('./util');
@@ -25,6 +26,7 @@ class Platform extends Subscribable {
 
   bind() {
     this.app = expressBind(this.app, this.config);
+    shellBind(this.app, this.config);
     this.publish(Events.bind);
     return this;
   }
@@ -54,7 +56,7 @@ class Platform extends Subscribable {
       // will not cause a problem and will be reporter properly.
       //
       process.on('unhandledRejection', r => console.error(r));
-      
+
       let server = this.app.listen(port, () => {
         resolve(server);
       });

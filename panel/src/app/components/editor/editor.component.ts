@@ -198,11 +198,21 @@ export class EditorComponent implements OnInit, OnDestroy {
     }
   }
 
+  removeInput(input) {
+    this.model.removePinLinks(input.pin);
+    this.model.in.remove(input);
+  }
+
   sanitizeConfig(config) {
     if (config.cleared) {
       this.model.removePinLinks(config.pin);
       this.model.config.remove(config);
     }
+  }
+
+  removeConfig(config) {
+    this.model.removePinLinks(config.pin);
+    this.model.config.remove(config);
   }
 
   sanitizeOutput(out) {
@@ -212,11 +222,21 @@ export class EditorComponent implements OnInit, OnDestroy {
     }
   }
 
+  removeOutput(out) {
+    this.model.removePinLinks(out.pin);
+    this.model.out.remove(out);
+  }
+
   sanitizeControl(control) {
     if (control.cleared) {
       this.model.removePinLinks(control.pin);
       this.model.control.remove(control);
     }
+  }
+
+  removeControl(control) {
+    this.model.removePinLinks(control.pin);
+    this.model.control.remove(control);
   }
 
   save() {
@@ -338,35 +358,40 @@ export class EditorComponent implements OnInit, OnDestroy {
     }
   }
 
+  _TesterCMDS = {
+    'e': {name: 'Edit', callback: () => this.editMode() },
+    'w': {name: 'Watch', callback: () => this.tester.watch() },
+    'c': {name: 'Console', callback: () => {
+      this.timeline.consoleActive = !this.timeline.consoleActive;
+      this.timeline.consoleExpanded = true;
+    }}
+  };
+
+  _EditorCMDS = {
+    'i': {
+      name: 'Insert',
+      direct: 'i',
+      children: {
+        'e': {name: 'Insert Expression', callback: () => this.newExpr() },
+        'v': {name: 'Insert Value', callback: () => this.newValue() },
+        's': {name: 'Insert Switch', callback: () => this.newSwitch() },
+        'c': {name: 'Insert Call', callback: () => this.newCall() },
+        'i': {name: 'New Input', callback: () => this.newInput() },
+        'o': {name: 'New Output', callback: () => this.newOutput() },
+        'l': {name: 'New Config', callback: () => this.newConfig() },
+        'k': {name: 'New Output', callback: () => this.newControl() },
+      }
+    },
+    't': {name: 'Test', callback: () => this.testMode() },
+    'w': {name: 'Watch', callback: () => this.tester.watch() }
+  };
+
   get paletteCommands() {
     if (this.tester.active) {
-      return {
-        'e': {name: 'Edit', callback: () => this.editMode() },
-        'w': {name: 'Watch', callback: () => this.tester.watch() },
-        'c': {name: 'Console', callback: () => {
-          this.timeline.consoleActive = !this.timeline.consoleActive;
-          this.timeline.consoleExpanded = true;
-        }}
-      }
+      return this._TesterCMDS;
     }
     else {
-      return {
-        'i': {
-          name: 'Insert',
-          children: {
-            'e': {name: 'Insert Expression', callback: () => this.newExpr() },
-            'v': {name: 'Insert Value', callback: () => this.newValue() },
-            's': {name: 'Insert Switch', callback: () => this.newSwitch() },
-            'c': {name: 'Insert Call', callback: () => this.newCall() },
-            'i': {name: 'New Input', callback: () => this.newInput() },
-            'o': {name: 'New Output', callback: () => this.newOutput() },
-            'l': {name: 'New Config', callback: () => this.newConfig() },
-            'k': {name: 'New Output', callback: () => this.newControl() },
-          }
-        },
-        't': {name: 'Test', callback: () => this.testMode() },
-        'w': {name: 'Watch', callback: () => this.tester.watch() }
-      }
+      return this._EditorCMDS;
     }
   }
 }

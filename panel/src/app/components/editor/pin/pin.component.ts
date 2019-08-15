@@ -12,6 +12,7 @@ import { Box } from '../../../models/box.model';
 })
 export class PinComponent implements OnInit {
 
+  cooldown = undefined;
   @Input() pin: Pin;
   @Input() controlStyle: boolean = false;
 
@@ -29,10 +30,28 @@ export class PinComponent implements OnInit {
     return (this.pin && this.pin.type == PinType.control) || this.controlStyle;
   }
 
-  click() {
-    if (this.pin)
-      this.editor.pickEvent({
-        pin: this.pin
-      });
+  click(event?) {
+    if (event && this.pin) {
+      event.preventDefault();
+      event.stopPropagation();
+
+      if (this.pin.node && this.editor.isPicked(this.pin.node)) {
+        this.editor.unpickEvent();
+        this.heatup();
+      }
+    }
+
+    if (!this.cooldown) {
+      if (this.pin)
+        this.editor.pickEvent({
+          pin: this.pin
+        });
+
+      this.heatup();
+    }
+  }
+
+  heatup() {
+    this.cooldown = setTimeout(() => this.cooldown = undefined, 200);
   }
 }

@@ -5,6 +5,7 @@ export type CommandList = {[key: string]:  Command };
 
 export interface Command {
   name: string;
+  direct?: string;
   callback?: () => void;
   children?: CommandList;
 }
@@ -17,26 +18,51 @@ export interface Command {
 export class CommandPaletteComponent implements OnInit {
 
   @ViewChild('overlay') overlay;
-  @Input() commands: CommandList;
 
+  _commands: CommandList = {};
   current: CommandList = {};
   list: string[];
+  directs: {[key: string] : Command} = {};
+
 
   constructor() { }
 
   ngOnInit() {
   }
 
-  public activate() {
+  @Input() public set commands(cmds: CommandList) {
+    if (cmds != this._commands) {
+      this._commands = cmds;
+      this.set(cmds);
+
+      this.directs = {};
+      Object.values(this.current).forEach(cmd => this.fillDirects(cmd));
+    }
+  }
+
+  public get commands(): CommandList {
+    return this._commands;
+  }
+
+  public activate(cmds?: CommandList) {
     setTimeout(() => {
       this.overlay.activate();
-      this.set(this.commands);
+      this.set(cmds || this.commands);
     }, 20);
   }
 
   set(list: CommandList) {
     this.current = list;
     this.list = Object.keys(this.current);
+  }
+
+  fillDirects(command: Command) {
+    if (command.direct) {
+      this.directs[command.direct] = command;
+      if (command.children) {
+        Object.values(command.children).forEach(cmd => this.fillDirects(cmd));
+      }
+    }
   }
 
   @HostListener('document:keydown', ['$event'])
@@ -48,20 +74,36 @@ export class CommandPaletteComponent implements OnInit {
       else {
         this.activate();
       }
+
+      return;
+    }
+
+    if ((event.ctrlKey || event.metaKey) && !this.overlay.active) {
+      if (event.key in this.directs) {
+        this.exec(this.directs[event.key]);
+        return;
+      }
     }
 
     if (this.overlay.active) {
       if (event.key in this.current) {
-        let cmd = this.current[event.key];
-
-        if (cmd.callback) {
-          cmd.callback();
-          this.overlay.close();
-        }
-        else if (cmd.children) {
-          this.set(cmd.children);
-        }
+        event.stopPropagation();
+        event.preventDefault();
+        this.exec(this.current[event.key]);
       }
+    }
+  }
+
+  exec(cmd: Command) {
+    if (cmd.callback) {
+      cmd.callback();
+      this.overlay.close();
+    }
+    else if (cmd.children) {
+      if (!this.overlay.active)
+        this.activate(cmd.children);
+      else
+        this.set(cmd.children);
     }
   }
 }

@@ -22,6 +22,11 @@ export class Link extends Subscribable {
       this._to = pin;
   }
 
+  public set from(pin: Pin) {
+    if (this.compatible(pin))
+      this._from = pin;
+  }
+
   public relevantEvent(event): boolean {
     if (this.from.node)
       return event.event.tag == 'node' &&
@@ -40,20 +45,26 @@ export class Link extends Subscribable {
   }
 
   public compatible(target: Pin | Node): boolean {
-    if (this._to != null) return false;
+    if (this._to != null && this._from != null) return false;
+
+    let source = (this._from || this._to) as Pin;
 
     if (target instanceof Pin) {
       let pin = target as Pin;
-      if (pin.node && pin.node == this._from.node) return false;
+      if (pin.node && pin.node == source.node) return false;
 
-      if (this._from.type == PinType.output)
+      if (source.type == PinType.output)
         return pin.type == PinType.input && (pin.node != null || pin.tag != PinTag.control);
-      if (this._from.type == PinType.control)
+      if (source.type == PinType.control)
         return (pin.type == PinType.input) && pin.node == null && pin.tag == PinTag.control;
+      if (source.type == PinType.input && source.tag != PinTag.control)
+        return (pin.type == PinType.output);
+      if (source.type == PinType.input && source.tag == PinTag.control)
+        return (pin.type == PinType.control);
     }
 
     if (target instanceof Node) {
-      return this._from.type == PinType.control;
+      return this._from && this._from.type == PinType.control;
     }
 
     return false;

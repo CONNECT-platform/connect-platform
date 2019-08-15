@@ -44,6 +44,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   name: string = 'unnamed project';
 
   _updateInterval: any;
+  shellUrl: string = undefined;
+  version: string = undefined;
 
   constructor(
     private backend: BackendService,
@@ -52,7 +54,8 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.currentComponent = NodesComponent;
-    this._updateInterval = setInterval(() => this._update(), 500);
+    this._updateInterval = setInterval(() => this._update(), 2000);
+    this._update();
   }
 
   ngOnDestroy() {
@@ -91,6 +94,14 @@ export class HomeComponent implements OnInit, OnDestroy {
   _update() {
     this.backend.name.subscribe(response => {
       if (response.name) this.name = response.name;
-    })
+    });
+
+    this.backend.shellUrl.subscribe(response => {
+      this.shellUrl = window.location.origin + response.url;
+    }, err => this.shellUrl = undefined);
+
+    this.backend.version.subscribe(response => {
+      if (response.version) this.version = response.version;
+    });
   }
 }

@@ -22,6 +22,7 @@ import { HintService } from './services/hint.service';
 import { TokenService } from './services/token.service';
 import { RepoService } from './services/repo.service';
 import { ClipboardService } from './services/clipboard.service';
+import { NodelistStateService } from './services/nodelist-state.service';
 
 import { PinComponent } from './components/editor/pin/pin.component';
 import { LinkComponent } from './components/editor/link/link.component';
@@ -106,6 +107,7 @@ const routes : Routes = [
     TokenService,
     RepoService,
     ClipboardService,
+    NodelistStateService,
   ],
   entryComponents: [
     NodesComponent,

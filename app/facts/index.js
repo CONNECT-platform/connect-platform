@@ -1,7 +1,7 @@
 module.exports.platform = {
   config : {
     nodes: {
-      native: ["native/8fact"],
+      native: ["native/8fact", "native/funs"],
       json: ["fact"],
       module: ["goodbye"],
     },

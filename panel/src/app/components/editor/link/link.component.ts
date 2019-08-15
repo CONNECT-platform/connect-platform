@@ -109,6 +109,17 @@ export class LinkComponent implements OnInit {
   }
 
   private get _fromPos() {
+    if (!this.link.from) {
+      if (!this.link.to) return undefined;
+
+      let c = this.editor.cursorAbsolute;
+      let t = this.toPos;
+      return {
+        left: t.left + (c.left - t.left) * .9,
+        top: t.top + (c.top - t.top) * .9,
+      }
+    }
+
     let component = this.link.from.component;
     if (component) return component.pos;
 
@@ -120,6 +131,8 @@ export class LinkComponent implements OnInit {
 
   private get _toPos() {
     if (!this.link.to) {
+      if (!this.link.from) return undefined;
+
       let c = this.editor.cursorAbsolute;
       let f = this.fromPos;
       return {
@@ -148,7 +161,11 @@ export class LinkComponent implements OnInit {
   }
 
   get isControl(): boolean {
-    return this.link.from.type == this.link.from.types.control;
+    if (this.link.from)
+      return this.link.from.type == this.link.from.types.control;
+    else if (this.link.to && this.link.to instanceof Pin)
+      return (this.link.to.type == this.link.to.types.control) || (this.link.to.tag == this.link.to.tags.control);
+    else return false;
   }
 
   get linkWidth() {
@@ -182,7 +199,10 @@ export class LinkComponent implements OnInit {
 
   @HostListener('document:keyup', ['$event'])
   keypress(event: KeyboardEvent) {
-    if (event.keyCode == 27 && this.link.from != null && this.link.to == null) {
+    if (event.keyCode == 27 && (
+        (this.link.from != null && this.link.to == null) ||
+        (this.link.to != null && this.link.from == null)
+      )) {
       this.editor.releaseFreeLink();
     }
   }

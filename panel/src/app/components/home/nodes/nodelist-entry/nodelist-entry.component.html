@@ -16,12 +16,14 @@
 
 <div *ngIf="entry.folder" class="entry folder"
   [ngClass]="{'matching': matching, 'expanded': expanded}">
-  <div class="title" (click)="expanded = !expanded">
+  <div class="title" (click)="toggle()">
     <div>
       <span class="prepath">{{ prepath }}</span>
       <span class="postpath">{{ postpath }}</span>
     </div>
-    <img src="assets/folder.svg"/>
+    <img class="arrow" src="assets/arrow-head-white.svg"/>
+    <img *ngIf="!expanded" src="assets/folder.svg"/>
+    <img *ngIf="expanded" src="assets/folder-open.svg"/>
   </div>
   <div class="sub" *ngIf="expanded">
     <nodelist-entry
