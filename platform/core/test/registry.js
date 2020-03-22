@@ -96,6 +96,19 @@ describe('registry', () => {
       assert(registry.instance('X-alias') instanceof A);
     });
 
+    it('should make an alias for a given path and method.', () => {
+      class B extends base.node.Node{};
+      registry.register({path: 'X', method: 'POST'}, B);
+      
+      assert.throws(() => {
+        registry.instance('X-post-alias');
+      }, UnregisteredPath);
+
+      registry.alias('X-post-alias', 'X', 'POST');
+
+      assert(registry.instance('X-post-alias', 'POST') instanceof B);
+    });
+
     it('should be able to resolve chain alaising as well.', () => {
       registry.alias('XZZ', 'WZZ');
       registry.alias('WZZ', 'ZZZ');

@@ -108,8 +108,8 @@ class Registry extends Subscribable {
     return path;
   }
 
-  alias(alias, path) {
-    this._aliases[alias] = path;
+  alias(alias, path, method = 'ANY') {
+    this._aliases[alias + method] = path + method;
     this.publish(RegistryEvents.aliased, {
       alias: alias,
       original: path,
