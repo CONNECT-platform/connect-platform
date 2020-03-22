@@ -24,18 +24,18 @@
   "author": "Eugene Ghanizadeh Khoub",
   "license": "MIT",
   "dependencies": {
-    "axios": ">=0.18.1",
+    "axios": "^0.19.2",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
-    "express": "^4.17.0",
+    "express": "^4.17.1",
     "http-proxy-middleware": "^0.19.1",
     "jsonwebtoken": "^8.5.1",
-    "mkdirp": "^0.5.1"
+    "mkdirp": "^0.5.3"
   },
   "devDependencies": {
     "chai": "^4.2.0",
     "chai-http": "^3.0.0",
     "mocha": "^5.2.0",
-    "nodemon": "^1.19.0"
+    "nodemon": "^1.19.4"
   }
 }
