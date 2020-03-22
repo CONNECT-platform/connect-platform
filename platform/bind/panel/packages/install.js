@@ -14,11 +14,7 @@ platform.core.node({
     platform.conventions.controls._Unauthorized
   ],
 }, (inputs, output, control) => {
-  platform.call(
-    {
-      path: `${config.path}config/load`,
-      method: 'GET'
-    },
+  platform.call(`${config.path}config/load`,
     { connect_token: inputs.connect_token })
     .then(result => {
       if (result.data) {
