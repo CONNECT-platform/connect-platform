@@ -70,6 +70,11 @@ describe('registry', () => {
       assert.equal(registry.signature('X').inputs[0], 'a');
     });
 
+    it('should return the signature of a registered node class or factory with method.', ()=> {
+      registry.register({path: 'X', inputs: ['a'], method: 'POST'}, base.node.Node);
+      assert.equal(registry.signature('X', 'POST').inputs[0], 'a');
+    });
+
     it('should throw proper error when given path is not registered.', () => {
       assert.throws(() => {
         registry.signature('XX/123456');

@@ -48,7 +48,8 @@ class Registry extends Subscribable {
     return this;
   }
 
-  signature(path) {
+  signature(path, method = 'ANY') {
+    path += method;
     let resolved = this.resolve(path);
     let resolvedIndex = this.registered(resolved);
     
