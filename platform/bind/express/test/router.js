@@ -42,9 +42,10 @@ describe('router', () => {
       chai.request(app).put('/test/bind/express/router/C').send(),
       chai.request(app).delete('/test/bind/express/router/D').send(),
     ])
-    .catch((err) => console.log)
-    .finally(() => {
-      done();
+    .then(() => { done(); })
+    .catch((err) => {
+      console.log(err);
+      throw err;
     });
   });
 });
