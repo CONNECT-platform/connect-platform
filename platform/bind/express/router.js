@@ -17,7 +17,7 @@ const buildRouter = () => {
   let router = Router();
 
   for (let signature of gatherPublicRoutes()) {
-    let handler = reqHandler(() => core.registry.instance(signature.path), signature);
+    let handler = reqHandler(() => core.registry.instance(signature.path, method.toUpperCase()), signature);
     let method = (signature.method)?(signature.method.toLowerCase()):('get');
 
     if (method.toLowerCase() == 'get') router.get(signature.path, handler);
