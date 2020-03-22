@@ -14,6 +14,14 @@ describe('registry', () => {
       assert(registry.registered('Y'));
     });
 
+    it('should register a node class or factory with given path and method.', () => {
+      registry.register({path: 'X', method: 'GET'}, base.node.Node);
+      registry.register({path: 'Y', method: 'POST'}, () => new base.node.Node());
+
+      assert(registry.registered('X'));
+      assert(registry.registered('Y'));
+    });
+
     it('should override with subsequent registration.', () => {
       class A extends base.node.Node{};
       class B extends base.node.Node{};
@@ -23,6 +31,17 @@ describe('registry', () => {
 
       registry.register({path: 'X'}, B);
       assert(registry.instance('X') instanceof B);
+    });
+
+    it('should override with subsequent registration with method.', () => {
+      class C extends base.node.Node{};
+      class D extends base.node.Node{};
+
+      registry.register({path: 'X', method: 'GET'}, C);
+      assert(registry.instance('X', 'GET') instanceof C);
+
+      registry.register({path: 'X', method: 'POST'}, D);
+      assert(registry.instance('X', 'POST') instanceof D);
     });
   });
 

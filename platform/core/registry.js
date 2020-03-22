@@ -30,7 +30,10 @@ class Registry extends Subscribable {
           signature.path.substr(0, signature.path.length - 1) :
           signature.path; // make sure the key is consistant
 
-      this._paths[signature.path + signature.method || ''] = entry;
+      let method = 'ANY';
+      if('method' in signature) method = signature.method;
+
+      this._paths[signature.path + method || ''] = entry;
       this.publish(RegistryEvents.registered, entry);
 
       if (signature.path in this._aliases)
@@ -55,9 +58,9 @@ class Registry extends Subscribable {
     throw new UnregisteredPath(path);
   }
 
-  instance(path, method) {
-    let resolved = this.resolve(path+ (method || ''));
-
+  instance(path, method = 'ANY') {
+    let resolved = this.resolve(path + (method || ''));
+    
     if (this.mocked(resolved)) {
       let instantiated = util.buildFromFactoryOrClass(this._mocks[resolved]);
       this.publish(RegistryEvents.instantiated, instantiated);
@@ -70,14 +73,16 @@ class Registry extends Subscribable {
       this.publish(RegistryEvents.instantiated, instantiated);
       return instantiated;
     }
-
+    
     throw new UnregisteredPath(path);
   }
 
   registered(path) {
     let resolved = this.resolve(path);
-
+    
     if(resolved in this._paths) return resolved;
+
+    if( (resolved + 'ANY') in this._paths) return resolved;
     
     let resolvedGET = resolved + "GET";
     if(resolvedGET in this._paths) return resolvedGET;
