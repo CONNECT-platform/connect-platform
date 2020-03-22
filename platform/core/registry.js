@@ -31,7 +31,7 @@ class Registry extends Subscribable {
           signature.path; // make sure the key is consistant
 
       let method = 'ANY';
-      if('method' in signature) method = signature.method;
+      if('method' in signature) method = signature.method.toUpperCase();
 
       this._paths[signature.path + method || ''] = entry;
       this.publish(RegistryEvents.registered, entry);
@@ -85,7 +85,7 @@ class Registry extends Subscribable {
   }
 
   resolve(path, method = 'ANY') {
-    path += method;
+    path += method.toUpperCase();
     if (path in this._aliases) {
       return this.resolve(this._aliases[path], '');
     }
@@ -94,7 +94,7 @@ class Registry extends Subscribable {
   }
 
   alias(alias, path, method = 'ANY') {
-    this._aliases[alias + method] = path + method;
+    this._aliases[alias + method] = path + method.toUpperCase();
     this.publish(RegistryEvents.aliased, {
       alias: alias,
       original: path,
@@ -104,7 +104,7 @@ class Registry extends Subscribable {
   }
 
   mock(path, factoryOrClass, method = 'ANY') {
-    this._mocks[path + method] = factoryOrClass;
+    this._mocks[path + method.toUpperCase()] = factoryOrClass;
     this.publish(RegistryEvents.mocked, {
       path: path,
       factoryOrClass: factoryOrClass,
@@ -112,7 +112,7 @@ class Registry extends Subscribable {
   }
 
   unmock(path, method = 'ANY') {
-    delete this._mocks[path + method];
+    delete this._mocks[path + method.toUpperCase()];
     this.publish(RegistryEvents.unmocked, path);
   }
 

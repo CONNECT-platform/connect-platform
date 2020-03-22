@@ -12,7 +12,7 @@ const node = (signature, func) => {
       func(inputs, output, control, error, this.context);
     }
   };
-
+  
   if (signature.path)
     registry.register(signature, _class);
   return _class;
