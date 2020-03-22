@@ -92,7 +92,6 @@ describe('registry', () => {
       }, UnregisteredPath);
 
       registry.alias('X-alias', 'X');
-
       assert(registry.instance('X-alias') instanceof A);
     });
 
