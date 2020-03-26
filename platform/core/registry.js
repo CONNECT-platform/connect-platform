@@ -147,12 +147,13 @@ class Registry extends Subscribable {
 
   get registrants() {
     let all = Object.assign({}, this._paths);
+    
     for (let alias of Object.keys(this._aliases)) {
       let resolved = this.resolve(alias);
       if (resolved in this._paths) {
         all[alias] = {};
 
-        for(let method in this._paths) {
+        for(let method in this._paths[resolved]) {
           let _obj = Object.assign({}, this._paths[resolved][method]);
           _obj.signature = Object.assign({}, _obj.signature, {
             path: alias,
@@ -162,7 +163,7 @@ class Registry extends Subscribable {
         }
       }
     }
-
+    
     return all;
   }
 }
