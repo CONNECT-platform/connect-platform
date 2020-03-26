@@ -9,16 +9,20 @@ import { EditorModelService } from './editor-model.service';
 export class RegistryService {
   private _registryCache : any = {
     '/test1/' : {
-      path: '/test1/',
-      inputs: ['in1', 'in2'],
-      outputs: ['out'],
+      get: {
+        path: '/test1/',
+        inputs: ['in1', 'in2'],
+        outputs: ['out'],
+      }
     },
 
     '/test2/': {
-      path: '/test2/',
-      inputs: ['a'],
-      outputs: ['something', 'or_not'],
-      controlOutputs: ['error'],
+      post: {
+        path: '/test2/',
+        inputs: ['a'],
+        outputs: ['something', 'or_not'],
+        controlOutputs: ['error'],
+      }
     },
   };
 
@@ -40,11 +44,15 @@ export class RegistryService {
   }
 
   public signature(path): Signature {
-    return this._registry[path];
+    const method = Object.keys(this._registry[path])[0];
+
+    return this._registry[path][method];
   }
 
   public hints(path): SignatureHints|null {
-    return this._registry[path].hints;
+    const method = Object.keys(this._registry[path])[0];
+
+    return this._registry[path][method].hints;
   }
 
   public get allPaths() {
@@ -59,7 +67,9 @@ export class RegistryService {
   private get _registry() {
     this._refetch();
     let _dict = {};
-    _dict[this.model.signature.path] = this.model.signature;
+    if( ! (_dict[this.model.signature.path] instanceof Object) ) _dict[this.model.signature.path] = {};
+
+    _dict[this.model.signature.path][this.model.signature.method] = this.model.signature;
     return Object.assign({}, this._registryCache, _dict);
   }
 
@@ -69,11 +79,16 @@ export class RegistryService {
       this.backend.fetchRegistry().subscribe(response => {
         this._registryCache = {};
         Object.entries(response.registry).forEach(entry => {
-          this._registryCache[entry[0]] = Object.assign({
-            inputs: [],
-            outputs: [],
-            controlOutputs: [],
-          }, entry[1].signature);
+          Object.entries(response.registry[entry[0]]).forEach(methodEntry => {
+            if( ! (this._registryCache[entry[0]] instanceof Object) )
+              this._registryCache[entry[0]] = {};
+            
+            this._registryCache[entry[0]][methodEntry[0]] = Object.assign({
+              inputs: [],
+              outputs: [],
+              controlOutputs: [],
+            }, methodEntry[1].signature);
+          });
         });
         setTimeout(() => this._shouldRefetch = true, 500);
       });

@@ -6,7 +6,7 @@ const base = require('../core/base');
 //
 const nativeCall = (pathObject, inputs, callback, error, context) => new Promise((resolve, reject) => {
     let path = pathObject;
-    let method = 'get';
+    let method = '';
 
     if(path instanceof Object) {
       path = pathObject.path;

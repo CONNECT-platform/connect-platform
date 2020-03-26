@@ -3,7 +3,7 @@ const registry = require('./registry');
 
 
 class Call extends base.node.Node {
-  constructor(path, method = 'get') {
+  constructor(path, method = '') {
     super(registry.signature(path, method));
     this._path = path;
     this._method = method;
