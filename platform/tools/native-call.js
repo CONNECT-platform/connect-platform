@@ -10,7 +10,9 @@ const nativeCall = (pathObject, inputs, callback, error, context) => new Promise
 
     if(path instanceof Object) {
       path = pathObject.path;
-      method = pathObject.method;
+      if('method' in pathObject) {
+        method = pathObject.method;
+      }
     }
     
     core.callable(() => new core.Call(path, method), context)(inputs).then(result => {
