@@ -48,18 +48,18 @@ export class EditorComponent implements OnInit, OnDestroy {
 
   private tryPlayback = false;
 
-  @ViewChild('deleteOverlay') deleteOverlay;
-  @ViewChild('deletedOverlay') deletedOverlay;
+  @ViewChild('deleteOverlay', { static: true }) deleteOverlay;
+  @ViewChild('deletedOverlay', { static: true }) deletedOverlay;
 
-  @ViewChild('testInputOverlay') testInputOverlay;
-  @ViewChild('testInputEditor') testInputEditor;
-  @ViewChild('testErrorDetailsOverlay') testErrorDetailsOverlay;
+  @ViewChild('testInputOverlay', { static: true }) testInputOverlay;
+  @ViewChild('testInputEditor', { static: true }) testInputEditor;
+  @ViewChild('testErrorDetailsOverlay', { static: true }) testErrorDetailsOverlay;
 
-  @ViewChild('codeOverlay') codeOverlay;
-  @ViewChild('codeOverlayEditor') codeOverlayEditor;
+  @ViewChild('codeOverlay', { static: true }) codeOverlay;
+  @ViewChild('codeOverlayEditor', { static: false }) codeOverlayEditor;
 
-  @ViewChild('timeline') timeline;
-  @ViewChild('commandPalette') commandPalette;
+  @ViewChild('timeline', { static: true }) timeline;
+  @ViewChild('commandPalette', { static: true }) commandPalette;
 
   communicating : boolean = false;
   reverting: boolean = false;

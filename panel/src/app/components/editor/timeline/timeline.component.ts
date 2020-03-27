@@ -20,7 +20,7 @@ export class TimelineComponent implements OnInit {
   public consoleActive: boolean = false;
   public consoleExpanded: boolean = false;
 
-  @ViewChild('holder') holder : ElementRef;
+  @ViewChild('holder', { static: true }) holder : ElementRef;
 
   constructor(
     private tester : TesterService,

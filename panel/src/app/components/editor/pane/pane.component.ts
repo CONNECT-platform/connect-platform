@@ -11,7 +11,7 @@ import { SelectorComponent } from './selector/selector.component';
 })
 export class PaneComponent implements OnInit {
 
-  @ViewChild(SelectorComponent) selector;
+  @ViewChild(SelectorComponent, { static: true }) selector;
 
   constructor(private editor: EditorService,
               private model: EditorModelService) {

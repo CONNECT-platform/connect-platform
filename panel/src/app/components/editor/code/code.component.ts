@@ -10,7 +10,7 @@ import { EditorService } from '../../../services/editor.service';
   styleUrls: ['./code.component.css']
 })
 export class CodeComponent implements OnInit {
-  @ViewChild('ace') ace;
+  @ViewChild('ace', { static: true }) ace;
 
   @Input() selected: boolean = false;
   @Input() error: boolean = false;

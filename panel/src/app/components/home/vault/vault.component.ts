@@ -21,11 +21,11 @@ export class VaultComponent implements OnInit, AfterViewInit, OnDestroy {
   selectedContent: string;
   searching : boolean = false;
 
-  @ViewChild('searchinput') searchInput : ElementRef;
+  @ViewChild('searchinput', { static: true }) searchInput : ElementRef;
 
-  @ViewChild('addOverlay') addOverlay;
-  @ViewChild('editOverlay') editOverlay;
-  @ViewChild('deleteOverlay') deleteOverlay;
+  @ViewChild('addOverlay', { static: true }) addOverlay;
+  @ViewChild('editOverlay', { static: true }) editOverlay;
+  @ViewChild('deleteOverlay', { static: true }) deleteOverlay;
 
   constructor(
     private renderer: Renderer,

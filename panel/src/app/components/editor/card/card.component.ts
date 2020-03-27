@@ -28,8 +28,8 @@ enum CardType { value, expr, switch, call, }
 })
 export class CardComponent implements OnInit, OnDestroy {
   @Input() private node: Node;
-  @ViewChild('inner') private inner: ElementRef;
-  @ViewChild('inputs') private inputs: ElementRef;
+  @ViewChild('inner', { static: false }) private inner: ElementRef;
+  @ViewChild('inputs', { static: false }) private inputs: ElementRef;
 
   private types = CardType;
   private focusedInputVal: string;

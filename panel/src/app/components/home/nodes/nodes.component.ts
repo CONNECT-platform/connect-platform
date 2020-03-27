@@ -22,7 +22,7 @@ export class NodesComponent implements OnInit, OnDestroy {
   private _updateInterval;
 
   searching : boolean = false;
-  @ViewChild('searchinput') searchInput : ElementRef;
+  @ViewChild('searchinput', { static: true }) searchInput : ElementRef;
 
   constructor(
     private renderer : Renderer,

@@ -20,14 +20,14 @@ export class PackagesComponent implements OnInit, OnDestroy, AfterViewInit {
 
   _updateInterval: any;
   searching : boolean = false;
-  @ViewChild('searchinput') searchInput : ElementRef;
+  @ViewChild('searchinput', { static: true }) searchInput : ElementRef;
 
-  @ViewChild('installOverlay') installOverlay;
-  @ViewChild('installNPMOverlay') installNPMOverlay;
-  @ViewChild('installCodeOverlay') installCodeOverlay;
-  @ViewChild('uninstallOverlay') uninstallOverlay;
-  @ViewChild('uninstallingOverlay') uninstallingOverlay;
-  @ViewChild('statusOverlay') statusOverlay;
+  @ViewChild('installOverlay', { static: true }) installOverlay;
+  @ViewChild('installNPMOverlay', { static: true }) installNPMOverlay;
+  @ViewChild('installCodeOverlay', { static: true }) installCodeOverlay;
+  @ViewChild('uninstallOverlay', { static: true }) uninstallOverlay;
+  @ViewChild('uninstallingOverlay', { static: true }) uninstallingOverlay;
+  @ViewChild('statusOverlay', { static: true }) statusOverlay;
 
   uninstallTarget: string;
   uninstallingTarget: string;

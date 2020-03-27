@@ -19,8 +19,8 @@ platform.configure({
 })
 export class ConfigComponent implements OnInit {
 
-  @ViewChild('successOverlay') successOverlay;
-  @ViewChild('errorOverlay') errorOverlay;
+  @ViewChild('successOverlay', { static: true }) successOverlay;
+  @ViewChild('errorOverlay', { static: true }) errorOverlay;
 
   options: any = {
     showGutter: false,

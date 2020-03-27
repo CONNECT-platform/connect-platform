@@ -13,13 +13,13 @@ export class ServicesComponent implements OnInit, OnDestroy, AfterViewInit {
 
   _updateInterval: any;
   searching : boolean = false;
-  @ViewChild('searchinput') searchInput : ElementRef;
+  @ViewChild('searchinput', { static: true }) searchInput : ElementRef;
 
   _services: any[];
   selected: any;
   selectedInfo: any;
-  @ViewChild('overlay') overlay;
-  @ViewChild('removeOverlay') removeOverlay;
+  @ViewChild('overlay', { static: true }) overlay;
+  @ViewChild('removeOverlay', { static: true }) removeOverlay;
 
   constructor(
     private renderer: Renderer,
