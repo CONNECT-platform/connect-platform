@@ -11,9 +11,17 @@ import { TesterService } from '../../../services/tester.service';
 export class GeneralComponent implements OnInit {
 
   constructor(
-    private model: EditorModelService,
-    private tester: TesterService,
+    private _model: EditorModelService,
+    private _tester: TesterService,
   ) { }
+
+  get model() {
+    return this._model;
+  }
+
+  get tester() {
+    return this._tester;
+  }
 
   ngOnInit() {
   }
