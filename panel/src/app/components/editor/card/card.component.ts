@@ -27,7 +27,7 @@ enum CardType { value, expr, switch, call, }
   styleUrls: ['./card.component.css']
 })
 export class CardComponent implements OnInit, OnDestroy {
-  @Input() private node: Node;
+  @Input() public node: Node;
   @ViewChild('inner', { static: false }) private inner: ElementRef;
   @ViewChild('inputs', { static: false }) private inputs: ElementRef;
 
