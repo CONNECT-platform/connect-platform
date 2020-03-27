@@ -33,6 +33,6 @@ export class HintmanComponent implements OnInit {
   }
 
   get hint() {
-    return this.hint;
+    return this._hint;
   }
 }
