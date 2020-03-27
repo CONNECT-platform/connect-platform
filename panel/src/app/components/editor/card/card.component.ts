@@ -27,11 +27,11 @@ enum CardType { value, expr, switch, call, }
   styleUrls: ['./card.component.css']
 })
 export class CardComponent implements OnInit, OnDestroy {
-  @Input() private node: Node;
-  @ViewChild('inner', { static: false }) private inner: ElementRef;
-  @ViewChild('inputs', { static: false }) private inputs: ElementRef;
+  @Input() public node: Node;
+  @ViewChild('inner') private inner: ElementRef;
+  @ViewChild('inputs') private inputs: ElementRef;
 
-  private types = CardType;
+  private _types = CardType;
   private focusedInputVal: string;
   private decomposedFIVal: any;
   private _newBorn = true;
@@ -54,6 +54,14 @@ export class CardComponent implements OnInit, OnDestroy {
     private registry : RegistryService,
     private hint: HintService,
     ) {}
+
+  get types() {
+    return this._types;
+  }
+
+  get newBorn() {
+    return this._newBorn;
+  }
 
   ngOnInit() {
     this.node.component = this;

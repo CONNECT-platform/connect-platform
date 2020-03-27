@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild, ElementRef, Renderer } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 
 import { BackendService } from '../../../services/backend.service';
 import { RegistryService } from '../../../services/registry.service';
@@ -25,7 +25,7 @@ export class NodesComponent implements OnInit, OnDestroy {
   @ViewChild('searchinput', { static: true }) searchInput : ElementRef;
 
   constructor(
-    private renderer : Renderer,
+    private renderer : Renderer2,
     private backend : BackendService,
     private registry : RegistryService,
   ) { }
@@ -99,8 +99,7 @@ export class NodesComponent implements OnInit, OnDestroy {
     else {
       this.searching = true;
       setTimeout(() => {
-        this.renderer.invokeElementMethod(
-          this.searchInput.nativeElement, 'focus', []);
+        this.searchInput.nativeElement.focus();
       }, 10);
     }
   }

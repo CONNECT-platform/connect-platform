@@ -1,5 +1,4 @@
-import { Component, OnInit, OnDestroy, AfterViewInit,
-    ViewChild, ElementRef, Renderer } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { Observable } from 'rxjs';
 import { zip  } from 'rxjs';
 
@@ -43,10 +42,14 @@ export class PackagesComponent implements OnInit, OnDestroy, AfterViewInit {
 
   constructor(
     private backend: BackendService,
-    private repo: RepoService,
-    private renderer: Renderer,
+    private _repo: RepoService,
+    private renderer: Renderer2,
     private hint: HintService,
   ) { }
+
+  get repo() {
+    return this._repo;
+  }
 
   ngOnInit() {
     this._updateInterval = setInterval(() => {
@@ -110,8 +113,7 @@ export class PackagesComponent implements OnInit, OnDestroy, AfterViewInit {
     else {
       this.searching = true;
       setTimeout(() => {
-        this.renderer.invokeElementMethod(
-          this.searchInput.nativeElement, 'focus', []);
+        this.searchInput.nativeElement.focus();
       }, 10);
     }
   }

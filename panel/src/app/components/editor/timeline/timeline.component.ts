@@ -23,10 +23,14 @@ export class TimelineComponent implements OnInit {
   @ViewChild('holder', { static: true }) holder : ElementRef;
 
   constructor(
-    private tester : TesterService,
+    private _tester : TesterService,
     private editor: EditorService,
     private clipboard: ClipboardService,
   ) { }
+
+  get tester() {
+    return this._tester;
+  }
 
   ngOnInit() {
   }

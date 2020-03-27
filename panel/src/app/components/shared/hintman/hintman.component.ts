@@ -20,7 +20,7 @@ export class HintmanComponent implements OnInit {
   }
 
   constructor(
-    private hint: HintService
+    private _hint: HintService
   ) { }
 
   ngOnInit() {
@@ -30,5 +30,9 @@ export class HintmanComponent implements OnInit {
   mousemove(event) {
     this.mousex = event.clientX;
     this.mousey = event.clientY;
+  }
+
+  get hint() {
+    return this.hint;
   }
 }
