@@ -43,10 +43,14 @@ export class PackagesComponent implements OnInit, OnDestroy, AfterViewInit {
 
   constructor(
     private backend: BackendService,
-    private repo: RepoService,
+    private _repo: RepoService,
     private renderer: Renderer,
     private hint: HintService,
   ) { }
+
+  get repo() {
+    return this._repo;
+  }
 
   ngOnInit() {
     this._updateInterval = setInterval(() => {

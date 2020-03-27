@@ -48,9 +48,13 @@ export class HomeComponent implements OnInit, OnDestroy {
   version: string = undefined;
 
   constructor(
-    private backend: BackendService,
+    private _backend: BackendService,
     private token: TokenService,
   ) { }
+
+  get backend() {
+    return this._backend;
+  }
 
   ngOnInit() {
     this.currentComponent = NodesComponent;

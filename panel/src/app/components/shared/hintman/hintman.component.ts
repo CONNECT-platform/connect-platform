@@ -20,8 +20,12 @@ export class HintmanComponent implements OnInit {
   }
 
   constructor(
-    private hint: HintService
+    private _hint: HintService
   ) { }
+
+  get hint() {
+    return this._hint;
+  }
 
   ngOnInit() {
   }
