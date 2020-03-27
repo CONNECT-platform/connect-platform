@@ -35,7 +35,7 @@ export class NodesComponent implements OnInit, OnDestroy {
       this._nodes = Object.entries(data.nodes).map(entry => {
           return {
             path: entry[0],
-            id: entry[1],
+            id: entry[1] as string,
           }
         });
       this._entries = this.folderize(this.nodes);

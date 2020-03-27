@@ -87,7 +87,7 @@ export class RegistryService {
               inputs: [],
               outputs: [],
               controlOutputs: [],
-            }, methodEntry[1].signature);
+            }, methodEntry[1]['signature']);
           });
         });
         setTimeout(() => this._shouldRefetch = true, 500);

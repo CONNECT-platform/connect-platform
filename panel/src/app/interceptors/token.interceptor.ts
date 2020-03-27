@@ -1,3 +1,5 @@
+
+import { share } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import {
   HttpRequest,
@@ -6,8 +8,8 @@ import {
   HttpInterceptor,
   HttpErrorResponse,
 } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/share';
+import { Observable } from 'rxjs';
+
 
 import { TokenService } from '../services/token.service';
 
@@ -24,7 +26,7 @@ export class TokenInterceptor implements HttpInterceptor {
       }
     });
 
-    let handle = next.handle(request).share();
+    let handle = next.handle(request).pipe(share());
     handle.subscribe(()=>{},
       (error:HttpErrorResponse) => {
         if (error.error == 'unauthorized' || error.status == 401) {

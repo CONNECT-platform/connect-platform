@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy, AfterViewInit,
     ViewChild, ElementRef, Renderer } from '@angular/core';
 import { Observable } from 'rxjs';
+import { zip  } from 'rxjs';
 
 import { BackendService } from '../../../services/backend.service';
 import { RepoService } from '../../../services/repo.service';
@@ -142,7 +143,7 @@ export class PackagesComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   status(pkg: {name: string, source: string}) {
-    Observable.zip(
+    zip(
       this.backend.packageStatus(pkg.name),
       this.repo.package(pkg.name),
     )
