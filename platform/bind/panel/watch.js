@@ -33,7 +33,7 @@ platform.core.node({
       }
 
       run(inputs, output, control) {
-        platform.core.registry.unmock(model.path);
+        platform.core.registry.unmock(model.path, model.method);
         record(model, inputs, platform.config.core, timelimit, this.context)
           .then(recording => {
             watchlist[model.path] = recording;
@@ -55,7 +55,7 @@ platform.core.node({
             if (error) this.error('');
           });
       }
-    });
+    }, model.method);
     control('done');
   }
 });
