@@ -116,7 +116,7 @@
                   [(ngModel)]="out.label"/>
           </div>
         </ng-container>
-        <editor-adder (add)="newOutput()" style="output" [disabled]="tester.active"></editor-adder>
+        <editor-adder (add)="newOutput()" [style]="'output'" [disabled]="tester.active"></editor-adder>
       </div>
 
       <div class="controls outputs pin-list">
@@ -132,7 +132,7 @@
                   [(ngModel)]="ctrl.label"/>
           </div>
         </ng-container>
-        <editor-adder (add)="newControl()" style="control" [disabled]="tester.active"></editor-adder>
+        <editor-adder (add)="newControl()" [style]="'control'" [disabled]="tester.active"></editor-adder>
       </div>
 
     </div>

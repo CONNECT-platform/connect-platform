@@ -29,7 +29,7 @@
                     (change)="inputChange(in, $event)">
             </div>
           </ng-container>
-          <editor-adder style="expr" (add)="newInput()" [disabled]="tester.active"></editor-adder>
+          <editor-adder [style]="'expr'" (add)="newInput()" [disabled]="tester.active"></editor-adder>
         </div>
         <div class="expr-code">
           <editor-code [(code)]="node.code" [pin]="node.result" [readonly]="tester.active"></editor-code>
@@ -66,7 +66,7 @@
               <img class="remove" src="assets/close.svg" (click)="removeControl(control)" *ngIf="!tester.active"/>
             </div>
           </ng-container>
-          <editor-adder style="switch" (add)="newCase()" [disabled]="tester.active"></editor-adder>
+          <editor-adder [style]="'switch'" (add)="newCase()" [disabled]="tester.active"></editor-adder>
         </div>
       </div>
     </ng-container>
