@@ -34,13 +34,18 @@ describe('router', () => {
               method: 'delete',
               controlOutputs: ['done']
             }, (i, o, c) => { c('done'); });
-
+    
     app.use(router());
     Promise.all([
       chai.request(app).get('/test/bind/express/router/A').send(),
       chai.request(app).post('/test/bind/express/router/B').send(),
       chai.request(app).put('/test/bind/express/router/C').send(),
       chai.request(app).delete('/test/bind/express/router/D').send(),
-    ]).then(() => { done(); });
+    ])
+    .then(() => { done(); })
+    .catch((err) => {
+      console.log(err);
+      throw err;
+    });
   });
 });
