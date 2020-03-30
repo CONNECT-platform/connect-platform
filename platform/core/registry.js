@@ -98,7 +98,7 @@ class Registry extends Subscribable {
     if(resolved in this._paths)
       return Object.keys(this._paths[resolved])[0];
 
-    return false;
+    throw new UnregisteredPath(path);
   }
 
   registered(path, method = 'get') {
