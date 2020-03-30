@@ -22,7 +22,11 @@ module.exports = (app, config) => {
     });
   }
 
-  app.use(bodyParser.json());
+  app.use(bodyParser.json({
+    verify(req, res, buf) {
+      req.raw = buf;
+    },
+  }));
 
   if (config.get('cors', true))
     app.use(cors());
