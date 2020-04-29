@@ -1,6 +1,6 @@
-import { Component, OnInit, OnDestroy, AfterViewInit,
-    ViewChild, ElementRef, Renderer } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { Observable } from 'rxjs';
+import { zip  } from 'rxjs';
 
 import { BackendService } from '../../../services/backend.service';
 import { RepoService } from '../../../services/repo.service';
@@ -19,14 +19,14 @@ export class PackagesComponent implements OnInit, OnDestroy, AfterViewInit {
 
   _updateInterval: any;
   searching : boolean = false;
-  @ViewChild('searchinput') searchInput : ElementRef;
+  @ViewChild('searchinput', { static: true }) searchInput : ElementRef;
 
-  @ViewChild('installOverlay') installOverlay;
-  @ViewChild('installNPMOverlay') installNPMOverlay;
-  @ViewChild('installCodeOverlay') installCodeOverlay;
-  @ViewChild('uninstallOverlay') uninstallOverlay;
-  @ViewChild('uninstallingOverlay') uninstallingOverlay;
-  @ViewChild('statusOverlay') statusOverlay;
+  @ViewChild('installOverlay', { static: true }) installOverlay;
+  @ViewChild('installNPMOverlay', { static: true }) installNPMOverlay;
+  @ViewChild('installCodeOverlay', { static: true }) installCodeOverlay;
+  @ViewChild('uninstallOverlay', { static: true }) uninstallOverlay;
+  @ViewChild('uninstallingOverlay', { static: true }) uninstallingOverlay;
+  @ViewChild('statusOverlay', { static: true }) statusOverlay;
 
   uninstallTarget: string;
   uninstallingTarget: string;
@@ -42,10 +42,14 @@ export class PackagesComponent implements OnInit, OnDestroy, AfterViewInit {
 
   constructor(
     private backend: BackendService,
-    private repo: RepoService,
-    private renderer: Renderer,
+    private _repo: RepoService,
+    private renderer: Renderer2,
     private hint: HintService,
   ) { }
+
+  get repo() {
+    return this._repo;
+  }
 
   ngOnInit() {
     this._updateInterval = setInterval(() => {
@@ -109,8 +113,7 @@ export class PackagesComponent implements OnInit, OnDestroy, AfterViewInit {
     else {
       this.searching = true;
       setTimeout(() => {
-        this.renderer.invokeElementMethod(
-          this.searchInput.nativeElement, 'focus', []);
+        this.searchInput.nativeElement.focus();
       }, 10);
     }
   }
@@ -142,7 +145,7 @@ export class PackagesComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   status(pkg: {name: string, source: string}) {
-    Observable.zip(
+    zip(
       this.backend.packageStatus(pkg.name),
       this.repo.package(pkg.name),
     )

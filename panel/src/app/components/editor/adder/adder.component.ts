@@ -16,12 +16,20 @@ export class AdderComponent implements OnInit {
   state = AdderStates.initial;
 
   @Input() disabled: boolean = false;
-  @Input() style;
+  private _style: string = '';
   @Output() add : EventEmitter<void> = new EventEmitter<void>();
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  get style() {
+    return this._style;
+  }
+
+  @Input() set style(style: string) {
+    this._style = style;
   }
 
   activate() {

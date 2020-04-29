@@ -363,7 +363,7 @@ export class EditorModelService extends Subscribable {
       return this._nodes.filter(n => n.tag == json)[0];
     }
     else {
-      let _v = Object.entries(json)[0];
+      let _v:string[] = Object.entries(json)[0] as string[];
       if (_v[0] == 'in') {
         return this.in.get(_v[1]);
       }

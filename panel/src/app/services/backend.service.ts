@@ -1,7 +1,9 @@
+
+import { share } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Location } from '@angular/common';
-import 'rxjs/add/operator/share';
+
 
 import { EditorModelService } from './editor-model.service';
 
@@ -73,26 +75,26 @@ export class BackendService {
   }
 
   public get name() {
-    return this.http.get<any>(this.api + BackendService.apiCalls.name).share();
+    return this.http.get<any>(this.api + BackendService.apiCalls.name).pipe(share());
   }
 
   fetchRegistry() {
-    return this.http.get<{registry: any}>(this.api + BackendService.apiCalls.registry).share();
+    return this.http.get<{registry: any}>(this.api + BackendService.apiCalls.registry).pipe(share());
   }
 
   save() {
     return this.http.post
       <{ id: string, }>
       (this.api + BackendService.apiCalls.save,
-        { id : this.model.id, signature : this.model.json}).share();
+        { id : this.model.id, signature : this.model.json}).pipe(share());
   }
 
   delete() {
-    return this.http.delete(this.api + BackendService.apiCalls.delete + '/' + this.model.id).share();
+    return this.http.delete(this.api + BackendService.apiCalls.delete + '/' + this.model.id).pipe(share());
   }
 
   load(id) {
-    return this.http.get<{node: any}>(this.api + BackendService.apiCalls.load + `/${id}`).share();
+    return this.http.get<{node: any}>(this.api + BackendService.apiCalls.load + `/${id}`).pipe(share());
   }
 
   test(inputs, timelimit) {
@@ -102,7 +104,7 @@ export class BackendService {
         model : this.model.json,
         inputs: inputs,
         timelimit: timelimit,
-      }).share();
+      }).pipe(share());
   }
 
   watch(timelimit) {
@@ -112,26 +114,26 @@ export class BackendService {
         model: this.model.json,
         timelimit: timelimit,
       }
-    ).share();
+    ).pipe(share());
   }
 
   watchResult() {
-    return this.http.get<any>(this.api + BackendService.apiCalls.watchResult + `/?path=${this.model.path}`).share();
+    return this.http.get<any>(this.api + BackendService.apiCalls.watchResult + `/?path=${this.model.path}`).pipe(share());
   }
 
   fetchConfig() {
     return this.http.get<any>(this.api + BackendService.apiCalls.config.root
-        + BackendService.apiCalls.config.load).share();
+        + BackendService.apiCalls.config.load).pipe(share());
   }
 
   fetchProdConf() {
     return this.http.get<any>(this.api + BackendService.apiCalls.config.root
-        + BackendService.apiCalls.config.loadProd).share();
+        + BackendService.apiCalls.config.loadProd).pipe(share());
   }
 
   fetchConfScript() {
     return this.http.get<any>(this.api + BackendService.apiCalls.config.root
-        + BackendService.apiCalls.config.loadScript).share();
+        + BackendService.apiCalls.config.loadScript).pipe(share());
   }
 
   updateConfig(config) {
@@ -139,7 +141,7 @@ export class BackendService {
       this.api + BackendService.apiCalls.config.root + BackendService.apiCalls.config.save,
       {
         config: config,
-      }).share();
+      }).pipe(share());
   }
 
   updateProdConf(config) {
@@ -147,7 +149,7 @@ export class BackendService {
       this.api + BackendService.apiCalls.config.root + BackendService.apiCalls.config.saveProd,
       {
         config: config,
-      }).share();
+      }).pipe(share());
   }
 
   updateConfScript(script) {
@@ -155,17 +157,17 @@ export class BackendService {
       this.api + BackendService.apiCalls.config.root + BackendService.apiCalls.config.saveScript,
       {
         script: script,
-      }).share();
+      }).pipe(share());
   }
 
   vaultList() {
     return this.http.get<any>(this.api + BackendService.apiCalls.vault.root
-        + BackendService.apiCalls.vault.list).share();
+        + BackendService.apiCalls.vault.list).pipe(share());
   }
 
   vaultGet(key: string) {
     return this.http.get<any>(this.api + BackendService.apiCalls.vault.root
-        + BackendService.apiCalls.vault.get + `/?key=${key}`).share();
+        + BackendService.apiCalls.vault.get + `/?key=${key}`).pipe(share());
   }
 
   vaultPut(key: string, content: string) {
@@ -174,24 +176,24 @@ export class BackendService {
       {
         key: key,
         content: content,
-      }).share();
+      }).pipe(share());
   }
 
   vaultDelete(key: string) {
     return this.http.delete(this.api + BackendService.apiCalls.vault.root
-        + BackendService.apiCalls.vault.delete + '/' + key).share();
+        + BackendService.apiCalls.vault.delete + '/' + key).pipe(share());
   }
 
   packagesList() {
     return this.http.get<any>(this.api + BackendService.apiCalls.packages.root
-        + BackendService.apiCalls.packages.list).share();
+        + BackendService.apiCalls.packages.list).pipe(share());
   }
 
   installPackage(pkg: { name: string; source: string }) {
     return this.http.post<any>(
       this.api + BackendService.apiCalls.packages.root + BackendService.apiCalls.packages.install,
       pkg
-    ).share();
+    ).pipe(share());
   }
 
   uninstallPackage(name: string) {
@@ -200,23 +202,23 @@ export class BackendService {
       {
         name: name
       }
-    ).share();
+    ).pipe(share());
   }
 
   packageStatus(name: string) {
     return this.http.get<any>(this.api + BackendService.apiCalls.packages.root
        + BackendService.apiCalls.packages.status + `?name=${name}`
-    ).share();
+    ).pipe(share());
   }
 
   packageRepo() {
     return this.http.get<any>(this.api + BackendService.apiCalls.packages.root
-        + BackendService.apiCalls.packages.repo).share();
+        + BackendService.apiCalls.packages.repo).pipe(share());
   }
 
   public get services() {
     return this.http.get<{list: any[]}>(this.api + BackendService.apiCalls.services.root
-        + BackendService.apiCalls.services.list).share();
+        + BackendService.apiCalls.services.list).pipe(share());
   }
 
   public saveService(name: string, url: string) {
@@ -226,7 +228,7 @@ export class BackendService {
         name: name,
         url: url,
       }
-    ).share();
+    ).pipe(share());
   }
 
   public removeService(name: string) {
@@ -235,16 +237,16 @@ export class BackendService {
       {
         name: name,
       }
-    ).share();
+    ).pipe(share());
   }
 
   public serviceInfo(name: string) {
     return this.http.get<any>(this.api + BackendService.apiCalls.services.root
-        + BackendService.apiCalls.services.info + `?name=${name}`).share();
+        + BackendService.apiCalls.services.info + `?name=${name}`).pipe(share());
   }
 
   public get nodes() {
-    return this.http.get<{nodes : any}>(this.api + BackendService.apiCalls.nodes).share();
+    return this.http.get<{nodes : any}>(this.api + BackendService.apiCalls.nodes).pipe(share());
   }
 
   public get address() {
@@ -252,10 +254,10 @@ export class BackendService {
   }
 
   public get shellUrl() {
-    return this.http.get<any>(this.api + BackendService.apiCalls.shellUrl).share();
+    return this.http.get<any>(this.api + BackendService.apiCalls.shellUrl).pipe(share());
   }
 
   public get version() {
-    return this.http.get<any>(this.api + BackendService.apiCalls.version).share();
+    return this.http.get<any>(this.api + BackendService.apiCalls.version).pipe(share());
   }
 }

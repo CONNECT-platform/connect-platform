@@ -20,13 +20,17 @@ export class TimelineComponent implements OnInit {
   public consoleActive: boolean = false;
   public consoleExpanded: boolean = false;
 
-  @ViewChild('holder') holder : ElementRef;
+  @ViewChild('holder', { static: true }) holder : ElementRef;
 
   constructor(
-    private tester : TesterService,
+    private _tester : TesterService,
     private editor: EditorService,
     private clipboard: ClipboardService,
   ) { }
+
+  get tester() {
+    return this._tester;
+  }
 
   ngOnInit() {
   }

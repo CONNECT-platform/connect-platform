@@ -11,7 +11,7 @@ import { OverlayComponent } from '../../../shared/overlay/overlay.component';
 })
 export class EditorMiscOverlayComponent implements OnInit {
 
-  @ViewChild('overlay') overlay : OverlayComponent;
+  @ViewChild('overlay', { static: true }) overlay : OverlayComponent;
 
   dragOver: boolean = false;
 

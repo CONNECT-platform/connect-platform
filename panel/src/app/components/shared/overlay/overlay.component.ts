@@ -16,7 +16,7 @@ export class OverlayComponent implements OnInit {
   @Input() public title: boolean = true;
   @Input() public actions: boolean = true;
 
-  @ViewChild('inner') inner: ElementRef;
+  @ViewChild('inner', { static: true }) inner: ElementRef;
   private _active : boolean = false;
   private _onActivate : EventEmitter<void> = new EventEmitter<void>();
   private _onActivated: EventEmitter<void> = new EventEmitter<void>();

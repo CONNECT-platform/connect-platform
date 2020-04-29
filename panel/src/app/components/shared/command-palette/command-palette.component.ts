@@ -17,7 +17,7 @@ export interface Command {
 })
 export class CommandPaletteComponent implements OnInit {
 
-  @ViewChild('overlay') overlay;
+  @ViewChild('overlay', { static: true }) overlay;
 
   _commands: CommandList = {};
   current: CommandList = {};

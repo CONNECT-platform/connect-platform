@@ -40,26 +40,26 @@ enum EditorState {
 })
 export class EditorComponent implements OnInit, OnDestroy {
 
-  private states = EditorState;
-  private state: EditorState = EditorState.initial;
+  private _states = EditorState;
+  private _state: EditorState = EditorState.initial;
 
   private selectHandle;
   private deselectHandle;
 
   private tryPlayback = false;
 
-  @ViewChild('deleteOverlay') deleteOverlay;
-  @ViewChild('deletedOverlay') deletedOverlay;
+  @ViewChild('deleteOverlay', { static: true }) deleteOverlay;
+  @ViewChild('deletedOverlay', { static: true }) deletedOverlay;
 
-  @ViewChild('testInputOverlay') testInputOverlay;
-  @ViewChild('testInputEditor') testInputEditor;
-  @ViewChild('testErrorDetailsOverlay') testErrorDetailsOverlay;
+  @ViewChild('testInputOverlay', { static: true }) testInputOverlay;
+  @ViewChild('testInputEditor', { static: true }) testInputEditor;
+  @ViewChild('testErrorDetailsOverlay', { static: true }) testErrorDetailsOverlay;
 
-  @ViewChild('codeOverlay') codeOverlay;
+  @ViewChild('codeOverlay', { static: true }) codeOverlay;
   @ViewChild('codeOverlayEditor') codeOverlayEditor;
 
-  @ViewChild('timeline') timeline;
-  @ViewChild('commandPalette') commandPalette;
+  @ViewChild('timeline', { static: true }) timeline;
+  @ViewChild('commandPalette', { static: true }) commandPalette;
 
   communicating : boolean = false;
   reverting: boolean = false;
@@ -84,14 +84,42 @@ export class EditorComponent implements OnInit, OnDestroy {
   private subs = [];
 
   constructor(
-    private registry : RegistryService,
-    private model : EditorModelService,
-    private editor: EditorService,
-    private tester: TesterService,
+    private _registry : RegistryService,
+    private _model : EditorModelService,
+    private _editor: EditorService,
+    private _tester: TesterService,
     private backend : BackendService,
     private route : ActivatedRoute,
     private router : Router,
   ) { }
+
+  get states() {
+    return this._states;
+  }
+
+  get state() {
+    return this._state;
+  }
+
+  set state(state: EditorState) {
+    this._state = state;
+  }
+
+  get registry() {
+    return this._registry;
+  }
+
+  get model() {
+    return this._model;
+  }
+
+  get editor() {
+    return this._editor;
+  }
+
+  get tester() {
+    return this._tester;
+  }
 
   ngOnInit() {
     this.subscribe();

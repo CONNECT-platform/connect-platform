@@ -1,5 +1,4 @@
-import { Component, OnInit, OnDestroy, AfterViewInit,
-    ViewChild, ElementRef, Renderer } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 
 import { BackendService } from '../../../services/backend.service';
 
@@ -21,14 +20,14 @@ export class VaultComponent implements OnInit, AfterViewInit, OnDestroy {
   selectedContent: string;
   searching : boolean = false;
 
-  @ViewChild('searchinput') searchInput : ElementRef;
+  @ViewChild('searchinput', { static: true }) searchInput : ElementRef;
 
-  @ViewChild('addOverlay') addOverlay;
-  @ViewChild('editOverlay') editOverlay;
-  @ViewChild('deleteOverlay') deleteOverlay;
+  @ViewChild('addOverlay', { static: true }) addOverlay;
+  @ViewChild('editOverlay', { static: true }) editOverlay;
+  @ViewChild('deleteOverlay', { static: true }) deleteOverlay;
 
   constructor(
-    private renderer: Renderer,
+    private renderer: Renderer2,
     private backend: BackendService
   ) { }
 
@@ -82,8 +81,7 @@ export class VaultComponent implements OnInit, AfterViewInit, OnDestroy {
     else {
       this.searching = true;
       setTimeout(() => {
-        this.renderer.invokeElementMethod(
-          this.searchInput.nativeElement, 'focus', []);
+        this.searchInput.nativeElement.focus();
       }, 10);
     }
   }

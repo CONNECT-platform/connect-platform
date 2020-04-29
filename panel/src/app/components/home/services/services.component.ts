@@ -1,5 +1,4 @@
-import { Component, OnInit, OnDestroy, AfterViewInit,
-    ViewChild, ElementRef, Renderer } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 
 import { BackendService } from '../../../services/backend.service';
 
@@ -13,16 +12,16 @@ export class ServicesComponent implements OnInit, OnDestroy, AfterViewInit {
 
   _updateInterval: any;
   searching : boolean = false;
-  @ViewChild('searchinput') searchInput : ElementRef;
+  @ViewChild('searchinput', { static: true }) searchInput : ElementRef;
 
   _services: any[];
   selected: any;
   selectedInfo: any;
-  @ViewChild('overlay') overlay;
-  @ViewChild('removeOverlay') removeOverlay;
+  @ViewChild('overlay', { static: true }) overlay;
+  @ViewChild('removeOverlay', { static: true }) removeOverlay;
 
   constructor(
-    private renderer: Renderer,
+    private renderer: Renderer2,
     private backend: BackendService,
   ) { }
 
@@ -83,8 +82,7 @@ export class ServicesComponent implements OnInit, OnDestroy, AfterViewInit {
     else {
       this.searching = true;
       setTimeout(() => {
-        this.renderer.invokeElementMethod(
-          this.searchInput.nativeElement, 'focus', []);
+        this.searchInput.nativeElement.focus();
       }, 10);
     }
   }

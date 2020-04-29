@@ -109,3 +109,11 @@
   top: 6px;
   font-size: 14px;
 }
+
+.toolbar > * {
+  margin-right: 5px;
+}
+
+.toolbar > *:last-child {
+  margin-right: 0;
+}

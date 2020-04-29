@@ -11,10 +11,18 @@ import { SelectorComponent } from './selector/selector.component';
 })
 export class PaneComponent implements OnInit {
 
-  @ViewChild(SelectorComponent) selector;
+  @ViewChild(SelectorComponent, { static: true }) selector;
 
-  constructor(private editor: EditorService,
-              private model: EditorModelService) {
+  constructor(private _editor: EditorService,
+              private _model: EditorModelService) {
+  }
+
+  get editor() {
+    return this._editor;
+  }
+
+  get model() {
+    return this._model;
   }
 
   ngOnInit() {
