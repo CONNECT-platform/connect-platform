@@ -54,11 +54,12 @@ describe('reqHandler()', () => {
 
   it('return func should respond 400 when input is not given.', done => {
     let node = core.node({inputs: ['a'], outputs: ['b']}, (i, o) => {
+      console.log('clall');
       o(i.a);
     });
     app.get('/3', reqHandler(node));
-    chai.request(app).get('/3').send().catch(err => {
-      err.status.should.equal(400);
+    chai.request(app).get('/3').send().then(result => {
+      result.status.should.equal(400);
       done();
     });
   })
