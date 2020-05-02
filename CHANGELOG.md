@@ -7,6 +7,12 @@ and we use [Semantic Versioning](http://semver.org/spec/v2.0.0.html), like stric
 
 **NOTE**: there is not an entry for every version. Some versions included super minor changes, and as a result were excluded from this change log. For a really detailed history of changes, please checkout the commit history of the project.
 
+## [0.2.23] - 2020-05-02
+### Added:
+ - Support for multiple Http methods on endnpoints with the same name
+ - Updates to core and panel dependencies (fixes all security vulnerabilities detected by npm)
+ - Panel can now be hidden directly through an envrionment variable `CONNECT_PANEL_HIDE=true`
+
 ## [0.2.17] - 2019-05-30
 ### Added:
  - remote shell access: now you can access a remote shell of the system the platform is running on via web. 
