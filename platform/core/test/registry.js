@@ -43,6 +43,14 @@ describe('registry', () => {
       registry.register({path: 'X', method: 'POST'}, D);
       assert(registry.instance('X', 'POST') instanceof D);
     });
+
+    it('should register a node class or factory with the root path.', () => {
+      registry.register({path: '/'}, base.node.Node);
+
+      assert(registry.registered(''));
+
+      assert(registry.registered('/'));
+    });
   });
 
   describe('.instance()', () => {
@@ -55,6 +63,15 @@ describe('registry', () => {
 
       assert(registry.instance('X') instanceof A);
       assert(registry.instance('Y') instanceof B);
+    });
+
+    it('should return an instance of a registered class on the root endpoint.', () => {
+      class A extends base.node.Node{};
+
+      registry.register({path: '/'}, A);
+
+      assert(registry.instance('/') instanceof A);
+      assert(registry.instance('') instanceof A);
     });
 
     it('should throw proper error when given path is not registered.', () => {

@@ -59,12 +59,14 @@ class Registry extends Subscribable {
     }
 
     method = method.toLowerCase();
-    let resolved = this.registered(path, method);
-    
-    if (resolved)
-      return this._paths[resolved][method].signature;
 
-    throw new UnregisteredPath(path);
+    if(! this.registered(path, method)) {
+      throw new UnregisteredPath(path);
+    }
+
+    let resolved = this.resolve(path, method);
+    
+    return this._paths[resolved][method].signature;
   }
 
   instance(path, method = 'get') {
@@ -82,14 +84,15 @@ class Registry extends Subscribable {
       return instantiated;
     }
 
-    let resolvedIndex = this.registered(path, method);
-    if (resolvedIndex) {
-      let instantiated = util.buildFromFactoryOrClass(this._paths[resolved][method].factoryOrClass);
-      this.publish(RegistryEvents.instantiated, instantiated);
-      return instantiated;
+    if(! this.registered(path, method)) {
+      throw new UnregisteredPath(path);
     }
+
+    let resolvedIndex = this.resolve(path, method);
     
-    throw new UnregisteredPath(path);
+    let instantiated = util.buildFromFactoryOrClass(this._paths[resolved][method].factoryOrClass);
+    this.publish(RegistryEvents.instantiated, instantiated);
+    return instantiated;
   }
 
   resolveDefaultMethod(path) {
@@ -108,7 +111,9 @@ class Registry extends Subscribable {
     if(
       (resolved in this._paths) &&
       (method in this._paths[resolved])
-    ) return resolved;
+    ) {
+      return true;
+    }
 
     return false;
   }
