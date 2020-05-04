@@ -9,18 +9,20 @@ platform
 try {
   let panelconf = require('./panel-generated/platform-config');
   platform.configure(panelconf);
-} catch(err) {}
 
-try {
   require('./panel-generated/platform-config.script');
-} catch(err) {}
+} catch(err) {
+  console.log(err);
+}
 
 try {
   if (process.env.CONNECT_PRODUCTION_MODE) {
     let prodconf = require('./panel-generated/platform-config.prod');
     platform.configure(prodconf);
   }
-} catch(err) {}
+} catch(err) {
+  console.log(err);
+}
 
 platform.start()
   .then(server => {
