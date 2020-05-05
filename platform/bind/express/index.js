@@ -26,6 +26,8 @@ module.exports = (app, config) => {
     verify(req, res, buf) {
       req.raw = buf;
     },
+    limit: config.get('request_limit', '10mb'),
+    extended: true,
   }));
 
   if (config.get('cors', true))
