@@ -1,6 +1,6 @@
 {
   "name": "connect-platform",
-  "version": "0.2.24",
+  "version": "0.2.25",
   "description": "A platform to build backened code mostly in a visual manner.",
   "keywords": [
     "connect",
