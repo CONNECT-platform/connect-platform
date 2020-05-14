@@ -74,7 +74,7 @@ module.exports = (server) => {
           }
 
           axios.post(callback, params).then((res) => {
-            console.log(res.data);
+            console.log(`Callback ${callback} result data: ${JSON.stringify(res.data)}`);
           });
         });
     });

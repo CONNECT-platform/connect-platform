@@ -64,9 +64,6 @@ class Platform extends Subscribable {
           this.config.get('enable_sockets')
         ) {
           this.io = setupSocketInstance(server);
-          this.io.on('connection', (socket) => {
-            console.log('connection', socket.id);
-          });
         }
 
         resolve(server);
