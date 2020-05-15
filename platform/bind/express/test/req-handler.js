@@ -8,7 +8,6 @@ const reqHandler = require('../req-handler');
 
 
 chai.use(chaiHttp);
-chai.should();
 
 describe('reqHandler()', () => {
   app = express();

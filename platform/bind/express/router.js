@@ -1,12 +1,12 @@
 const { Router } = require('express');
 const core = require('../../core');
 const reqHandler = require('./req-handler');
-const gatherPublicRoutes = require('../common/publicRoutes');
+const routes = require('../common/routes');
 
 const buildRouter = () => {
   let router = Router();
 
-  for (let signature of gatherPublicRoutes()) {
+  for (let signature of routes.public()) {
     let handler = reqHandler(() => core.registry.instance(signature.path, method), signature);
     let method = (signature.method) ? (signature.method.toLowerCase()) : ('get');
 
@@ -20,4 +20,4 @@ const buildRouter = () => {
 }
 
 module.exports = buildRouter;
-module.exports.public = gatherPublicRoutes;
+module.exports.public = routes.public;

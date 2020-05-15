@@ -7,5 +7,6 @@ describe('platform', ()=> {
 
   require('../bind/express/test');
   require('../bind/socket.io/test');
+  require('../bind/common/test');
   require('../util/test');
 });

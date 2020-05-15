@@ -7,6 +7,11 @@ and we use [Semantic Versioning](http://semver.org/spec/v2.0.0.html), like stric
 
 **NOTE**: there is not an entry for every version. Some versions included super minor changes, and as a result were excluded from this change log. For a really detailed history of changes, please checkout the commit history of the project.
 
+## [0.2.26] - 2020-05-15
+### Added:
+ - Added `enable_sockets` config flag where you can now specify if webscokets should be enabled through Socket.io
+ - The `enable_sockets` config flag can also be set through the `CONNECT_ENABLE_SOCKET` environment variable
+
 ## [0.2.25] - 2020-05-05
 ### Fixed:
  - Added `request_limit` config flag where you can now specify the limit on the request body size

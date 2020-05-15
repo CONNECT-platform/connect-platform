@@ -1,5 +1,5 @@
 const SocketIO = require('socket.io');
-const getSocketNodes = require('../common/publicRoutes');
+const routes = require('../common/routes');
 const axios = require('axios');
 
 module.exports = (server) => {
@@ -13,7 +13,7 @@ module.exports = (server) => {
   io.on('connection', (socket) => {
     // helper function to build the inputs object and call a node
     let callNode = (path, params = {}) => {
-      let nodes = getSocketNodes();
+      let nodes = routes.public();
       let fullPath = prefix + (pathMap[path] || path);
       
       let signature = nodes.find(
@@ -71,6 +71,8 @@ module.exports = (server) => {
           let params = {};
           if(result.output) {
             params[result.output] = result.data;
+          } else if(result.control) {
+            params.control = result.control;
           }
 
           axios.post(callback, params).then((res) => {
