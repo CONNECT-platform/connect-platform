@@ -104,7 +104,7 @@ describe('socket.io', () => {
     });
   });
 
-  it('should call connect node through a socket event and get an event back event without a leading slash in the path.', done => {
+  it('should call connect aliased node through a socket event and get an event back.', done => {
     platform.core.node({path: '/test/bind/socket.io',
       public: true,
       method: 'get',
@@ -112,22 +112,9 @@ describe('socket.io', () => {
       controlOutputs: ['done'],
     }, function(i, o, c, _, context) { context.socket.emit('test', i.test); c('done'); });
     
-    socket.emit('test/bind/socket.io', { test: 'testing response' });
-    socket.on('test', (req) => {
-      req.should.equal('testing response')
-      done();
-    });
-  });
+    platform.core.registry.alias('/testSocket', '/test/bind/socket.io');
 
-  it('should call connect node through a socket event and get an event back event with a trailing slash in the path.', done => {
-    platform.core.node({path: '/test/bind/socket.io',
-      public: true,
-      method: 'get',
-      inputs: [ 'test' ],
-      controlOutputs: ['done'],
-    }, function(i, o, c, _, context) { context.socket.emit('test', i.test); c('done'); });
-    
-    socket.emit('/test/bind/socket.io/', { test: 'testing response' });
+    socket.emit('/testSocket', { test: 'testing response' });
     socket.on('test', (req) => {
       req.should.equal('testing response')
       done();

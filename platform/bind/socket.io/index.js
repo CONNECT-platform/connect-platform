@@ -19,7 +19,6 @@ module.exports = (server) => {
       let signature = routes.findPublic(fullPath);
       
       if (signature) {
-        console.log('found public route');
         let inputs = {};
         if (signature.inputs) {
           for (let input of signature.inputs) {
