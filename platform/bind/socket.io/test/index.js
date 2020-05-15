@@ -9,6 +9,7 @@ const platform = require('../../../');
 describe('socket.io', () => {
   let socket = null;
   let server = null;
+  let url = null;
 
   beforeEach(function(done) {
     platform.core.node({path: '/connect',
@@ -16,14 +17,14 @@ describe('socket.io', () => {
       method: 'get',
       inputs: [ 'id' ],
       controlOutputs: ['done'],
-    }, function(i, o, c, _, context) { console.log('User connected with id:', i.id); c('done'); });
+    }, function(i, o, c, _, context) { c('done'); });
     
     platform.core.node({path: '/disconnect',
       public: true,
       method: 'get',
       inputs: [ 'id' ],
       controlOutputs: ['done'],
-    }, function(i, o, c, _, context) { console.log('User disconnected with id:', i.id); c('done'); });
+    }, function(i, o, c, _, context) { c('done'); });
             
     platform.configure({
       enable_sockets: true,
@@ -33,7 +34,7 @@ describe('socket.io', () => {
     platform.start()
     .then(serv => {
       server = serv;
-      const url = `http://127.0.0.1:${serv.address().port}`;
+      url = `http://127.0.0.1:${serv.address().port}`;
 
       socket = io.connect(url, {
           'reconnection delay' : 0,
@@ -52,13 +53,40 @@ describe('socket.io', () => {
 
   afterEach(function(done) {
     if(socket.connected) {
-        socket.disconnect();
+      socket.disconnect();
     } else {
-        console.warn('no connection to break...');
+      console.warn('no connection to break...');
     }
 
     server.close();
     done();
+  });
+
+  it('should call the connect event node through when connecting.', done => {
+    platform.core.node({path: '/connect',
+      public: true,
+      method: 'get',
+      inputs: [ 'id' ],
+      controlOutputs: ['done'],
+    }, function(i, o, c, _, context) { done(); c('done'); });
+
+    io.connect(url, {
+      'reconnection delay' : 0,
+      'reopen delay' : 0,
+      'force new connection' : true,
+      transports: ['websocket']
+    });
+  });
+
+  it('should call the disconnect event node through when connecting.', done => {
+    platform.core.node({path: '/disconnect',
+      public: true,
+      method: 'get',
+      inputs: [ 'id' ],
+      controlOutputs: ['done'],
+    }, function(i, o, c, _, context) { done(); c('done'); });
+
+    socket.disconnect();
   });
 
   it('should call connect node through a socket event and get an event back.', done => {

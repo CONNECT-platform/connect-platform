@@ -11,6 +11,7 @@ and we use [Semantic Versioning](http://semver.org/spec/v2.0.0.html), like stric
 ### Added:
  - Added `enable_sockets` config flag where you can now specify if webscokets should be enabled through Socket.io.
  - The `enable_sockets` config flag can also be set through the `CONNECT_ENABLE_SOCKET` environment variable.
+ - Routes class which relies on publish events to construct a public routes repo.
 ### Changed:
  - Refactored `getPublicRoutes` into the Routes class.
 

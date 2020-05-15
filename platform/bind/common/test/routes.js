@@ -5,14 +5,22 @@ const sinon = require('sinon');
 const expect = require('chai').expect;
 
 describe('routes', () => {
-  it('should only return public routes.', () => {
-    const privatePathSignature = {
-      path: "/test/private/path",
-      public: false,
+  it('should add public route when published.', () => {
+    const publicPath1Signature = {
+      path: "/test/public/path1",
+      public: true,
       method: "get",
       controlOutputs: [ "done" ]
     };
 
+    registry.publish(registry.events.registered, { signature: publicPath1Signature });
+    
+    expect(routes.public())
+      .to.be.an('array')
+      .that.includes(publicPath1Signature);
+  });
+  
+  it('should add public two route when published.', () => {
     const publicPath1Signature = {
       path: "/test/public/path1",
       public: true,
@@ -27,18 +35,64 @@ describe('routes', () => {
       controlOutputs: [ "donsies" ]
     };
 
-    const registrantsStubedResult = {
-      "/test/private/path": { get: { signature: privatePathSignature } },
-      "/test/public/path": { get: { signature: publicPath1Signature } },
-      "/test/public/path2": { get: { signature: publicPath2Signature } }
-    };
-
-    let coreMock = sinon.stub(registry, 'registrants').value(registrantsStubedResult);
+    registry.publish(registry.events.registered, { signature: publicPath1Signature });
+    registry.publish(registry.events.registered, { signature: publicPath2Signature });
     
     expect(routes.public())
       .to.be.an('array')
       .that.includes(publicPath1Signature)
-      .that.includes(publicPath2Signature)
+      .that.includes(publicPath2Signature);
+  });
+
+  it('should not add a private route when published.', () => {
+    const privatePathSignature = {
+      path: "/test/private/path",
+      public: false,
+      method: "get",
+      controlOutputs: [ "done" ]
+    };
+
+    registry.publish(registry.events.registered, { signature: privatePathSignature });
+    
+    expect(routes.public())
+      .to.be.an('array')
       .that.does.not.include(privatePathSignature);
+  });
+
+  it('should find route with different combinations of leading and trailing slashes.', () => {
+    const publicPathSignature = {
+      path: "/test/public/path",
+      public: true,
+      method: "get",
+      controlOutputs: [ "done" ]
+    };
+
+    registry.publish(registry.events.registered, { signature: publicPathSignature });
+    
+    expect(routes.findPublic('test/public/path')).to.eql(publicPathSignature);
+    expect(routes.findPublic('test/public/path/')).to.eql(publicPathSignature);
+    expect(routes.findPublic('/test/public/path')).to.eql(publicPathSignature);
+    expect(routes.findPublic('/test/public/path/')).to.eql(publicPathSignature);
+  });
+
+  it('should find route from alias.', () => {
+    const publicPathSignature = {
+      path: "/test/public/path",
+      public: true,
+      method: "get",
+      controlOutputs: [ "done" ]
+    };
+
+    registry.register(publicPathSignature, () => {});
+
+    registry.alias('/test-alias', publicPathSignature.path);
+
+    const resolvedPublicPathSignature = {
+      ...publicPathSignature,
+      path: "/test-alias",
+      resolvedPath: "/test/public/path"
+    };
+    
+    expect(routes.findPublic('test-alias')).to.eql(resolvedPublicPathSignature);
   });
 });

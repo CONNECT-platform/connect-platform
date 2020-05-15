@@ -15,13 +15,11 @@ module.exports = (server) => {
     let callNode = (path, params = {}) => {
       let nodes = routes.public();
       let fullPath = prefix + (pathMap[path] || path);
-      
-      let signature = nodes.find(
-        n =>
-          [ fullPath, `/${fullPath}`, `/${fullPath}/`, `${fullPath}/` ].includes(n.path)
-      );
+
+      let signature = routes.findPublic(fullPath);
       
       if (signature) {
+        console.log('found public route');
         let inputs = {};
         if (signature.inputs) {
           for (let input of signature.inputs) {
