@@ -7,6 +7,11 @@ and we use [Semantic Versioning](http://semver.org/spec/v2.0.0.html), like stric
 
 **NOTE**: there is not an entry for every version. Some versions included super minor changes, and as a result were excluded from this change log. For a really detailed history of changes, please checkout the commit history of the project.
 
+## [0.2.28] - 2020-05-18
+### Added:
+ - Added `setFromEnvVariable` on the config object which now allows you to set config path values (dot notation) from environment variables.
+ - Added `setServiceURLFromEnvVariable` on the config object which now allows you to set service URLs from  environment variables.
+
 ## [0.2.26] - 2020-05-18
 ### Added:
  - Added `enable_sockets` config flag where you can now specify if webscokets should be enabled through Socket.io.
