@@ -20,6 +20,13 @@ try {
     let prodconf = require('./panel-generated/platform-config.prod');
     platform.configure(prodconf);
   }
+
+  if (process.env.CONNECT_ENABLE_SOCKET && process.env.CONNECT_ENABLE_SOCKET.toLocaleLowerCase() === 'true') {
+    console.info('Enabling sockets');
+    platform.configure({
+      enable_sockets: true
+    });
+  }
 } catch(err) {
   console.log(err);
 }

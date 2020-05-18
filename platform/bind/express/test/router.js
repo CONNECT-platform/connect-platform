@@ -7,7 +7,6 @@ const router = require('../router');
 
 
 chai.use(chaiHttp);
-chai.should();
 
 describe('router', () => {
   app = express();

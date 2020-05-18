@@ -3,6 +3,7 @@ const shellBind = require('./bind/shell');
 const loaders = require('./loaders');
 const core = require('./core');
 const util = require('./util');
+const setupSocketInstance = require('./bind/socket.io');
 
 const {Subscribable} = require('./core/base/subscribable');
 const {Builder} = require('./builder');
@@ -58,6 +59,13 @@ class Platform extends Subscribable {
       process.on('unhandledRejection', r => console.error(r));
 
       let server = this.app.listen(port, () => {
+        if(
+          this.config.has('enable_sockets') &&
+          this.config.get('enable_sockets')
+        ) {
+          this.io = setupSocketInstance(server);
+        }
+
         resolve(server);
       });
     });
