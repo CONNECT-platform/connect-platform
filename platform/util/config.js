@@ -94,8 +94,8 @@ class Configuration {
     }
   }
 
-  autoparseFromEnvironmentVars() {
-    this.recursiveParse(this._params, (object, item) => {
+  autoparseFromEnvironmentVars(debug = false) {
+    this.recursiveParse(this._params, (object, item, path) => {
       const value = object[item];
       const reg = /{{\s*([^\s]+)\s*}}/g;
       let match = reg.exec(value);
@@ -106,18 +106,22 @@ class Configuration {
 
         if(envVarName === '' || ! process.env[envVarName]) continue;
         object[item] = object[item].replace(stringMatch, process.env[envVarName]);
+        if(debug) {
+          console.log(`Setting environment variable ${envVarName} in ${path}`);
+        }
 
         match = reg.exec(value);
       }
     });
   }
 
-  recursiveParse(object, callback) {
+  recursiveParse(object, callback, path = "") {
     for(let item in object) {
+      const newPath = `${path}${(path !== '') ? '.' : ''}${item}`;
       if( object[item] && (object[item] instanceof Object) ) {
-        this.recursiveParse(object[item], callback);
+        this.recursiveParse(object[item], callback, newPath);
       } else {
-        callback(object, item);
+        callback(object, item, newPath);
       }
     }
   }

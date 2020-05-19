@@ -7,6 +7,10 @@ and we use [Semantic Versioning](http://semver.org/spec/v2.0.0.html), like stric
 
 **NOTE**: there is not an entry for every version. Some versions included super minor changes, and as a result were excluded from this change log. For a really detailed history of changes, please checkout the commit history of the project.
 
+## [0.2.30] - 2020-05-19
+### Added:
+ - Added debug mode to the `autoparseFromEnvironmentVars` method.
+
 ## [0.2.29] - 2020-05-19
 ### Added:
  - Added `autoparseFromEnvironmentVars` method to autoparse config from envrionment variables with a templating language based approach.
