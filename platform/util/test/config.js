@@ -121,9 +121,13 @@ describe('config', () => {
     const TEST_ENVIRONMENT_VARIABLE = 'TEST_ENVIRONMENT_VARIABLE';
     const ENVIRONMENT_VARIABLE_VALUE = 'test_environment_variable';
 
+    const TEST_ENVIRONMENT_VARIABLE2 = 'TEST_ENVIRONMENT_VARIABLE2';
+    const ENVIRONMENT_VARIABLE_VALUE2 = 'test_environment_variable2';
+
     before(() => {
       env = process.env;
       process.env[TEST_ENVIRONMENT_VARIABLE] = ENVIRONMENT_VARIABLE_VALUE;
+      process.env[TEST_ENVIRONMENT_VARIABLE2] = ENVIRONMENT_VARIABLE_VALUE2;
     });
 
     it('should do nothing when there\'s no templated variable.', () => {
@@ -159,12 +163,7 @@ describe('config', () => {
       c.get('x').should.equal(`randomContent${ENVIRONMENT_VARIABLE_VALUE}`);
     });
 
-    it('should add value to config from multiple parsed templates.', () => {
-      const TEST_ENVIRONMENT_VARIABLE2 = 'TEST_ENVIRONMENT_VARIABLE2';
-      const ENVIRONMENT_VARIABLE_VALUE2 = 'test_environment_variable2';
-
-      process.env[TEST_ENVIRONMENT_VARIABLE2] = ENVIRONMENT_VARIABLE_VALUE2;
-
+    it('should add values to config from multiple parsed templates.', () => {
       let c = config({
         x: `{{ ${TEST_ENVIRONMENT_VARIABLE} }}{{ ${TEST_ENVIRONMENT_VARIABLE2} }}`
       });
@@ -176,12 +175,35 @@ describe('config', () => {
     });
 
     it('should set value to the config for a nested path.', () => {
-      let c = config({x : { y: { z: `{{ ${TEST_ENVIRONMENT_VARIABLE} }}`} } });
+      let c = config({x: { y: { z: `{{ ${TEST_ENVIRONMENT_VARIABLE} }}`} } });
       
-      c.autoparseFromEnvironmentVars('x.y.z', TEST_ENVIRONMENT_VARIABLE);
+      c.autoparseFromEnvironmentVars();
       
       c.has('x').should.be.true;
       c.get('x').y.z.should.equal(ENVIRONMENT_VARIABLE_VALUE);
+    });
+
+    it('should set values to the config for nested paths from multiple parsed templates.', () => {
+      let c = config(
+        {
+          x: {
+            y: {
+              z: `{{ ${TEST_ENVIRONMENT_VARIABLE} }}`,
+              w: `{{ ${TEST_ENVIRONMENT_VARIABLE2} }}`
+            }
+          },
+          y: {
+            z: `{{ ${TEST_ENVIRONMENT_VARIABLE} }}_{{ ${TEST_ENVIRONMENT_VARIABLE2} }}`
+          }
+        }
+      );
+      
+      c.autoparseFromEnvironmentVars();
+      
+      c.has('x').should.be.true;
+      c.get('x').y.z.should.equal(ENVIRONMENT_VARIABLE_VALUE);
+      c.get('x').y.w.should.equal(ENVIRONMENT_VARIABLE_VALUE2);
+      c.get('y').z.should.equal(`${ENVIRONMENT_VARIABLE_VALUE}_${ENVIRONMENT_VARIABLE_VALUE2}`);
     });
 
     after(function () {
