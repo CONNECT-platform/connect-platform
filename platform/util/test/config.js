@@ -75,12 +75,17 @@ describe('config', () => {
   });
 
   describe('.setFromEnvVariable()', () => {
+    let env;
+    const TEST_ENVIRONMENT_VARIABLE = 'TEST_ENVIRONMENT_VARIABLE';
+    const ENVIRONMENT_VARIABLE_VALUE = 'test_environment_variable';
+
+    before(() => {
+      env = process.env;
+      process.env[TEST_ENVIRONMENT_VARIABLE] = ENVIRONMENT_VARIABLE_VALUE;
+    });
+
     it('should add value to the config.', () => {
       let c = config({x : 2});
-      
-      const TEST_ENVIRONMENT_VARIABLE = 'TEST_ENVIRONMENT_VARIABLE';
-      const ENVIRONMENT_VARIABLE_VALUE = 'test_environment_variable';
-      process.env[TEST_ENVIRONMENT_VARIABLE] = ENVIRONMENT_VARIABLE_VALUE;
       
       c.setFromEnvVariable('y', TEST_ENVIRONMENT_VARIABLE);
       
@@ -91,10 +96,6 @@ describe('config', () => {
     it('should override the config when key already has a value.', () => {
       let c = config({y : 'SOMETHING_ELSE'});
       
-      const TEST_ENVIRONMENT_VARIABLE = 'TEST_ENVIRONMENT_VARIABLE';
-      const ENVIRONMENT_VARIABLE_VALUE = 'test_environment_variable';
-      process.env[TEST_ENVIRONMENT_VARIABLE] = ENVIRONMENT_VARIABLE_VALUE;
-      
       c.setFromEnvVariable('y', TEST_ENVIRONMENT_VARIABLE);
       
       c.has('y').should.be.true;
@@ -104,25 +105,123 @@ describe('config', () => {
     it('should set value to the config for a nested path.', () => {
       let c = config({x : { y: { z: 'SOMETHING_ELSE'} } });
       
-      const TEST_ENVIRONMENT_VARIABLE = 'TEST_ENVIRONMENT_VARIABLE';
-      const ENVIRONMENT_VARIABLE_VALUE = 'test_environment_variable';
-      process.env[TEST_ENVIRONMENT_VARIABLE] = ENVIRONMENT_VARIABLE_VALUE;
-      
       c.setFromEnvVariable('x.y.z', TEST_ENVIRONMENT_VARIABLE);
       
       c.has('x').should.be.true;
       c.get('x').y.z.should.equal(ENVIRONMENT_VARIABLE_VALUE);
     });
+
+    after(function () {
+      process.env = env;
+    });
+  });
+
+  describe('.autoparseFromEnvironmentVars()', () => {
+    let env;
+    const TEST_ENVIRONMENT_VARIABLE = 'TEST_ENVIRONMENT_VARIABLE';
+    const ENVIRONMENT_VARIABLE_VALUE = 'test_environment_variable';
+
+    const TEST_ENVIRONMENT_VARIABLE2 = 'TEST_ENVIRONMENT_VARIABLE2';
+    const ENVIRONMENT_VARIABLE_VALUE2 = 'test_environment_variable2';
+
+    before(() => {
+      env = process.env;
+      process.env[TEST_ENVIRONMENT_VARIABLE] = ENVIRONMENT_VARIABLE_VALUE;
+      process.env[TEST_ENVIRONMENT_VARIABLE2] = ENVIRONMENT_VARIABLE_VALUE2;
+    });
+
+    it('should do nothing when there\'s no templated variable.', () => {
+      let c = config({
+        x: 'random'
+      });
+      
+      c.autoparseFromEnvironmentVars();
+      
+      c.has('x').should.be.true;
+      c.get('x').should.equal('random');
+    });
+
+    it('should add value to config from parsed template.', () => {
+      let c = config({
+        x: `{{ ${TEST_ENVIRONMENT_VARIABLE} }}`
+      });
+      
+      c.autoparseFromEnvironmentVars();
+      
+      c.has('x').should.be.true;
+      c.get('x').should.equal(ENVIRONMENT_VARIABLE_VALUE);
+    });
+
+    it('should add value to config from parsed template while keeping other content.', () => {
+      let c = config({
+        x: `randomContent{{ ${TEST_ENVIRONMENT_VARIABLE} }}`
+      });
+      
+      c.autoparseFromEnvironmentVars();
+      
+      c.has('x').should.be.true;
+      c.get('x').should.equal(`randomContent${ENVIRONMENT_VARIABLE_VALUE}`);
+    });
+
+    it('should add values to config from multiple parsed templates.', () => {
+      let c = config({
+        x: `{{ ${TEST_ENVIRONMENT_VARIABLE} }}{{ ${TEST_ENVIRONMENT_VARIABLE2} }}`
+      });
+      
+      c.autoparseFromEnvironmentVars();
+      
+      c.has('x').should.be.true;
+      c.get('x').should.equal(`${ENVIRONMENT_VARIABLE_VALUE}${ENVIRONMENT_VARIABLE_VALUE2}`);
+    });
+
+    it('should set value to the config for a nested path.', () => {
+      let c = config({x: { y: { z: `{{ ${TEST_ENVIRONMENT_VARIABLE} }}`} } });
+      
+      c.autoparseFromEnvironmentVars();
+      
+      c.has('x').should.be.true;
+      c.get('x').y.z.should.equal(ENVIRONMENT_VARIABLE_VALUE);
+    });
+
+    it('should set values to the config for nested paths from multiple parsed templates.', () => {
+      let c = config(
+        {
+          x: {
+            y: {
+              z: `{{ ${TEST_ENVIRONMENT_VARIABLE} }}`,
+              w: `{{ ${TEST_ENVIRONMENT_VARIABLE2} }}`
+            }
+          },
+          y: {
+            z: `{{ ${TEST_ENVIRONMENT_VARIABLE} }}_{{ ${TEST_ENVIRONMENT_VARIABLE2} }}`
+          }
+        }
+      );
+      
+      c.autoparseFromEnvironmentVars();
+      
+      c.has('x').should.be.true;
+      c.get('x').y.z.should.equal(ENVIRONMENT_VARIABLE_VALUE);
+      c.get('x').y.w.should.equal(ENVIRONMENT_VARIABLE_VALUE2);
+      c.get('y').z.should.equal(`${ENVIRONMENT_VARIABLE_VALUE}_${ENVIRONMENT_VARIABLE_VALUE2}`);
+    });
+
+    after(function () {
+      process.env = env;
+    });
   });
 
   describe('.setServiceURLFromEnvVariable()', () => {
+    const TEST_ENVIRONMENT_VARIABLE = 'TEST_ENVIRONMENT_VARIABLE';
+    const TEST_SERVICE_NAME = 'test_service';
+    const ENVIRONMENT_VARIABLE_SERVICE_URL = 'http://test_service';
+
+    before(() => {
+      process.env[TEST_ENVIRONMENT_VARIABLE] = ENVIRONMENT_VARIABLE_SERVICE_URL;
+    });
+
     it('should add service.', () => {
       let c = config({x : 2});
-      
-      const TEST_ENVIRONMENT_VARIABLE = 'TEST_ENVIRONMENT_VARIABLE';
-      const TEST_SERVICE_NAME = 'test_service';
-      const ENVIRONMENT_VARIABLE_SERVICE_URL = 'http://test_service';
-      process.env[TEST_ENVIRONMENT_VARIABLE] = ENVIRONMENT_VARIABLE_SERVICE_URL;
       
       c.setServiceURLFromEnvVariable(TEST_SERVICE_NAME, TEST_ENVIRONMENT_VARIABLE);
       
@@ -134,12 +233,7 @@ describe('config', () => {
       nodes.service.should.deep.include({ name: TEST_SERVICE_NAME, url: ENVIRONMENT_VARIABLE_SERVICE_URL });
     });
 
-    it('should override an existing service URL config.', () => {
-      const TEST_ENVIRONMENT_VARIABLE = 'TEST_ENVIRONMENT_VARIABLE';
-      const TEST_SERVICE_NAME = 'test_service';
-      const ENVIRONMENT_VARIABLE_SERVICE_URL = 'http://test_service';
-      process.env[TEST_ENVIRONMENT_VARIABLE] = ENVIRONMENT_VARIABLE_SERVICE_URL;
-      
+    it('should override an existing service URL config.', () => {      
       let c = config({
         y : 'SOMETHING_ELSE',
         nodes: {
