@@ -31,6 +31,8 @@ try {
   console.log(err);
 }
 
+platform.config.autoparseFromEnvironmentVars();
+
 platform.start()
   .then(server => {
     console.log(`running on http://${server.address().address}` +
