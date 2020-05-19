@@ -94,6 +94,34 @@ class Configuration {
     }
   }
 
+  autoparseFromEnvironmentVars() {
+    this.recursiveParse(this._params, (object, item) => {
+      const value = object[item];
+      const reg = /{{\s*([^\s]+)\s*}}/g;
+      let match = reg.exec(value);
+
+      while(match && match.length > 1) {
+        const stringMatch = match[0];
+        const envVarName = match[1];
+
+        if(envVarName === '' || ! process.env[envVarName]) continue;
+        object[item] = object[item].replace(stringMatch, process.env[envVarName]);
+
+        match = reg.exec(value);
+      }
+    });
+  }
+
+  recursiveParse(object, callback) {
+    for(let item in object) {
+      if( object[item] && (object[item] instanceof Object) ) {
+        this.recursiveParse(object[item], callback);
+      } else {
+        callback(object, item);
+      }
+    }
+  }
+
   get core() {
     return new Proxy({}, {
       get: (_, prop) => this.get(prop),
