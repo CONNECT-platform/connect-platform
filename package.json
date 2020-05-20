@@ -1,6 +1,6 @@
 {
   "name": "connect-platform",
-  "version": "0.2.30",
+  "version": "0.2.31",
   "description": "A platform to build backened code mostly in a visual manner.",
   "keywords": [
     "connect",
@@ -21,7 +21,11 @@
     "start": "NODE_PATH=. DEVELOPMENT=true node run",
     "test": "mocha --exit"
   },
-  "author": "Eugene Ghanizadeh Khoub",
+  "author": "Eugene Ghanizadeh Khoub <eugene@connect-platform.com> (https://eugene.coding.blog)",
+  "contributors": [
+    "Eugene Ghanizadeh Khoub <eugene@connect-platform.com> (https://eugene.coding.blog)",
+    "Mustapha Ben Chaaben <mustapha@connect-platform.com> (https://must.coding.blog)"
+  ],
   "license": "MIT",
   "dependencies": {
     "axios": "^0.19.2",

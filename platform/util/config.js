@@ -104,13 +104,13 @@ class Configuration {
         const stringMatch = match[0];
         const envVarName = match[1];
 
+        match = reg.exec(value);
+
         if(envVarName === '' || ! process.env[envVarName]) continue;
         object[item] = object[item].replace(stringMatch, process.env[envVarName]);
         if(debug) {
           console.log(`Setting environment variable ${envVarName} in ${path}`);
         }
-
-        match = reg.exec(value);
       }
     });
   }
