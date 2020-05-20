@@ -141,6 +141,17 @@ describe('config', () => {
       c.get('x').should.equal('random');
     });
 
+    it('should do nothing for value from parsed template but with that isn\'t set in the environment.', () => {
+      let c = config({
+        x: `{{ NON_EXISTING_ENV_VARIABLE }}`
+      });
+      
+      c.autoparseFromEnvironmentVars();
+      
+      c.has('x').should.be.true;
+      c.get('x').should.equal('{{ NON_EXISTING_ENV_VARIABLE }}');
+    });
+
     it('should add value to config from parsed template.', () => {
       let c = config({
         x: `{{ ${TEST_ENVIRONMENT_VARIABLE} }}`
