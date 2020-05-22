@@ -23,6 +23,7 @@ const _defaultSignature : Signature = {
     path: '/some-path/',
     method: 'GET',
     public: false,
+    socket: false,
     inputs: [],
     outputs: [],
     controlOutputs: [],
@@ -80,6 +81,7 @@ export class EditorModelService extends Subscribable {
   public get path(): string { return this._signature.path; }
   public get method(): string { return this._signature.method.toUpperCase(); }
   public get public(): boolean { return this._signature.public; }
+  public get socket(): boolean { return this._signature.socket; }
 
   public get in(): PinList { return this._ins; }
   public get config(): PinList { return this._confs; }
@@ -108,11 +110,17 @@ export class EditorModelService extends Subscribable {
     this._signature.public = _public;
     this.publish(EditorModelEvents.accessChange, _public);
   }
+  
+  public set socket(_socket: boolean) {
+    this._signature.socket = _socket;
+    this.publish(EditorModelEvents.accessChange, _socket);
+  }
 
   public adopt(signature: Signature) {
     this.path = signature.path;
     this.method = signature.method;
     this.public = signature.public;
+    this.socket = signature.socket;
 
     this._signature.inputs = signature.inputs;
     this._signature.outputs = signature.outputs;
@@ -257,6 +265,7 @@ export class EditorModelService extends Subscribable {
       path : this.path,
       method : this.method,
       public : this.public,
+      socket : this.socket,
       in : this.signature.inputs,
       out : this.signature.outputs,
       configs : this.signature.configs,

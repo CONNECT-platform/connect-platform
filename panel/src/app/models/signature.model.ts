@@ -13,6 +13,7 @@ export interface Signature {
   controlOutputs?: Array<string>;
   path: string;
   public?: boolean;
+  socket?: boolean;
   method?: string;
   hints?: SignatureHints;
 }
