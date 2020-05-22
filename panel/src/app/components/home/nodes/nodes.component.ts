@@ -15,6 +15,7 @@ export class NodesComponent implements OnInit, OnDestroy {
     path: string;
     id: string;
     public?: boolean;
+    socket?: boolean;
     method?: string}> = [];
 
   private _entries: any[];
@@ -108,6 +109,7 @@ export class NodesComponent implements OnInit, OnDestroy {
     for (let node of this._nodes) {
       let signature = this.registry.signature(node.path);
       node.public = signature.public;
+      node.socket = signature.socket;
       node.method = signature.method;
     }
   }

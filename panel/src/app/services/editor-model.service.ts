@@ -295,6 +295,7 @@ export class EditorModelService extends Subscribable {
     this._signature.path = json.path;
     this._signature.method = json.method;
     this._signature.public = json.public;
+    this._signature.socket = json.socket;
     this._signature.inputs = json.in;
     this._signature.outputs = json.out;
     this._signature.configs = json.configs;

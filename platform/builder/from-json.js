@@ -94,6 +94,7 @@ const fromJSON = json => {
   if (desc.path) recipe.signature.path = desc.path;
   if (desc.description) recipe.signature.description = desc.description;
   if (desc.public) recipe.signature.public = desc.public;
+  if (desc.socket) recipe.signature.socket = desc.socket;
   if (desc.method) recipe.signature.method = desc.method;
 
   if (desc.in) {

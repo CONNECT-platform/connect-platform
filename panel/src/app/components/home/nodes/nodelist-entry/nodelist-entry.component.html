@@ -6,10 +6,10 @@
   <span class="postpath">{{ postpath }}</span>
   <div class="extra">
     <span class="access" [ngClass]="{'public': entry.content.public, 'internal' : !entry.content.public}">
-      {{entry.content.public?'public':'internal'}}
+      {{ entry.content.public ? "public" : (entry.content.socket ? "socket" : "internal") }}
     </span>
-    <span class="method">
-      {{entry.content.method}}
+    <span class="method" *ngIf="entry.content.public">
+      {{ entry.content.method }}
     </span>
   </div>
 </div>
