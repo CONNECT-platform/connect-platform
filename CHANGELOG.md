@@ -7,6 +7,12 @@ and we use [Semantic Versioning](http://semver.org/spec/v2.0.0.html), like stric
 
 **NOTE**: there is not an entry for every version. Some versions included super minor changes, and as a result were excluded from this change log. For a really detailed history of changes, please checkout the commit history of the project.
 
+## [0.2.32] - 2020-05-22
+### Added:
+ - Added default values support for the `autoparseFromEnvironmentVars` method example of usage: `{{ ENV_VARIABLE || default }}`.
+### Fixed:
+ - Fixed bug where call to the api endpoint result in an error.
+
 ## [0.2.31] - 2020-05-20
 ### Fixed:
  - Fixed bug with the `autoparseFromEnvironmentVars` method where a non existing environment variable would lead to an infinite loop.
