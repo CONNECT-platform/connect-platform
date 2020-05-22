@@ -37,7 +37,7 @@ module.exports = (app, config) => {
 
   if (config.get('interconnectible', true))
     app.get('/api', (req, res) => {
-      res.status(200).send(router.routes.public().filter(signature => signature.interconnectible !== false));
+      res.status(200).send(router.routes.get().filter(signature => signature.interconnectible !== false));
     });
 
   return app;

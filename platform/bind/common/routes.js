@@ -1,16 +1,16 @@
-const core = require('../../core');
 const { Subscribable } = require('../../core/base/subscribable');
 
 class Routes extends Subscribable {
-  constructor(registry) {
+  constructor(registry, property = 'public') {
     super();
     this._registry = registry;
     this.initPaths();
     this._pathsMap = {};
     this._paths = [];
+    this._property = property;
 
     let handleNewRouteInfoEvent = (registrant) => {
-      if(! registrant.signature.public) return;
+      if(! registrant.signature[this._property]) return;
 
       if(registrant.signature.path in this._pathsMap) {
         const foundIndex = this._pathsMap[registrant.signature.path];
@@ -49,8 +49,8 @@ class Routes extends Subscribable {
       for(let method in methods) {
         const signature = methods[method].signature;
         if(
-          ('public' in signature) &&
-          signature.public
+          (this._property in signature) &&
+          signature[this._property]
         ) {
           const pushIndex = this._paths.push(signature) - 1;
           this._pathsMap[signature.path] = pushIndex;
@@ -59,11 +59,11 @@ class Routes extends Subscribable {
     }
   }
 
-  public() {
+  get() {
     return this._paths;
   }
 
-  findPublic(path) {
+  find(path) {
     let pathToFind = path.replace(/\/$/, '');
     if(pathToFind[0] != '/') pathToFind = '/' + pathToFind;
 
@@ -71,7 +71,4 @@ class Routes extends Subscribable {
   }
 }
 
-if (!global.connect_routes_instance)
-  global.connect_routes_instance = new Routes(core.registry);
-
-module.exports = global.connect_routes_instance;
+module.exports = Routes;

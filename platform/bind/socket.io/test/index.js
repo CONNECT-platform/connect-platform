@@ -13,15 +13,15 @@ describe('socket.io', () => {
 
   beforeEach(function(done) {
     platform.core.node({path: '/connect',
-      public: true,
-      method: 'get',
+      public: false,
+      socket: true,
       inputs: [ 'id' ],
       controlOutputs: ['done'],
     }, function(i, o, c, _, context) { c('done'); });
     
     platform.core.node({path: '/disconnect',
-      public: true,
-      method: 'get',
+      public: false,
+      socket: true,
       inputs: [ 'id' ],
       controlOutputs: ['done'],
     }, function(i, o, c, _, context) { c('done'); });
@@ -64,8 +64,8 @@ describe('socket.io', () => {
 
   it('should call the connect event node through when connecting.', done => {
     platform.core.node({path: '/connect',
-      public: true,
-      method: 'get',
+      public: false,
+      socket: true,
       inputs: [ 'id' ],
       controlOutputs: ['done'],
     }, function(i, o, c, _, context) { done(); c('done'); });
@@ -80,8 +80,8 @@ describe('socket.io', () => {
 
   it('should call the disconnect event node through when connecting.', done => {
     platform.core.node({path: '/disconnect',
-      public: true,
-      method: 'get',
+      public: false,
+      socket: true,
       inputs: [ 'id' ],
       controlOutputs: ['done'],
     }, function(i, o, c, _, context) { done(); c('done'); });
@@ -91,8 +91,8 @@ describe('socket.io', () => {
 
   it('should call connect node through a socket event and get an event back.', done => {
     platform.core.node({path: '/test/bind/socket.io',
-      public: true,
-      method: 'get',
+      public: false,
+      socket: true,
       inputs: [ 'test' ],
       controlOutputs: ['done'],
     }, function(i, o, c, _, context) { context.socket.emit('test', i.test); c('done'); });
@@ -106,8 +106,8 @@ describe('socket.io', () => {
 
   it('should call connect aliased node through a socket event and get an event back.', done => {
     platform.core.node({path: '/test/bind/socket.io',
-      public: true,
-      method: 'get',
+      public: false,
+      socket: true,
       inputs: [ 'test' ],
       controlOutputs: ['done'],
     }, function(i, o, c, _, context) { context.socket.emit('test', i.test); c('done'); });
@@ -130,8 +130,8 @@ describe('socket.io', () => {
     const stub = sinon.stub(axios, 'post').resolves(Promise.resolve({ data: {} }));
 
     platform.core.node({path: '/test/bind/socket.io',
-      public: true,
-      method: 'get',
+      public: false,
+      socket: true,
       inputs: [ 'test' ],
       controlOutputs: [CONTROL_NAME],
     }, function(i, o, c, _, context) {
