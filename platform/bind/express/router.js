@@ -20,4 +20,4 @@ const buildRouter = () => {
 }
 
 module.exports = buildRouter;
-module.exports.public = routes.public;
+module.exports.routes = routes;

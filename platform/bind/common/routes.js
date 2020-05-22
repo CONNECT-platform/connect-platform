@@ -7,6 +7,7 @@ class Routes extends Subscribable {
     this._registry = registry;
     this.initPaths();
     this._pathsMap = {};
+    this._paths = [];
 
     let handleNewRouteInfoEvent = (registrant) => {
       if(! registrant.signature.public) return;
@@ -44,8 +45,6 @@ class Routes extends Subscribable {
   }
 
   initPaths() {
-    this._paths = [];
-
     for (let [path, methods] of Object.entries(this._registry.registrants)) {
       for(let method in methods) {
         const signature = methods[method].signature;
