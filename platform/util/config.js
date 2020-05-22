@@ -97,16 +97,25 @@ class Configuration {
   autoparseFromEnvironmentVars(debug = false) {
     this.recursiveParse(this._params, (object, item, path) => {
       const value = object[item];
-      const reg = /{{\s*([^\s]+)\s*}}/g;
+      const reg = /{{\s*([^\s]+) (\|\|\s*([^\s])*)?\s*}}/g;
       let match = reg.exec(value);
 
       while(match && match.length > 1) {
         const stringMatch = match[0];
         const envVarName = match[1];
 
+        let defaultValue = (match.length > 2 && match[2]) ? match[2] : null;
         match = reg.exec(value);
 
-        if(envVarName === '' || ! process.env[envVarName]) continue;
+        if(envVarName === '' || ! process.env[envVarName]) {
+          if(defaultValue !== null) {
+            defaultValue = defaultValue.substring(2).trim();
+
+            object[item] = object[item].replace(stringMatch, defaultValue);
+          }
+          continue;
+        }
+        
         object[item] = object[item].replace(stringMatch, process.env[envVarName]);
         if(debug) {
           console.log(`Setting environment variable ${envVarName} in ${path}`);

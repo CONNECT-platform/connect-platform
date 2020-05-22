@@ -1,5 +1,5 @@
 {
-  "port": 4000,
+  "port": "{{ CONNECT_PORT || 4000 }}",
   "greet": "hellow",
   "panel": {
     "expose": true

@@ -163,6 +163,39 @@ describe('config', () => {
       c.get('x').should.equal(ENVIRONMENT_VARIABLE_VALUE);
     });
 
+    it('should use default value to config from parsed template with no corresponding env variable.', () => {
+      let c = config({
+        x: `{{ NON_EXISTIN_ENV_VARIABLE || default }}`
+      });
+      
+      c.autoparseFromEnvironmentVars();
+      
+      c.has('x').should.be.true;
+      c.get('x').should.equal('default');
+    });
+
+    it('should use default value with no whitespace to config from parsed template with no corresponding env variable.', () => {
+      let c = config({
+        x: `{{ NON_EXISTIN_ENV_VARIABLE ||default }}`
+      });
+      
+      c.autoparseFromEnvironmentVars();
+      
+      c.has('x').should.be.true;
+      c.get('x').should.equal('default');
+    });
+
+    it('should use default value with multiple whitespaces to config from parsed template with no corresponding env variable.', () => {
+      let c = config({
+        x: `{{ NON_EXISTIN_ENV_VARIABLE ||       default     }}`
+      });
+      
+      c.autoparseFromEnvironmentVars();
+      
+      c.has('x').should.be.true;
+      c.get('x').should.equal('default');
+    });
+
     it('should add value to config from parsed template while keeping other content.', () => {
       let c = config({
         x: `randomContent{{ ${TEST_ENVIRONMENT_VARIABLE} }}`
