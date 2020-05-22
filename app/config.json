@@ -13,15 +13,11 @@
       "db": "mydb"
   },
   "nodes": {
-    "native": ["hellow"],
+    "native": [ ],
     "module": [
-      "facts",
       "platform/bind/utils",
       "platform/bind/panel",
       "panel-generated"
     ]
-  },
-  "aliases": {
-    "/eightf" : "/8fact"
   }
  }
