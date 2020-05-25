@@ -170,7 +170,7 @@ class Registry extends Subscribable {
           let _obj = Object.assign({}, this._paths[resolved][key]);
           _obj.signature = Object.assign({}, _obj.signature, {
             path: alias,
-            resolvedPath : resolved,
+            resolvedPath: resolved,
           });
           all[alias][key] = _obj;
         }

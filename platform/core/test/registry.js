@@ -2,7 +2,7 @@ const assert = require('assert');
 const base = require('../base');
 const registry = require('../registry');
 const { UnregisteredPath } = require('../errors');
-
+const chai = require('chai');
 
 describe('registry', () => {
   describe('.register()', () => {
@@ -188,14 +188,23 @@ describe('registry', () => {
       class B extends base.node.Node{};
       class C extends base.node.Node{};
 
-      registry.register({path: 'Multi', method: 'get', public: true, key: TEST_KEY1 }, A);
-      registry.register({path: 'Multi', method: 'post', public: true, key: TEST_KEY2 }, B);
-      registry.register({path: 'Multi', method: 'get', socket: true, key: TEST_KEY3 }, C);
+      const signatureA = {path: 'Multi', method: 'get', public: true, key: TEST_KEY1 };
+      const signatureB = {path: 'Multi', method: 'post', public: true, key: TEST_KEY2 };
+      const signatureC = {path: 'Multi', method: 'get', socket: true, key: TEST_KEY3 };
 
-      console.log('registrants', registry.registrants);
-      assert(registry.instance('Multi', TEST_KEY1) instanceof A);
-      assert(registry.instance('Multi', TEST_KEY2) instanceof B);
-      assert(registry.instance('Multi', TEST_KEY3) instanceof C);
+      registry.register(signatureA, A);
+      registry.register(signatureB, B);
+      registry.register(signatureC, C);
+
+      registry.registrants.should.have.property('Multi');
+
+      registry.registrants['Multi'].should.have.property(TEST_KEY1);
+      registry.registrants['Multi'].should.have.property(TEST_KEY2);
+      registry.registrants['Multi'].should.have.property(TEST_KEY3);
+      
+      registry.registrants['Multi'][TEST_KEY1].signature.should.eql(signatureA);
+      registry.registrants['Multi'][TEST_KEY2].signature.should.eql(signatureB);
+      registry.registrants['Multi'][TEST_KEY3].signature.should.eql(signatureC);
     });
   });
 });
