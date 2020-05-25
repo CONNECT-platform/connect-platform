@@ -165,15 +165,15 @@ describe('save-node', () => {
       .post('/panel/save')
       .send(modifedNodeTemplate)
     ).then(res => {
-        res.status.should.equal(200);
-        res.should.have.property('body');
-        res.body.should.have.property('id');
+      res.status.should.equal(200);
+      res.should.have.property('body');
+      res.body.should.have.property('id');
 
-        id = res.body.id;
+      id = res.body.id;
 
-        let nodefile = path.join('test-app/panel-generated', 'nodes', id);
+      let nodefile = path.join('test-app/panel-generated', 'nodes', id);
 
-        return files.json.load(nodefile);
+      return files.json.load(nodefile);
     }).then(nodeInfo => {
       nodeInfo.should.eql(modifedNodeTemplateSignature);
 
