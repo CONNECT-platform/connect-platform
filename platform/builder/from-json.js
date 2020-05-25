@@ -95,7 +95,8 @@ const fromJSON = json => {
   if (desc.description) recipe.signature.description = desc.description;
   if (desc.public) recipe.signature.public = desc.public;
   if (desc.socket) recipe.signature.socket = desc.socket;
-  if (desc.method) recipe.signature.method = desc.method;
+  if (desc.method) recipe.signature.method = desc.method.toLowerCase();
+  if (desc.key) recipe.signature.key = desc.key;
 
   if (desc.in) {
     recipe.signature.inputs = desc.in;
