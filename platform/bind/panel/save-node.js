@@ -79,7 +79,7 @@ platform.core.node({
         key: hash({
           public: inputs.signature.public || false,
           method: inputs.signature.method || '',
-          socket: inputs.signature.sokcet || false
+          socket: inputs.signature.socket || false
         })
       };
       
