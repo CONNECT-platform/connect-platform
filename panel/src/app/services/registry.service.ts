@@ -43,8 +43,10 @@ export class RegistryService {
     return path in this._registry;
   }
 
-  public signature(path): Signature {
-    const method = Object.keys(this._registry[path])[0];
+  public signature(path, public = false, method = '', socket = false): Signature {
+    if(method === '') {  
+      method = Object.keys(this._registry[path])[0];
+    }
 
     return this._registry[path][method];
   }
@@ -87,6 +89,9 @@ export class RegistryService {
               inputs: [],
               outputs: [],
               controlOutputs: [],
+              public: false,
+              socket: false,
+              method: "GET"
             }, methodEntry[1]['signature']);
           });
         });

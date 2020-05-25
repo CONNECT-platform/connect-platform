@@ -33,13 +33,30 @@ export class NodesComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.backend.nodes.subscribe(data => {
-      this._nodes = Object.entries(data.nodes).map(entry => {
-          return {
-            path: entry[0],
-            id: entry[1] as string,
+      console.log(data);
+      this._nodes = [];
+      for(let k in data.nodes) {
+        const entry = data.nodes[k];
+        console.log({k, entry});
+
+        if(Array.isArray(entry)) {
+          for(let c in entry) {
+            const id = entry[c] as string;
+            this._nodes.push({
+              path: k,
+              id
+            });
           }
-        });
+        } else {
+          this._nodes.push({
+            path: k,
+            id: entry as string,
+          });
+        }
+      }
+
       this._entries = this.folderize(this.nodes);
+      console.log('entries', this._entries);
     });
 
     this._update();
@@ -73,18 +90,41 @@ export class NodesComponent implements OnInit, OnDestroy {
       subfolders[subfolder].push(node);
     });
 
-    return Object.entries(subfolders).map(([path, entries]) => {
-      if (entries.length == 1)
-        return {
+    const ret = [];
+    for(let path in subfolders) {
+      const entries = subfolders[path];
+
+      if (entries.length > 1) {
+
+        const content = [];
+        for(let e in entries) {
+          content.push({
+            folder: false,
+            content: entries[e]
+          });
+        }
+
+        ret.push({
+          folder: true,
+          path: initialpath + '/' + path,
+          content
+        });
+      } else if (entries.length == 1) {
+        ret.push({
           folder: false,
           content: entries[0]
-        };
-      else return {
-        folder: true,
-        path: initialpath + '/' + path,
-        content: this.folderize(entries, initialpath + '/' + path)
+        });
+      } else {
+        ret.push({
+          folder: true,
+          path: initialpath + '/' + path,
+          content: this.folderize(entries, initialpath + '/' + path)
+        });
       }
-    });
+    }
+
+    console.log(ret);
+    return ret;
   }
 
   public get empty() {
@@ -107,10 +147,14 @@ export class NodesComponent implements OnInit, OnDestroy {
 
   private _update() {
     for (let node of this._nodes) {
-      let signature = this.registry.signature(node.path);
+      console.log(node);
+      let signature = this.registry.signature(node.path, node.public, node.method, node.socket);
+      
+      console.log({ signature });
+
       node.public = signature.public;
-      node.socket = signature.socket;
       node.method = signature.method;
+      node.socket = signature.socket;
     }
   }
 }

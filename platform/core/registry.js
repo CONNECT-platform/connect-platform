@@ -30,14 +30,15 @@ class Registry extends Subscribable {
           signature.path.substr(0, signature.path.length - 1) :
           signature.path; // make sure the key is consistant
 
-      let method = 'get';
-      if('method' in signature) method = signature.method.toLowerCase();
+      let key = 'get';
+      if('method' in signature) key = signature.method.toLowerCase();
+      if('key' in signature) key = signature.key;
 
       if( ! (signature.path in this._paths) ) {
         this._paths[signature.path] = {};
       }
 
-      this._paths[signature.path][method] = entry;
+      this._paths[signature.path][key] = entry;
       
       this.publish(RegistryEvents.registered, entry);
 
@@ -53,49 +54,45 @@ class Registry extends Subscribable {
     return this;
   }
 
-  signature(path, method = 'get') {
-    if(method === '') {
-      method = this.resolveDefaultMethod(path);
+  signature(path, key = 'get') {
+    if(key === '') {
+      key = this.resolveDefaultKey(path);
     }
 
-    method = method.toLowerCase();
-
-    if(! this.registered(path, method)) {
+    if(! this.registered(path, key)) {
       throw new UnregisteredPath(path);
     }
 
-    let resolved = this.resolve(path, method);
+    let resolved = this.resolve(path, key);
     
-    return this._paths[resolved][method].signature;
+    return this._paths[resolved][key].signature;
   }
 
-  instance(path, method = 'get') {
-    if(method === '') {
-      method = this.resolveDefaultMethod(path);
+  instance(path, key = 'get') {
+    if(key === '') {
+      key = this.resolveDefaultKey(path);
     }
-
-    method = method.toLowerCase();
 
     let resolved = this.resolve(path);
 
-    if (this.mocked(path, method)) {
-      let instantiated = util.buildFromFactoryOrClass(this._mocks[resolved][method]);
+    if (this.mocked(path, key)) {
+      let instantiated = util.buildFromFactoryOrClass(this._mocks[resolved][key]);
       this.publish(RegistryEvents.instantiated, instantiated);
       return instantiated;
     }
 
-    if(! this.registered(path, method)) {
+    if(! this.registered(path, key)) {
       throw new UnregisteredPath(path);
     }
 
-    let resolvedIndex = this.resolve(path, method);
+    let resolvedIndex = this.resolve(path, key);
     
-    let instantiated = util.buildFromFactoryOrClass(this._paths[resolved][method].factoryOrClass);
+    let instantiated = util.buildFromFactoryOrClass(this._paths[resolved][key].factoryOrClass);
     this.publish(RegistryEvents.instantiated, instantiated);
     return instantiated;
   }
 
-  resolveDefaultMethod(path) {
+  resolveDefaultKey(path) {
     let resolved = this.resolve(path);
     
     if(resolved in this._paths)
@@ -104,13 +101,12 @@ class Registry extends Subscribable {
     throw new UnregisteredPath(path);
   }
 
-  registered(path, method = 'get') {
-    method = method.toLowerCase();
+  registered(path, key = 'get') {
     let resolved = this.resolve(path);
     
     if(
       (resolved in this._paths) &&
-      (method in this._paths[resolved])
+      (key in this._paths[resolved])
     ) {
       return true;
     }
@@ -136,13 +132,11 @@ class Registry extends Subscribable {
     return this;
   }
 
-  mock(path, factoryOrClass, method = 'get') {
-    method = method.toLowerCase();
-
+  mock(path, factoryOrClass, key = 'get') {
     if( ! (path in this._mocks) ) {
       this._mocks[path] = {};
     }
-    this._mocks[path][method] = factoryOrClass;
+    this._mocks[path][key] = factoryOrClass;
 
     this.publish(RegistryEvents.mocked, {
       path: path,
@@ -150,10 +144,8 @@ class Registry extends Subscribable {
     });
   }
 
-  unmock(path, method = 'get') {
-    method = method.toLowerCase();
-    
-    delete this._mocks[path][method];
+  unmock(path, key = 'get') {    
+    delete this._mocks[path][key];
 
     if(Object.keys(this._mocks[path]).length === 0) {
       delete this._mocks[path];
@@ -162,8 +154,7 @@ class Registry extends Subscribable {
     this.publish(RegistryEvents.unmocked, path);
   }
 
-  mocked(path, method = 'get') {
-    method = method.toLowerCase();
+  mocked(path, methkeyod = 'get') {
     return this.resolve(path) in this._mocks;
   }
 
@@ -175,13 +166,13 @@ class Registry extends Subscribable {
       if (resolved in this._paths) {
         all[alias] = {};
 
-        for(let method in this._paths[resolved]) {
-          let _obj = Object.assign({}, this._paths[resolved][method]);
+        for(let key in this._paths[resolved]) {
+          let _obj = Object.assign({}, this._paths[resolved][key]);
           _obj.signature = Object.assign({}, _obj.signature, {
             path: alias,
             resolvedPath : resolved,
           });
-          all[alias][method] = _obj;
+          all[alias][key] = _obj;
         }
       }
     }

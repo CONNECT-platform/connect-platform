@@ -32,7 +32,6 @@ module.exports = (app, config) => {
 
   if (config.get('cors', true))
     app.use(cors());
-
   app.use(router(config));
 
   if (config.get('interconnectible', true))
