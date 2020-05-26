@@ -6,6 +6,8 @@ const files = require('../../../bind/panel/util/file-io');
 
 const deepAssign = require('deep-assign');
 
+const { hashSig } = require('../util/hash');
+
 chai.use(chaiHttp);
 
 process.env.CONNECT_PORT = 4041;
@@ -37,9 +39,10 @@ describe('save-node', () => {
 
   const templateNodeExpectedSignature = {
     ...templateNode.signature,
-    method: '',
-    key: "6fa66a2dfa9a4d24e2e07fc2e449527aaf26ada2"
+    method: ''
   };
+
+  templateNodeExpectedSignature.key = hashSig(templateNodeExpectedSignature);
 
   before(() => {
     require('../../../../test-app');
@@ -138,7 +141,7 @@ describe('save-node', () => {
       }
     });
 
-    const modifedNodeTemplateSignature = {
+    const modifedNodeTemplateExpectedSignature = {
       ...templateNodeExpectedSignature,
       in: modifedNodeTemplate.signature.in,
       out: modifedNodeTemplate.signature.out,
@@ -175,7 +178,7 @@ describe('save-node', () => {
 
       return files.json.load(nodefile);
     }).then(nodeInfo => {
-      nodeInfo.should.eql(modifedNodeTemplateSignature);
+      nodeInfo.should.eql(modifedNodeTemplateExpectedSignature);
 
       return nodeInfo;
     }).then(() => {
@@ -202,10 +205,9 @@ describe('save-node', () => {
       }
     });
 
-    const modifedNodeTemplateSignature = {
-      ...modifedNodeTemplate.signature,
-      key: '35e0c2a540a05e49434f350c16672b0e1b3fb801'
-    }
+    const modifedNodeTemplateExpectedSignature = { ...modifedNodeTemplate.signature };
+
+    modifedNodeTemplateExpectedSignature.key = hashSig(modifedNodeTemplateExpectedSignature);
 
     requester
     .post('/panel/save')
@@ -240,7 +242,7 @@ describe('save-node', () => {
 
         return files.json.load(nodefile);
     }).then(nodeInfo => {
-      nodeInfo.should.eql(modifedNodeTemplateSignature);
+      nodeInfo.should.eql(modifedNodeTemplateExpectedSignature);
 
       return nodeInfo;
     }).then(() => {
@@ -263,7 +265,7 @@ describe('save-node', () => {
     }
   });
 
-  const socketNodeSignature = {
+  const socketNodeExpectedSignature = {
     ...templateNodeExpectedSignature,
     public: socketNode.signature.public,
     method: '',
@@ -278,13 +280,14 @@ describe('save-node', () => {
     }
   });
 
-  const publicPostNodeSignature = {
+  const publicPostNodeExpectedSignature = {
     ...templateNodeExpectedSignature,
     public: publicPostNode.signature.public,
     method: publicPostNode.signature.method,
     socket: publicPostNode.signature.socket,
-    key: "35e0c2a540a05e49434f350c16672b0e1b3fb801"
   };
+
+  publicPostNodeExpectedSignature.key = hashSig(publicPostNodeExpectedSignature);
 
   it('Create node correctly with same path but different signature (public and socket node).', done => {
     let id = null;
@@ -303,7 +306,7 @@ describe('save-node', () => {
 
       return files.json.load(nodefile);
     }).then(nodeInfo => {
-      nodeInfo.should.eql(publicPostNodeSignature);
+      nodeInfo.should.eql(publicPostNodeExpectedSignature);
 
       return nodeInfo;
     }).then(() =>
@@ -323,7 +326,7 @@ describe('save-node', () => {
 
         return files.json.load(nodefile);
     }).then(nodeInfo => {
-      nodeInfo.should.eql(socketNodeSignature);
+      nodeInfo.should.eql(socketNodeExpectedSignature);
 
       let pathmapfile = path.join('test-app/panel-generated', 'path-map');
       return files.json.load(pathmapfile, {});
@@ -362,7 +365,7 @@ describe('save-node', () => {
 
       return files.json.load(nodefile);
     }).then(nodeInfo => {
-      nodeInfo.should.eql(publicPostNodeSignature);
+      nodeInfo.should.eql(publicPostNodeExpectedSignature);
 
       return nodeInfo;
     }).then(() =>
@@ -382,7 +385,7 @@ describe('save-node', () => {
 
         return files.json.load(nodefile);
     }).then(nodeInfo => {
-      nodeInfo.should.eql(socketNodeSignature);
+      nodeInfo.should.eql(socketNodeExpectedSignature);
 
       let pathmapfile = path.join('test-app/panel-generated', 'path-map');
       return files.json.load(pathmapfile, {});
@@ -416,13 +419,14 @@ describe('save-node', () => {
       }
     });
 
-    const internalNodeSignature = {
+    const internalNodeExpectedSignature = {
       ...templateNodeExpectedSignature,
       public: internalNode.signature.public,
       method: '',
       socket: internalNode.signature.socket,
-      key: "6fa66a2dfa9a4d24e2e07fc2e449527aaf26ada2"
     };
+
+    internalNodeExpectedSignature.key = hashSig(internalNodeExpectedSignature);
 
     requester
     .post('/panel/save')
@@ -437,7 +441,7 @@ describe('save-node', () => {
 
       return files.json.load(nodefile);
     }).then(nodeInfo => {
-      nodeInfo.should.eql(internalNodeSignature);
+      nodeInfo.should.eql(internalNodeExpectedSignature);
 
       return nodeInfo;
     }).then(() =>
@@ -457,7 +461,7 @@ describe('save-node', () => {
 
         return files.json.load(nodefile);
     }).then(nodeInfo => {
-      nodeInfo.should.eql(socketNodeSignature);
+      nodeInfo.should.eql(socketNodeExpectedSignature);
 
       let pathmapfile = path.join('test-app/panel-generated', 'path-map');
       return files.json.load(pathmapfile, {});

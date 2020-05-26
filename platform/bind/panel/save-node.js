@@ -5,7 +5,7 @@ const config = require('./util/config');
 const files = require('./util/file-io');
 const authorize = require('./util/authorize');
 
-const hash = require('./util/hash');
+const { hashSig } = require('./util/hash');
 
 function matchNodes(signature1, signature2) {
   return (
@@ -74,18 +74,13 @@ platform.core.node({
         return;
       }
 
-      const signature = {
-        ...inputs.signature,
-        key: hash({
-          public: inputs.signature.public || false,
-          method: inputs.signature.method || '',
-          socket: inputs.signature.socket || false
-        })
-      };
+      const signature = { ...inputs.signature };
       
       if(! signature.public || signature.socket) {
         signature.method = '';
       }
+
+      signature.key = hashSig(signature);
 
       let pathmapfile = path.join(config.directory, config.files.pathmap);
 
