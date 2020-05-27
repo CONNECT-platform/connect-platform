@@ -43,12 +43,20 @@ export class RegistryService {
     return path in this._registry;
   }
 
-  public signature(path, public = false, method = '', socket = false): Signature {
+  public signature(path, publ = false, method = '', socket = false): Signature {
+    console.log('values', Object.values(this._registry[path]), publ);
+    const found = Object.values(this._registry[path]).find(
+      (el: Signature) =>
+        el.public === publ &&
+        el.method === method &&
+        el.socket === socket
+    ) as Signature;
+
     if(method === '') {  
       method = Object.keys(this._registry[path])[0];
     }
 
-    return this._registry[path][method];
+    return found;
   }
 
   public hints(path): SignatureHints|null {

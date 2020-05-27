@@ -14,67 +14,25 @@ process.env.CONNECT_PORT = 4041;
 
 const url = `http://127.0.0.1:${process.env.CONNECT_PORT}`;
 
-function deepClone(o) {
-  return JSON.parse(JSON.stringify(o));
-}
+const deepClone = require('./util/deepClone');
+const { deleteNodes, validateDeleteCalls } = require('./util/api');
+
+const { template } = require('./util/dummyNodes');
 
 describe('save-node', () => {
   let requester = null;
-  const templateNode = {
-    "id":null,
-    "signature": {
-      "path":"/multi",
-      "method":"GET",
-      "public":false,
-      "socket":true,
-      "in":[],
-      "out":[],
-      "configs":[],
-      "control":[],
-      "nodes":[],
-      "links":[]
-    },
-    "connect_token": ""
-  };
-
-  const templateNodeExpectedSignature = {
-    ...templateNode.signature,
-    method: ''
-  };
-
-  templateNodeExpectedSignature.key = hashSig(templateNodeExpectedSignature);
 
   before(() => {
     require('../../../../test-app');
     requester = chai.request(url).keepOpen();
   });
 
-  function deleteNodes(requester, ids) {
-    const promises = [];
-
-    for(let k in ids) {
-      if(ids[k]) {
-        promises.push(requester.delete(`/panel/delete/${ids[k]}`));
-      }
-    }
-
-    return Promise.all(promises);
-  }
-
-  function validateDeleteCalls(results) {
-    for(let k in results) {
-      results[k].status.should.equal(200);
-      results[k].should.have.property('body');
-      results[k].body.should.equal('deleted');
-    }
-  }
-
   it('Saves non-existing node correctly.', done => {
     let id = null;
 
     requester
     .post('/panel/save')
-    .send(templateNode).then(res => {
+    .send(template.socket.node).then(res => {
       res.status.should.equal(200);
       res.should.have.property('body');
       res.body.should.have.property('id');
@@ -85,18 +43,18 @@ describe('save-node', () => {
 
       return files.json.load(nodefile);
     }).then(nodeInfo => {
-      nodeInfo.should.eql(templateNodeExpectedSignature);
+      nodeInfo.should.eql(template.socket.expectedSignature);
 
       return nodeInfo;
     }).then(() => {
       return deleteNodes(requester, [ id ]);
     }).then((results) => {
-      validateDeleteCalls(results);
-
+      return validateDeleteCalls(results);
+    }).then(() => {
       done();
     }).catch((err) => {
       console.log({ err });
-      return deleteNodes(requester, [ id ]);
+      deleteNodes(requester, [ id ]).then(() => { done(err); });
     });
   });
 
@@ -105,7 +63,7 @@ describe('save-node', () => {
 
     requester
     .post('/panel/save')
-    .send(templateNode).then(res => {
+    .send(template.socket.node).then(res => {
       res.status.should.equal(200);
       res.should.have.property('body');
       res.body.should.have.property('id');
@@ -116,25 +74,25 @@ describe('save-node', () => {
 
       return files.json.load(nodefile);
     }).then(nodeInfo => {
-      nodeInfo.should.eql(templateNodeExpectedSignature);
+      nodeInfo.should.eql(template.socket.expectedSignature);
 
       return nodeInfo;
     }).then(() => {
       return deleteNodes(requester, [ id ]);
     }).then((results) => {
-      validateDeleteCalls(results);
-
+      return validateDeleteCalls(results);
+    }).then(() => {
       done();
     }).catch((err) => {
       console.log({ err });
-      return deleteNodes(requester, [ id ]);
+      deleteNodes(requester, [ id ]).then(() => { done(err); });
     });
   });
 
   it('Update existing node correctly from signature.', done => {
     let id = null;
 
-    const modifedNodeTemplate = deepAssign(deepClone(templateNode), {
+    const modifedNodeTemplate = deepAssign(deepClone(template.socket.node), {
       signature: {
         in: [ 'test-in' ],
         out: [ 'test-out' ]
@@ -142,14 +100,14 @@ describe('save-node', () => {
     });
 
     const modifedNodeTemplateExpectedSignature = {
-      ...templateNodeExpectedSignature,
+      ...template.socket.expectedSignature,
       in: modifedNodeTemplate.signature.in,
       out: modifedNodeTemplate.signature.out,
     }
 
     requester
     .post('/panel/save')
-    .send(templateNode).then(res => {
+    .send(template.socket.node).then(res => {
       res.status.should.equal(200);
       res.should.have.property('body');
       res.body.should.have.property('id');
@@ -160,7 +118,7 @@ describe('save-node', () => {
 
       return files.json.load(nodefile);
     }).then(nodeInfo => {
-      nodeInfo.should.eql(templateNodeExpectedSignature);
+      nodeInfo.should.eql(template.socket.expectedSignature);
 
       return nodeInfo;
     }).then(() =>
@@ -184,34 +142,22 @@ describe('save-node', () => {
     }).then(() => {
       return deleteNodes(requester, [ id ]);
     }).then((results) => {
-      validateDeleteCalls(results)
-
+      return validateDeleteCalls(results);
+    }).then(() => {
       done();
     }).catch((err) => {
       console.log({ err });
-      return deleteNodes(requester, [ id ]);
-    });
+      deleteNodes(requester, [ id ]).then(() => { done(err); });
+    })
   });
 
   it('Create node correctly with same path but different signature (internal and public node).', done => {
     let id = null;
     let id2 = null;
 
-    const modifedNodeTemplate = deepAssign(deepClone(templateNode), {
-      signature: {
-        public: true,
-        method: "POST",
-        socket: false
-      }
-    });
-
-    const modifedNodeTemplateExpectedSignature = { ...modifedNodeTemplate.signature };
-
-    modifedNodeTemplateExpectedSignature.key = hashSig(modifedNodeTemplateExpectedSignature);
-
     requester
     .post('/panel/save')
-    .send(templateNode).then(res => {
+    .send(template.internal.node).then(res => {
       res.status.should.equal(200);
       res.should.have.property('body');
       res.body.should.have.property('id');
@@ -222,13 +168,13 @@ describe('save-node', () => {
 
       return files.json.load(nodefile);
     }).then(nodeInfo => {
-      nodeInfo.should.eql(templateNodeExpectedSignature);
+      nodeInfo.should.eql(template.internal.expectedSignature);
 
       return nodeInfo;
     }).then(() =>
       requester
       .post('/panel/save')
-      .send(modifedNodeTemplate)
+      .send(template.publicPost.node)
     ).then(res => {
         res.status.should.equal(200);
         res.should.have.property('body');
@@ -242,52 +188,21 @@ describe('save-node', () => {
 
         return files.json.load(nodefile);
     }).then(nodeInfo => {
-      nodeInfo.should.eql(modifedNodeTemplateExpectedSignature);
+      nodeInfo.should.eql(template.publicPost.expectedSignature);
 
       return nodeInfo;
     }).then(() => {
       return deleteNodes(requester, [ id, id2 ]);
     }).then((results) => {
-      validateDeleteCalls(results);
-
+      return validateDeleteCalls(results);
+    }).then(() => {
       done();
     }).catch((err) => {
       console.log({ err });
-      deleteNodes(requester, [ id, id2 ]);
+
+      deleteNodes(requester, [ id, id2 ]).then(() => { done(err); });
     });
   });
-
-  const socketNode = deepAssign(deepClone(templateNode), {
-    signature: {
-      public: false,
-      method: "GET",
-      socket: true
-    }
-  });
-
-  const socketNodeExpectedSignature = {
-    ...templateNodeExpectedSignature,
-    public: socketNode.signature.public,
-    method: '',
-    socket: socketNode.signature.socket
-  };
-
-  const publicPostNode = deepAssign(deepClone(templateNode), {
-    signature: {
-      public: true,
-      method: "POST",
-      socket: false
-    }
-  });
-
-  const publicPostNodeExpectedSignature = {
-    ...templateNodeExpectedSignature,
-    public: publicPostNode.signature.public,
-    method: publicPostNode.signature.method,
-    socket: publicPostNode.signature.socket,
-  };
-
-  publicPostNodeExpectedSignature.key = hashSig(publicPostNodeExpectedSignature);
 
   it('Create node correctly with same path but different signature (public and socket node).', done => {
     let id = null;
@@ -295,7 +210,7 @@ describe('save-node', () => {
 
     requester
     .post('/panel/save')
-    .send(publicPostNode).then(res => {
+    .send(template.publicPost.node).then(res => {
       res.status.should.equal(200);
       res.should.have.property('body');
       res.body.should.have.property('id');
@@ -306,13 +221,13 @@ describe('save-node', () => {
 
       return files.json.load(nodefile);
     }).then(nodeInfo => {
-      nodeInfo.should.eql(publicPostNodeExpectedSignature);
+      nodeInfo.should.eql(template.publicPost.expectedSignature);
 
       return nodeInfo;
     }).then(() =>
       requester
       .post('/panel/save')
-      .send(socketNode)
+      .send(template.socket.node)
     ).then(res => {
         res.status.should.equal(200);
         res.should.have.property('body');
@@ -326,25 +241,28 @@ describe('save-node', () => {
 
         return files.json.load(nodefile);
     }).then(nodeInfo => {
-      nodeInfo.should.eql(socketNodeExpectedSignature);
+      nodeInfo.should.eql(template.socket.expectedSignature);
 
       let pathmapfile = path.join('test-app/panel-generated', 'path-map');
       return files.json.load(pathmapfile, {});
     }).then((pathmap) => {
-      pathmap.should.have.property(templateNode.signature.path);
-      pathmap[templateNode.signature.path].should.include(id);
-      pathmap[templateNode.signature.path].should.include(id2);
+      pathmap.should.have.property(template.socket.node.signature.path);
+      
+      pathmap[template.socket.node.signature.path].should.deep.include({ id, key: template.publicPost.expectedSignature.key });
+      pathmap[template.socket.node.signature.path].should.deep.include({ id: id2, key: template.socket.expectedSignature.key });
+
+      pathmap[template.socket.node.signature.path].should.have.lengthOf(2);
 
       return pathmap;
     }).then(() => {
       return deleteNodes(requester, [ id, id2 ]);
     }).then((results) => {
-      validateDeleteCalls(results);
-
+      return validateDeleteCalls(results);
+    }).then(() => {
       done();
     }).catch((err) => {
       console.log({ err });
-      deleteNodes(requester, [ id, id2 ]);
+      deleteNodes(requester, [ id, id2 ]).then(() => { done(err); });
     });
   });
 
@@ -354,7 +272,7 @@ describe('save-node', () => {
 
     requester
     .post('/panel/save')
-    .send(publicPostNode).then(res => {
+    .send(template.publicPost.node).then(res => {
       res.status.should.equal(200);
       res.should.have.property('body');
       res.body.should.have.property('id');
@@ -365,13 +283,13 @@ describe('save-node', () => {
 
       return files.json.load(nodefile);
     }).then(nodeInfo => {
-      nodeInfo.should.eql(publicPostNodeExpectedSignature);
+      nodeInfo.should.eql(template.publicPost.expectedSignature);
 
       return nodeInfo;
     }).then(() =>
       requester
       .post('/panel/save')
-      .send(socketNode)
+      .send(template.socket.node)
     ).then(res => {
         res.status.should.equal(200);
         res.should.have.property('body');
@@ -385,25 +303,27 @@ describe('save-node', () => {
 
         return files.json.load(nodefile);
     }).then(nodeInfo => {
-      nodeInfo.should.eql(socketNodeExpectedSignature);
+      nodeInfo.should.eql(template.socket.expectedSignature);
 
       let pathmapfile = path.join('test-app/panel-generated', 'path-map');
       return files.json.load(pathmapfile, {});
     }).then((pathmap) => {
-      pathmap.should.have.property(templateNode.signature.path);
-      pathmap[templateNode.signature.path].should.include(id);
-      pathmap[templateNode.signature.path].should.include(id2);
+      pathmap.should.have.property(template.socket.node.signature.path);
+      pathmap[template.socket.node.signature.path].should.deep.include({ id, key: template.publicPost.expectedSignature.key });
+      pathmap[template.socket.node.signature.path].should.deep.include({ id: id2, key: template.socket.expectedSignature.key });
+
+      pathmap[template.socket.node.signature.path].should.have.lengthOf(2);
 
       return pathmap;
     }).then(() => {
       return deleteNodes(requester, [ id, id2 ]);
     }).then((results) => {
-      validateDeleteCalls(results);
-
+      return validateDeleteCalls(results);
+    }).then(() => {
       done();
     }).catch((err) => {
       console.log({ err });
-      deleteNodes(requester, [ id, id2 ]);
+      deleteNodes(requester, [ id, id2 ]).then(() => { done(err); });
     });
   });
 
@@ -411,7 +331,7 @@ describe('save-node', () => {
     let id = null;
     let id2 = null;
 
-    const internalNode = deepAssign(deepClone(templateNode), {
+    const internalNode = deepAssign(deepClone(template.socket.node), {
       signature: {
         public: false,
         method: "GET",
@@ -420,7 +340,7 @@ describe('save-node', () => {
     });
 
     const internalNodeExpectedSignature = {
-      ...templateNodeExpectedSignature,
+      ...template.socket.expectedSignature,
       public: internalNode.signature.public,
       method: '',
       socket: internalNode.signature.socket,
@@ -447,7 +367,7 @@ describe('save-node', () => {
     }).then(() =>
       requester
       .post('/panel/save')
-      .send(socketNode)
+      .send(template.socket.node)
     ).then(res => {
         res.status.should.equal(200);
         res.should.have.property('body');
@@ -461,25 +381,50 @@ describe('save-node', () => {
 
         return files.json.load(nodefile);
     }).then(nodeInfo => {
-      nodeInfo.should.eql(socketNodeExpectedSignature);
+      nodeInfo.should.eql(template.socket.expectedSignature);
 
       let pathmapfile = path.join('test-app/panel-generated', 'path-map');
       return files.json.load(pathmapfile, {});
     }).then((pathmap) => {
-      pathmap.should.have.property(templateNode.signature.path);
-      pathmap[templateNode.signature.path].should.include(id);
-      pathmap[templateNode.signature.path].should.include(id2);
+      pathmap.should.have.property(template.socket.node.signature.path);
+      pathmap[template.socket.node.signature.path].should.deep.include({ id, key: template.internal.expectedSignature.key });
+      pathmap[template.socket.node.signature.path].should.deep.include({ id: id2, key: template.socket.expectedSignature.key });
+
+      pathmap[template.socket.node.signature.path].should.have.lengthOf(2);
 
       return pathmap;
     }).then(() => {
       return deleteNodes(requester, [ id, id2 ]);
     }).then((results) => {
-      validateDeleteCalls(results);
-
+      return validateDeleteCalls(results);
+    }).then(() => {
       done();
     }).catch((err) => {
       console.log({ err });
-      deleteNodes(requester, [ id, id2 ]);
+      deleteNodes(requester, [ id, id2 ]).then(() => { done(err); });
+    });
+  });
+
+  it('Fail to create node that is defined as both public and socket at the same time.', done => {
+    const absurdNode = deepAssign(deepClone(template.socket.node), {
+      signature: {
+        public: true,
+        method: "GET",
+        socket: true
+      }
+    });
+
+    requester
+    .post('/panel/save')
+    .send(absurdNode).then(res => {
+      res.status.should.equal(200);
+      res.body.should.equal('bad_input');
+
+      done();
+
+      return Promise.resolve(true);
+    }).catch((err) => {
+      console.log({ err });
     });
   });
 });

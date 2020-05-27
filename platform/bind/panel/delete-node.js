@@ -26,7 +26,11 @@ platform.core.node({
   .then(() => files.json.load(pathmapfile, {}))
   .then(pathmap => {
     Object.entries(pathmap).forEach(entry => {
-      pathmap[entry[0]] = pathmap[entry[0]].filter(el => el !== inputs.id);
+      pathmap[entry[0]] = pathmap[entry[0]].filter(
+        el =>
+        (typeof el === 'string' && el !== inputs.id) ||
+        (typeof el === 'object' && el.id !== inputs.id)
+      );
 
       if(pathmap[entry[0]].length === 0) {
         delete pathmap[entry[0]];

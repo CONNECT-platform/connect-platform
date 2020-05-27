@@ -33,7 +33,7 @@ export class NodesComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.backend.nodes.subscribe(data => {
-      console.log(data);
+      console.log({ data });
       this._nodes = [];
       for(let k in data.nodes) {
         const entry = data.nodes[k];
@@ -147,10 +147,7 @@ export class NodesComponent implements OnInit, OnDestroy {
 
   private _update() {
     for (let node of this._nodes) {
-      console.log(node);
-      let signature = this.registry.signature(node.path, node.public, node.method, node.socket);
-      
-      console.log({ signature });
+      let signature = this.registry.signature(node.path, node.id);
 
       node.public = signature.public;
       node.method = signature.method;

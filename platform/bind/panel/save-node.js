@@ -69,7 +69,10 @@ platform.core.node({
         return;
       }
 
-      if (! inputs.signature.path) {
+      if (
+        ! inputs.signature.path ||
+        ( inputs.signature.public && inputs.signature.socket )
+      ) {
         control('bad_input');
         return;
       }
@@ -119,8 +122,12 @@ platform.core.node({
         // => obj.path in obj.pathmap is true
 
         let existingNodesForPath = obj.pathmap[obj.path];
-        if( ! Array.isArray(existingNodesForPath) ) {
+        if( Array.isArray(existingNodesForPath) ) {
+          existingNodesForPath = existingNodesForPath.map(el => typeof el === 'string' ? el : el.id);
+        } else if( ! Array.isArray(existingNodesForPath) && typeof existingNodesForPath === 'string') {
           existingNodesForPath = [ existingNodesForPath ];
+        } else if(typeof obj.pathmap[obj.path] === 'object') {
+          existingNodesForPath = obj.pathmap[obj.path].id;
         }
 
         return resolveNode(existingNodesForPath, obj);
@@ -144,7 +151,7 @@ platform.core.node({
             }
             
             if(obj.pathmap[obj.path].indexOf(obj.id) === -1) {
-              obj.pathmap[obj.path].push(obj.id);
+              obj.pathmap[obj.path].push( { id: obj.id, key: obj.signature.key } );
             }
 
             files.json.save(pathmapfile, obj.pathmap)
