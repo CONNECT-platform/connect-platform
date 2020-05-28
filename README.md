@@ -16,7 +16,7 @@ Since not all parts of a microservice logic are necessarily async, **CONNECT** f
 
 🎬  Video (Change the world and stuff): https://www.youtube.com/watch?v=Orjtawd7_EU
 
-🐦  Twitter: @CONNECT_pltfrm 
+🐦  Twitter (@CONNECT_pltfrm): https://twitter.com/connect_pltfrm
 
 💬  Discord Community: https://discord.gg/z22kZh
 
@@ -26,7 +26,7 @@ Since not all parts of a microservice logic are necessarily async, **CONNECT** f
 
 ## How to setup 📋
 
-- easy way with docker: 
+▶️easy way with docker: 
   - create a folder, `cd` to it,
   - run this:
 ```bash
@@ -39,9 +39,12 @@ docker run -dit \
           --env CONNECT_REMOTE_SHELL_ENABLED=true \
           loreanvictor/connect-platform
 ```
-- easy way without docker: https://github.com/CONNECT-platform/connect-platform-boilerplate 
-- easy way for developing a package: https://github.com/CONNECT-platform/connect-platform-package-boilerplate
-- more comprehensive setup: https://medium.com/connect-platform/how-to-setup-connect-platform-d82d49e029ee 
+▶️easy way without docker: https://github.com/CONNECT-platform/connect-platform-boilerplate
+ 
+▶️easy way for developing a package: https://github.com/CONNECT-platform/connect-platform-package-boilerplate
+
+▶️more comprehensive setup: https://medium.com/connect-platform/how-to-setup-connect-platform-d82d49e029ee 
+
 
 ## How to contribute
  
@@ -49,5 +52,5 @@ Take a look [here](CONTRIBUTING.md).
 
 [![Build Status](https://travis-ci.org/loreanvictor/connect-platform.svg?branch=master)](https://travis-ci.org/loreanvictor/connect-platform) 
 
-🐶🐭🐹🐰🐺 
+
 
