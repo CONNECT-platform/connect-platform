@@ -2,7 +2,9 @@
   <img src="assets/logo-std.svg?sanitize=true" width="300px"/>
 </p>
  
-<button name="button" href="https://connect-platform.com/connect/" >HIRE CONNECT DEVELOPERS</button>
+<p>
+  <a class="btn btn-large btn-purple" href="https://connect-platform.com/connect/" role="button">HIRE CONNECT DEVELOPERS</a>
+</p>
 
 **CONNECT platform**  is a graphical backend development platform aiming to speed up development of async logical microservices (like drastically). The core idea is that async logic is inherently a "Graph" and a representation via a "Chain" (i.e. text-based code) is extremely sub-optimal (so yes the "visuality" is not for non-programmers to be able to play around).
 
@@ -19,7 +21,7 @@ Since not all parts of a microservice logic are necessarily async, **CONNECT** f
 💬  Discord Community: https://discord.gg/z22kZh
 
 
-## how to setup 📋
+## How to setup 📋
 
 - easy way with docker: 
   - create a folder, `cd` to it,
