@@ -1,15 +1,25 @@
 <p align="center">  
   <img src="assets/logo-std.svg?sanitize=true" width="300px"/>
 </p>
+ 
+<button name="button" href="https://connect-platform.com/connect/" >HIRE CONNECT DEVELOPERS</button>
 
-**CONNECT platform**  is a visual backend development platform aiming to speed up development of async logical microservices (like drastically). The core idea is that async logic is inherently a "Graph" and a representation via a "Chain" (i.e. text-based code) is extremely sub-optimal (so yes the "visuality" is not for non-programmers to be able to play around).
+**CONNECT platform**  is a graphical backend development platform aiming to speed up development of async logical microservices (like drastically). The core idea is that async logic is inherently a "Graph" and a representation via a "Chain" (i.e. text-based code) is extremely sub-optimal (so yes the "visuality" is not for non-programmers to be able to play around).
 
 Since not all parts of a microservice logic are necessarily async, **CONNECT** facilitates injecting sync pieces of code on the fly. However, since sync code is more computationally focused, it is probably less specific to the business logic of the microservice and more a general algorithm, hence probably the best place for it is at the lowest layers in the architecture. So generally it is advisable to attach sync code in form of `packages`.
 
-* https://connect-platform.com
-* https://medium.com/connect-platform/guides/home
+🚀  Platform to use: https://connect-platform.com/connect/
 
-## how to setup
+📗  Documentation: https://medium.com/connect-platform/guides/home
+
+🎬  Video (Change the world and stuff): https://www.youtube.com/watch?v=Orjtawd7_EU
+
+🐦  Twitter: @CONNECT_pltfrm 
+
+💬  Discord Community: https://discord.gg/z22kZh
+
+
+## how to setup 📋
 
 - easy way with docker: 
   - create a folder, `cd` to it,
