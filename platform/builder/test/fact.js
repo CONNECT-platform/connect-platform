@@ -11,9 +11,12 @@ describe('*** Magnificent Factoriel Composite ***', () => {
     fs.readFile(path.join(__dirname, 'fact-recipe.json'), 'utf-8', (err, json) => {
       new Builder().build(fromJSON(json));
 
-      console.log('reg', core.registry._paths);
-      console.log('json', json);
-      let f = core.callable(() => core.registry.instance('/test/fact/', hashSig(json)));
+      let f = core.callable(
+        () => core.registry.instance(
+          '/test/fact/',
+          hashSig(JSON.parse(json))
+        )
+      );
       f({n : 5}).then(res => {
         assert.equal(res.data, 120);
         done();

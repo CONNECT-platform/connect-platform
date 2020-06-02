@@ -44,7 +44,6 @@ class Registry extends Subscribable {
   }
 
   resetAliases() {
-    console.log('paths', this._aliases);
     for(let alias in this._aliases) {
       this.dealias(alias);
     }
