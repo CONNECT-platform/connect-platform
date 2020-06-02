@@ -4,7 +4,7 @@ const hashSig = function(signature) {
   return hash({
     path: signature.path,
     public: signature.public || false,
-    method: signature.method ? signature.method.toLowerCase() : '',
+    method: (signature.public && signature.method) ? signature.method.toLowerCase() : '',
     socket: signature.socket || false
   });
 }
