@@ -51,7 +51,10 @@ export class RegistryService {
     this._refetchNodes();
   }
 
-  public isRegistered(path): boolean {
+  public isRegistered(path, key): boolean {
+    if(key) 
+      return path in this._registry && key in this._registry[path];
+    
     return path in this._registry;
   }
 

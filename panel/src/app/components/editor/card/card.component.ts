@@ -73,20 +73,20 @@ export class CardComponent implements OnInit, OnDestroy {
     if (this.node instanceof Call) {
       let call = this.node as Call;
 
-      if (this.registry.isRegistered(call.path) && !call.signature) {
-        call.signature = this.registry.signature(call.path);
+      if (this.registry.isRegistered(call.path, call.key) && !call.signature) {
+        call.signature = this.registry.signature(call.path, call.key);
       }
 
-      call.subscribe(CallEvents.pathChange, path => {
-        if (this.registry.isRegistered(path)) {
-          call.adopt(this.registry.signature(path), (pin: Pin) => {
+      call.subscribe(CallEvents.pathKeyChange, pathKeyPair => {
+        if (this.registry.isRegistered(pathKeyPair.path, pathKeyPair.key)) {
+          call.adopt(this.registry.signature(pathKeyPair.path, pathKeyPair.key), (pin: Pin) => {
             this.model.removePinLinks(pin);
           });
         }
         else {
           this.model.removeNodeLinks(call);
           call.signature = {
-            path: path,
+            path: pathKeyPair.path,
             inputs: [],
             outputs: [],
             controlOutputs: [],
@@ -288,6 +288,11 @@ export class CardComponent implements OnInit, OnDestroy {
       return searchResults;
     }
     else return null;
+  }
+
+  public chooseNode(chosenNode) {
+    let call = this.node as Call;
+    call.pathKeyPair = { path: chosenNode.path, key: chosenNode.key };
   }
 
   public expand() {
