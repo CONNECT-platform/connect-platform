@@ -5,8 +5,20 @@ import { BackendService } from './backend.service';
 import { EditorModelService } from './editor-model.service';
 import { deepMerge } from '../util/deep-merge';
 
+export interface EntryType {
+  path: String,
+  inputs: Array<String>;
+  outputs: Array<String>;
+  controlOutputs: Array<String>;
+  public: boolean;
+  method: string;
+  socket: boolean;
+  key: String;
+};
+
 @Injectable()
 export class RegistryService {
+
   private _registryCache : any = {
     '/test1/' : {
       get: {
@@ -65,6 +77,10 @@ export class RegistryService {
 
   public get allPaths() {
     return Object.keys(this._registry);
+  }
+
+  public get registry() {
+    return this._registry;
   }
 
   public get nodes() {

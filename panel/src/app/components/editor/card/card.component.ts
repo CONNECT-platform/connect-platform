@@ -6,7 +6,7 @@ import { EditorModelService } from '../../../services/editor-model.service';
 import { TesterService } from '../../../services/tester.service';
 import { HintRef, HintService } from '../../../services/hint.service';
 
-import { RegistryService } from '../../../services/registry.service';
+import { RegistryService, EntryType } from '../../../services/registry.service';
 import { BackendService } from '../../../services/backend.service';
 import { Node, NodeEvents } from '../../../models/node.model';
 import { Pin, PinType } from '../../../models/pin.model';
@@ -17,7 +17,6 @@ import { Switch } from '../../../models/switch.model';
 import { Box } from '../../../models/box.model';
 import { Call, CallEvents } from '../../../models/call.model';
 import { decomposeCode, recomposeCode } from '../../../util/decompose-code';
-
 
 enum CardType { value, expr, switch, call, }
 
@@ -46,6 +45,9 @@ export class CardComponent implements OnInit, OnDestroy {
 
   public selectionCandidate: boolean = false;
   public deselectionCandidate: boolean = false;
+
+  private _searchCache = null;
+  private _debounceSearchTime = 200;
 
   constructor(
     private editor: EditorService,
@@ -252,12 +254,39 @@ export class CardComponent implements OnInit, OnDestroy {
   }
 
   public get suggestPaths() {
-    let call = this.node as Call;
-    if (this._suggesting)
-      return this.registry.allPaths
-            .filter(path => path.startsWith(call.path))
-            .filter(path => !path.endsWith('/'))
-            .slice(0, 8);
+    if (this._suggesting) {
+      if(this._searchCache !== null) {
+        return this._searchCache;
+      }
+
+      let call = this.node as Call;
+      const paths = this.registry.allPaths
+      .filter(path => path.startsWith(call.path))
+      .filter(path => !path.endsWith('/'));
+      
+      const self = this;
+      setTimeout(() => {
+        self.suggestPaths;
+        self._searchCache = null;
+      }, this._debounceSearchTime);
+
+      const searchResults = paths.reduce((arr, path) => arr.concat(
+        Object
+          .entries(this.registry.registry[path])
+          .map(el => el[1])
+          .map((el: EntryType) => ({
+            path: el.path,
+            public: el.public,
+            method: el.method,
+            socket: el.socket,
+            key: el.key
+          }))
+      ), []);
+      
+      this._searchCache = searchResults;
+
+      return searchResults;
+    }
     else return null;
   }
 
