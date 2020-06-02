@@ -78,7 +78,7 @@ export class NodesComponent implements OnInit, OnDestroy {
   }
 
   public get nodes() {
-    return this._nodes.filter(n => n.path.indexOf(this.searchInput.nativeElement.value) != -1);
+    return this._nodes.filter(n => n.path.indexOf(this.searchInput.nativeElement.value) !== -1);
   }
 
   public get entries() {
