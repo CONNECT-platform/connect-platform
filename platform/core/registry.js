@@ -5,8 +5,10 @@ const hash = require('../util/hash');
 
 const RegistryEvents = {
   registered: 'registered',
+  registered: 'deregistered',
   instantiated: 'instantiated',
   aliased: 'aliased',
+  dealiased: 'dealiased',
   mocked: 'mocked',
   unmocked: 'unmocked',
 }
@@ -17,6 +19,35 @@ class Registry extends Subscribable {
     this._mocks = {};
     this._paths = {};
     this._aliases = {};
+  }
+
+  reset() {
+    this.resetMocks();
+    this.resetPaths();
+    this.resetAliases();
+  }
+
+  resetMocks() {
+    for(let path in this._mocks) {
+      for(let key in this._mocks[path]) {
+        this.unmock(path, key);
+      }
+    }
+  }
+
+  resetPaths() {
+    for(let path in this._paths) {
+      for(let key in this._paths[path]) {
+        this.deregister(path, key);
+      }
+    }
+  }
+
+  resetAliases() {
+    console.log('paths', this._aliases);
+    for(let alias in this._aliases) {
+      this.dealias(alias);
+    }
   }
 
   register(signature, factoryOrClass) {
@@ -53,6 +84,17 @@ class Registry extends Subscribable {
     }
 
     return this;
+  }
+
+  deregister(path, key) {
+    const signature = this._paths[path][key];
+    delete this._paths[path][key];
+
+    if(Object.keys(this._paths[path]).length === 0) {
+      delete this._paths[path];
+    }
+
+    this.publish(RegistryEvents.deregistered, signature);
   }
 
   signature(path, key) {
@@ -139,7 +181,18 @@ class Registry extends Subscribable {
     return this;
   }
 
-  mock(path, factoryOrClass, key = 'get') {
+  dealias(alias) {
+    const path = this._aliases[alias];
+    delete this._aliases[alias];
+    this.publish(RegistryEvents.dealiased, {
+      alias: alias,
+      original: path,
+    });
+  }
+
+  mock(path, factoryOrClass, key) {
+    key = this.keyIfNotSet(key, { path });
+
     if( ! (path in this._mocks) ) {
       this._mocks[path] = {};
     }
@@ -151,7 +204,9 @@ class Registry extends Subscribable {
     });
   }
 
-  unmock(path, key = 'get') {    
+  unmock(path, key) {
+    key = this.keyIfNotSet(key, { path });
+
     delete this._mocks[path][key];
 
     if(Object.keys(this._mocks[path]).length === 0) {

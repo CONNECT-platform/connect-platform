@@ -164,7 +164,7 @@ describe('registry', () => {
     registry.register({path: '/RTest/mock-test-path'}, Original);
 
     describe('.mock()', () => {
-      it('should replace a mock object for given path:', () => {
+      it('should replace a mock object for given path.', () => {
         registry.mock('/RTest/mock-test-path', Mocked);
         assert(registry.instance('/RTest/mock-test-path') instanceof Mocked);
       });
@@ -216,7 +216,7 @@ describe('registry', () => {
     });
   });
 
-  describe('.keyIfNotSet', () => {
+  describe('.keyIfNotSet()', () => {
     let sandbox = null;
     const TEST_HASH = 'test_hash';
 
@@ -244,6 +244,58 @@ describe('registry', () => {
       sandbox.assert.calledOnce(hash.hashSig);
 
       key.should.equal(TEST_HASH);
+    });
+  });
+
+  describe('.reset()', () => {
+    let sandbox = null;
+    let stub = null;
+
+    beforeEach(() => {
+      sandbox = sinon.createSandbox();
+      
+      resetMocksStub = sandbox.stub(registry, 'resetMocks');
+      resetPathsStub = sandbox.stub(registry, 'resetPaths');
+      resetAliasesStub = sandbox.stub(registry, 'resetAliases');
+    });
+
+    afterEach(() => {
+      sandbox.restore();
+    });
+
+    it('should call mocks, paths and aliases reset methods.', () => {
+      registry.reset();
+
+      sandbox.assert.calledOnce(resetMocksStub);
+      sandbox.assert.calledOnce(resetPathsStub);
+      sandbox.assert.calledOnce(resetAliasesStub);
+    });
+  });
+
+  describe('.resetMocks()', () => {
+    it('should clear mocks.', () => {
+      class Original extends base.node.Node{};
+      class Mocked extends base.node.Node{};
+      
+      registry.register({path: '/RTest/mock-test-path'}, Original);      
+
+      registry.mock('/RTest/mock-test-path', Mocked);
+
+      registry.resetMocks();
+
+      registry._mocks.should.eql({});
+    });
+  });
+
+  describe('.resetPaths()', () => {
+    it('should clear paths.', () => {
+      class Original extends base.node.Node{};
+
+      registry.register({path: '/test'}, Original);      
+
+      registry.resetPaths();
+
+      registry._paths.should.eql({});
     });
   });
 });
