@@ -40,11 +40,14 @@ describe('registry', () => {
       class C extends base.node.Node{};
       class D extends base.node.Node{};
 
-      registry.register({path: 'X', method: 'get'}, C);
-      assert(registry.instance('X', 'get') instanceof C);
+      const signatureGet = {path: 'X', public: true, method: 'get'};
+      const sigHash = hash.hashSig(signatureGet);
+
+      registry.register(signatureGet, C);
+      assert(registry.instance('X', sigHash) instanceof C);
       
-      registry.register({path: 'X', method: 'post'}, D);
-      assert(registry.instance('X', 'post') instanceof D);
+      registry.register(signatureGet, D);
+      assert(registry.instance('X', sigHash) instanceof D);
     });
 
     it('should override with subsequent registration with key.', () => {
