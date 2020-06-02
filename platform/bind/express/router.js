@@ -12,7 +12,6 @@ const buildRouter = () => {
 
   for (let signature of publicRoutes.get()) {
     let method = (signature.method) ? (signature.method.toLowerCase()) : 'get';
-    
     let handler = null;
     try {
       handler = reqHandler(() => core.registry.instance(signature.path, hashSig(signature)), signature);

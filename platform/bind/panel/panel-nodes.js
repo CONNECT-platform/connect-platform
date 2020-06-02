@@ -5,6 +5,7 @@ const config = require('./util/config');
 const files = require('./util/file-io');
 const authorize = require('./util/authorize');
 
+const hash = require('../../util/hash');
 
 platform.core.node({
   path : `${config.path}nodes`,
@@ -72,7 +73,7 @@ platform.core.node({
       if(typeof node === 'string') {
         pathmap[signature.path] = {
           id: node,
-          key: signature.key || signature.method.toLowerCase()
+          key: hash.hashSig(signature)
         };
 
         i++;
@@ -81,7 +82,7 @@ platform.core.node({
           if(typeof node[c] === 'string') {
             pathmap[signature.path][c] = {
               id: node[c],
-              key: signature.key || signature.method.toLowerCase()
+              key: hash.hashSig(signature)
             };
 
             i++;
