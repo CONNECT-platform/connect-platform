@@ -5,6 +5,8 @@ const core = require('../../core');
 
 const socketRoutes = new Routes(core.registry, 'socket');
 
+const { hashSig } = require('../../bind/panel/util/hash');
+
 module.exports = (server) => {
   const platform = global.connect_platform_instance;
   const io = SocketIO(server);
@@ -29,10 +31,9 @@ module.exports = (server) => {
           }
         }
 
-        // create a callable from the node instance and set the socket as context
-        return platform.core.callable(() => platform.core.registry.instance(signature.path, signature.method), {
+        return platform.core.callable(() => platform.core.registry.instance(signature.path, signature.key), {
           socket
-        })(inputs)
+        })(inputs);
       } else
         return Promise.reject("Cannot find socket node for path " + fullPath);
     }

@@ -7,8 +7,10 @@ const { IOPinEvents } = require('../base/io');
 
 describe('Call', ()=> {
   it('should call a node registered by a path in registry.', done => {
-    node({ path: 'X' }, () => {done()});
+    console.log('node');
+    node({ path: 'X' }, () => { done() });
 
+    console.log('call');
     let c = new Call('X');
     c.checkActivate();
   });

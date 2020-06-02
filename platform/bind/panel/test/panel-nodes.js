@@ -56,9 +56,10 @@ describe('panel-nodes', () => {
     .send(templateNode).then(res => {
       res.status.should.equal(200);
       res.should.have.property('body');
-      res.body.should.have.property('id');
+      res.body.should.have.property('result');
+      res.body.result.should.have.property('id');
 
-      id = res.body.id;
+      id = res.body.result.id;
 
       return Promise.resolve(true);
     }).then(() => {
@@ -72,13 +73,13 @@ describe('panel-nodes', () => {
     }).then(() => {
       return deleteNodes(requester, [ id ]);
     }).then((results) => {
-      validateDeleteCalls(results);
+      return validateDeleteCalls(results);
+    }).then(() => {
+      done();
     }).catch((err) => {
       console.log({ err });
 
-      return deleteNodes(requester, [ id ]);
-    }).then(() => {
-      done();
+      deleteNodes(requester, [ id ]).then(() => { done(err); });
     });
   });
 
@@ -90,9 +91,10 @@ describe('panel-nodes', () => {
     .send(templateNode).then(res => {
       res.status.should.equal(200);
       res.should.have.property('body');
-      res.body.should.have.property('id');
+      res.body.should.have.property('result');
+      res.body.result.should.have.property('id');
 
-      id = res.body.id;
+      id = res.body.result.id;
 
       return Promise.resolve(true);
     }).then(() => {

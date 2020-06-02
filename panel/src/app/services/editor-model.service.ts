@@ -28,6 +28,7 @@ const _defaultSignature : Signature = {
     outputs: [],
     controlOutputs: [],
     configs: [],
+    key: ''
 };
 
 @Injectable()
@@ -82,6 +83,7 @@ export class EditorModelService extends Subscribable {
   public get method(): string { return this._signature.method.toUpperCase(); }
   public get public(): boolean { return this._signature.public; }
   public get socket(): boolean { return this._signature.socket; }
+  public get key(): string { return this._signature.key; }
 
   public get in(): PinList { return this._ins; }
   public get config(): PinList { return this._confs; }
@@ -114,6 +116,11 @@ export class EditorModelService extends Subscribable {
   public set socket(_socket: boolean) {
     this._signature.socket = _socket;
     this.publish(EditorModelEvents.accessChange, _socket);
+  }
+
+  public set key(_key: string) {
+    this._signature.key = _key;
+    this.publish(EditorModelEvents.accessChange, _key);
   }
 
   public adopt(signature: Signature) {
@@ -296,6 +303,7 @@ export class EditorModelService extends Subscribable {
     this._signature.method = json.method;
     this._signature.public = json.public;
     this._signature.socket = json.socket;
+    this._signature.key = json.key;
     this._signature.inputs = json.in;
     this._signature.outputs = json.out;
     this._signature.configs = json.configs;

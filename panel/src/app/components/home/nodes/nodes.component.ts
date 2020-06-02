@@ -16,7 +16,8 @@ export class NodesComponent implements OnInit, OnDestroy {
     id: string;
     public?: boolean;
     socket?: boolean;
-    method?: string}> = [];
+    method?: string,
+    key?: string}> = [];
 
   private _entries: any[];
 
@@ -31,32 +32,41 @@ export class NodesComponent implements OnInit, OnDestroy {
     private registry : RegistryService,
   ) { }
 
+  entryToId(entry) {
+    if(typeof entry === 'object' && 'id' in entry) return entry.id;
+
+    return entry;
+  }
+
+  entryToKey(entry) {
+    if(typeof entry === 'object' && 'key' in entry) return entry.key;
+  }
+
   ngOnInit() {
     this.backend.nodes.subscribe(data => {
-      console.log({ data });
       this._nodes = [];
       for(let k in data.nodes) {
         const entry = data.nodes[k];
-        console.log({k, entry});
 
         if(Array.isArray(entry)) {
           for(let c in entry) {
-            const id = entry[c] as string;
+            const id = this.entryToId(entry[c]) as string;
+            
             this._nodes.push({
               path: k,
-              id
+              id,
+              key: this.entryToKey(entry[c])
             });
           }
         } else {
           this._nodes.push({
             path: k,
-            id: entry as string,
+            id: this.entryToId(entry) as string,
           });
         }
       }
 
       this._entries = this.folderize(this.nodes);
-      console.log('entries', this._entries);
     });
 
     this._update();
@@ -123,7 +133,6 @@ export class NodesComponent implements OnInit, OnDestroy {
       }
     }
 
-    console.log(ret);
     return ret;
   }
 
@@ -147,8 +156,8 @@ export class NodesComponent implements OnInit, OnDestroy {
 
   private _update() {
     for (let node of this._nodes) {
-      let signature = this.registry.signature(node.path, node.id);
-
+      let signature = this.registry.signature(node.path, node.key);
+      
       node.public = signature.public;
       node.method = signature.method;
       node.socket = signature.socket;

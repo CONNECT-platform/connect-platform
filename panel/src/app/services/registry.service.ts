@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Signature, SignatureHints } from '../models/signature.model';
 import { BackendService } from './backend.service';
 import { EditorModelService } from './editor-model.service';
-
+import { deepMerge } from '../util/deep-merge';
 
 @Injectable()
 export class RegistryService {
@@ -43,18 +43,16 @@ export class RegistryService {
     return path in this._registry;
   }
 
-  public signature(path, publ = false, method = '', socket = false): Signature {
-    console.log('values', Object.values(this._registry[path]), publ);
-    const found = Object.values(this._registry[path]).find(
-      (el: Signature) =>
-        el.public === publ &&
-        el.method === method &&
-        el.socket === socket
-    ) as Signature;
-
-    if(method === '') {  
-      method = Object.keys(this._registry[path])[0];
+  public signature(path, key = undefined): Signature {
+    if(key === '' || key === undefined) {
+      key = Object.keys(this._registry[path])[0];
     }
+
+    const found = Object.values(this._registry[path]).find(
+      (el: Signature) => 
+        ('key' in el && el.key === key) ||
+        ('method' in el && el.method === key)
+    ) as Signature;
 
     return found;
   }
@@ -78,9 +76,11 @@ export class RegistryService {
     this._refetch();
     let _dict = {};
     if( ! (_dict[this.model.signature.path] instanceof Object) ) _dict[this.model.signature.path] = {};
-
-    _dict[this.model.signature.path][this.model.signature.method] = this.model.signature;
-    return Object.assign({}, this._registryCache, _dict);
+    
+    const key = this.model.signature.key ? this.model.signature.key : this.model.signature.method;
+    
+    _dict[this.model.signature.path][key] = this.model.signature;
+    return deepMerge({}, this._registryCache, _dict);
   }
 
   private _refetch() {

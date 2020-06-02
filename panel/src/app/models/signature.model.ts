@@ -15,5 +15,6 @@ export interface Signature {
   public?: boolean;
   socket?: boolean;
   method?: string;
+  key?: string;
   hints?: SignatureHints;
 }

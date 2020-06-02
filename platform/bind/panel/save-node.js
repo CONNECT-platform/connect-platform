@@ -54,7 +54,7 @@ platform.core.node({
   method : 'POST',
   interconnectible: false,
   inputs : ['connect_token', 'signature', 'id'],
-  outputs : ['id'],
+  outputs : ['result'],
   controlOutputs : [
     'no_directory_set',
     'bad_input',
@@ -150,8 +150,12 @@ platform.core.node({
               }
             }
             
-            if(obj.pathmap[obj.path].indexOf(obj.id) === -1) {
-              obj.pathmap[obj.path].push( { id: obj.id, key: obj.signature.key } );
+            const IdKeyPair = { id: obj.id, key: obj.signature.key };
+            const index = obj.pathmap[obj.path].findIndex((el) => el.id === obj.id);
+            if(index === -1) {
+              obj.pathmap[obj.path].push(IdKeyPair);
+            } else {
+              obj.pathmap[obj.path][index] = IdKeyPair;
             }
 
             files.json.save(pathmapfile, obj.pathmap)
@@ -182,7 +186,7 @@ platform.core.node({
                   .map(i => path.join(config.files.nodedir, i));
                 files.json.save(confile, conf).then(() => {}).catch(error => {});
               }).catch(error => {});
-              output('id', obj.id, true);
+              output('result', { id: obj.id, key: obj.key }, true);
             })
             .catch(error => {
               console.log(error);

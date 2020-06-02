@@ -35,9 +35,10 @@ describe('save-node', () => {
     .send(template.socket.node).then(res => {
       res.status.should.equal(200);
       res.should.have.property('body');
-      res.body.should.have.property('id');
+      res.body.should.have.property('result');
+      res.body.result.should.have.property('id');
 
-      id = res.body.id;
+      id = res.body.result.id;
 
       let nodefile = path.join('test-app/panel-generated', 'nodes', id);
 
@@ -66,9 +67,10 @@ describe('save-node', () => {
     .send(template.socket.node).then(res => {
       res.status.should.equal(200);
       res.should.have.property('body');
-      res.body.should.have.property('id');
+      res.body.should.have.property('result');
+      res.body.result.should.have.property('id');
 
-      id = res.body.id;
+      id = res.body.result.id;
 
       let nodefile = path.join('test-app/panel-generated', 'nodes', id);
 
@@ -110,9 +112,10 @@ describe('save-node', () => {
     .send(template.socket.node).then(res => {
       res.status.should.equal(200);
       res.should.have.property('body');
-      res.body.should.have.property('id');
+      res.body.should.have.property('result');
+      res.body.result.should.have.property('id');
 
-      id = res.body.id;
+      id = res.body.result.id;
 
       let nodefile = path.join('test-app/panel-generated', 'nodes', id);
 
@@ -128,9 +131,10 @@ describe('save-node', () => {
     ).then(res => {
       res.status.should.equal(200);
       res.should.have.property('body');
-      res.body.should.have.property('id');
+      res.body.should.have.property('result');
+      res.body.result.should.have.property('id');
 
-      id = res.body.id;
+      id = res.body.result.id;
 
       let nodefile = path.join('test-app/panel-generated', 'nodes', id);
 
@@ -139,6 +143,80 @@ describe('save-node', () => {
       nodeInfo.should.eql(modifedNodeTemplateExpectedSignature);
 
       return nodeInfo;
+    }).then(() => {
+      return deleteNodes(requester, [ id ]);
+    }).then((results) => {
+      return validateDeleteCalls(results);
+    }).then(() => {
+      done();
+    }).catch((err) => {
+      console.log({ err });
+      deleteNodes(requester, [ id ]).then(() => { done(err); });
+    })
+  });
+
+  it('Modify existing node correctly by id.', done => {
+    let id = null;
+
+    const modifedNodeTemplate = deepAssign(deepClone(template.socket.node), {
+      signature: {
+        in: [ 'test-in' ],
+        out: [ 'test-out' ]
+      }
+    });
+
+    const modifedNodeTemplateExpectedSignature = {
+      ...template.socket.expectedSignature,
+      in: modifedNodeTemplate.signature.in,
+      out: modifedNodeTemplate.signature.out,
+    }
+
+    requester
+    .post('/panel/save')
+    .send(template.socket.node).then(res => {
+      res.status.should.equal(200);
+      res.should.have.property('body');
+      res.body.should.have.property('result');
+      res.body.result.should.have.property('id');
+
+      id = res.body.result.id;
+      modifedNodeTemplate.id = id;
+
+      let nodefile = path.join('test-app/panel-generated', 'nodes', id);
+
+      return files.json.load(nodefile);
+    }).then(nodeInfo => {
+      nodeInfo.should.eql(template.socket.expectedSignature);
+
+      return nodeInfo;
+    }).then(() =>
+      requester
+      .post('/panel/save')
+      .send(modifedNodeTemplate)
+    ).then(res => {
+      res.status.should.equal(200);
+      res.should.have.property('body');
+      res.body.should.have.property('result');
+      res.body.result.should.have.property('id');
+
+      id = res.body.result.id;
+
+      let nodefile = path.join('test-app/panel-generated', 'nodes', id);
+
+      return files.json.load(nodefile);
+    }).then(nodeInfo => {
+      nodeInfo.should.eql(modifedNodeTemplateExpectedSignature);
+
+      let pathmapfile = path.join('test-app/panel-generated', 'path-map');
+      return files.json.load(pathmapfile, {});
+    }).then((pathmap) => {
+      pathmap.should.have.property(template.socket.node.signature.path);
+      
+      pathmap[template.socket.node.signature.path].should.deep.include({ id, key: modifedNodeTemplateExpectedSignature.key });
+
+      pathmap[template.socket.node.signature.path].should.have.lengthOf(1);
+
+      return pathmap;
     }).then(() => {
       return deleteNodes(requester, [ id ]);
     }).then((results) => {
@@ -160,9 +238,10 @@ describe('save-node', () => {
     .send(template.internal.node).then(res => {
       res.status.should.equal(200);
       res.should.have.property('body');
-      res.body.should.have.property('id');
+      res.body.should.have.property('result');
+      res.body.result.should.have.property('id');
 
-      id = res.body.id;
+      id = res.body.result.id;
 
       let nodefile = path.join('test-app/panel-generated', 'nodes', id);
 
@@ -178,9 +257,10 @@ describe('save-node', () => {
     ).then(res => {
         res.status.should.equal(200);
         res.should.have.property('body');
-        res.body.should.have.property('id');
+        res.body.should.have.property('result');
+        res.body.result.should.have.property('id');
 
-        id2 = res.body.id;
+        id2 = res.body.result.id;
 
         id2.should.not.equal(id);
 
@@ -199,7 +279,6 @@ describe('save-node', () => {
       done();
     }).catch((err) => {
       console.log({ err });
-
       deleteNodes(requester, [ id, id2 ]).then(() => { done(err); });
     });
   });
@@ -213,9 +292,10 @@ describe('save-node', () => {
     .send(template.publicPost.node).then(res => {
       res.status.should.equal(200);
       res.should.have.property('body');
-      res.body.should.have.property('id');
+      res.body.should.have.property('result');
+      res.body.result.should.have.property('id');
 
-      id = res.body.id;
+      id = res.body.result.id;
 
       let nodefile = path.join('test-app/panel-generated', 'nodes', id);
 
@@ -231,9 +311,10 @@ describe('save-node', () => {
     ).then(res => {
         res.status.should.equal(200);
         res.should.have.property('body');
-        res.body.should.have.property('id');
+        res.body.should.have.property('result');
+        res.body.result.should.have.property('id');
 
-        id2 = res.body.id;
+        id2 = res.body.result.id;
 
         id2.should.not.equal(id);
 
@@ -275,9 +356,10 @@ describe('save-node', () => {
     .send(template.publicPost.node).then(res => {
       res.status.should.equal(200);
       res.should.have.property('body');
-      res.body.should.have.property('id');
+      res.body.should.have.property('result');
+      res.body.result.should.have.property('id');
 
-      id = res.body.id;
+      id = res.body.result.id;
 
       let nodefile = path.join('test-app/panel-generated', 'nodes', id);
 
@@ -293,9 +375,10 @@ describe('save-node', () => {
     ).then(res => {
         res.status.should.equal(200);
         res.should.have.property('body');
-        res.body.should.have.property('id');
+        res.body.should.have.property('result');
+        res.body.result.should.have.property('id');
 
-        id2 = res.body.id;
+        id2 = res.body.result.id;
 
         id2.should.not.equal(id);
 
@@ -353,9 +436,10 @@ describe('save-node', () => {
     .send(internalNode).then(res => {
       res.status.should.equal(200);
       res.should.have.property('body');
-      res.body.should.have.property('id');
+      res.body.should.have.property('result');
+      res.body.result.should.have.property('id');
 
-      id = res.body.id;
+      id = res.body.result.id;
 
       let nodefile = path.join('test-app/panel-generated', 'nodes', id);
 
@@ -371,9 +455,10 @@ describe('save-node', () => {
     ).then(res => {
         res.status.should.equal(200);
         res.should.have.property('body');
-        res.body.should.have.property('id');
+        res.body.should.have.property('result');
+        res.body.result.should.have.property('id');
 
-        id2 = res.body.id;
+        id2 = res.body.result.id;
 
         id2.should.not.equal(id);
 

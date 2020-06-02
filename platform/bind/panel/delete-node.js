@@ -26,13 +26,21 @@ platform.core.node({
   .then(() => files.json.load(pathmapfile, {}))
   .then(pathmap => {
     Object.entries(pathmap).forEach(entry => {
-      pathmap[entry[0]] = pathmap[entry[0]].filter(
-        el =>
-        (typeof el === 'string' && el !== inputs.id) ||
-        (typeof el === 'object' && el.id !== inputs.id)
-      );
+      if(Array.isArray(pathmap[entry[0]])) {
+        pathmap[entry[0]] = pathmap[entry[0]].filter(
+          el =>
+          (typeof el === 'string' && el !== inputs.id) ||
+          (typeof el === 'object' && el.id !== inputs.id)
+        );
 
-      if(pathmap[entry[0]].length === 0) {
+        if(pathmap[entry[0]].length === 0) {
+          delete pathmap[entry[0]];
+        }
+      } else if(
+        typeof pathmap[entry[0]] === 'object' &&
+        'id' in pathmap[entry[0]] &&
+        pathmap[entry[0]].id === inputs.id
+      ) {
         delete pathmap[entry[0]];
       }
     });

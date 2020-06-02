@@ -1,7 +1,7 @@
 const util = require('../util');
 const { UnregisteredPath } = require('./errors');
 const { Subscribable } = require('./base/subscribable');
-
+const hash = require('../bind/panel/util/hash');
 
 const RegistryEvents = {
   registered: 'registered',
@@ -30,9 +30,10 @@ class Registry extends Subscribable {
           signature.path.substr(0, signature.path.length - 1) :
           signature.path; // make sure the key is consistant
 
-      let key = 'get';
-      if('method' in signature) key = signature.method.toLowerCase();
+      let key = null;
+      if('method' in signature) signature.method = signature.method.toLowerCase();
       if('key' in signature) key = signature.key;
+      else key = hash.hashSig(signature);
 
       if( ! (signature.path in this._paths) ) {
         this._paths[signature.path] = {};
@@ -54,10 +55,8 @@ class Registry extends Subscribable {
     return this;
   }
 
-  signature(path, key = 'get') {
-    if(key === '') {
-      key = this.resolveDefaultKey(path);
-    }
+  signature(path, key) {
+    key = this.keyIfNotSet(key, { path });
 
     if(! this.registered(path, key)) {
       throw new UnregisteredPath(path);
@@ -68,10 +67,8 @@ class Registry extends Subscribable {
     return this._paths[resolved][key].signature;
   }
 
-  instance(path, key = 'get') {
-    if(key === '') {
-      key = this.resolveDefaultKey(path);
-    }
+  instance(path, key) {
+    key = this.keyIfNotSet(key, { path });
 
     let resolved = this.resolve(path);
 
@@ -101,7 +98,17 @@ class Registry extends Subscribable {
     throw new UnregisteredPath(path);
   }
 
-  registered(path, key = 'get') {
+  keyIfNotSet(key, signature) {
+    if(key === undefined) {
+      key = hash.hashSig(signature);
+    }
+
+    return key;
+  }
+
+  registered(path, key) {
+    key = this.keyIfNotSet(key, { path });
+
     let resolved = this.resolve(path);
     
     if(

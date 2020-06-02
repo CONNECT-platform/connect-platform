@@ -1,14 +1,14 @@
 const hash = require('object-hash');
 
-module.exports = function(val) {
-  return hash(val);
-}
-
-module.exports.hashSig = function(signature) {
+const hashSig = function(signature) {
   return hash({
     path: signature.path,
     public: signature.public || false,
-    method: signature.method || '',
+    method: signature.method ? signature.method.toLowerCase() : '',
     socket: signature.socket || false
   });
 }
+
+module.exports = {
+  hashSig
+};

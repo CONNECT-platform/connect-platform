@@ -3,6 +3,9 @@ const base = require('../base');
 const registry = require('../registry');
 const { UnregisteredPath } = require('../errors');
 const chai = require('chai');
+const sinon = require('sinon');
+
+const hash = require('../../bind/panel/util/hash');
 
 describe('registry', () => {
   describe('.register()', () => {
@@ -205,6 +208,37 @@ describe('registry', () => {
       registry.registrants['Multi'][TEST_KEY1].signature.should.eql(signatureA);
       registry.registrants['Multi'][TEST_KEY2].signature.should.eql(signatureB);
       registry.registrants['Multi'][TEST_KEY3].signature.should.eql(signatureC);
+    });
+  });
+
+  describe('.keyIfNotSet', () => {
+    let sandbox = null;
+    const TEST_HASH = 'test_hash';
+
+    beforeEach(() => {
+      sandbox = sinon.createSandbox();
+    });
+
+    afterEach(() => {
+      sandbox.restore();
+    });
+
+    it('should return the key if it is defined.', () => {
+      const key = registry.keyIfNotSet('random_key', {});
+
+      key.should.equal('random_key');
+    });
+
+    it('should get a new key if not already set.', () => {     
+      const stub = sandbox.stub(hash, 'hashSig').returns(TEST_HASH);
+       
+      const key = registry.keyIfNotSet(undefined, {
+        path: '/test'
+      });
+
+      sandbox.assert.calledOnce(hash.hashSig);
+
+      key.should.equal(TEST_HASH);
     });
   });
 });
