@@ -273,6 +273,7 @@ export class EditorModelService extends Subscribable {
       method : this.method,
       public : this.public,
       socket : this.socket,
+      key : this.key,
       in : this.signature.inputs,
       out : this.signature.outputs,
       configs : this.signature.configs,
@@ -352,8 +353,8 @@ export class EditorModelService extends Subscribable {
     }
     else if (nodeClass == Call) {
       let c = Call.fromJson(json);
-      if (registry.isRegistered(c.path))
-        c.signature = registry.signature(c.path);
+      if (registry.isRegistered(c.path, c.key))
+        c.signature = registry.signature(c.path, c.key);
       this.addNode(c);
       return c;
     }

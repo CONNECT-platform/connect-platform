@@ -12,6 +12,7 @@ export enum CallEvents {
 
 export interface CallJson extends NodeJson {
   path: string;
+  key: string;
 }
 
 export interface PathKeyPairType {  
@@ -67,6 +68,7 @@ export class Call extends Node {
   protected toJson(): CallJson {
     return Object.assign(super.toJson(), {
       path : this.path,
+      key: this.key
     });
   }
 
@@ -97,6 +99,8 @@ export class Call extends Node {
   public static fromJson(json: CallJson) {
     let call = new Call(json.tag, Box.fromJson(json.box));
     call.path = json.path;
+    if(json.key)
+      call.key = json.key;
 
     return call;
   }
