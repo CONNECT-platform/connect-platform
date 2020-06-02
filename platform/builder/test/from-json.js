@@ -5,12 +5,6 @@ const { Composition } = require('../composition');
 
 
 describe('fromJSON()', () => {
-  core.node({
-    path: '/what/tf/',
-    inputs: ['name'],
-    outputs: ['dn']
-  }, (inputs, output) => { output('dn', "dear " + inputs.name); });
-
   let json = `
     {
       "path": "/something/",
@@ -51,8 +45,18 @@ describe('fromJSON()', () => {
       ]
     }
   `;
+  
+  let recipe = null;
 
-  let recipe = fromJSON(json);
+  before(() => {
+    core.node({
+      path: '/what/tf/',
+      inputs: ['name'],
+      outputs: ['dn']
+    }, (inputs, output) => { output('dn', "dear " + inputs.name); });
+    
+    recipe = fromJSON(json);
+  });
 
   it('should bear the signature based on given json.', () => {
     assert.equal(recipe.signature.path, '/something/');
@@ -90,4 +94,8 @@ describe('fromJSON()', () => {
 
     comp.start({a: 'jackie'}, {max: '5'});
   });
+
+  after(() => {
+    core.registry.reset();
+  })
 });
