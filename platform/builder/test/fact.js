@@ -4,7 +4,7 @@ const fs = require('fs');
 const core = require('../../core');
 const { Builder } = require('../builder');
 const fromJSON = require('../from-json');
-const { hashSig } = require('../../bind/panel/util/hash');
+const { hashSig } = require('../../util/hash');
 
 describe('*** Magnificent Factoriel Composite ***', () => {
   it('should calculate 5!', done => {

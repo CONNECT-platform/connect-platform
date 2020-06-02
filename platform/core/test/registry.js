@@ -5,7 +5,7 @@ const { UnregisteredPath } = require('../errors');
 const chai = require('chai');
 const sinon = require('sinon');
 
-const hash = require('../../bind/panel/util/hash');
+const hash = require('../../util/hash');
 
 describe('registry', () => {
   describe('.register()', () => {

@@ -1,6 +1,6 @@
 const base = require('./base');
 const registry = require('./registry');
-const { hashSig } = require('../bind/panel/util/hash');
+const { hashSig } = require('../util/hash');
 
 const node = (signature, func) => {
   let _class = class extends base.node.Node {

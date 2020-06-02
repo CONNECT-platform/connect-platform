@@ -1,6 +1,6 @@
 const base = require('./base');
 const registry = require('./registry');
-const { hashSig } = require('../bind/panel/util/hash');
+const { hashSig } = require('../util/hash');
 
 class Call extends base.node.Node {
   constructor(path, method = '', isPublic = false) {

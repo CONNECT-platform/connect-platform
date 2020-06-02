@@ -5,7 +5,7 @@ const config = require('./util/config');
 const files = require('./util/file-io');
 const authorize = require('./util/authorize');
 
-const { hashSig } = require('./util/hash');
+const { hashSig } = require('../../util/hash');
 
 function matchNodes(signature1, signature2) {
   return (

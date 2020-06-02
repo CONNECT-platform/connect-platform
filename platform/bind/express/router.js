@@ -3,7 +3,7 @@ const core = require('../../core');
 const reqHandler = require('./req-handler');
 const Routes = require('../common/routes');
 
-const { hashSig } = require('../../bind/panel/util/hash');
+const { hashSig } = require('../../util/hash');
 
 const publicRoutes = new Routes(core.registry, 'public');
 

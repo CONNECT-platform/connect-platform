@@ -1,4 +1,4 @@
-const { hashSig } = require('../../util/hash');
+const { hashSig } = require('../../../../util/hash');
 
 const deepAssign = require('deep-assign');
 const deepClone = require('./deepClone');

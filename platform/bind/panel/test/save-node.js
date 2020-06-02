@@ -6,7 +6,7 @@ const files = require('../../../bind/panel/util/file-io');
 
 const deepAssign = require('deep-assign');
 
-const { hashSig } = require('../util/hash');
+const { hashSig } = require('../../../util/hash');
 
 chai.use(chaiHttp);
 

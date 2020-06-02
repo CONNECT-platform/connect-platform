@@ -1,7 +1,7 @@
 const util = require('../util');
 const { UnregisteredPath } = require('./errors');
 const { Subscribable } = require('./base/subscribable');
-const hash = require('../bind/panel/util/hash');
+const hash = require('../util/hash');
 
 const RegistryEvents = {
   registered: 'registered',

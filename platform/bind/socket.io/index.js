@@ -5,7 +5,7 @@ const core = require('../../core');
 
 const socketRoutes = new Routes(core.registry, 'socket');
 
-const { hashSig } = require('../../bind/panel/util/hash');
+const { hashSig } = require('../../util/hash');
 
 module.exports = (server) => {
   const platform = global.connect_platform_instance;
