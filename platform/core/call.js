@@ -4,7 +4,9 @@ const { hashSig } = require('../util/hash');
 
 class Call extends base.node.Node {
   constructor(path, method = '', isPublic = false) {
-    const key = hashSig({ path, method, public: isPublic });
+    let key = hashSig({ path, method, public: isPublic });
+
+    if(! registry.registered(path, key)) key = registry.resolveDefaultKey(path);
 
     super(registry.signature(path, key));
     this._key = key;
