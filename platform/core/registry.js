@@ -62,15 +62,15 @@ class Registry extends Subscribable {
       throw new UnregisteredPath(path);
     }
 
-    let resolved = this.resolve(path, key);
+    let resolved = this.resolve(path);
     
     return this._paths[resolved][key].signature;
   }
 
   instance(path, key) {
-    key = this.keyIfNotSet(key, { path });
-
     let resolved = this.resolve(path);
+
+    key = this.keyIfNotSet(key, { path: resolved });
 
     if (this.mocked(path, key)) {
       let instantiated = util.buildFromFactoryOrClass(this._mocks[resolved][key]);
@@ -82,7 +82,7 @@ class Registry extends Subscribable {
       throw new UnregisteredPath(path);
     }
 
-    let resolvedIndex = this.resolve(path, key);
+    let resolvedIndex = this.resolve(path);
     
     let instantiated = util.buildFromFactoryOrClass(this._paths[resolved][key].factoryOrClass);
     this.publish(RegistryEvents.instantiated, instantiated);

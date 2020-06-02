@@ -120,8 +120,10 @@ describe('registry', () => {
     });
 
     it('should return the signature of a registered node class or factory with method.', ()=> {
-      registry.register({path: 'X', inputs: ['a'], method: 'post'}, base.node.Node);
-      assert.equal(registry.signature('X', 'post').inputs[0], 'a');
+      const sig = {path: 'X', inputs: ['a'], public: true, method: 'post'};
+      registry.register(sig, base.node.Node);
+
+      assert.equal(registry.signature('X', hash.hashSig(sig)).inputs[0], 'a');
     });
 
     it('should throw proper error when given path is not registered.', () => {
