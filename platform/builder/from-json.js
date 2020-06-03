@@ -11,7 +11,7 @@ const handleNode = (_node, r) => {
   if (_node.expr && _node.in) r.add(c => c.addExpr(_node.tag, _node.in, _node.expr));
   else if (_node.expr) r.add(c => c.addValue(_node.tag, _node.expr));
   else if (_node.cases) r.add(c => c.addSwitch(_node.tag, _node.cases));
-  else if (_node.path) r.add(c => c.addCall(_node.tag, _node.path));
+  else if (_node.path) r.add(c => c.addCall(_node.tag, _node.path, _node.key));
 }
 
 const handleLink = (_link, r) => {

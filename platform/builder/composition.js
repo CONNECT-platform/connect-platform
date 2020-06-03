@@ -79,8 +79,8 @@ class Composition extends Subscribable {
     node.subscribe(core.events.node.error, error => this.publish(CompositionEvents.error, error));
   }
 
-  addCall(tag, path) {
-    this._addNode(tag, new core.Call(path));
+  addCall(tag, path, key) {
+    this._addNode(tag, new core.Call(path, key));
     this._add_dependency(path);
     return this;
   }
