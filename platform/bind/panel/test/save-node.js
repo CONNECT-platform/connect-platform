@@ -19,6 +19,20 @@ const { deleteNodes, validateDeleteCalls } = require('./util/api');
 
 const { template } = require('./util/dummyNodes');
 
+function validateConfFile(id) {
+  let confile = path.join('test-app/panel-generated', 'config');
+  return files.json.load(confile, {
+    nodes : {
+      json : [],
+    }
+  }).then(conf => {
+    conf.should.have.property('nodes');
+    conf.nodes.should.have.property('json');
+    conf.nodes.json.should.be.an('array');
+    conf.nodes.json.should.be.include('nodes/' + id);
+  });
+}
+
 describe('save-node', () => {
   let requester = null;
 
@@ -27,7 +41,7 @@ describe('save-node', () => {
     requester = chai.request(url).keepOpen();
   });
 
-  it('Saves non-existing node correctly.', done => {
+  it('Saves non-existing node correctly', done => {
     let id = null;
 
     requester
@@ -47,6 +61,8 @@ describe('save-node', () => {
       nodeInfo.should.eql(template.socket.expectedSignature);
 
       return nodeInfo;
+    }).then(() => {
+      return validateConfFile(id);
     }).then(() => {
       return deleteNodes(requester, [ id ]);
     }).then((results) => {
@@ -79,7 +95,9 @@ describe('save-node', () => {
       nodeInfo.should.eql(template.socket.expectedSignature);
 
       return nodeInfo;
-    }).then(() => {
+    })
+    .then(() => validateConfFile(id))
+    .then(() => {
       return deleteNodes(requester, [ id ]);
     }).then((results) => {
       return validateDeleteCalls(results);
@@ -143,7 +161,9 @@ describe('save-node', () => {
       nodeInfo.should.eql(modifedNodeTemplateExpectedSignature);
 
       return nodeInfo;
-    }).then(() => {
+    })
+    .then(() => validateConfFile(id))
+    .then(() => {
       return deleteNodes(requester, [ id ]);
     }).then((results) => {
       return validateDeleteCalls(results);
@@ -217,7 +237,90 @@ describe('save-node', () => {
       pathmap[template.socket.node.signature.path].should.have.lengthOf(1);
 
       return pathmap;
+    })
+    .then(() => validateConfFile(id))
+    .then(() => {
+      return deleteNodes(requester, [ id ]);
+    }).then((results) => {
+      return validateDeleteCalls(results);
     }).then(() => {
+      done();
+    }).catch((err) => {
+      console.log({ err });
+      deleteNodes(requester, [ id ]).then(() => { done(err); });
+    })
+  });
+
+  it('Modify existing node\'s path correctly by id.', done => {
+    let id = null;
+
+    const modifedNodeTemplate = deepAssign(deepClone(template.socket.node), {
+      signature: {
+        path: '/multi/test',
+        in: [ 'test-in' ],
+        out: [ 'test-out' ]
+      }
+    });
+
+    const modifedNodeTemplateExpectedSignature = {
+      ...template.socket.expectedSignature,
+      path: modifedNodeTemplate.signature.path,
+      in: modifedNodeTemplate.signature.in,
+      out: modifedNodeTemplate.signature.out,
+    }
+
+    modifedNodeTemplateExpectedSignature.key = hashSig(modifedNodeTemplateExpectedSignature);
+
+    requester
+    .post('/panel/save')
+    .send(template.socket.node).then(res => {
+      res.status.should.equal(200);
+      res.should.have.property('body');
+      res.body.should.have.property('result');
+      res.body.result.should.have.property('id');
+
+      id = res.body.result.id;
+      modifedNodeTemplate.id = id;
+
+      let nodefile = path.join('test-app/panel-generated', 'nodes', id);
+
+      return files.json.load(nodefile);
+    }).then(nodeInfo => {
+      nodeInfo.should.eql(template.socket.expectedSignature);
+
+      return nodeInfo;
+    }).then(() =>
+      requester
+      .post('/panel/save')
+      .send(modifedNodeTemplate)
+    ).then(res => {
+      res.status.should.equal(200);
+      res.should.have.property('body');
+      res.body.should.have.property('result');
+      res.body.result.should.have.property('id');
+
+      id = res.body.result.id;
+
+      let nodefile = path.join('test-app/panel-generated', 'nodes', id);
+
+      return files.json.load(nodefile);
+    }).then(nodeInfo => {
+      nodeInfo.should.eql(modifedNodeTemplateExpectedSignature);
+
+      let pathmapfile = path.join('test-app/panel-generated', 'path-map');
+      return files.json.load(pathmapfile, {});
+    }).then((pathmap) => {
+      pathmap.should.not.have.property(template.socket.node.signature.path);
+      pathmap.should.have.property(modifedNodeTemplateExpectedSignature.path);
+      
+      pathmap[modifedNodeTemplateExpectedSignature.path].should.deep.include({ id, key: modifedNodeTemplateExpectedSignature.key });
+
+      pathmap[modifedNodeTemplateExpectedSignature.path].should.have.lengthOf(1);
+
+      return pathmap;
+    })
+    .then(() => validateConfFile(id))
+    .then(() => {
       return deleteNodes(requester, [ id ]);
     }).then((results) => {
       return validateDeleteCalls(results);
@@ -271,7 +374,9 @@ describe('save-node', () => {
       nodeInfo.should.eql(template.publicPost.expectedSignature);
 
       return nodeInfo;
-    }).then(() => {
+    })
+    .then(() => validateConfFile(id))
+    .then(() => {
       return deleteNodes(requester, [ id, id2 ]);
     }).then((results) => {
       return validateDeleteCalls(results);
@@ -335,7 +440,9 @@ describe('save-node', () => {
       pathmap[template.socket.node.signature.path].should.have.lengthOf(2);
 
       return pathmap;
-    }).then(() => {
+    })
+    .then(() => validateConfFile(id))
+    .then(() => {
       return deleteNodes(requester, [ id, id2 ]);
     }).then((results) => {
       return validateDeleteCalls(results);
@@ -398,7 +505,9 @@ describe('save-node', () => {
       pathmap[template.socket.node.signature.path].should.have.lengthOf(2);
 
       return pathmap;
-    }).then(() => {
+    })
+    .then(() => validateConfFile(id))
+    .then(() => {
       return deleteNodes(requester, [ id, id2 ]);
     }).then((results) => {
       return validateDeleteCalls(results);
@@ -478,7 +587,9 @@ describe('save-node', () => {
       pathmap[template.socket.node.signature.path].should.have.lengthOf(2);
 
       return pathmap;
-    }).then(() => {
+    })
+    .then(() => validateConfFile(id))
+    .then(() => {
       return deleteNodes(requester, [ id, id2 ]);
     }).then((results) => {
       return validateDeleteCalls(results);
