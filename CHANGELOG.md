@@ -7,6 +7,10 @@ and we use [Semantic Versioning](http://semver.org/spec/v2.0.0.html), like stric
 
 **NOTE**: there is not an entry for every version. Some versions included super minor changes, and as a result were excluded from this change log. For a really detailed history of changes, please checkout the commit history of the project.
 
+## [0.30.1] - 2020-06-03
+### Fixed:
+ - Fix bug where picking a call card on the UI doesn't open the right URL/id combination.
+
 ## [0.30.0] - 2020-06-03
 ### Added:
  - Support for multi-type same path nodes.
