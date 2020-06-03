@@ -32,10 +32,16 @@ module.exports = (server) => {
         }
 
         return platform.core.callable(() => platform.core.registry.instance(signature.path, signature.key), {
-          socket
-        })(inputs);
-      } else
+            socket
+          })(inputs)
+          .catch((err) => {
+            socket.emit('call_error', err);
+            throw err;
+          });
+      } else {
+        socket.emit('call_error', { status: 404 });
         return Promise.reject("Cannot find socket node for path " + fullPath);
+      }
     }
 
     callNode("connect", {
