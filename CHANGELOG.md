@@ -7,6 +7,13 @@ and we use [Semantic Versioning](http://semver.org/spec/v2.0.0.html), like stric
 
 **NOTE**: there is not an entry for every version. Some versions included super minor changes, and as a result were excluded from this change log. For a really detailed history of changes, please checkout the commit history of the project.
 
+## [0.30.0] - 2020-06-03
+### Added:
+ - Support for multi-type same path nodes.
+ - UI support for multi-type nodes when specifying a call.
+ - A key mechanism to distiniush between nodes based on the path, if they are public or not (the method if applicable) and if it's a socket node.
+ - A more extensive test suite.
+
 ## [0.2.32] - 2020-05-22
 ### Added:
  - Added default values support for the `autoparseFromEnvironmentVars` method example of usage: `{{ ENV_VARIABLE || default }}`.
