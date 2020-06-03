@@ -125,7 +125,8 @@ export class CardComponent implements OnInit, OnDestroy {
         (Date.now() - this._lastPickTime) < 200 &&
         this.node instanceof Call &&
         (this.node as Call).path in this.registry.nodes) {
-      window.open(`/panel/editor?id=${this.registry.nodes[(this.node as Call).path]}`, '_blank');
+      const call = this.node as Call;
+      window.open(`/panel/editor?id=${this.registry.nodes[call.path].find(el => el.key === call.key).id}`, '_blank');
     }
     this._lastPickTime = Date.now();
   }
