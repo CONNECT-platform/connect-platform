@@ -99,11 +99,12 @@ platform.core.node({
         if(! inputs.id) return obj;
         
         obj.id = inputs.id;
-        Object.entries(obj.pathmap)
-              .filter(entry => entry[1] == obj.id)
-              .forEach(entry => {
-                delete obj.pathmap[entry[0]];
-              });
+        const oldPath = Object.entries(obj.pathmap).filter(entry => entry[1].find(el => el.id === obj.id))[0][0];
+
+        obj.pathmap[oldPath] = obj.pathmap[oldPath].filter(el => el.id !== obj.id);
+
+        if(obj.pathmap[oldPath].length === 0) delete obj.pathmap[oldPath];
+
         obj.update_pathmap = true;
 
         return obj;

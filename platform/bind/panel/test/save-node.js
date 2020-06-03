@@ -229,6 +229,85 @@ describe('save-node', () => {
     })
   });
 
+  it('Modify existing node\'s path correctly by id.', done => {
+    let id = null;
+
+    const modifedNodeTemplate = deepAssign(deepClone(template.socket.node), {
+      signature: {
+        path: '/multi/test',
+        in: [ 'test-in' ],
+        out: [ 'test-out' ]
+      }
+    });
+
+    const modifedNodeTemplateExpectedSignature = {
+      ...template.socket.expectedSignature,
+      path: modifedNodeTemplate.signature.path,
+      in: modifedNodeTemplate.signature.in,
+      out: modifedNodeTemplate.signature.out,
+    }
+
+    modifedNodeTemplateExpectedSignature.key = hashSig(modifedNodeTemplateExpectedSignature);
+
+    requester
+    .post('/panel/save')
+    .send(template.socket.node).then(res => {
+      res.status.should.equal(200);
+      res.should.have.property('body');
+      res.body.should.have.property('result');
+      res.body.result.should.have.property('id');
+
+      id = res.body.result.id;
+      modifedNodeTemplate.id = id;
+
+      let nodefile = path.join('test-app/panel-generated', 'nodes', id);
+
+      return files.json.load(nodefile);
+    }).then(nodeInfo => {
+      nodeInfo.should.eql(template.socket.expectedSignature);
+
+      return nodeInfo;
+    }).then(() =>
+      requester
+      .post('/panel/save')
+      .send(modifedNodeTemplate)
+    ).then(res => {
+      res.status.should.equal(200);
+      res.should.have.property('body');
+      res.body.should.have.property('result');
+      res.body.result.should.have.property('id');
+
+      id = res.body.result.id;
+
+      let nodefile = path.join('test-app/panel-generated', 'nodes', id);
+
+      return files.json.load(nodefile);
+    }).then(nodeInfo => {
+      nodeInfo.should.eql(modifedNodeTemplateExpectedSignature);
+
+      let pathmapfile = path.join('test-app/panel-generated', 'path-map');
+      return files.json.load(pathmapfile, {});
+    }).then((pathmap) => {
+      pathmap.should.not.have.property(template.socket.node.signature.path);
+      pathmap.should.have.property(modifedNodeTemplateExpectedSignature.path);
+      
+      pathmap[modifedNodeTemplateExpectedSignature.path].should.deep.include({ id, key: modifedNodeTemplateExpectedSignature.key });
+
+      pathmap[modifedNodeTemplateExpectedSignature.path].should.have.lengthOf(1);
+
+      return pathmap;
+    }).then(() => {
+      return deleteNodes(requester, [ id ]);
+    }).then((results) => {
+      return validateDeleteCalls(results);
+    }).then(() => {
+      done();
+    }).catch((err) => {
+      console.log({ err });
+      deleteNodes(requester, [ id ]).then(() => { done(err); });
+    })
+  });
+
   it('Create node correctly with same path but different signature (internal and public node).', done => {
     let id = null;
     let id2 = null;
