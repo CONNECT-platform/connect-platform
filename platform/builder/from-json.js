@@ -11,7 +11,7 @@ const handleNode = (_node, r) => {
   if (_node.expr && _node.in) r.add(c => c.addExpr(_node.tag, _node.in, _node.expr));
   else if (_node.expr) r.add(c => c.addValue(_node.tag, _node.expr));
   else if (_node.cases) r.add(c => c.addSwitch(_node.tag, _node.cases));
-  else if (_node.path) r.add(c => c.addCall(_node.tag, _node.path));
+  else if (_node.path) r.add(c => c.addCall(_node.tag, _node.path, _node.key));
 }
 
 const handleLink = (_link, r) => {
@@ -94,7 +94,9 @@ const fromJSON = json => {
   if (desc.path) recipe.signature.path = desc.path;
   if (desc.description) recipe.signature.description = desc.description;
   if (desc.public) recipe.signature.public = desc.public;
-  if (desc.method) recipe.signature.method = desc.method;
+  if (desc.socket) recipe.signature.socket = desc.socket;
+  if (desc.method) recipe.signature.method = desc.method.toLowerCase();
+  if (desc.key) recipe.signature.key = desc.key;
 
   if (desc.in) {
     recipe.signature.inputs = desc.in;

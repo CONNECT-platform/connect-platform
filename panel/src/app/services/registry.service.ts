@@ -3,10 +3,22 @@ import { Injectable } from '@angular/core';
 import { Signature, SignatureHints } from '../models/signature.model';
 import { BackendService } from './backend.service';
 import { EditorModelService } from './editor-model.service';
+import { deepMerge } from '../util/deep-merge';
 
+export interface EntryType {
+  path: String,
+  inputs: Array<String>;
+  outputs: Array<String>;
+  controlOutputs: Array<String>;
+  public: boolean;
+  method: string;
+  socket: boolean;
+  key: String;
+};
 
 @Injectable()
 export class RegistryService {
+
   private _registryCache : any = {
     '/test1/' : {
       get: {
@@ -39,14 +51,25 @@ export class RegistryService {
     this._refetchNodes();
   }
 
-  public isRegistered(path): boolean {
+  public isRegistered(path, key): boolean {
+    if(key) 
+      return path in this._registry && key in this._registry[path];
+    
     return path in this._registry;
   }
 
-  public signature(path): Signature {
-    const method = Object.keys(this._registry[path])[0];
+  public signature(path, key = undefined): Signature {
+    if(key === '' || key === undefined) {
+      key = Object.keys(this._registry[path])[0];
+    }
 
-    return this._registry[path][method];
+    const found = Object.values(this._registry[path]).find(
+      (el: Signature) => 
+        ('key' in el && el.key === key) ||
+        ('method' in el && el.method === key)
+    ) as Signature;
+
+    return found;
   }
 
   public hints(path): SignatureHints|null {
@@ -59,6 +82,10 @@ export class RegistryService {
     return Object.keys(this._registry);
   }
 
+  public get registry() {
+    return this._registry;
+  }
+
   public get nodes() {
     this._refetchNodes();
     return this._nodesCache;
@@ -68,9 +95,11 @@ export class RegistryService {
     this._refetch();
     let _dict = {};
     if( ! (_dict[this.model.signature.path] instanceof Object) ) _dict[this.model.signature.path] = {};
-
-    _dict[this.model.signature.path][this.model.signature.method] = this.model.signature;
-    return Object.assign({}, this._registryCache, _dict);
+    
+    const key = this.model.signature.key ? this.model.signature.key : this.model.signature.method;
+    
+    _dict[this.model.signature.path][key] = this.model.signature;
+    return deepMerge({}, this._registryCache, _dict);
   }
 
   private _refetch() {
@@ -87,6 +116,9 @@ export class RegistryService {
               inputs: [],
               outputs: [],
               controlOutputs: [],
+              public: false,
+              socket: false,
+              method: "GET"
             }, methodEntry[1]['signature']);
           });
         });

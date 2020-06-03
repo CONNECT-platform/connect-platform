@@ -1,6 +1,9 @@
 {
   "path": "/test/fact/",
   "description": "factoriel function",
+  "public": false,
+  "socket": false,
+  "method": "",
   "in": ["n"],
   "out": ["f"],
   "nodes": [

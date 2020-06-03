@@ -5,6 +5,48 @@ const config = require('./util/config');
 const files = require('./util/file-io');
 const authorize = require('./util/authorize');
 
+const { hashSig } = require('../../util/hash');
+
+function matchNodes(signature1, signature2) {
+  return (
+    signature1.public && signature2.public &&
+    signature1.method.toLowerCase() == signature2.method.toLowerCase() // Public http node with the same method
+  ) ||
+  (
+    ! signature1.public && ! signature2.public && ! signature1.socket && ! signature2.socket // Internal node
+  ) ||
+  (
+    signature1.socket && signature2.socket // Socket node
+  );
+}
+
+function loadNodes(nodes) {
+  const promises = [];
+
+  for(let k in nodes) {
+    let nodefile = path.join(config.directory, config.files.nodedir, nodes[k]);
+    
+    promises.push(files.json.load(nodefile));
+  }
+
+  return Promise.all(promises);
+}
+
+function resolveNode(nodes, obj) {
+  return new Promise( (resolve, reject) => {
+    loadNodes(nodes).then(nodesInfo => {
+      for(let k in nodesInfo) {
+        const nodeInfo = nodesInfo[k];
+
+        if(matchNodes(obj.signature, nodeInfo)) {
+          obj.id = nodes[k];
+        }
+      }
+
+      resolve(obj);
+    });
+  });
+}
 
 platform.core.node({
   path : `${config.path}save`,
@@ -12,7 +54,7 @@ platform.core.node({
   method : 'POST',
   interconnectible: false,
   inputs : ['connect_token', 'signature', 'id'],
-  outputs : ['id'],
+  outputs : ['result'],
   controlOutputs : [
     'no_directory_set',
     'bad_input',
@@ -27,48 +69,103 @@ platform.core.node({
         return;
       }
 
-      if (!inputs.signature.path) {
+      if (
+        ! inputs.signature.path ||
+        ( inputs.signature.public && inputs.signature.socket )
+      ) {
         control('bad_input');
         return;
       }
 
+      const signature = { ...inputs.signature };
+      
+      if(! signature.public || signature.socket) {
+        signature.method = '';
+      }
+
+      signature.key = hashSig(signature);
+
       let pathmapfile = path.join(config.directory, config.files.pathmap);
 
       files.json.load(pathmapfile, {})
-        .then(pathmap => {
-          let _path = inputs.signature.path;
-          let _update_pathmap = false;
-          let _id;
+      .then(pathmap => ({
+        signature,
+        path: inputs.signature.path,
+        update_pathmap: false,
+        id: null,
+        pathmap,
+        existing_node: null
+      })).then(obj => {
+        if(! inputs.id) return obj;
+        
+        obj.id = inputs.id;
+        Object.entries(obj.pathmap)
+              .filter(entry => entry[1] == obj.id)
+              .forEach(entry => {
+                delete obj.pathmap[entry[0]];
+              });
+        obj.update_pathmap = true;
 
-          if (inputs.id) {
-            _id = inputs.id;
-            Object.entries(pathmap)
-                  .filter(entry => entry[1] == _id)
-                  .forEach(entry => {
-                    delete pathmap[entry[0]];
-                  });
-            _update_pathmap = true;
-          }
-          else {
-            if (_path in pathmap) {
-              _id = pathmap[_path];
-            }
-            else {
-              _id = 'n' + Math.random().toString(36).substring(2, 15);
-              _update_pathmap = true;
-            }
-          }
+        return obj;
+      }).then(obj => {
+        if(obj.id) return obj;
 
-          if (_update_pathmap) {
-            pathmap[_path] = _id;
-            files.json.save(pathmapfile, pathmap)
+        if(! (obj.path in obj.pathmap)) {
+          obj.id = 'n' + Math.random().toString(36).substring(2, 15);
+          obj.update_pathmap = true;
+        }
+
+        return obj;
+      }).then(obj => {
+        if(obj.id) return obj;
+
+        // => obj.path in obj.pathmap is true
+
+        let existingNodesForPath = obj.pathmap[obj.path];
+        if( Array.isArray(existingNodesForPath) ) {
+          existingNodesForPath = existingNodesForPath.map(el => typeof el === 'string' ? el : el.id);
+        } else if( ! Array.isArray(existingNodesForPath) && typeof existingNodesForPath === 'string') {
+          existingNodesForPath = [ existingNodesForPath ];
+        } else if(typeof obj.pathmap[obj.path] === 'object') {
+          existingNodesForPath = obj.pathmap[obj.path].id;
+        }
+
+        return resolveNode(existingNodesForPath, obj);
+      })
+      .then(obj => {
+        if(! obj.id) { // no matching node signature so let's create a new one
+          obj.id = 'n' + Math.random().toString(36).substring(2, 15);
+          obj.update_pathmap = true;
+        }
+        
+        return obj;
+      })
+      .then(obj => {
+          if (obj.update_pathmap) {
+            if(! Array.isArray(obj.pathmap[obj.path])) {
+              if(obj.path in obj.pathmap) {
+                obj.pathmap[obj.path] = [ obj.pathmap[obj.path] ];
+              } else {
+                obj.pathmap[obj.path] = [];
+              }
+            }
+            
+            const IdKeyPair = { id: obj.id, key: obj.signature.key };
+            const index = obj.pathmap[obj.path].findIndex((el) => el.id === obj.id);
+            if(index === -1) {
+              obj.pathmap[obj.path].push(IdKeyPair);
+            } else {
+              obj.pathmap[obj.path][index] = IdKeyPair;
+            }
+
+            files.json.save(pathmapfile, obj.pathmap)
               .then(() => {})
               .catch(error => {});
           }
+          
+          let nodefile = path.join(config.directory, config.files.nodedir, obj.id);
 
-          let nodefile = path.join(config.directory, config.files.nodedir, _id);
-
-          files.json.save(nodefile, inputs.signature)
+          files.json.save(nodefile, obj.signature)
             .then(() => {
               let index = path.join(config.directory, config.files.index);
 
@@ -85,12 +182,11 @@ platform.core.node({
                   json : [],
                 }
               }).then(conf => {
-                conf.nodes.json = Object.values(pathmap)
+                conf.nodes.json = Object.values(obj.pathmap)
                   .map(i => path.join(config.files.nodedir, i));
                 files.json.save(confile, conf).then(() => {}).catch(error => {});
               }).catch(error => {});
-
-              output('id', _id, true);
+              output('result', { id: obj.id, key: obj.key }, true);
             })
             .catch(error => {
               console.log(error);
@@ -103,6 +199,7 @@ platform.core.node({
         });
     })
     .catch(error => {
+      console.log(error);
       control(platform.conventions.controls._Unauthorized);
     })
 });

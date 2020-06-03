@@ -2,14 +2,17 @@ const assert = require('assert');
 const core = require('../../core');
 const fromJSON = require('../from-json');
 const { Composition } = require('../composition');
+const hash = require('../../util/hash');
 
 
 describe('fromJSON()', () => {
-  core.node({
+  const publicNodeSignature = {
     path: '/what/tf/',
-    inputs: ['name'],
+    public: true,
+    method: 'get',
+    inputs: ['something'],
     outputs: ['dn']
-  }, (inputs, output) => { output('dn', "dear " + inputs.name); });
+  };
 
   let json = `
     {
@@ -35,6 +38,11 @@ describe('fromJSON()', () => {
           "path": "/what/tf/"
         },
         {
+          "tag": "e",
+          "path": "/what/tf/",
+          "key": "${ hash.hashSig(publicNodeSignature) }"
+        },
+        {
           "tag": "s",
           "cases": ["true", "false"]
         }
@@ -47,12 +55,25 @@ describe('fromJSON()', () => {
         [{"cl": "result"}, {"s": "target"}],
         [{"s": {"case": "true"}}, "d"],
         [{"s": {"case": "false"}}, {"out": "bad"}],
-        [{"d": {"out": "dn"}}, {"out": "b"}]
+        [{"d": {"out": "dn"}}, {"e": {"in": "something"}}],
+        [{"e": {"out": "dn"}}, {"out": "b"}]
       ]
     }
   `;
+  
+  let recipe = null;
 
-  let recipe = fromJSON(json);
+  before(() => {
+    core.node({
+      path: '/what/tf/',
+      inputs: ['name'],
+      outputs: ['dn']
+    }, (inputs, output) => { output('dn', "dear " + inputs.name); });
+
+    core.node(publicNodeSignature, (inputs, output) => { output('dn', "dear " + inputs.something); });
+    
+    recipe = fromJSON(json);
+  });
 
   it('should bear the signature based on given json.', () => {
     assert.equal(recipe.signature.path, '/something/');
@@ -74,7 +95,7 @@ describe('fromJSON()', () => {
     let comp = new Composition();
     recipe.apply(comp);
     comp.outputs.b.subscribe(core.events.io.receive, res => {
-      assert.equal(res, 'dear jack');
+      assert.equal(res, 'dear dear jack');
       done();
     });
 
@@ -90,4 +111,8 @@ describe('fromJSON()', () => {
 
     comp.start({a: 'jackie'}, {max: '5'});
   });
+
+  after(() => {
+    core.registry.reset();
+  })
 });

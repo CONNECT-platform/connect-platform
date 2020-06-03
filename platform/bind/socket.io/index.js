@@ -1,6 +1,11 @@
 const SocketIO = require('socket.io');
-const routes = require('../common/routes');
+const Routes = require('../common/routes');
 const axios = require('axios');
+const core = require('../../core');
+
+const socketRoutes = new Routes(core.registry, 'socket');
+
+const { hashSig } = require('../../util/hash');
 
 module.exports = (server) => {
   const platform = global.connect_platform_instance;
@@ -13,10 +18,10 @@ module.exports = (server) => {
   io.on('connection', (socket) => {
     // helper function to build the inputs object and call a node
     let callNode = (path, params = {}) => {
-      let nodes = routes.public();
+      let nodes = socketRoutes.get();
       let fullPath = prefix + (pathMap[path] || path);
 
-      let signature = routes.findPublic(fullPath);
+      let signature = socketRoutes.find(fullPath);
       
       if (signature) {
         let inputs = {};
@@ -26,12 +31,17 @@ module.exports = (server) => {
           }
         }
 
-        // create a callable from the node instance and set the socket as context
-        return platform.core.callable(() => platform.core.registry.instance(signature.path, signature.method), {
-          socket
-        })(inputs)
-      } else
+        return platform.core.callable(() => platform.core.registry.instance(signature.path, signature.key), {
+            socket
+          })(inputs)
+          .catch((err) => {
+            socket.emit('call_error', err);
+            throw err;
+          });
+      } else {
+        socket.emit('call_error', { status: 404 });
         return Promise.reject("Cannot find socket node for path " + fullPath);
+      }
     }
 
     callNode("connect", {

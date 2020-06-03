@@ -23,10 +23,12 @@ const _defaultSignature : Signature = {
     path: '/some-path/',
     method: 'GET',
     public: false,
+    socket: false,
     inputs: [],
     outputs: [],
     controlOutputs: [],
     configs: [],
+    key: ''
 };
 
 @Injectable()
@@ -80,6 +82,8 @@ export class EditorModelService extends Subscribable {
   public get path(): string { return this._signature.path; }
   public get method(): string { return this._signature.method.toUpperCase(); }
   public get public(): boolean { return this._signature.public; }
+  public get socket(): boolean { return this._signature.socket; }
+  public get key(): string { return this._signature.key; }
 
   public get in(): PinList { return this._ins; }
   public get config(): PinList { return this._confs; }
@@ -108,11 +112,22 @@ export class EditorModelService extends Subscribable {
     this._signature.public = _public;
     this.publish(EditorModelEvents.accessChange, _public);
   }
+  
+  public set socket(_socket: boolean) {
+    this._signature.socket = _socket;
+    this.publish(EditorModelEvents.accessChange, _socket);
+  }
+
+  public set key(_key: string) {
+    this._signature.key = _key;
+    this.publish(EditorModelEvents.accessChange, _key);
+  }
 
   public adopt(signature: Signature) {
     this.path = signature.path;
     this.method = signature.method;
     this.public = signature.public;
+    this.socket = signature.socket;
 
     this._signature.inputs = signature.inputs;
     this._signature.outputs = signature.outputs;
@@ -257,6 +272,8 @@ export class EditorModelService extends Subscribable {
       path : this.path,
       method : this.method,
       public : this.public,
+      socket : this.socket,
+      key : this.key,
       in : this.signature.inputs,
       out : this.signature.outputs,
       configs : this.signature.configs,
@@ -286,6 +303,8 @@ export class EditorModelService extends Subscribable {
     this._signature.path = json.path;
     this._signature.method = json.method;
     this._signature.public = json.public;
+    this._signature.socket = json.socket;
+    this._signature.key = json.key;
     this._signature.inputs = json.in;
     this._signature.outputs = json.out;
     this._signature.configs = json.configs;
@@ -334,8 +353,8 @@ export class EditorModelService extends Subscribable {
     }
     else if (nodeClass == Call) {
       let c = Call.fromJson(json);
-      if (registry.isRegistered(c.path))
-        c.signature = registry.signature(c.path);
+      if (registry.isRegistered(c.path, c.key))
+        c.signature = registry.signature(c.path, c.key);
       this.addNode(c);
       return c;
     }

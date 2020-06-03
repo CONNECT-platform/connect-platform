@@ -1,8 +1,10 @@
 const chai = require('chai');
 const registry = require('../../../core/registry');
-const routes = require('../routes');
+const Routes = require('../routes');
 const sinon = require('sinon');
 const expect = require('chai').expect;
+
+const routes = new Routes(registry, 'public');
 
 describe('routes', () => {
   it('should add public route when published.', () => {
@@ -15,7 +17,7 @@ describe('routes', () => {
 
     registry.publish(registry.events.registered, { signature: publicPath1Signature });
     
-    expect(routes.public())
+    expect(routes.get())
       .to.be.an('array')
       .that.includes(publicPath1Signature);
   });
@@ -38,7 +40,7 @@ describe('routes', () => {
     registry.publish(registry.events.registered, { signature: publicPath1Signature });
     registry.publish(registry.events.registered, { signature: publicPath2Signature });
     
-    expect(routes.public())
+    expect(routes.get())
       .to.be.an('array')
       .that.includes(publicPath1Signature)
       .that.includes(publicPath2Signature);
@@ -54,7 +56,7 @@ describe('routes', () => {
 
     registry.publish(registry.events.registered, { signature: privatePathSignature });
     
-    expect(routes.public())
+    expect(routes.get())
       .to.be.an('array')
       .that.does.not.include(privatePathSignature);
   });
@@ -69,10 +71,10 @@ describe('routes', () => {
 
     registry.publish(registry.events.registered, { signature: publicPathSignature });
     
-    expect(routes.findPublic('test/public/path')).to.eql(publicPathSignature);
-    expect(routes.findPublic('test/public/path/')).to.eql(publicPathSignature);
-    expect(routes.findPublic('/test/public/path')).to.eql(publicPathSignature);
-    expect(routes.findPublic('/test/public/path/')).to.eql(publicPathSignature);
+    expect(routes.find('test/public/path')).to.eql(publicPathSignature);
+    expect(routes.find('test/public/path/')).to.eql(publicPathSignature);
+    expect(routes.find('/test/public/path')).to.eql(publicPathSignature);
+    expect(routes.find('/test/public/path/')).to.eql(publicPathSignature);
   });
 
   it('should find route from alias.', () => {
@@ -93,6 +95,6 @@ describe('routes', () => {
       resolvedPath: "/test/public/path"
     };
     
-    expect(routes.findPublic('test-alias')).to.eql(resolvedPublicPathSignature);
+    expect(routes.find('test-alias')).to.eql(resolvedPublicPathSignature);
   });
 });

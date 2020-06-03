@@ -84,7 +84,7 @@ export class BackendService {
 
   save() {
     return this.http.post
-      <{ id: string, }>
+      <{ result: { id: string, key: string } }>
       (this.api + BackendService.apiCalls.save,
         { id : this.model.id, signature : this.model.json}).pipe(share());
   }

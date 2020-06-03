@@ -1,12 +1,18 @@
 <div class="holder">
   <div>
     <span class="access"
-          [ngClass]="{'public': model.public, 'internal': !model.public}"
+          [ngClass]="{
+            'public': model.public,
+            'internal': ! model.public,
+            'socket': model.socket
+          }"
           (click)="toggleAccess()">
-    {{model.public?"public":"internal"}}
+    {{ model.public ? "public" : (model.socket ? "socket" : "internal") }}
     </span>
     <span class="method"
-          (click)="model.method=nextMethod()">
+          (click)="model.method=nextMethod()"
+          *ngIf="model.public"
+    >
       {{model.method}}
     </span>
   </div>

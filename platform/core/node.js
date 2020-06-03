@@ -1,6 +1,6 @@
 const base = require('./base');
 const registry = require('./registry');
-
+const { hashSig } = require('../util/hash');
 
 const node = (signature, func) => {
   let _class = class extends base.node.Node {
@@ -13,8 +13,13 @@ const node = (signature, func) => {
     }
   };
   
+  if( ! ('key' in signature) ) {
+    signature.key = hashSig(signature);
+  }
+
   if (signature.path)
     registry.register(signature, _class);
+  
   return _class;
 }
 

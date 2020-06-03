@@ -13,15 +13,15 @@ describe('socket.io', () => {
 
   beforeEach(function(done) {
     platform.core.node({path: '/connect',
-      public: true,
-      method: 'get',
+      public: false,
+      socket: true,
       inputs: [ 'id' ],
       controlOutputs: ['done'],
     }, function(i, o, c, _, context) { c('done'); });
     
     platform.core.node({path: '/disconnect',
-      public: true,
-      method: 'get',
+      public: false,
+      socket: true,
       inputs: [ 'id' ],
       controlOutputs: ['done'],
     }, function(i, o, c, _, context) { c('done'); });
@@ -64,8 +64,8 @@ describe('socket.io', () => {
 
   it('should call the connect event node through when connecting.', done => {
     platform.core.node({path: '/connect',
-      public: true,
-      method: 'get',
+      public: false,
+      socket: true,
       inputs: [ 'id' ],
       controlOutputs: ['done'],
     }, function(i, o, c, _, context) { done(); c('done'); });
@@ -80,8 +80,8 @@ describe('socket.io', () => {
 
   it('should call the disconnect event node through when connecting.', done => {
     platform.core.node({path: '/disconnect',
-      public: true,
-      method: 'get',
+      public: false,
+      socket: true,
       inputs: [ 'id' ],
       controlOutputs: ['done'],
     }, function(i, o, c, _, context) { done(); c('done'); });
@@ -91,8 +91,8 @@ describe('socket.io', () => {
 
   it('should call connect node through a socket event and get an event back.', done => {
     platform.core.node({path: '/test/bind/socket.io',
-      public: true,
-      method: 'get',
+      public: false,
+      socket: true,
       inputs: [ 'test' ],
       controlOutputs: ['done'],
     }, function(i, o, c, _, context) { context.socket.emit('test', i.test); c('done'); });
@@ -106,8 +106,8 @@ describe('socket.io', () => {
 
   it('should call connect aliased node through a socket event and get an event back.', done => {
     platform.core.node({path: '/test/bind/socket.io',
-      public: true,
-      method: 'get',
+      public: false,
+      socket: true,
       inputs: [ 'test' ],
       controlOutputs: ['done'],
     }, function(i, o, c, _, context) { context.socket.emit('test', i.test); c('done'); });
@@ -116,7 +116,7 @@ describe('socket.io', () => {
 
     socket.emit('/testSocket', { test: 'testing response' });
     socket.on('test', (req) => {
-      req.should.equal('testing response')
+      req.should.equal('testing response');
       done();
     });
   });
@@ -130,8 +130,8 @@ describe('socket.io', () => {
     const stub = sinon.stub(axios, 'post').resolves(Promise.resolve({ data: {} }));
 
     platform.core.node({path: '/test/bind/socket.io',
-      public: true,
-      method: 'get',
+      public: false,
+      socket: true,
       inputs: [ 'test' ],
       controlOutputs: [CONTROL_NAME],
     }, function(i, o, c, _, context) {
@@ -146,5 +146,30 @@ describe('socket.io', () => {
       sinon.assert.calledWith(stub, callbackUrl, { control: CONTROL_NAME });
       done();
     });
+  });
+
+  it('should call connect node through a socket event with missing parameters and get an error back.', done => {
+    platform.core.node({path: '/test/bind/socket.io',
+      public: false,
+      socket: true,
+      inputs: [ 'test' ],
+      controlOutputs: ['done'],
+    }, function(i, o, c, _, context) { c('done'); });
+    
+    socket.on('call_error', (req) => {
+      req.status.should.equal(400);
+      done();
+    });
+
+    socket.emit('/test/bind/socket.io', { });
+  });
+
+  it('should return 404 event when node does not exist.', done => {
+    socket.on('call_error', (req) => {
+      req.status.should.equal(404);
+      done();
+    });
+
+    socket.emit('/test/bind/non_existing', { });
   });
 });

@@ -1,5 +1,5 @@
 {
-  "port": 4000,
+  "port": "{{ CONNECT_PORT || 4000 }}",
   "greet": "hellow",
   "panel": {
     "expose": true
@@ -13,15 +13,11 @@
       "db": "mydb"
   },
   "nodes": {
-    "native": ["hellow"],
+    "native": [ ],
     "module": [
-      "facts",
       "platform/bind/utils",
       "platform/bind/panel",
       "panel-generated"
     ]
-  },
-  "aliases": {
-    "/eightf" : "/8fact"
   }
  }

@@ -29,7 +29,16 @@ export class GeneralComponent implements OnInit {
   toggleAccess() {
     if (this.tester.active) return;
 
-    this.model.public = !this.model.public;
+    if(this.model.public) {
+      this.model.public = false;
+    } else {
+      if(this.model.socket) {
+        this.model.socket = false;
+        this.model.public = true;
+      } else {
+        this.model.socket = true;
+      }
+    }
   }
 
   nextMethod() {

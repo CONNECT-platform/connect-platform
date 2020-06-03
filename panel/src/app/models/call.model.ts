@@ -6,16 +6,26 @@ import { Signature } from './signature.model';
 
 
 export enum CallEvents {
-  signatureChange, pathChange,
+  signatureChange, pathKeyChange,
+  pathChange, keyChange
 }
 
 export interface CallJson extends NodeJson {
   path: string;
+  key: string;
+}
+
+export interface PathKeyPairType {  
+  path: string;
+  key: string;
 }
 
 export class Call extends Node {
   private _signature: Signature;
-  private _path: string;
+  private _pathKeyPair: PathKeyPairType = {
+    path: '',
+    key: ''
+  };
 
   public get signature() { return this._signature; }
   public set signature(_signature: Signature) {
@@ -24,10 +34,22 @@ export class Call extends Node {
     this._adoptSignature();
   }
 
-  public get path() { return this._path; }
+  public get path() { return this._pathKeyPair.path; }
   public set path(path : string) {
-    this._path = path;
+    this._pathKeyPair.path = path;
     this.publish(CallEvents.pathChange, path);
+  }
+  
+  public get key() { return this._pathKeyPair.key; }
+  public set key(key : string) {
+    this._pathKeyPair.key = key;
+    this.publish(CallEvents.keyChange, key);
+  }
+
+  public get pathKeyPair() { return this._pathKeyPair; }
+  public set pathKeyPair(pathKeyPair : PathKeyPairType) {
+    this._pathKeyPair = pathKeyPair;
+    this.publish(CallEvents.pathKeyChange, pathKeyPair);
   }
 
   public adopt(signature: Signature, removeCallback?: (pin:Pin) => void) {
@@ -46,6 +68,7 @@ export class Call extends Node {
   protected toJson(): CallJson {
     return Object.assign(super.toJson(), {
       path : this.path,
+      key: this.key
     });
   }
 
@@ -76,6 +99,8 @@ export class Call extends Node {
   public static fromJson(json: CallJson) {
     let call = new Call(json.tag, Box.fromJson(json.box));
     call.path = json.path;
+    if(json.key)
+      call.key = json.key;
 
     return call;
   }

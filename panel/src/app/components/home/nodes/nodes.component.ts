@@ -15,7 +15,9 @@ export class NodesComponent implements OnInit, OnDestroy {
     path: string;
     id: string;
     public?: boolean;
-    method?: string}> = [];
+    socket?: boolean;
+    method?: string,
+    key?: string}> = [];
 
   private _entries: any[];
 
@@ -30,14 +32,40 @@ export class NodesComponent implements OnInit, OnDestroy {
     private registry : RegistryService,
   ) { }
 
+  entryToId(entry) {
+    if(typeof entry === 'object' && 'id' in entry) return entry.id;
+
+    return entry;
+  }
+
+  entryToKey(entry) {
+    if(typeof entry === 'object' && 'key' in entry) return entry.key;
+  }
+
   ngOnInit() {
     this.backend.nodes.subscribe(data => {
-      this._nodes = Object.entries(data.nodes).map(entry => {
-          return {
-            path: entry[0],
-            id: entry[1] as string,
+      this._nodes = [];
+      for(let k in data.nodes) {
+        const entry = data.nodes[k];
+
+        if(Array.isArray(entry)) {
+          for(let c in entry) {
+            const id = this.entryToId(entry[c]) as string;
+            
+            this._nodes.push({
+              path: k,
+              id,
+              key: this.entryToKey(entry[c])
+            });
           }
-        });
+        } else {
+          this._nodes.push({
+            path: k,
+            id: this.entryToId(entry) as string,
+          });
+        }
+      }
+
       this._entries = this.folderize(this.nodes);
     });
 
@@ -50,7 +78,7 @@ export class NodesComponent implements OnInit, OnDestroy {
   }
 
   public get nodes() {
-    return this._nodes.filter(n => n.path.indexOf(this.searchInput.nativeElement.value) != -1);
+    return this._nodes.filter(n => n.path.indexOf(this.searchInput.nativeElement.value) !== -1);
   }
 
   public get entries() {
@@ -72,18 +100,40 @@ export class NodesComponent implements OnInit, OnDestroy {
       subfolders[subfolder].push(node);
     });
 
-    return Object.entries(subfolders).map(([path, entries]) => {
-      if (entries.length == 1)
-        return {
+    const ret = [];
+    for(let path in subfolders) {
+      const entries = subfolders[path];
+
+      if (entries.length > 1) {
+
+        const content = [];
+        for(let e in entries) {
+          content.push({
+            folder: false,
+            content: entries[e]
+          });
+        }
+
+        ret.push({
+          folder: true,
+          path: initialpath + '/' + path,
+          content
+        });
+      } else if (entries.length == 1) {
+        ret.push({
           folder: false,
           content: entries[0]
-        };
-      else return {
-        folder: true,
-        path: initialpath + '/' + path,
-        content: this.folderize(entries, initialpath + '/' + path)
+        });
+      } else {
+        ret.push({
+          folder: true,
+          path: initialpath + '/' + path,
+          content: this.folderize(entries, initialpath + '/' + path)
+        });
       }
-    });
+    }
+
+    return ret;
   }
 
   public get empty() {
@@ -106,9 +156,11 @@ export class NodesComponent implements OnInit, OnDestroy {
 
   private _update() {
     for (let node of this._nodes) {
-      let signature = this.registry.signature(node.path);
+      let signature = this.registry.signature(node.path, node.key);
+      
       node.public = signature.public;
       node.method = signature.method;
+      node.socket = signature.socket;
     }
   }
 }

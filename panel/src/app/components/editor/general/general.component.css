@@ -16,6 +16,10 @@
   color: #448aff;
 }
 
+.access.socket {
+  color: #49c289;
+}
+
 .method {
   vertical-align: baseline;
   font-weight: 900;

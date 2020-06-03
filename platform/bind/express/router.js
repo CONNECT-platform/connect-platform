@@ -1,14 +1,23 @@
 const { Router } = require('express');
 const core = require('../../core');
 const reqHandler = require('./req-handler');
-const routes = require('../common/routes');
+const Routes = require('../common/routes');
+
+const { hashSig } = require('../../util/hash');
+
+const publicRoutes = new Routes(core.registry, 'public');
 
 const buildRouter = () => {
   let router = Router();
 
-  for (let signature of routes.public()) {
-    let handler = reqHandler(() => core.registry.instance(signature.path, method), signature);
-    let method = (signature.method) ? (signature.method.toLowerCase()) : ('get');
+  for (let signature of publicRoutes.get()) {
+    let method = (signature.method) ? (signature.method.toLowerCase()) : 'get';
+    let handler = null;
+    try {
+      handler = reqHandler(() => core.registry.instance(signature.path, hashSig(signature)), signature);
+    } catch(err) {
+      handler = reqHandler(() => core.registry.instance(signature.path, method), signature);
+    }
 
     if (method == 'get') router.get(signature.path, handler);
     if (method == 'post') router.post(signature.path, handler);
@@ -20,4 +29,4 @@ const buildRouter = () => {
 }
 
 module.exports = buildRouter;
-module.exports.public = routes.public;
+module.exports.routes = publicRoutes;

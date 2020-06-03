@@ -1,0 +1,14 @@
+{
+  "panel": {
+    "expose": true
+  },
+  "port": "{{ CONNECT_PORT || 4000 }}",
+  "nodes": {
+    "native": [ ],
+    "module": [
+      "../platform/bind/utils",
+      "../platform/bind/panel",
+      "panel-generated"
+    ]
+  }
+ }

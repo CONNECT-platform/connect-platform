@@ -83,10 +83,22 @@
                 [(ngModel)]="node.path"/>
         </div>
         <div class="path-suggest" *ngIf="suggestPaths && !tester.active">
-          <div class="item" *ngFor="let path of suggestPaths"
-            (mouseover)="mouseover($event, undefined, path)"
-            (mousedown)="node.path=path">
-            {{ path }}
+          <div class="item" *ngFor="let suggestedPath of suggestPaths"
+            (mouseover)="mouseover($event, undefined, suggestedPath.path)"
+            (mousedown)="chooseNode(suggestedPath)">
+            {{ suggestedPath.path }}
+            <span class="path-info">
+              <span class="access" [ngClass]="{
+                'public': suggestedPath.public,
+                'socket' : suggestedPath.socket,
+                'internal' : !suggestedPath.public
+              }">
+                {{ suggestedPath.public ? "public" : (suggestedPath.socket ? "socket" : "internal") }}
+              </span>
+              <span class="method" *ngIf="suggestedPath.public">
+                {{ suggestedPath.method }}
+              </span>
+            </span>
           </div>
         </div>
 

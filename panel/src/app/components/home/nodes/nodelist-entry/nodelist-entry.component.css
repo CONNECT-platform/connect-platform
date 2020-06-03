@@ -54,6 +54,10 @@
   color: #448aff;
 }
 
+.node:hover .extra .access.socket {
+  color: #49c289;
+}
+
 .node .extra .method {
   color: #616161;
   font-size: 9px;

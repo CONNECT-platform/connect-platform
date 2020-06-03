@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy, HostListener, ViewChild } from '@angular/core';
+import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 
@@ -84,6 +85,7 @@ export class EditorComponent implements OnInit, OnDestroy {
   private subs = [];
 
   constructor(
+    private location: Location,
     private _registry : RegistryService,
     private _model : EditorModelService,
     private _editor: EditorService,
@@ -271,8 +273,10 @@ export class EditorComponent implements OnInit, OnDestroy {
     this.communicating = true;
 
     this.backend.save().subscribe(response => {
-      if (response.id) {
-        this.model.id = response.id;
+      if (response.result.id) {
+        this.location.replaceState(`/editor?id=${response.result.id}`);
+        this.model.id = response.result.id;
+        this.model.key = response.result.key;
       }
       setTimeout(() => this.communicating = false, 2000);
     }, error => {

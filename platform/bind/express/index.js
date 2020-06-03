@@ -32,12 +32,11 @@ module.exports = (app, config) => {
 
   if (config.get('cors', true))
     app.use(cors());
-
   app.use(router(config));
 
   if (config.get('interconnectible', true))
     app.get('/api', (req, res) => {
-      res.status(200).send(router.public().filter(signature => signature.interconnectible !== false));
+      res.status(200).send(router.routes.get().filter(signature => signature.interconnectible !== false));
     });
 
   return app;

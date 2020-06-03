@@ -1,12 +1,14 @@
 const util = require('../util');
 const { UnregisteredPath } = require('./errors');
 const { Subscribable } = require('./base/subscribable');
-
+const hash = require('../util/hash');
 
 const RegistryEvents = {
   registered: 'registered',
+  registered: 'deregistered',
   instantiated: 'instantiated',
   aliased: 'aliased',
+  dealiased: 'dealiased',
   mocked: 'mocked',
   unmocked: 'unmocked',
 }
@@ -17,6 +19,34 @@ class Registry extends Subscribable {
     this._mocks = {};
     this._paths = {};
     this._aliases = {};
+  }
+
+  reset() {
+    this.resetMocks();
+    this.resetPaths();
+    this.resetAliases();
+  }
+
+  resetMocks() {
+    for(let path in this._mocks) {
+      for(let key in this._mocks[path]) {
+        this.unmock(path, key);
+      }
+    }
+  }
+
+  resetPaths() {
+    for(let path in this._paths) {
+      for(let key in this._paths[path]) {
+        this.deregister(path, key);
+      }
+    }
+  }
+
+  resetAliases() {
+    for(let alias in this._aliases) {
+      this.dealias(alias);
+    }
   }
 
   register(signature, factoryOrClass) {
@@ -30,14 +60,16 @@ class Registry extends Subscribable {
           signature.path.substr(0, signature.path.length - 1) :
           signature.path; // make sure the key is consistant
 
-      let method = 'get';
-      if('method' in signature) method = signature.method.toLowerCase();
+      let key = null;
+      if('method' in signature) signature.method = signature.method.toLowerCase();
+      if('key' in signature) key = signature.key;
+      else key = hash.hashSig(signature);
 
       if( ! (signature.path in this._paths) ) {
         this._paths[signature.path] = {};
       }
 
-      this._paths[signature.path][method] = entry;
+      this._paths[signature.path][key] = entry;
       
       this.publish(RegistryEvents.registered, entry);
 
@@ -53,49 +85,52 @@ class Registry extends Subscribable {
     return this;
   }
 
-  signature(path, method = 'get') {
-    if(method === '') {
-      method = this.resolveDefaultMethod(path);
+  deregister(path, key) {
+    const signature = this._paths[path][key];
+    delete this._paths[path][key];
+
+    if(Object.keys(this._paths[path]).length === 0) {
+      delete this._paths[path];
     }
 
-    method = method.toLowerCase();
+    this.publish(RegistryEvents.deregistered, signature);
+  }
 
-    if(! this.registered(path, method)) {
+  signature(path, key) {
+    key = this.keyIfNotSet(key, { path });
+
+    if(! this.registered(path, key)) {
       throw new UnregisteredPath(path);
     }
 
-    let resolved = this.resolve(path, method);
+    let resolved = this.resolve(path);
     
-    return this._paths[resolved][method].signature;
+    return this._paths[resolved][key].signature;
   }
 
-  instance(path, method = 'get') {
-    if(method === '') {
-      method = this.resolveDefaultMethod(path);
-    }
-
-    method = method.toLowerCase();
-
+  instance(path, key) {
     let resolved = this.resolve(path);
 
-    if (this.mocked(path, method)) {
-      let instantiated = util.buildFromFactoryOrClass(this._mocks[resolved][method]);
+    key = this.keyIfNotSet(key, { path: resolved });
+
+    if (this.mocked(path, key)) {
+      let instantiated = util.buildFromFactoryOrClass(this._mocks[resolved][key]);
       this.publish(RegistryEvents.instantiated, instantiated);
       return instantiated;
     }
 
-    if(! this.registered(path, method)) {
+    if(! this.registered(path, key)) {
       throw new UnregisteredPath(path);
     }
 
-    let resolvedIndex = this.resolve(path, method);
+    let resolvedIndex = this.resolve(path);
     
-    let instantiated = util.buildFromFactoryOrClass(this._paths[resolved][method].factoryOrClass);
+    let instantiated = util.buildFromFactoryOrClass(this._paths[resolved][key].factoryOrClass);
     this.publish(RegistryEvents.instantiated, instantiated);
     return instantiated;
   }
 
-  resolveDefaultMethod(path) {
+  resolveDefaultKey(path) {
     let resolved = this.resolve(path);
     
     if(resolved in this._paths)
@@ -104,13 +139,22 @@ class Registry extends Subscribable {
     throw new UnregisteredPath(path);
   }
 
-  registered(path, method = 'get') {
-    method = method.toLowerCase();
+  keyIfNotSet(key, signature) {
+    if(key === undefined) {
+      key = hash.hashSig(signature);
+    }
+
+    return key;
+  }
+
+  registered(path, key) {
+    key = this.keyIfNotSet(key, { path });
+
     let resolved = this.resolve(path);
     
     if(
       (resolved in this._paths) &&
-      (method in this._paths[resolved])
+      (key in this._paths[resolved])
     ) {
       return true;
     }
@@ -136,13 +180,22 @@ class Registry extends Subscribable {
     return this;
   }
 
-  mock(path, factoryOrClass, method = 'get') {
-    method = method.toLowerCase();
+  dealias(alias) {
+    const path = this._aliases[alias];
+    delete this._aliases[alias];
+    this.publish(RegistryEvents.dealiased, {
+      alias: alias,
+      original: path,
+    });
+  }
+
+  mock(path, factoryOrClass, key) {
+    key = this.keyIfNotSet(key, { path });
 
     if( ! (path in this._mocks) ) {
       this._mocks[path] = {};
     }
-    this._mocks[path][method] = factoryOrClass;
+    this._mocks[path][key] = factoryOrClass;
 
     this.publish(RegistryEvents.mocked, {
       path: path,
@@ -150,10 +203,10 @@ class Registry extends Subscribable {
     });
   }
 
-  unmock(path, method = 'get') {
-    method = method.toLowerCase();
-    
-    delete this._mocks[path][method];
+  unmock(path, key) {
+    key = this.keyIfNotSet(key, { path });
+
+    delete this._mocks[path][key];
 
     if(Object.keys(this._mocks[path]).length === 0) {
       delete this._mocks[path];
@@ -162,8 +215,7 @@ class Registry extends Subscribable {
     this.publish(RegistryEvents.unmocked, path);
   }
 
-  mocked(path, method = 'get') {
-    method = method.toLowerCase();
+  mocked(path, methkeyod = 'get') {
     return this.resolve(path) in this._mocks;
   }
 
@@ -175,13 +227,13 @@ class Registry extends Subscribable {
       if (resolved in this._paths) {
         all[alias] = {};
 
-        for(let method in this._paths[resolved]) {
-          let _obj = Object.assign({}, this._paths[resolved][method]);
+        for(let key in this._paths[resolved]) {
+          let _obj = Object.assign({}, this._paths[resolved][key]);
           _obj.signature = Object.assign({}, _obj.signature, {
             path: alias,
-            resolvedPath : resolved,
+            resolvedPath: resolved,
           });
-          all[alias][method] = _obj;
+          all[alias][key] = _obj;
         }
       }
     }

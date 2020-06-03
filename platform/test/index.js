@@ -9,4 +9,6 @@ describe('platform', ()=> {
   require('../bind/socket.io/test');
   require('../bind/common/test');
   require('../util/test');
+
+  require('../bind/panel/test/index');
 });
