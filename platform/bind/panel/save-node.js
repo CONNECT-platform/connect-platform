@@ -183,11 +183,15 @@ platform.core.node({
                   json : [],
                 }
               }).then(conf => {
-                conf.nodes.json = Object.values(obj.pathmap)
-                  .map(i => path.join(config.files.nodedir, i));
-                files.json.save(confile, conf).then(() => {}).catch(error => {});
+                conf.nodes.json = Object
+                  .values(obj.pathmap)
+                  .flat()
+                  .map(i => path.join(config.files.nodedir, i.id));
+
+                files.json.save(confile, conf)
+                .then(() => { output('result', { id: obj.id, key: obj.key }, true); })
+                .catch(error => { console.log(err); });
               }).catch(error => {});
-              output('result', { id: obj.id, key: obj.key }, true);
             })
             .catch(error => {
               console.log(error);

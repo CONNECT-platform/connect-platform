@@ -80,7 +80,12 @@ export class EditorModelService extends Subscribable {
   public get id() : string { return this._id; }
   public get signature(): Signature { return this._signature; }
   public get path(): string { return this._signature.path; }
-  public get method(): string { return this._signature.method.toUpperCase(); }
+  public get method(): string {
+    return this._signature.public ?
+      this._signature.method.toUpperCase() === '' ?
+        'GET' : this._signature.method.toUpperCase()
+      : '';
+  }
   public get public(): boolean { return this._signature.public; }
   public get socket(): boolean { return this._signature.socket; }
   public get key(): string { return this._signature.key; }

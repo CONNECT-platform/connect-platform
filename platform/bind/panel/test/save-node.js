@@ -19,6 +19,20 @@ const { deleteNodes, validateDeleteCalls } = require('./util/api');
 
 const { template } = require('./util/dummyNodes');
 
+function validateConfFile(id) {
+  let confile = path.join('test-app/panel-generated', 'config');
+  return files.json.load(confile, {
+    nodes : {
+      json : [],
+    }
+  }).then(conf => {
+    conf.should.have.property('nodes');
+    conf.nodes.should.have.property('json');
+    conf.nodes.json.should.be.an('array');
+    conf.nodes.json.should.be.include('nodes/' + id);
+  });
+}
+
 describe('save-node', () => {
   let requester = null;
 
@@ -27,7 +41,7 @@ describe('save-node', () => {
     requester = chai.request(url).keepOpen();
   });
 
-  it('Saves non-existing node correctly.', done => {
+  it('Saves non-existing node correctly', done => {
     let id = null;
 
     requester
@@ -47,6 +61,8 @@ describe('save-node', () => {
       nodeInfo.should.eql(template.socket.expectedSignature);
 
       return nodeInfo;
+    }).then(() => {
+      return validateConfFile(id);
     }).then(() => {
       return deleteNodes(requester, [ id ]);
     }).then((results) => {
@@ -79,7 +95,9 @@ describe('save-node', () => {
       nodeInfo.should.eql(template.socket.expectedSignature);
 
       return nodeInfo;
-    }).then(() => {
+    })
+    .then(() => validateConfFile(id))
+    .then(() => {
       return deleteNodes(requester, [ id ]);
     }).then((results) => {
       return validateDeleteCalls(results);
@@ -143,7 +161,9 @@ describe('save-node', () => {
       nodeInfo.should.eql(modifedNodeTemplateExpectedSignature);
 
       return nodeInfo;
-    }).then(() => {
+    })
+    .then(() => validateConfFile(id))
+    .then(() => {
       return deleteNodes(requester, [ id ]);
     }).then((results) => {
       return validateDeleteCalls(results);
@@ -217,7 +237,9 @@ describe('save-node', () => {
       pathmap[template.socket.node.signature.path].should.have.lengthOf(1);
 
       return pathmap;
-    }).then(() => {
+    })
+    .then(() => validateConfFile(id))
+    .then(() => {
       return deleteNodes(requester, [ id ]);
     }).then((results) => {
       return validateDeleteCalls(results);
@@ -296,7 +318,9 @@ describe('save-node', () => {
       pathmap[modifedNodeTemplateExpectedSignature.path].should.have.lengthOf(1);
 
       return pathmap;
-    }).then(() => {
+    })
+    .then(() => validateConfFile(id))
+    .then(() => {
       return deleteNodes(requester, [ id ]);
     }).then((results) => {
       return validateDeleteCalls(results);
@@ -350,7 +374,9 @@ describe('save-node', () => {
       nodeInfo.should.eql(template.publicPost.expectedSignature);
 
       return nodeInfo;
-    }).then(() => {
+    })
+    .then(() => validateConfFile(id))
+    .then(() => {
       return deleteNodes(requester, [ id, id2 ]);
     }).then((results) => {
       return validateDeleteCalls(results);
@@ -414,7 +440,9 @@ describe('save-node', () => {
       pathmap[template.socket.node.signature.path].should.have.lengthOf(2);
 
       return pathmap;
-    }).then(() => {
+    })
+    .then(() => validateConfFile(id))
+    .then(() => {
       return deleteNodes(requester, [ id, id2 ]);
     }).then((results) => {
       return validateDeleteCalls(results);
@@ -477,7 +505,9 @@ describe('save-node', () => {
       pathmap[template.socket.node.signature.path].should.have.lengthOf(2);
 
       return pathmap;
-    }).then(() => {
+    })
+    .then(() => validateConfFile(id))
+    .then(() => {
       return deleteNodes(requester, [ id, id2 ]);
     }).then((results) => {
       return validateDeleteCalls(results);
@@ -557,7 +587,9 @@ describe('save-node', () => {
       pathmap[template.socket.node.signature.path].should.have.lengthOf(2);
 
       return pathmap;
-    }).then(() => {
+    })
+    .then(() => validateConfFile(id))
+    .then(() => {
       return deleteNodes(requester, [ id, id2 ]);
     }).then((results) => {
       return validateDeleteCalls(results);
