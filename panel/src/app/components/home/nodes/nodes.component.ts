@@ -2,6 +2,8 @@ import { Component, OnInit, OnDestroy, ViewChild, ElementRef, Renderer2 } from '
 
 import { BackendService } from '../../../services/backend.service';
 import { RegistryService } from '../../../services/registry.service';
+import { SafeMethodCall } from '@angular/compiler';
+import { first } from 'rxjs/operators';
 
 
 @Component({
@@ -104,7 +106,16 @@ export class NodesComponent implements OnInit, OnDestroy {
     for(let path in subfolders) {
       const entries = subfolders[path];
 
-      if (entries.length > 1) {
+      let samePath = true;
+      const firstPath = entries[0].path;
+      for(let i = 1; i < entries.length; i++) {
+        if(entries[i].path !== firstPath) {
+          samePath = false;
+          break;
+        }
+      }
+      
+      if (entries.length > 1 && samePath) {
 
         const content = [];
         for(let e in entries) {

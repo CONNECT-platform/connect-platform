@@ -7,6 +7,10 @@ and we use [Semantic Versioning](http://semver.org/spec/v2.0.0.html), like stric
 
 **NOTE**: there is not an entry for every version. Some versions included super minor changes, and as a result were excluded from this change log. For a really detailed history of changes, please checkout the commit history of the project.
 
+## [0.30.3] - 2020-06-08
+### Fixed:
+ - Fix bug where folderization of the node list fails at the second level
+
 ## [0.30.2] - 2020-06-03
 ### Fixed:
  - Fix bug where changing nodes paths can result in the old path persisting in the path-map file.
