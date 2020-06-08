@@ -7,21 +7,21 @@ and we use [Semantic Versioning](http://semver.org/spec/v2.0.0.html), like stric
 
 **NOTE**: there is not an entry for every version. Some versions included super minor changes, and as a result were excluded from this change log. For a really detailed history of changes, please checkout the commit history of the project.
 
-## [0.30.3] - 2020-06-08
+## [0.3.3] - 2020-06-08
 ### Fixed:
  - Fix bug where folderization of the node list fails at the second level
 
-## [0.30.2] - 2020-06-03
+## [0.3.2] - 2020-06-03
 ### Fixed:
  - Fix bug where changing nodes paths can result in the old path persisting in the path-map file.
  - Fix bug where new nodes weren't being saved to the index.
  - Fix UI bug when changing between node types. The default method 'GET' now is chosen as the default.
 
-## [0.30.1] - 2020-06-03
+## [0.3.1] - 2020-06-03
 ### Fixed:
  - Fix bug where picking a call card on the UI doesn't open the right URL/id combination.
 
-## [0.30.0] - 2020-06-03
+## [0.3.0] - 2020-06-03
 ### Added:
  - Support for multi-type same path nodes.
  - UI support for multi-type nodes when specifying a call.
