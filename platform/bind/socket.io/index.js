@@ -7,6 +7,8 @@ const socketRoutes = new Routes(core.registry, 'socket');
 
 const { hashSig } = require('../../util/hash');
 
+const { Sockets } = require('./Sockets');
+
 module.exports = (server) => {
   const platform = global.connect_platform_instance;
   const io = SocketIO(server);
@@ -89,5 +91,5 @@ module.exports = (server) => {
     });
   });
 
-  return io;
+  return { io, sockets: new Sockets() };
 }
