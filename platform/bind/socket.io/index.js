@@ -12,12 +12,15 @@ const { Sockets } = require('./Sockets');
 module.exports = (server) => {
   const platform = global.connect_platform_instance;
   const io = SocketIO(server);
+  const sockets = new Sockets();
 
   let config = platform.config.get("socket-config") || {};
   let prefix = config["event-prefix"] || "";
   let pathMap = config["event-map"] || {};
 
   io.on('connection', (socket) => {
+    sockets.add(socket);
+
     // helper function to build the inputs object and call a node
     let callNode = (path, params = {}) => {
       let nodes = socketRoutes.get();
@@ -54,6 +57,8 @@ module.exports = (server) => {
     // optional node executed on disconnect
     // must have the 'on-socket-disconnect' config parameter set to a node path
     socket.on("disconnect", () => {
+      sockets.remove(socket);
+
       callNode("disconnect", {
         id: socket.id
       })
@@ -91,5 +96,5 @@ module.exports = (server) => {
     });
   });
 
-  return { io, sockets: new Sockets() };
+  return { io, sockets };
 }

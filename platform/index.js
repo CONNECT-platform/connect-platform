@@ -63,7 +63,9 @@ class Platform extends Subscribable {
           this.config.has('enable_sockets') &&
           this.config.get('enable_sockets')
         ) {
-          this.io = setupSocketInstance(server);
+          const { io, sockets } = setupSocketInstance(server);
+          this.io = io;
+          this.sockets = sockets;
         }
 
         resolve(server);
