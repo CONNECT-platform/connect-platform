@@ -6,25 +6,36 @@ const axios = require('axios');
 
 const platform = require('../../..');
 
+function setDefaultConnectHandler() {
+  platform.core.node({path: '/disconnect',
+    public: false,
+    socket: true,
+    inputs: [ 'id' ],
+    controlOutputs: ['done'],
+  }, function(i, o, c, _, context) {
+    c('done');
+  });
+}
+
+function setDefaultDisconnectHandler() {
+  platform.core.node({path: '/disconnect',
+    public: false,
+    socket: true,
+    inputs: [ 'id' ],
+    controlOutputs: ['done'],
+  }, function(i, o, c, _, context) {
+    c('done');
+  });
+}
+
 describe('socket.io', () => {
   let socket = null;
   let server = null;
   let url = null;
 
   beforeEach(function(done) {
-    platform.core.node({path: '/connect',
-      public: false,
-      socket: true,
-      inputs: [ 'id' ],
-      controlOutputs: ['done'],
-    }, function(i, o, c, _, context) { c('done'); });
-    
-    platform.core.node({path: '/disconnect',
-      public: false,
-      socket: true,
-      inputs: [ 'id' ],
-      controlOutputs: ['done'],
-    }, function(i, o, c, _, context) { c('done'); });
+    setDefaultConnectHandler();
+    setDefaultDisconnectHandler();
             
     platform.configure({
       enable_sockets: true,
@@ -43,38 +54,96 @@ describe('socket.io', () => {
           transports: ['websocket']
       });
 
+      socket.on('disconnect', function() { });
+
       socket.on('connect', function() {
         done();
       });
-
-      socket.on('disconnect', function() { });
     });
   });
 
   afterEach(function(done) {
     if(socket.connected) {
+      socket.on('disconnect', () => {
+        server.close();
+        done();
+      });
+
       socket.disconnect();
     } else {
       console.warn('no connection to break...');
-    }
 
-    server.close();
-    done();
+      server.close();
+      done();
+    }
   });
 
-  it('should call the connect event node through when connecting.', done => {
+  it('should call the connect event node through when connecting', done => {
     platform.core.node({path: '/connect',
       public: false,
       socket: true,
       inputs: [ 'id' ],
       controlOutputs: ['done'],
-    }, function(i, o, c, _, context) { done(); c('done'); });
+    }, function(i, o, c, _, context) {
+      c('done');
+    });
 
-    io.connect(url, {
+    let socket = io.connect(url, {
       'reconnection delay' : 0,
       'reopen delay' : 0,
       'force new connection' : true,
       transports: ['websocket']
+    });
+
+    socket.on('disconnect', () => {
+      done();
+    });
+
+    socket.on('connect', () => {
+      socket.disconnect();
+    });
+  });
+
+  it('should add a socket to the sockets object after connecting', done => {
+    const socket = io.connect(url, {
+      'reconnection delay' : 0,
+      'reopen delay' : 0,
+      'force new connection' : true,
+      transports: ['websocket']
+    })
+
+    socket.on('connect', () => {
+      platform.sockets.has(socket.id).should.be.true;
+      done();
+    });
+  });
+
+  it('should remove a socket from the sockets object after disconnect', done => {
+    let socketId = null;
+
+    platform.core.node({path: '/disconnect',
+      public: false,
+      socket: true,
+      inputs: [ 'id' ],
+      controlOutputs: ['done'],
+    }, function(i, o, c, _, context) {
+      setDefaultDisconnectHandler();
+
+      platform.sockets.has(socketId).should.be.false;
+      done();
+      c('done');
+    });
+
+    let socket = io.connect(url, {
+      'reconnection delay' : 0,
+      'reopen delay' : 0,
+      'force new connection' : true,
+      transports: ['websocket']
+    });
+
+    socket.on('connect', () => {
+      socketId = socket.id;
+      socket.disconnect();
     });
   });
 
@@ -84,7 +153,11 @@ describe('socket.io', () => {
       socket: true,
       inputs: [ 'id' ],
       controlOutputs: ['done'],
-    }, function(i, o, c, _, context) { done(); c('done'); });
+    }, function(i, o, c, _, context) {
+      setDefaultDisconnectHandler();
+      done();
+      c('done');
+    });
 
     socket.disconnect();
   });
