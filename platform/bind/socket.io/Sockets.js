@@ -39,7 +39,7 @@ class Sockets {
   }
 
   get list() {
-    return this.list;
+    return this._list;
   }
 
   set list(_list) {
