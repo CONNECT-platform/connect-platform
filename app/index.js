@@ -16,11 +16,15 @@ try {
 }
 
 try {
-  if (process.env.CONNECT_PRODUCTION_MODE) {
+  if (process.env.CONNECT_PRODUCTION_MODE && process.env.CONNECT_PRODUCTION_MODE.toLocaleLowerCase() === 'true') {
     let prodconf = require('./panel-generated/platform-config.prod');
     platform.configure(prodconf);
   }
+} catch(err) {
+  console.log(err);
+}
 
+try {
   if (process.env.CONNECT_ENABLE_SOCKET && process.env.CONNECT_ENABLE_SOCKET.toLocaleLowerCase() === 'true') {
     console.info('Enabling sockets');
     platform.configure({
@@ -28,7 +32,7 @@ try {
     });
   }
 } catch(err) {
-  console.log(err);
+  console.error(err);
 }
 
 platform.config.autoparseFromEnvironmentVars();
