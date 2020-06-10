@@ -14,14 +14,43 @@ module.exports = (server) => {
   const io = SocketIO(server);
   const sockets = new Sockets();
 
-  let config = platform.config.get("socket-config") || {};
+  let config = platform.config.get("socket_config") || {};
   let prefix = config["event-prefix"] || "";
   let pathMap = config["event-map"] || {};
+
+  if(config.use_redis) {
+    const redis = require('redis');
+    const redisAdapter = require('socket.io-redis');
+
+    let sub = null;
+    let pub = null;
+
+    if(config.redis_pub) {
+      pub = redis.createClient(config.redis_pub);
+    }
+
+    if(config.redis_sub) {
+      sub = redis.createClient(config.redis_sub);
+    }
+
+    if(!pub && config.redis) {
+      pub = redis.createClient(config.redis);
+    }
+
+    if(!sub && config.redis) {
+      sub = redis.createClient(config.redis);
+    }
+
+    if(! pub || ! sub) {
+      console.error('The use_redis flag is on but redis or redis_pub and redis_sub are not set');
+    }
+
+    io.adapter(redisAdapter({ pubClient: pub, subClient: sub }));
+  }
 
   io.on('connection', (socket) => {
     sockets.add(socket);
 
-    // helper function to build the inputs object and call a node
     let callNode = (path, params = {}) => {
       let nodes = socketRoutes.get();
       let fullPath = prefix + (pathMap[path] || path);

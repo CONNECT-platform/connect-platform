@@ -50,12 +50,22 @@ docker run -dit \
 
 You can set config values directly from environment variables using a simple (and probably familiar) templating language. You can just specify the value in curly braces as folllows `"{{ ENV_VAR || default_value }}"`.
 
-It is also possible to specify a request size limit through the `request_limit` config property. Socket support is enabled through the `enable_sockets` property. An example is shown below.
+It is also possible to specify a request size limit through the `request_limit` config property.
+
+Socket support is enabled through the `enable_sockets` property. Socket.io support can be further configured through the `socket_config` config object. `socket_config.use_redis` activates support for redis for which `socket_config.redis` or `socket_config.redis_pub` and `socket_config.redis_sub` have to be specified to configure the redis connection for the pub/sub support (can be empty objects). Further information on how to use the `socket.io-redis` package can be found [here](https://www.npmjs.com/package/socket.io-redis).
+
+An example configuration is shown below for reference.
 ```json
 {
   "config_from_env": "{{ CONNECT_CONFIG_FROM_ENV || default }} ",
   "request_limit": "100mb",
-  "enable_sockets": true
+  "enable_sockets": true,
+  "socket_config": {
+    "use_redis": true,
+    "redis": {}, // This is to configure redis
+    "redis_pub": {}, // Or these two
+    "redis_sub": {}
+  }
 }
 ```
 
