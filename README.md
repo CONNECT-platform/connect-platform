@@ -62,8 +62,8 @@ An example configuration is shown below for reference.
   "enable_sockets": true,
   "socket_config": {
     "use_redis": true,
-    "redis": {}, // This is to configure redis
-    "redis_pub": {}, // Or these two
+    "redis": {},
+    "redis_pub": {},
     "redis_sub": {}
   }
 }
