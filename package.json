@@ -1,6 +1,6 @@
 {
   "name": "connect-platform",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "description": "A platform to build backened code mostly in a visual manner.",
   "keywords": [
     "connect",
@@ -37,7 +37,9 @@
     "lockfile": "^1.0.4",
     "mkdirp": "^0.5.5",
     "object-hash": "^2.0.3",
-    "socket.io": "^2.3.0"
+    "redis": "^3.0.2",
+    "socket.io": "^2.3.0",
+    "socket.io-redis": "^5.3.0"
   },
   "devDependencies": {
     "chai": "^4.2.0",
