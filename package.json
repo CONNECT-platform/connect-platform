@@ -37,6 +37,7 @@
     "lockfile": "^1.0.4",
     "mkdirp": "^0.5.5",
     "object-hash": "^2.0.3",
+    "redis": "^3.0.2",
     "socket.io": "^2.3.0"
   },
   "devDependencies": {
