@@ -7,6 +7,10 @@ and we use [Semantic Versioning](http://semver.org/spec/v2.0.0.html), like stric
 
 **NOTE**: there is not an entry for every version. Some versions included super minor changes, and as a result were excluded from this change log. For a really detailed history of changes, please checkout the commit history of the project.
 
+## [0.3.7] - 2020-06-17
+### Fixed:
+ - Fix a bug affecting context cashing for expressions as it only relied on the keys rather than the values this leads to context values being changed mid logic
+
 ## [0.3.6] - 2020-06-17
 ### Fixed:
  - Fix removal of a socket from Sockets object only after disconnect is called to give the called node a change to access that data.
