@@ -1,10 +1,10 @@
 const vm = require('vm');
-
+const hash = require('object-hash');
 
 _contexts = {};
 
-const context = _context => {
-  let _key = Object.keys(_context).toString();
+const context = (_context, inputs) => {
+  let _key = hash(inputs);
   let _cont;
 
   if (_key in _contexts)

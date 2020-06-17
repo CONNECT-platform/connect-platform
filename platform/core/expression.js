@@ -31,7 +31,7 @@ class Expression extends base.node.Node {
     }
     else {
       let context = Object.assign({ console, error, require, context: this.context, setTimeout, setInterval }, inputs);
-      let res = this._script.evaluate(context);
+      let res = this._script.evaluate(context, inputs);
       if (typeof res === 'function') {
         if (res.length == 0) output(_Result, res());
         else if (res.length == 1) res(val => output(_Result, val));
