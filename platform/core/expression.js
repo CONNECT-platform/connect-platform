@@ -30,7 +30,7 @@ class Expression extends base.node.Node {
       error(this._compileError);
     }
     else {
-      let context = Object.assign({console, error, require, context: this.context}, inputs);
+      let context = Object.assign({ console, error, require, context: this.context, setTimeout, setInterval }, inputs);
       let res = this._script.evaluate(context);
       if (typeof res === 'function') {
         if (res.length == 0) output(_Result, res());
