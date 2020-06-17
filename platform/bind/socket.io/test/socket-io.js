@@ -128,9 +128,6 @@ describe('socket.io', () => {
       controlOutputs: ['done'],
     }, function(i, o, c, _, context) {
       setDefaultDisconnectHandler();
-
-      platform.sockets.has(socketId).should.be.false;
-      done();
       c('done');
     });
 
@@ -145,6 +142,16 @@ describe('socket.io', () => {
       socketId = socket.id;
       socket.disconnect();
     });
+
+    function onRemoved(event) {
+      console.log({ event });
+      platform.sockets.has(socketId).should.be.false;
+      platform.sockets.unsubscribe(platform.sockets.events.removed, onRemoved);
+
+      done();
+    }
+
+    platform.sockets.subscribe(platform.sockets.events.removed, onRemoved);
   });
 
   it('should call the disconnect event node through when connecting.', done => {
