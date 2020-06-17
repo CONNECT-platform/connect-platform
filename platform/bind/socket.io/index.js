@@ -86,11 +86,10 @@ module.exports = (server) => {
     // optional node executed on disconnect
     // must have the 'on-socket-disconnect' config parameter set to a node path
     socket.on("disconnect", () => {
-      sockets.remove(socket);
-
       callNode("disconnect", {
         id: socket.id
       })
+      .then(() => sockets.remove(socket))
       .catch(err => console.warn(err))
     })
 
