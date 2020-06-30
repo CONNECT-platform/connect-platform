@@ -4,7 +4,7 @@ const hash = require('object-hash');
 _contexts = {};
 
 const context = (_context, inputs) => {
-  let _key = hash(inputs);
+  let _key = hash(inputs, { ignoreUnknown: true });
   let _cont;
 
   if (_key in _contexts)
