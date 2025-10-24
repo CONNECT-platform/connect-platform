@@ -1,10 +1,7 @@
 <p align="center">  
   <img src="assets/logo-std.svg?sanitize=true" width="300px"/>
 </p>
- 
-<p>
-  <a class="btn btn-large btn-purple" href="https://connect-platform.com/connect/" role="button">HIRE CONNECT DEVELOPERS</a>
-</p>
+
 
 **CONNECT platform**  is a graphical backend development platform aiming to speed up development of async logical microservices (like drastically). The core idea is that async logic is inherently a "Graph" and a representation via a "Chain" (i.e. text-based code) is extremely sub-optimal (so yes the "visuality" is not for non-programmers to be able to play around).
 
