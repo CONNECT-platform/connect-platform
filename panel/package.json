@@ -27,7 +27,7 @@
     "@angular/platform-browser-dynamic": "^9.1.12",
     "@angular/router": "^9.1.12",
     "core-js": "^2.6.11",
-    "electron": "^1.8.8",
+    "electron": "^15.5.5",
     "hoek": "^4.2.1",
     "ng2-ace-editor": "^0.3.9",
     "rxjs": "^6.6.0",
